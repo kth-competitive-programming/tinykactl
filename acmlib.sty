@@ -169,13 +169,15 @@
 
 \newenvironment{source}{\verbatim\small\vspace{-0mm}}{\endverbatim}
 
+\newcommand{\ordo}[1]{$\mathcal{O}\left(#1\right)$}
 \newcommand{\sourceline}[1]{{\small \tt #1}}
 \newcommand{\usage}[1]{\keyword{Usage}\par #1}
-\newcommand{\complexity}[1]{\keyword{Complexity} $\mathcal{O}\left(#1\right)$}
+\newcommand{\complexity}[1]{\keyword{Complexity} \ordo{#1}}
 \newcommand{\characteristics}[1]{\keyword{Characteristics}\par #1}
 \newenvironment{example}{\keyword{Example}\source}{\endsource}
 \newcommand{\valladolid}[1]{\keyword{Valladolid} #1}
 \newcommand{\reflisting}[1]{\keyword{Listing} -- #1.cpp, p. \pageref{code_#1}}
+\newcommand{\notes}[1]{\keyword{Notes} #1}
 
 
 % Set fontsize in lgrind to tinier in landscape-source-mode
