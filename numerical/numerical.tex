@@ -2,11 +2,14 @@
 \categorycontents{}
 
 \problemtitle{Divisibility}
+
+
 \begin{algorithm}{GCD}
 \reflisting{gcd}
-\reflisting{gcd fast}
 \usage{ \sourceline{d = gcd( a, b );} }
 \complexity{ \log(b) }
+
+\reflisting{gcd fast}
 \usage{ \sourceline{d = gcd\_fast(a, b);} }
 \complexity{ \log(a) + \log(b) }
 \characteristics{The \sourceline{gcd\_fast} routine is slightly more writing than the usual gcd routine, but can be useful where speed is {\em really essential}, as it only uses subtraction and shift operations instead of the evil modulo.}
@@ -20,6 +23,7 @@
 \end{algorithm}
 
 \begin{algorithm}{Euclid}
+
 \reflisting{euclid}
 \usage{ \sourceline{d = euclid( a, b, \&x, \&y );} \quad %
 	$x$, $y$ will satisfy $ax+by=d$ after the call. }
@@ -39,7 +43,14 @@ $\phi(n)=n\prod\left(1-\frac{1}{p_i}\right)=\prod p_i^{k_i-1}(p_i-1)$
 \complexity{ \sqrt{n} }
 \end{algorithm}
 
+\begin{algorithm}{Perfect numbers}
+\characteristics{When $n$ is even, it is a perfect number iff it is of the form $\frac{p (p+1)}{2}$, where $p$ is a Mersenne prime. Mersenne primes are primes of the form $p = 2^k - 1$. The first 27 Mersenne primes (and thus the first 27 even perfect numbers) are obtained for $k =$ 2, 3, 5, 7, 13, 17, 19, 31, 61, 89, 107, 127, 521, 607, 1279, 2203, 2281, 3217, 4253, 4423, 9689, 9941, 11213, 19937, 21701, 23209, 44497.\\
+\\
+It is conjectured that there are no odd perfect numbers.}
+\end{algorithm}
+
 \problemtitle{Primes}
+
 \begin{algorithm}{Primes}
 \reflisting{primes}
 \characteristics{{\tt primes} calculates a vector of primes and has a
@@ -49,25 +60,26 @@ factor method which returns the smallest factor in the given integer.}
 
 \begin{algorithm}{Prime Sieve}
 \reflisting{prime sieve}
+\usage{ \sourceline{prime\_sieve p(1000); p.isprime(10)==false;} }
 \characteristics{{\tt prime\_sieve} calculates a bool-vector containing
 whether an integer is prime. It is faster than {\tt primes} when dealing
 with large numbers. Returns whether an integer is prime in constant
 time.}
-\usage{ \sourceline{prime\_sieve p(1000); p.isprime(10)==false;} }
-\end{algorithm}\
+\end{algorithm}
 
 \begin{algorithm}{Primes Many}
 \reflisting{primes many simple}
 \reflisting{primes many fast}
+\usage{ \sourceline{primes\_many p(100000); p.primes[2] == 5;} }
 \characteristics{{\tt primes\_many\_simple} and {\tt primes\_many\_fast}
 calculates a vector of primes and is suitable when dealing with lots of
 primes (10000 or more). It calculates them by first sieving and then
 putting them into an array.}
-\usage{ \sourceline{primes\_many p(100000); p.primes[2] == 5;} }
 \end{algorithm}
 
 \begin{algorithm}{Miller-Rabin}
 \reflisting{miller-rabin}
+\usage{ \sourceline{ isprime\_rabin\_miller( n, s ); } }
 \complexity{ s \log(n) }
 \characteristics{{\tt isprime\_rabin\_miller} is a probabilistic primality
 test. It will never say that a prime is composite but may erroneous claim
@@ -75,18 +87,30 @@ that a composite number is prime. The argument {\tt s} is the number of
 iterations to be used. The probability of a false answer is not more than
 $2^{-s}$ so $s=50$ is more than enough for most applications. The integer
 to be tested {\tt n} may be as large as $2^{63}-1$. }
-\usage{ \sourceline{ isprime\_rabin\_miller( n, s ); } }
 \end{algorithm}
 
 \begin{algorithm}{Number of divisors}
 \reflisting{ndivisors}
+\usage{ \sourceline{primes\_many\_fast p(100000);
+	ndivisors\_prob(23424234234243, p.primes) == 8;} }
 \characteristics{{\tt ndivisors} and {\tt ndivisors\_prob} calculates
 the number of divisors. {\tt ndivisors} needs a prime-table with all primes
 upto the square root of the number and {\tt ndivisors\_prob} only primes as
 large as the third root of the number. The second algorithm uses a
-probabilistic primality test (Rabin-Miller).}
-\usage{ \sourceline{primes\_many\_fast p(100000);
-	ndivisors\_prob(23424234234243, p.primes) == 8;} }
+probabilistic primality test (Miller-Rabin).}
+\end{algorithm}
+
+\begin{algorithm}{Factor}
+\reflisting{factor}
+\usage{\sourceline{int n = 2*2*3*3*5; vector<pair<int, int> > \&facs = Factor(n);} }
+\characteristics{{\tt Factor} calculates the prime factorization of an integer. The returned vector is an increasing sequence of primes/exponents pairs. That is (letting $p_i = $ {\tt Factor(n)[i].first}, and $e_i = $ {\tt Factor(n)[i].second}): $n = \prod_i \, p_i^{e_i}$, where all $p_i$ are prime and $i < j \Leftrightarrow p_i < p_j$.\\
+\\
+As it basically works by dynamic programming, {\tt Factor} requires
+roughly $\mathcal{O}(n \log \log n)$ memory, but the good news is that
+the time complexity for factoring all numbers from $1$ to $n$ is also
+roughly $\mathcal{O}(n \log \log n)$, and that once a number's been
+factored, {\tt Factor} remembers the factorization and can give it in
+constant time.}
 \end{algorithm}
 
 \problemtitle{Josephus}
@@ -111,14 +135,16 @@ $[0,1)$.}
 \complexity{1}
 \end{algorithm}
 
+
 \problemtitle{Bigmod}
+
 \begin{algorithm}{mulmod}
 \reflisting{mulmod}
+\usage{ \sourceline{ mulmod(5678945893454353ULL, 2423948234343ULL,
+	31231231231231231ULL) == 14355903581119892; } }
 \characteristics{{\tt mulmod} calculates $ab\mbox{ mod } n$ in a way that
 allows numbers as large as MAXINT/2 to be used (which would otherwise give
 an overflow).}
-\usage{ \sourceline{ mulmod(5678945893454353ULL, 2423948234343ULL,
-	31231231231231231ULL) == 14355903581119892; } }
 \end{algorithm}
 
 \begin{algorithm}{expmod}
@@ -134,13 +160,18 @@ an overflow).}
 \characteristics{{\tt exp} calculates $b^e$ by repeated squaring.}
 \end{algorithm}
 
+
+
 \begin{sourceslandscape}
+
+\sourcesection{Divisibility}
+
 \code{gcd}{gcd}
 \code{gcd fast}{gcd_fast}
 \code{euclid}{euclid}
 \code{phi}{phi}
-\code{josephus}{josephus}
-\code{pseudo}{pseudo}
+
+\sourcesection{Primes}
 \code{primes}{primes}
 \code{primes many simple}{primes_many_simple}
 \code{primes many fast}{primes_many_fast}
@@ -148,7 +179,13 @@ an overflow).}
 \code{miller-rabin}{miller-rabin}
 \code{ndivisors}{ndivisors}
 \code{ndivisors prob}{ndivisors_prob}
+\code{factor}{factor}
+
+\sourcesection{Numerical Misc}
+\code{josephus}{josephus}
+\code{pseudo}{pseudo}
 \code{mulmod}{mulmod}
 \code{expmod}{expmod}
 \code{exp}{exp}
+
 \end{sourceslandscape}
