@@ -1,0 +1,91 @@
+dokumentation
+  TeX
+
+översiktssida
+
+algoritmer
++status
+implementation
+
+
+testinläs
+testfall
+test-valladolid, problemnummer
+
+
+1. data struct - stl, trie?
+  graf
+  k-d träd
+  string!
+2. numerical
+  linear eqn
+  bandwidth reduction? (np)
+  matrismult
+  determinant terminant
+  linjär programmering - simplex (?)
+  slumptal!
+  factoring, primtals, de första primtalen
+  bigint - flera implementationer
+  knapsack - dynamisk
+  dft ((?))
+3. kombinatoriska
+  sortering - stl, komparatorer
+  transform
+  söka - binary_search, find, ...
+  one-sided bin search
+  median, selection, nth-element
+  generating permutations
+   all, random, next, random_shuffle
+  generating subsets
+   värt att kolla, för stl-set
+  generating partitions
+   5=1+4=1+1+3=...
+  generating graphs (?)
+  calendrical calculations
+  job scheduling
+4. graf - polynomiska
+  connected - components
+  toposort
+  mst - prim, krusk
+  shortest path, all, girth
+  closure, reduction
+  bipartit, matching
+  euler/chinese postman
+  edge, vertex connectivity
+  network flow
+  planarity detection
+5. graf - hård
+  . .
+6. computational geom
+  robust geometric prim.
+  tri, in-circle med determinant
+  hölje
+  triangulation
+  voronoi
+  nearest neighbour
+  range search?
+  intersection
+7. set and string
+  set cover, packing
+  string match string.find()
+  approx
+  text compr
+  cryptogrography
+  longest common subseq
+  shortest common superstring
+
+
+- svåra problem
+- idiom
+- i/o - idiom
+    tidsutmatning
+    utskrift med viss precision med cout
+
+fylle-rutin (fill)
+uttrycksevaluering - parsing
+tidtabell-sökning - search/ad hoc
+n väljer k-rutin, bigmod, gcd, lcm -
+newton-raphs
+
+
+SPELTEORI!!!
