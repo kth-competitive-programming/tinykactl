@@ -32,15 +32,15 @@
  *
  *****************************************************************************/
 
-#include "geometry.h"
-#include "../general/1_indexed.cpp"
+#include "../datastructures/indexed.cpp"
+#include "../combinatorial/isort.cpp"
 #include <iterator>
 #include <vector>
 
 
-template<class V>     // R is random access iterators of point<T>s
-double closestpair( const V &p, int n, int &i1, int &i2 ) {
-  typedef typename iterator_traits<V>::value_type P;
+template<class R>     // R is random access iterators of point<T>s
+double closestpair_simple( R p, int n, int &i1, int &i2 ) {
+  typedef typename iterator_traits<R>::value_type P;
   vector< int > idx;
 
   if( n < 2 )
@@ -50,16 +50,16 @@ double closestpair( const V &p, int n, int &i1, int &i2 ) {
   idx.resize( n );
   isort( p, n, idx.begin() );
 
-  indexed<P> q(p, idx.begin() );
+  indexed<R, vector<int>::iterator > q(p, idx.begin() );
 
-  double minDist = dist2(q[0],q[1]);
+  double minDist = dist2(q[1]-q[0]);
   i1 = 0; i2 = 1;
   for( int i=0; i<N; i++ ) {
     double stopX = q[i].x+sqrt(minDist);
     for( int j=i+1; j<N; j++ ) {
       if( q[j].x >= stopX )
 	break;
-      double d = dist2(q[i],q[j]);
+      double d = dist2(q[j]-q[i]);
       if( d<minDist ) {
 	i1 = i;
 	i2 = j;

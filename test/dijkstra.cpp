@@ -4,8 +4,9 @@
 
 using namespace std;
 
-#include "../graph/dijkstra_simple.cpp"
+//#include "../graph/dijkstra_prim_simple.cpp"
 #include "../graph/dijkstra_prim.cpp"
+#include "../graph/distfun.cpp"
 
 int main( void ) {
   vector< double > min;

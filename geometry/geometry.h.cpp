@@ -8,7 +8,7 @@
 
 #include <cmath>
 
-const double pi = acos(0) * 2;
+const double pi = acos(0.0) * 2;
 
 template <class T> T sqr(T x) { return x * x; }
 
