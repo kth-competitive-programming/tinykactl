@@ -203,6 +203,28 @@ an overflow).}
 \end{algorithm}
 
 
+\problemtitle{Coordinates and directions stored as indices}
+\begin{algorithm}{coords}
+\reflisting{coords}
+\usage{\sourceline{%
+sqrX X(cols); idx = X(3, 4); X(idx, \&r, \&c);}}
+\usage{\sourceline{%
+cubeX X(rows, cols); idx = X(3, 4, 5); X(idx, \&l, \&r, \&c);}}
+\usage{\sourceline{%
+quadX X(levs, rows, cols); idx = X(3, 4, 5, 6); X(idx, \&h, \&l, \&r, \&c);}}
+\usage{\sourceline{%
+triX X; idx = X(3, 4); X(idx, \&r, \&c);}}
+
+Coordinate to index and index to coordinate calculations for
+plane, space and hyperspace grid and plane triangle layouts.
+
+\usage{\sourceline{dxy(dir, \&dx, \&dy);}}
+\usage{\sourceline{drc(dir, \&dx, \&dy);}}
+
+Direction to x and y or row and column displacement. {\tt dir} values
+0, 1, 2, 3 mod 4 correspond to right, up, left, right or north, east, south,
+west, respectively.
+\end{algorithm}
 
 \begin{sourceslandscape}
 
@@ -230,5 +252,7 @@ an overflow).}
 \code{mulmod}{mulmod}
 \code{expmod}{expmod}
 \code{exp}{exp}
+
+\code{coords}{coords}
 
 \end{sourceslandscape}
