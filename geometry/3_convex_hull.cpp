@@ -85,7 +85,7 @@ template<class P>
 struct ch_sweep {
   P &p;
   ch_sweep(P &_p) : p(_p) {}
-  ch_sweep(ch_sweep &x) : p(x.p) {}
+  ch_sweep(const ch_sweep<P> &x) : p(x.p) {}
 
   bool operator()(const P &p1, const P &p2) const
   { return 0 < ccw(p, p1, p2); }
