@@ -1,21 +1,32 @@
 \problemtitle{Convex Hull}
 
+\paragraph{NOTE} None of the Graham scans handle multiple coinciding points,
+so make sure the points are unique before calling!
+
 \begin{algorithm}{Graham scan}
 \reflisting{convex hull}
 \complexity{n\log(n)}
-\usage{{\tt convex\_hull(points p, idx, int n)}}
+\usage{\sourceline{iterator hull\_end = convex\_hull(p.begin(), p.end())}}
+
+Swaps the points in {\tt p} so the hull points are in order at the beginning.
+\characteristics{Handles colinear points on the hull as well}
+\end{algorithm}
+
+\begin{algorithm}{Graham scan, indexed}
+\reflisting{convex hull idx}
+\complexity{n\log(n)}
+\usage{{\tt convex\_hull\_idx(points p, idx, int n)}}
 
 Fills the index vector {\tt idx} with indeces to the point vector {\tt p},
 returning the number of points in the hull.
 \characteristics{Does not handle colinear points on the hull consistently}
 \end{algorithm}
 
-\begin{algorithm}{Graham scan, all hull points}
-\reflisting{convex hull robust}
+\begin{algorithm}{Graham scan, colinearly robust, indexed}
+\reflisting{convex hull robust idx}
 \complexity{n\log(n)}
 
-Like {\tt convex\_hull}, but ensures all colinear hull points are included.
-\characteristics{Perfect, but does not handle fewer than three points}
+\characteristics{Does handle colinear points on the hull consistently}
 \end{algorithm}
 
 \begin{algorithm}{Three dimensional hull}
