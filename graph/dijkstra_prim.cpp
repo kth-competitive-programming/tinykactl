@@ -23,7 +23,7 @@ template <class V, class C> struct idxcomp {
 */
 
 template <class E, class M, class P, class D>
-void dijkstra_prim(int start, E &edges, M &min, P &path, int n, D distfun,
+void dijkstra_prim(E &edges, M &min, P &path, int start, int n, D distfun,
 		   bool mst = false) {
   typedef typename M::value_type T;
   T inf(1<<29);

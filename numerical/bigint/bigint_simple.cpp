@@ -1,6 +1,6 @@
 /* KTH ACM Contest Template Library
  *
- * Numerical/BigInt/bigint_full
+ * Numerical/BigInt/bigint_simple
  *
  * Credit:
  *   By David Rydh
@@ -110,113 +110,6 @@ public:
     return *this;
   }
 
-
-  BigInt & operator/=( const BigInt &x ) {
-    BigInt rem;
-
-    div( x, *this, rem );
-    return *this;
-  }
-
-  BigInt & operator%=( const BigInt &x ) {
-    BigInt quot;
-
-    div( x, quot, *this );
-    return *this;
-  }
-
-  void div( const BigInt &d, BigInt &quot, BigInt &rem ) const {
-    BigInt divisor = d;
-    int scaling = 0;
-
-    // Remainder = dividend
-    rem.set( *this, l+1 );
-
-    // Check for dividend < divisor (length-wise)
-    if( l < d.l ) {
-      quot.set( 0, 1 );
-      return;
-    }
-
-    // Quotient = 0
-    quot.set( 0, (l-d.l+1) );
-
-    // Make sure a[l-1] is >=MAX/10 (for better guesses)
-    if( divisor.l > 1 ) {
-      int a = divisor.a[ divisor.l-1 ];
-
-      while( (a*=10) < MAX ) {
-	rem *= 10;
-	divisor *= 10;
-	scaling++;
-      }
-    }
-
-    while( divisor <= rem ) {
-      // Guess a quotient and subtract from remainder. We always
-      // underestimate the quotient so we won't get any underflow.
-      int dh = divisor.a[ divisor.l-1 ]+1;
-      BigInt qadd;
-
-      if( rem.l > 1 ) {
-	int guess = (rem.a[ rem.l-1 ]*MAX + rem.a[ rem.l-2 ])/dh;
-
-	// Scale guess to right position
-	qadd.set( 0, rem.l-divisor.l+1 );
-	qadd.a[ rem.l-divisor.l ] = guess/MAX;
-	if( rem.l > divisor.l )
-	  qadd.a[ rem.l-divisor.l-1 ] = guess%MAX;
-	qadd.l = rem.l-divisor.l+1;
-	if( guess < MAX ) {
-	  if( qadd.l > 1 )
-	    qadd.l--;
-	  else           // (This implies that guess == 0)
-	    qadd.a[0]++; // Fix case where x/x = 0 due to round-down.
-	}
-      } else {
-	int guess = rem.a[0]/dh;
-	if( guess == 0 ) guess++;
-
-	qadd.set( guess, 1 );
-      }
-
-      // Add guess to quotient
-      quot += qadd;
-
-      // Subtract div*guess from remainder
-      BigInt remsub( qadd );
-      remsub *= divisor;
-      rem -= remsub;
-    }
-
-    while( scaling > 0 ) {
-      rem /= 10;
-      scaling--;
-    }
-  }
-
-  void sqrt( BigInt &res ) const {
-    // Newton-Raphson's method. Recursion: y' = y-(y^2-x)/(2y) = (y+x/y)/2
-    if( *this == zero || *this == one ) {
-      // special case for x=0,1 in sqrt(x) since x/2 is 0 in that case.
-      res = *this;
-    } else {
-      res = *this;
-      res /= 2;
-
-      while( true ) {
-	BigInt d = *this;
-	d /= res;
-	d += res;
-	d /= 2;
-	if( !(d<res) ) // acc. to Erik Nordenstam. Shouldn't d==res suffice?
-	  break;
-	res = d;
-      }
-    }
-  }
-
-
   int comp( const BigInt &x ) const {
     int d = l-x.l;
 
@@ -292,9 +185,6 @@ public:
 
   friend ostream &operator<<(ostream &lhs,const BigInt &rhs);
   friend istream &operator>>(istream &lhs,BigInt &rhs);
-
-  static void _gcd( BigInt &a, BigInt &b );
-  static void gcd( const BigInt &a, const BigInt &b, BigInt &res );
 };
 
 const BigInt BigInt::zero = BigInt(0);
@@ -309,20 +199,4 @@ ostream & operator<<(ostream &lhs,const BigInt &rhs) {
 istream & operator>>(istream &lhs,BigInt &rhs) {
   rhs.input( lhs );
   return lhs;
-}
-
-void BigInt::_gcd( BigInt &a, BigInt &b ) {
-  BigInt *pa=&a, *pb=&b;
-
-  while( *pb != zero ) {
-    *pa %= *pb;
-    swap( pa, pb );
-  }
-  a = *pa;
-}
-
-void BigInt::gcd( const BigInt &a, const BigInt &b, BigInt &res ) {
-  BigInt c=b;
-  res = a;
-  _gcd( res, c );
 }

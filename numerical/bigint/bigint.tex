@@ -3,15 +3,28 @@
 %%%
 \problemtitle{Big Integers}
 
+\begin{algorithm}{Bigint Simple}
+\reflisting{bigint simple}
+\characteristics{Fully dynamic BigInt class which handles +,-,* for
+positive integers. Can output numbers in base-10 only. This is a stripped
+down version of {\tt bigint full}.}
+\end{algorithm}
 
 
-\begin{algorithm}{bigint full}
+\begin{algorithm}{Bigint Full}
 \reflisting{bigint full}
-\complexity{}
 \characteristics{Fully dynamic BigInt class which handles +,-,*,/ for
-positive integers. Can output numbers in base-10 only. Division is simple and
-does not use neither an iterative method, such as Newton-Raphson, nor FFT.
-Has an iterative sqrt-function.}
+positive integers. Can output numbers in base-10 only. Division/modulus is
+simple and does not use neither an iterative method, such as Newton-Raphson,
+nor FFT. Has an iterative sqrt-function.}
+\end{algorithm}
+
+
+\begin{algorithm}{Bigint Per}
+\reflisting{bigint per}
+\characteristics{Dynamic BigInt class which handles +,*. Additionally
+it can do divison/modulus with integers, find the n:th root of a number and
+do exponation with \^. NB! no subtraction.}
 \end{algorithm}
 
 

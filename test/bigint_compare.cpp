@@ -2,9 +2,11 @@
 #include <strstream>
 #include <time.h>
 
-#include "../bigint/1_simple.cpp"
-#include "../bigint/2_bignum_jimmy.cpp"
-#include "../general/7_random.cpp"
+using namespace std;
+
+#include "../numerical/bigint/bigint_full.cpp"
+#include "../numerical/bigint/bignum_jimmy.cpp"
+#include "../numerical/pseudo.cpp"
 
 void bipseudo( int size, BigInt &bi, Bignum &bn ) {
   bi = 0;
@@ -41,10 +43,9 @@ void convert( const Bignum &bn, BigInt &bi ) {
 
 int main( void ) {
   int t1 = 0, t2 = 0, t;
-  const int N = 50;
- 
+  const int N = 5;
+
   // ******** MULTIPLICATION ********
-  /*
   cout << "Multiplication (800*400)" << endl;
   int tot = clock();
   for( int i=0; i<N; i++ ) {
@@ -59,10 +60,9 @@ int main( void ) {
     //    convert( bn, bi2 );
     //    if( bi != bi2 )      cout << "ERROR! Mismatch!!!" << endl;
   }
-  cout << "Tot: " << double(clock()-tot)/_CLOCKS_PER_SEC_/N << " s" << endl;
-  cout << "BigInt: " << (double)t1/_CLOCKS_PER_SEC_/N << " s" << endl;
-  cout << "Bignum: " << (double)t2/_CLOCKS_PER_SEC_/N << " s" << endl;
-  */
+  cout << "Tot: " << double(clock()-tot)/CLOCKS_PER_SEC/N << " s" << endl;
+  cout << "BigInt: " << (double)t1/CLOCKS_PER_SEC/N << " s" << endl;
+  cout << "Bignum: " << (double)t2/CLOCKS_PER_SEC/N << " s" << endl;
 
   // ******** DIVISION ********
   
@@ -82,15 +82,14 @@ int main( void ) {
       cout << bi << endl << bi2 << endl;
     }
   }
-  cout << "BigInt: " << (double)t1/_CLOCKS_PER_SEC_/N << " s" << endl;
-  cout << "Bignum: " << (double)t2/_CLOCKS_PER_SEC_/N << " s" << endl;
-  
-  /*
-  cout << endl << "sqrt (400)" << endl;
+  cout << "BigInt: " << (double)t1/CLOCKS_PER_SEC/N << " s" << endl;
+  cout << "Bignum: " << (double)t2/CLOCKS_PER_SEC/N << " s" << endl;
+
+  cout << endl << "sqrt (100)" << endl;
   for( int i=0; i<N; i++ ) {
     BigInt bi, bi2;    Bignum bn, bn2;
 
-    bipseudo( 200, bi, bn );
+    bipseudo( 100, bi, bn );
 
     t = clock();    bi.sqrt(bi2);    t1 += clock()-t;
         cout << bi2 << endl;
@@ -100,7 +99,6 @@ int main( void ) {
     convert( bn2, bi );
     if( bi != bi2 )      cout << "ERROR! Mismatch!!!" << endl;
   }
-  cout << "BigInt: " << (double)t1/_CLOCKS_PER_SEC_/N << " s" << endl;
-  cout << "Bignum: " << (double)t2/_CLOCKS_PER_SEC_/N << " s" << endl;
-  */
+  cout << "BigInt: " << (double)t1/CLOCKS_PER_SEC/N << " s" << endl;
+  cout << "Bignum: " << (double)t2/CLOCKS_PER_SEC/N << " s" << endl;
 }
