@@ -31,15 +31,15 @@ struct associative: skip_list<V, C> {
   int count(KR k) {
     int r = 0;
     V v = k2v(k);
-    iterator i = find(v);
+    iterator i = find(k);
     while (i != end() && !c(v, *i)) ++r, ++i;
     return r;
-  }    
+  }
 
   int erase(KR k) {
     int r = 0;
     pair<iterator, iterator> lu = equal_range(k);
-    for (iterator i = lu.first; i != lu.second; ++i, ++r)  erase(i);
+    for (iterator i = lu.first; i != lu.second; ++r)  erase(i++);
     return r;
   }
   
@@ -50,7 +50,7 @@ struct associative: skip_list<V, C> {
   
   iterator upper_bound(KR k) {
     iterator i = find(k, false);
-    return (i == end() ? iterator(bck[0]) : i)++;
+    return ++(i == end() ? iterator(bck[0]) : i);
   }
 
   pair<iterator, iterator> equal_range(KR k) {
