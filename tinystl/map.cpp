@@ -16,13 +16,13 @@ struct associative {
   typedef V value_type;
   typedef const value_type &vR;
 
-  typedef splay_tree<value_type, value_compare> Tree;
-  Tree t;
+  typedef splay_tree<value_type, C> Tree;
+  C comp; Tree t;
   typedef splay_node_iterator<value_type, false> iterator;
   typedef splay_node_iterator<value_type, true> reverse_iterator;
 
   associative(C _comp = C()) : comp(_comp), t(_comp) { }
-
+  virtual ~associative() {}
   virtual V k2v(const K &k) = 0;
 
   // accessors
@@ -43,7 +43,7 @@ struct associative {
   void clear() { t.clear(); }
   void erase(iterator pos) { t.erase(pos.p); }
   unsigned erase(const K &k) { // return number of erased elements?? (/stl)
-    value_type v(k, V());
+    V v = k2v(k);
     unsigned count = 0;
     while (t.find(v)) t.erase(t.root), ++count;
     return count;
@@ -83,7 +83,7 @@ template <class vR, class C>
 struct map_compare { // : binary_function<V, V, bool>
   C comp; map_compare(C _comp) : comp(_comp) { }
   bool operator()(vR x, vR y) { return comp(x.first, y.first); }
-} comp;
+};
 
 
 template <class K, class V, class C = less<K>, bool multi=false,
@@ -99,7 +99,7 @@ struct map : A {
 };
 
 template <class T, class C = less<T>, bool multi=false,
-  class A = associative<T, T, C, multi>
+  class A = associative<T, T, C, multi> >
 struct set : A {
   virtual T k2v(const T &k) { return k; }
 };

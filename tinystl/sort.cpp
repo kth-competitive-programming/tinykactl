@@ -8,10 +8,10 @@
  *   By David Rydh
  */
 
-template<class T, class C >
-void sort(T *first, T *last, C c=less<T>() ) {
-  sort( first, last, T(), c );
-}
+template<class T > void sort(T *first, T *last )
+{ sort( first, last, T(), less<T>() ); }
+template<class T, class C > void sort(T *first, T *last, C c )
+{ sort( first, last, T(), c ); }
 
 template<class R, class T>
 T _pivot(R first, R last, const T &dummy ) {
@@ -31,7 +31,7 @@ T _pivot(R first, R last, const T &dummy ) {
 }
 
 template<class R, class T, class C >
-void sort(R first, R last, const T &dummy, C c=less<T>() ) {
+void sort(R first, R last, const T &dummy, C c ) {
   if( first == last || first+1 == last )
     return;
   T pivot = _pivot( first, last, dummy );
