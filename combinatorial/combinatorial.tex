@@ -7,16 +7,15 @@
 
 \begin{algorithm}{Impartial take-and-break games (NIM-like games)}
 \desc
-An impartial take-and-break game is a game where two players take
-turns removing (indistinguisable) tokens from a set of some heaps of
-tokens.  The player removing the last token (thus causing the next
-player to be unable to move) is the winner.  The moves available are:
-removing $x$ tokens from a heap (for some set of allowed $x$), and
-splitting a heap of $n$ tokens into two heaps of $n_1$ and $n_2$
-tokens where $n_1, n_2 < n$.  Because every move reduces a heap size
-by at least 1, such games can never end in draw.  To find optimal
-strategies, Grundy numbers (or nimbers) can be used.  The Grundy value
-of a state $S = \{n\}$ is defined as $G(S) =
+A game where two players take turns removing (indistinguisable) tokens
+from some heaps of tokens.  The player removing the last token (thus
+causing the next player to be unable to move) is the winner.  The
+moves available are: removing $x$ tokens from a heap (for some set of
+allowed $x$), and splitting a heap of $n$ tokens into two heaps of
+$n_1$ and $n_2$ tokens where $n_1, n_2 < n$.  Because every move
+reduces a heap size by at least 1, such games can never end in draw.
+To find optimal strategies, Grundy numbers (or nimbers) can be used.
+The Grundy value of a state $S = \{n\}$ is defined as $G(S) =
 \mathrm{mex}\;S'$ where $S'$ runs over all successor states to $S$ and
 $\mathrm{mex}$ is the minimal excluded (nonnegative) value.  The
 Grundy value of $S =
@@ -27,15 +26,18 @@ G(\{n_i\})$.  A state $S$ is winning iff $G(S) \ne 0$.
 
 
 \begin{algorithm}{Knapsack}
-\usage{{\tt R res = knapsack<R>(n, C, costs, values [, bound = 500000]);}}
 \complexity{\min(bound, nC)}
 \end{algorithm}
 \code{knapsack}{knapsack}
 
+\problemtitle{Puzzles}
+
+\code{nqueens}{nqueens}
+\code{magicsquare}{magicsquare}
+
 
 \problemtitle{Permutations}
 \begin{algorithm}{Permutations to/from integers}
-\usage{{\tt int perm[n], x;\\perm\_to\_int(x, perm, perm + n);\\int\_to\_perm(x, perm, perm + n);}}
 \complexity{ n^2 }
 \end{algorithm}
 \code{intperm}{intperm}

@@ -1,8 +1,12 @@
+#define MAXS 100
+
 const double NAN = 0.0/0.0;
 const double EPS = 1e-12;
 
-// Solves A*x = b. Returns rank.
-int solve_linear(int n, double **A, double *b, double *x) {
+double A[MAXS][MAXS], b[MAXS], x[MAXS];
+
+// Solves A*x = b, or as much of x as possible. Returns rank.
+int solve_linear(int n) {
   int row[n], col[n], undef[n], invrow[n], invcol[n];
 
   for (int i = 0; i < n; ++i)
@@ -50,6 +54,6 @@ int solve_linear(int n, double **A, double *b, double *x) {
     if (invrow[i] >= rank || undef[invrow[i]])
       b[i] = NAN;   // undefined
   for (int i = 0; i < n; ++i)
-    x[i] = b[row[decol[i]]];
+    x[i] = b[row[invcol[i]]];
   return rank;
 }

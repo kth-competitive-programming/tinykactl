@@ -9,8 +9,6 @@
 #include <algorithm>
 #include <cmath>
 
-using namespace std;
-
 struct prime_sieve { 
   static const int pregen = 3*5*7*11*13;
   typedef unsigned char uchar;
@@ -28,13 +26,14 @@ struct prime_sieve {
     isprime = new uchar[n0];
     memset(isprime, 255, n0); 
     for (int j = 1, p = prime[j]; j < 6; p = prime[++j])
-      for (int i=(p*p-3)>>4, s=(p*p-3)/2 & 7; i<=pregen; i+=(s+=p)>>3, s&=7)
+      for (int i=(p*p-3)>>4, s=(p*p-3)/2 & 7; i<=pregen; 
+	   i+=(s+=p)>>3, s&=7)
 	isprime[i] &= ~(1 << s); 
 
     for (int d = pregen, b = pregen+1; b < n0; b += d, d <<= 1)
       memcpy(isprime + b, isprime + 1, (n0 < b + d) ? n0-b : d);
     
-    for (uint p = 17, i = 0, s = 7; p < n; p += 2, i += ++s >> 3, s &= 7)
+    for (uint p=17, i=0, s=7; p<n; p+=2, i += ++s>>3, s &= 7)
       if (isprime[i] & (1 << s)) {
 	prime[primes++] = p;
 	if (p < sqrtn) {

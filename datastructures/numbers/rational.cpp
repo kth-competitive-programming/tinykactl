@@ -41,7 +41,7 @@ struct rational {
 
   istream &read_frac(istream &in) {
     in >> n;
-    if (in.peek() == '/') { char c; in >> c >> d; } else d = T(1);
+    if (in.peek()=='/') { char c; in >> c >> d; } else d = T(1);
     normalize();
     return in;
   }
@@ -63,9 +63,9 @@ ostream &print_dec(ostream &out, const rational<T> &r,
   return out;
 }
 
-template <class T> ostream &operator <<(ostream &out, const rational<T> &r) {
-  //return r.print_frac(out);
-  return print_dec(out, r);
+template <class T> 
+ostream &operator<<(ostream &out, const rational<T> &r) {
+  return print_dec(out, r); //or return r.print_frac(out);
 }
 
 template <class T>
@@ -85,7 +85,7 @@ istream &read_dec(istream &in, rational<T> &r) {
   return in;
 }
 
-template <class T> istream &operator >>(istream &in, rational<T> &r) {
-  //return r.read_frac(in);
-  return read_dec(in, r);
+template <class T> 
+istream& operator>>(istream &in, rational<T> &r) {
+  return read_dec(in, r); // or return r.read_frac(in);
 }
