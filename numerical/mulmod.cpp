@@ -9,22 +9,20 @@
  *   By David Rydh
  */
 
-template< class T > // Note! T must be unsigned!
+template< class T >
 T mulmod( T a, T b, T mod ) {
-  T max = T(-1)>>1;
   T c = 0;
 
-  if( a>=max ) a %= mod;
-  if( b>=max ) b %= mod;
+  a %= mod;
+  b %= mod;
   while( b > 0 ) {
     if( b & 1 ) {
       c += a;
-      if( c>=max ) c %= mod;
+      if( c>=mod ) c -= mod;
     }
     a *= 2;
-    if( a>=max ) a %= mod;
+    if( a>=mod ) a -= mod;
     b >>= 1;
   }
-  if( c>=mod ) c %= mod;
   return c;
 }
