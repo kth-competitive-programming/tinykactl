@@ -6,11 +6,10 @@
 
 \begin{algorithm}{Regular expressions}
 \reflisting{regexp}
-\reflisting{nfa}
 
-\usage{ \sourceline{RegExp RE(\"{}(abc$|${}def)*{}\"{});\\
-   string s = ...;\\
-   size\_t match = RE.match(s.begin());}}
+\usage{ \sourceline{NFA n = parseRegExp(\"{}(abc$|${}def)*{}\"{});\\
+   char* s = ...;\\
+   size\_t match = n.match(s);}}
 \characteristics{{\tt RegExp::match(string::iterator s)} returns the length of the longest string beginning in {\tt s} which matches the regexp, or {\tt string::npos} if there is no string beginning in {\tt s} which matches the regexp.}
 
 The supported regexp constructions are
@@ -37,11 +36,5 @@ Any regexp {\tt R} of the form {\tt X)Y}, where {\tt X} is a correctly
 parenthesized regexp and {\tt Y} is an arbitrary sequence of
 characters, will be interpreted as the regexp {\tt X}. That is: the
 first inbalanced parenthesis will be considered the end of string.
-
-No DFA compression is made. This means, for example, that the regexp
-{\tt (a|b|c|d|e|f)*} will result in a DFA with seven states, occupying
-roughly 7 $\cdot$ 256 bytes of memory, (whereas the optimal number of states
-is 1, occupying roughly 256 bytes of memory). The equivalent regexp
-{\tt [abcdef]*} will result in a DFA of 2 states.
 
 \end{algorithm}
