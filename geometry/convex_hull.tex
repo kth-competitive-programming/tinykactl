@@ -4,7 +4,6 @@
 so make sure the points are unique before calling!
 
 \begin{algorithm}{Graham scan}
-\reflisting{convex hull}
 \complexity{n\log(n)}
 \usage{\sourceline{iterator hull\_end = convex\_hull(p.begin(), p.end())}}
 \desc
@@ -12,9 +11,10 @@ Swaps the points in {\tt p} so the hull points are in order at the beginning.
 \note{Handles colinear points on the hull}
 \end{algorithm}
 
+\code{convex hull}{hull/convex_hull}
+
 \begin{algorithm}{Three dimensional hull}
 \complexity{n^2}
-\reflisting{convex hull space}
 
 \usage{{\tt convex\_hull\_space(points p, int n, list<ABC> \&trilist)}}
 
@@ -25,8 +25,9 @@ point vector {\tt p}.
 triangulates the surface of the hull.}
 \end{algorithm}
 
+\code{convex hull space}{hull/convex_hull_space}
+
 \begin{algorithm}{Point inside hull}
-\reflisting{inside hull}
 \complexity{\log(n)}
 \usage{{\tt inside\_hull(hull p, int n, point t)}}
 
@@ -36,20 +37,9 @@ point vector {\tt p}. The hull should not contain colinear points. A hull with
 2~points are ok. The result is given as: 1~inside, 0~onedge, -1~outside.
 \end{algorithm}
 
-\begin{algorithm}{Point inside hull simple}
-\reflisting{inside hull simple}
-\complexity{n}
-\usage{{\tt inside\_hull\_simple(It begin, It end, point t)}}
-
-\desc
-Determine whether a point {\tt t} lies inside the hull given by
-begin and end. Colinear points are ok. If duplicate points exists, it will
-return \emph{onedge} when it is inside. The hull must have at least one point.
-The result is given as: 1~inside, 0~onedge, -1~outside.
-\end{algorithm}
+\code{inside hull}{hull/inside_hull}
 
 \begin{algorithm}{Hull diameter}
-\reflisting{hull diameter}
 \complexity{n}
 \usage{{\tt hull\_diameter2(hull p, int n, \&i1, \&i2)}}
 
@@ -59,8 +49,9 @@ Determine the points that are farthest apart in a hull.
 The squared distance is returned.
 \end{algorithm}
 
+\code{hull diameter}{hull/hull_diameter}
+
 \begin{algorithm}{Minimum enclosing circle}
-\reflisting{mec}
 \complexity{n}
 \usage{\sourceline{bool mec(p, n, c, \&i1, \&i2, \&i3[, eps]);}}
 \usage{\sourceline{double mec(p, n, c[, eps]);}}
@@ -73,8 +64,9 @@ The second version returns the enclosing circle radius as a double.
 Colinearity of a third point is determined by the eps limit.
 \end{algorithm}
 
+\code{mec}{hull/mec}
+
 \begin{algorithm}{Line-hull intersect}
-\reflisting{line hull intersect}
 \complexity{\log(n)}
 \usage{
 {\tt line\_hull\_intersect(hull p, int n, point p1, point p2, \&s1, \&s2)}}
@@ -85,3 +77,5 @@ Determine the intersection points of a hull with a line.
 line segments that intersect after the call. Returns whether there is an
 intersection.
 \end{algorithm}
+
+\code{line hull intersect}{hull/line_hull_intersect}
