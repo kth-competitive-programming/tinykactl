@@ -4,7 +4,7 @@ all: always
 	# may be fully generated. 'make clean' or 'make spotless' tidies up.
 
 clean:
-	rm -f lib.aux lib.dvi lib.idx lib.log lib.lop lib.toc
+	rm -f lib.aux lib.dvi lib.idx lib.log lib.lol lib.lop lib.toc
 
 spotless: clean
 	rm -f lib.pdf lib.ps
