@@ -24,13 +24,35 @@
 \def\l@subsection#1#2{}
 
 
+% Define own filename-parsing (similar to the filename@parse
+% in latex but doesn't split name and extension
+\def\myfilename@parse#1{%
+ \let\myfilename@area\@empty
+ \let\myfilename@name\@empty
+ \expandafter\myfilename@path#1/\\}
+ \def\myfilename@path#1/#2\\{%
+  \ifx\\#2\\%
+    \def\reserved@a{\edef\myfilename@name{#1}}%
+  \else
+    \edef\myfilename@area{\myfilename@area#1/}%
+    \def\reserved@a{\myfilename@path#2\\}%
+  \fi
+\reserved@a}
+
+
+% xinput inputs a file and changes the current path to it
+% (when using xinput)
+\def\thepath{}
+\def\xinput#1{\myfilename@parse{#1}
+{\edef\thepath{\thepath\myfilename@area}\input \thepath \myfilename@name\par}}
+
+
 %%%%%%%%%%%%%%%%%%%%%%
 %
 % Category definitions
 %
 %%%%%%%%%%%%%%%%%%%%%%
 
-\def\category#1{\def\thecategory{#1}\input #1/#1.tex}
 \def\categorytitle#1{\def\thecategoryname{#1}\chapter{#1}\index{#1}}
 \def\categoryindex#1{\index{\thecategoryname!#1 @\MakeLowercase{#1}}\index{#1}}
 
@@ -66,7 +88,6 @@
 %
 %%%%%%%%%%%%%%%%%%%%%
 
-\def\problem#1{\input \thecategory/#1.tex}
 \def\problemtitle#1{\def\theproblemname{#1}\section{#1}\categoryindex{#1}%
 	\categoryaddtocontents{problem}{#1}}
 \def\problemindex#1{\index{\thecategoryname!\theproblemname @\MakeLowercase{\theproblemname}!#1 @\MakeLowercase{#1}}%
@@ -92,7 +113,7 @@
 \def\usage#1{\keyword{Usage}\par #1}
 \def\complexity#1{\keyword{Complexity} $O(#1)$}
 \def\characteristics#1{\keyword{Characteristics}\par #1}
-\def\code#1{\keyword{Code} \sourcefile{\thecategory/#1}}
+\def\code#1{\keyword{Code} \sourcefile{\thepath #1}}
 \newenvironment{example}{\keyword{Example}\source}{\endsource}
 \def\valladolid#1{\keyword{Valladolid} #1}
-\def\implementation#1{\sourcefile{\thecategory/#1}}
+\def\implementation#1{\sourcefile{\thepath #1}}
