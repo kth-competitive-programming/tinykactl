@@ -1,3 +1,14 @@
+/* KTH ACM Contest Template Library
+ *
+ * Numerical problems/Number Theory/Euclid's Algorithm
+ *
+ * Credit:
+ *   Euclid
+ *   Based on [Intro to Algorithms 8th ed, p. 810]
+ *   Variation of numerical/gcd.cpp
+ *   By Mattias de Zalenski
+ */
+
 template <class T>
 T poseuclid( T a, T b, T &x, T &y ) {
   if( b==T(0) )
