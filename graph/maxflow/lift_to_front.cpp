@@ -32,9 +32,10 @@ void add_flow(E &flow, flow_edge &edge, T f, V excess) {
   excess[back.dest] -= f;
 }
 
-template <class T>
+template <class E>
 T lift_to_front(E &flow, int source, int sink) {
   int v = flow.size();
+
   // init preflow
   vector<int> height(v, 0);
   vector<T> excess(v, T());
@@ -42,19 +43,22 @@ T lift_to_front(E &flow, int source, int sink) {
   typedef E::value_type L;
   for (L::iterator it = flow[source].begin(); it != flow[source].end(); it++)
     add_flow(flow, *it, (*it).c, excess);
+
   // init lift-to-front
   vector<int> l(v, sink); // lift-to-front list
   vector<L::iterator> cur; // current edge per node
-  int p = sink;
-  for (int i = 0; i < v; i++) {
+  int p = sink; 
+  for (int i = 0; i < v; i++)
     if (i != source && i != sink)
       l[i] = p, p = i; // turn l into a linked list from p to sink
+  for (int i = 0; i < v; i++)
     cur.push_back(flow[i].begin());
-  }
+
   // lift-to-front loop
   int r = source, u = p;
   while (u != sink) {
     int oldheight = height[u];
+
     // discharge u
     while (excess[u] > 0)
       if (cur[u] == flow[u].end()) {
@@ -66,13 +70,15 @@ T lift_to_front(E &flow, int source, int sink) {
 	cur[u] = flow[u].begin();
       }
       else if ((*cur[u]).c > 0 && height[u] == height[(*cur[u]).dest] + 1)
-	add_flow(flow, cur[u], min(e[u], (*cur[u]).c), excess); // push cur[u]
+	// push cur[u]
+	add_flow(flow, cur[u], min(excess[u], (*cur[u]).c), excess);
       else
 	++cur[u];
+
     // the lift-to-front bit:
     if (height[u] > oldheight)
       l[r] = l[u], l[u] = p, p = u; // move u to front of list
     r = u, u = l[r]; // move to next in list
   }
-  return e[sink];
+  return excess[sink];
 }
