@@ -1,5 +1,6 @@
 # Makefile for lib.tex, the KTH ACM Contest Template Library document
 
+BASEDIR=$(PWD)
 INTERMED= \
 lib.aux lib.dvi lib.idx lib.ilg lib.ind \
 lib.log lib.lol lib.lop lib.toc
@@ -15,12 +16,8 @@ all:
 
 always: .
 
-clean: allcodeclean
-	cd util && $(MAKE) clean
-	rm -f $(INTERMED)
-
 spotless: clean
-	cd util && $(MAKE) spotless
+	$(MAKE) spotless -C util BASEDIR=$(BASEDIR)
 	rm -f lib.pdf lib.ps version tag
 
 index:
@@ -30,15 +27,11 @@ getversion:
 	bk changes | head -1 | cut -d @ -f2 | cut -d ' ' -f1,2 > version
 	bk changes | head -4 | grep TAG | cut -f 4- -d ' ' > tag
 
-ps: getversion lib.ps index always
+ps: lib.ps index always
 
-pdf: getversion lib.pdf index always
+pdf: lib.pdf index always
 
-pdfx3: getversion lib.pdfx3 index always
-
-solved: getversion solved.pdf always
-
-solvedx3: getversion solved.pdfx3 always
+pdfx3: lib.pdfx3 index always
 
 lib.ps: libtex always
 	latex lib.tex
@@ -52,68 +45,12 @@ lib.pdfx3: lib.pdf
 	makeindex lib.idx
 	pdflatex lib.tex
 
-solved.pdf: solvedtex always
-	pdflatex solved.tex
-
-solved.pdfx3: solved.pdf
-	pdflatex solved.tex
-	pdflatex solved.tex
-
-libtex: lib.tex acmlib.sty lgrind.sty pdflscape.sty util allcode
-
-solvedtex: solved.tex acmlib.sty lgrind.sty pdflscape.sty util allcode
+libtex: getversion lib.tex acmlib.sty lgrind.sty pdflscape.sty util code
 
 util: always
-	cd util && $(MAKE) util
-
-allcode: always
-	cd . && $(MAKE) code
-	cd util && $(MAKE) code
-	cd contest && $(MAKE) code
-	cd datastructures && $(MAKE) code
-	cd datastructures/numbers && $(MAKE) code
-	cd io && $(MAKE) code
-	cd numerical && $(MAKE) code
-	cd combinatorial && $(MAKE) code
-	cd graph && $(MAKE) code
-	cd graph/mst && $(MAKE) code
-	cd graph/maxflow && $(MAKE) code
-	cd geometry && $(MAKE) code
-	cd geometry/hull && $(MAKE) code
-	cd geometry/voronoi && $(MAKE) code
-	cd pattern && $(MAKE) code
-	cd gametheory && $(MAKE) code
-	cd hard && $(MAKE) code
-	cd solved && $(MAKE) code
-	cd solved/other && $(MAKE) code
-	cd solved/valladolid && $(MAKE) code
-	cd tinystl && $(MAKE) code
-
-allcodeclean: always
-	cd . && $(MAKE) codeclean
-	cd util && $(MAKE) codeclean
-	cd contest && $(MAKE) codeclean
-	cd datastructures && $(MAKE) codeclean
-	cd datastructures/numbers && $(MAKE) codeclean
-	cd io && $(MAKE) codeclean
-	cd numerical && $(MAKE) codeclean
-	cd combinatorial && $(MAKE) codeclean
-	cd graph && $(MAKE) codeclean
-	cd graph/mst && $(MAKE) codeclean
-	cd graph/maxflow && $(MAKE) codeclean
-	cd geometry && $(MAKE) codeclean
-	cd geometry/hull && $(MAKE) codeclean
-	cd geometry/voronoi && $(MAKE) codeclean
-	cd pattern && $(MAKE) codeclean
-	cd gametheory && $(MAKE) codeclean
-	cd hard && $(MAKE) codeclean
-	cd solved && $(MAKE) codeclean
-	cd solved/other && $(MAKE) codeclean
-	cd solved/valladolid && $(MAKE) codeclean
-	cd tinystl && $(MAKE) codeclean
+	$(MAKE) util -C util BASEDIR=$(BASEDIR)
 
 LGSTRIP=header
 SUMSTRIP=header
-UTIL=util
-include $(UTIL)/makecode
+include $(BASEDIR)/Makefile.inc
 
