@@ -103,7 +103,8 @@
 \def\problemtitle#1{\def\theproblemname{#1}\section{#1}
 	\categoryindex{#1}\categoryaddtocontents{problem}{#1}}
 \def\problemindex#1{\index{\thecategoryname!\theproblemname @\MakeLowercase{\theproblemname}!#1 @\MakeLowercase{#1}}%
-	\index{\theproblemname!#1 @\MakeLowercase{#1}}}
+	\index{\theproblemname!#1 @\MakeLowercase{#1}}
+	\index{#1 @\MakeLowercase{#1}}}
 
 %%%%%%%%%%%%%%%%%%%%%%%
 %
@@ -147,6 +148,7 @@
 \pagebreak[3]
 \label{code_#1}
 \categoryaddtocontents{code}{\tt\MakeLowercase{#1}}
+\index{#1_X @{\tt #1}}
 \vspace{1 cm}
 {\normalsize\bf Listing \thelstlisting : #1.cpp}
 \xinput{#2.sum}
