@@ -28,7 +28,7 @@ index:
 
 getversion:
 	bk changes | head -1 | cut -d @ -f2 | cut -d ' ' -f1,2 > version
-	bk changes | head -4 | grep TAG | cut -f 4 -d ' ' > tag
+	bk changes | head -4 | grep TAG | cut -f 4- -d ' ' > tag
 
 ps: getversion lib.ps index always
 
