@@ -17,8 +17,16 @@ struct pair {
   typedef S first_type;
   typedef T second_type;
   S first; T second;
-  pair(S s, T t) : first(s), second(t) { }
+
+  pair() : first(S()), second(T()) { }
+  pair(const S &s, const T &t) : first(s), second(t) { }
+  template<class U, class V>
+  pair(const pair<U,V> &p) : first(p.first), second(p.second) { }
+
+  bool operator==(const S &x ) { return first==x.first && second==x.second; }
+  bool operator<( const S &x ) { return first<x.first ||
+				   (!(x.first<first) && second < x.second); }
 };
 
 template <class S, class T>
-pair<S, T> make_pair(S s, T t) { return pair<S, T>(s, t); }
+pair<S, T> make_pair(const S& s, const T &t) { return pair<S, T>(s, t); }
