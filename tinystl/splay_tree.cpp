@@ -16,16 +16,36 @@ struct splay_node {
   T x; P l, r, p;
   splay_node(T _x, P _l=0, P _r=0) : x(_x), l(_l), r(_r), p(0) { }
   P &c(bool left) { return left ? l : r; } // child pointer reference
+};
 
-  typedef P iterator;
-  static iterator min(iterator i) { if (i) while (i->l) i = i->l; return i; }
-  static iterator max(iterator i) { if (i) while (i->r) i = i->r; return i; }
-  static iterator succ(iterator i, bool succ = true) {
-    if (i->c(!succ)) return succ ? min(i->r) : max(i->l);
-    iterator p = i->p;
+template <class T, bool reverse>
+struct splay_node_iterator {
+  typedef T value_type;
+  typedef splay_node<T> *P;
+  typedef splay_node_iterator<T, reverse> sT;
+  P p; splay_node_iterator(P _p) : p(_p) { }
+
+  static P side(P i, bool left = true) {
+    if (i) while (i->c(left)) i = i->c(left);
+    return i;
+  }
+  static P succ(P i, bool succ = true) { // pred if succ is false
+    if (i->c(!succ)) return side(i->c(!succ), succ); // min or max of subtree
+    P p = i->p; // or first left/right ancestor (or 0)
     while (p && p->c(!succ) == i) i = p, p = i->p;
     return p;
   }
+  static sT begin(P i) { return sT(side(i, !reverse)); }
+  static sT end() { return sT(0); }
+
+  sT &operator ++() { p = succ(p, !reverse); return *this; }
+  sT &operator --() { p = succ(p, reverse); return *this; }
+  sT operator++(int) { sT t(p); p = succ(p, !reverse); return t; }
+  sT operator--(int) { sT t(p); p = succ(p, reverse); return t; }
+  bool operator==(const sT &s) const { return p==s.p; }
+  T &operator *() { return p->x; }
+  const T &operator *() const { return p->x; }
+  const T *operator ->() const { return &(operator *()); }
 };
 
 template <class T, class C=less<T> >
@@ -36,6 +56,7 @@ struct splay_tree {
   typedef P iterator;
 
   P root; C comp; splay_tree(C _comp = C()) : root(0), comp(_comp) { }
+  ~splay_tree() { while (root) erase(root); }
 
   static void rot(P i, bool left) {
     P j = i->c(!left), p = i->p;
@@ -56,14 +77,14 @@ struct splay_tree {
     return i;
   }
 
-  bool empty() { return root == 0; }
-  iterator find(const T &x) {
+  bool empty() const { return root == 0; }
+  iterator find(const T &x, bool left = false) {
     P p = root, i = root;
     while (i) {
       p = i;
       if (comp(x, i->x)) i = i->l;
       else if (comp(i->x, x)) i = i->r;
-      //else if (i->l && !comp(x, i->l->x)) i = i->l; // duplicate keys
+      else if (i->c(left) && !comp(x, i->c(left)->x)) i = i->c(left); //
       else break;
     }
     root = splay(p);
@@ -90,22 +111,4 @@ struct splay_tree {
     root = l ? l : r;
     delete i;
   }
-};
-
-template <class T>
-struct splay_node_iterator {
-  typedef T value_type;
-  typedef splay_node<T> *P;
-  typedef splay_node_iterator<T> sT;
-  typedef splay_node<T> N;
-  P p; splay_node_iterator(P _p) : p(_p) { }
-
-  sT &operator ++() { p = N::succ(p, true); return *this; }
-  sT &operator --() { p = N::succ(p, false); return *this; }
-  sT operator++(int) { sT t(p); p = N::succ(p, true); return t; }
-  sT operator--(int) { sT t(p); p = N::succ(p, false); return t; }
-  bool operator==(const sT &s) const { return p==s.p; }
-  T &operator *() { return p->x; }
-  const T &operator *() const { return p->x; }
-  T *operator ->() const { return &(operator *()); }
 };
