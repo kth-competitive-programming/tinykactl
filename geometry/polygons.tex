@@ -2,6 +2,7 @@
 \begin{algorithm}{Inside polygon}
 \reflisting{inside}
 
+\desc
 Determine whether a point is inside a polygon. If it is on an edge,
 standard computer graphics rules determine the returned value (inside above
 and to the left of the polygon, but not below or to the right).
@@ -11,6 +12,7 @@ This is usually \emph{not} the desired behaviour in contest geometry problems.
 \begin{algorithm}{Winding number}
 \reflisting{winding number}
 
+\desc
 Theta meta-angle winding number of a point.
 \end{algorithm}
 
@@ -18,6 +20,7 @@ Theta meta-angle winding number of a point.
 \reflisting{poly area}
 \reflisting{poly area too}
 
+\desc
 The signed area of a polygon calculated by adding cross product or
 trapezium areas.
 \end{algorithm}
@@ -25,6 +28,7 @@ trapezium areas.
 \begin{algorithm}{Polyhedron volume}
 \reflisting{poly volume}
 
+\desc
 The signed volume of a polyhedron calculated by adding vector tripple
 product volumes.
 \end{algorithm}
@@ -34,6 +38,7 @@ product volumes.
 \usage{\sourceline{%
 iterator r\_end = poly\_cut(v.begin(), v.end(), p0, p1, r.begin())}}
 
+\desc
 Cuts a polygon with (a half plane specified by) a line.
 {\tt r} is filled in with the cut polygon, and the end of the filled in
 interval is returned. The polygon is kept connected by (overlapping)
@@ -44,5 +49,6 @@ line segments along the cutting line if the cut splits the polygon in parts.
 \begin{algorithm}{Center of mass}
 \reflisting{center of mass}
 
+\desc
 Polygon and triangular center of mass.
 \end{algorithm}
