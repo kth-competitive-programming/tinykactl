@@ -49,7 +49,8 @@ struct map {
     return make_pair(iterator(t.root), f);
   }
   //iterator insert(iterator pos, vR x) { return insert(x).first; }
-  void erase(iterator pos) { t.erase(pos); }
+  void clear() { t.clear(); }
+  void erase(iterator pos) { t.erase(pos.p); }
   unsigned erase(const K &k) { // return number of erased elements?? (/stl)
     value_type v(k, V());
     unsigned count = 0;
