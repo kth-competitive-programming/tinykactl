@@ -3,15 +3,15 @@
 \begin{algorithm}{Prim}
 \reflisting{prim}
 \complexity{V\log V + E}
-\usage{\sourceline{
-prim( graph, path, 0 ) }}
+\usage{\sourceline{prim( graph, path, 0 ) }}
 \end{algorithm}
 
 \begin{algorithm}{Kruskal}
 \usage{ \sourceline{kruskal( graph, tree, n );} }
 \complexity{ E\log E }
-\characteristics{ The resulting tree which is returned in {\tt tree} may
-be the same variable as the graph. }
+\desc
+The resulting tree which is returned in {\tt tree} may
+be the same variable as the graph.
 \begin{example}
 	vector< vector<pair<int,double> > > edges;
 
