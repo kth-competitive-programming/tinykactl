@@ -7,7 +7,7 @@ so make sure the points are unique before calling!
 \reflisting{convex hull}
 \complexity{n\log(n)}
 \usage{\sourceline{iterator hull\_end = convex\_hull(p.begin(), p.end())}}
-
+\desc
 Swaps the points in {\tt p} so the hull points are in order at the beginning.
 \characteristics{Handles colinear points on the hull as well}
 \end{algorithm}
@@ -16,17 +16,17 @@ Swaps the points in {\tt p} so the hull points are in order at the beginning.
 \reflisting{convex hull idx}
 \complexity{n\log(n)}
 \usage{{\tt convex\_hull\_idx(points p, idx, int n)}}
-
+\desc
 Fills the index vector {\tt idx} with indeces to the point vector {\tt p},
 returning the number of points in the hull.
-\characteristics{Does not handle colinear points on the hull consistently}
+\note{Does not handle colinear points on the hull consistently}
 \end{algorithm}
 
 \begin{algorithm}{Graham scan, colinearly robust, indexed}
 \reflisting{convex hull robust idx}
 \complexity{n\log(n)}
 
-\characteristics{Does handle colinear points on the hull consistently}
+\note{Does handle colinear points on the hull consistently}
 \end{algorithm}
 
 \begin{algorithm}{Three dimensional hull}
@@ -35,9 +35,10 @@ returning the number of points in the hull.
 
 \usage{{\tt convex\_hull\_space(points p, int n, list<ABC> \&trilist)}}
 
+\desc
 {\tt trilist} is a list of ABC-tripples of indices of vertices in the 3D
 point vector {\tt p}.
-\characteristics{Requires the hull to have positive volume. Arbitrarily
+\note{Requires the hull to have positive volume. Arbitrarily
 triangulates the surface of the hull.}
 \end{algorithm}
 
@@ -46,6 +47,7 @@ triangulates the surface of the hull.}
 \complexity{\log(n)}
 \usage{{\tt inside\_hull(hull p, int n, point t)}}
 
+\desc
 Determine whether a point {\tt t} lies inside the hull given by the
 point vector {\tt p}. The hull should not contain colinear points. A hull with
 2~points are ok. The result is given as: 1~inside, 0~onedge, -1~outside.
@@ -56,6 +58,7 @@ point vector {\tt p}. The hull should not contain colinear points. A hull with
 \complexity{n}
 \usage{{\tt inside\_hull\_simple(It begin, It end, point t)}}
 
+\desc
 Determine whether a point {\tt t} lies inside the hull given by
 begin and end. Colinear points are ok. If duplicate points exists, it will
 return \emph{onedge} when it is inside. The hull must have at least one point.
@@ -67,6 +70,7 @@ The result is given as: 1~inside, 0~onedge, -1~outside.
 \complexity{n}
 \usage{{\tt hull\_diameter2(hull p, int n, \&i1, \&i2)}}
 
+\desc
 Determine the points that are farthest apart in a hull.
 {\tt i1, i2} will be the indices to those points after the call.
 The squared distance is returned.
@@ -78,6 +82,7 @@ The squared distance is returned.
 \usage{\sourceline{bool mec(p, n, c, \&i1, \&i2, \&i3[, eps]);}}
 \usage{\sourceline{double mec(p, n, c[, eps]);}}
 
+\desc
 Fills in c with the centre point of the minimum circle, enclosing the
 n point vector p. The first version fills in indices to the points
 determining the circle, and returns whether the third index is used.
@@ -91,6 +96,7 @@ Colinearity of a third point is determined by the eps limit.
 \usage{
 {\tt line\_hull\_intersect(hull p, int n, point p1, point p2, \&s1, \&s2)}}
 
+\desc
 Determine the intersection points of a hull with a line.
 {\tt p1, p2, s1, s2} will be the intersection points and indices to the hull
 line segments that intersect after the call. Returns whether there is an

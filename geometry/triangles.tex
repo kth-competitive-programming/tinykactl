@@ -2,6 +2,7 @@
 \begin{algorithm}{Heron triangle area}
 \reflisting{heron}
 
+\desc
 Triangle area using Heron's formula
 $K=\sqrt{p(p-a)(p-b)(p-c)}$, where $p=\frac{a+b+c}{2}$.
 \end{algorithm}
@@ -9,15 +10,18 @@ $K=\sqrt{p(p-a)(p-b)(p-c)}$, where $p=\frac{a+b+c}{2}$.
 \begin{algorithm}{Enclosing circle}
 \reflisting{incircle}
 
+\desc
 {\tt incircle} returns a determinant, whose sign determines whether a point
 lies inside the circle enclosing three other points.
 
 \usage{\sourceline{bool enclosing\_centre(a, b, c, \&p[, eps]);}}
 
+\desc
 Fills in the enclosing circle centre of points a, b, c in point p.
 Returns false if the points are colinear within the eps limit.
 \usage{\sourceline{bool enclosing\_radius(a, b, c, \&r[, eps]);}}
 
+\desc
 Fills in the enclosing circle radius in r, using $r=\frac{abc}{4K}$,
 where $K$ is the triangle area (as in Heron).
 Returns false if the points are colinear within the eps limit.

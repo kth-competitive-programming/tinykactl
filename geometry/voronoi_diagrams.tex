@@ -5,9 +5,9 @@
 \complexity{n^4}
 \usage{{\tt delaunay(points p, int n, trifun)}}
 
-\characteristics{Uses a {\tt trifun(int, int, int)} to return all possible
-delaunay triangles as tripple indices to the point vector. Triangles may
-overlap if points are cocircular. }
+\desc
+Uses a {\tt trifun(int, int, int)} to return all possible delaunay triangles as tripple indices to the point vector. 
+\note{Triangles may overlap if points are cocircular.}
 \end{algorithm}
 
 \begin{algorithm}{Convex hull Delaunay triangulation}
@@ -15,7 +15,8 @@ overlap if points are cocircular. }
 \complexity{\textrm{3d convex hull}}
 \usage{{\tt delaunay(points p, int n, trifun)}}
 
-\characteristics{Returns an arbitrary triangulation if points are cocircular.
-Depending on convex hull implementation it may fail if \emph{all} points
+\desc
+Returns an arbitrary triangulation if points are cocircular.
+\note{Depending on convex hull implementation it may fail if \emph{all} points
 are cocircular, as is currently the case.}
 \end{algorithm}
