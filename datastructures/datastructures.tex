@@ -3,15 +3,19 @@
 \newpage
 
 \problemtitle{pair}
- {\tt make\_pair}, {\tt p.first}, {\tt p.second}, {\tt <}, {\tt ==}.
+{\tt \#include <utility>} or\\
+{\tt \#include <algorithm>}\\
+{\tt make\_pair}, {\tt p.first}, {\tt p.second}, {\tt <}, {\tt ==}.
 
 
 \problemtitle{string}
- {\tt substr}, {\tt <}, {\tt ==}.
+{\tt \#include <string>}\\
+{\tt substr}, {\tt <}, {\tt ==}.
 
 
 \problemtitle{vector}
- {\tt resize}, {\tt push\_back}, {\tt []}.
+{\tt \#include <vector>}\\
+{\tt resize}, {\tt push\_back}, {\tt []}.
 \begin{algorithm}{null vector}
 \reflisting{null vector}
 
@@ -22,11 +26,13 @@ The value is reset and its reference returned for any index referenced.
 
 
 \problemtitle{deque}
- {\tt push\_front}, {\tt push\_back}, {\tt []}.
+{\tt \#include <deque>}\\
+{\tt push\_front}, {\tt push\_back}, {\tt []}.
 
 
 \problemtitle{set}
- {\tt insert}, {\tt erase}, {\tt count}
+{\tt \#include <set>}\\
+{\tt insert}, {\tt erase}, {\tt count}
 \begin{algorithm}{sets}
 \reflisting{sets}
 
@@ -37,18 +43,23 @@ the same tree.
 
 
 \problemtitle{map}
- {\tt []}, {\tt count}
+{\tt \#include <map>}\\
+{\tt []}, {\tt count}
 
 
 \problemtitle{list}
- {\tt push\_front}, {\tt push\_back}, {\tt []}.
+{\tt \#include <list>}\\
+{\tt push\_front}, {\tt push\_back}, {\tt []}.
 
 
 \problemtitle{queue}
- {\tt push}, {\tt empty}, {\tt front}, {\tt pop}.
+{\tt \#include <queue>}\\
+{\tt push}, {\tt empty}, {\tt front}, {\tt pop}.
 
 \problemtitle{priority queue}
- {\tt push}, {\tt empty}, {\tt front}, {\tt pop}.
+NB! the {\tt front()} is the element with the {\em highest} key.\\
+{\tt \#include <queue>}\\
+{\tt push}, {\tt empty}, {\tt front}, {\tt pop}.
 \begin{algorithm}{mpq}
 \reflisting{mpq}
 
@@ -64,10 +75,12 @@ containers.
 \end{algorithm}
 
 \problemtitle{stack}
- {\tt push}, {\tt empty}, {\tt top}, {\tt pop}.
+{\tt \#include <stack>}\\
+{\tt push}, {\tt empty}, {\tt top}, {\tt pop}.
 
 \problemtitle{heap}
- {\tt make\_heap}, {\tt push\_heap}, {\tt pop\_heap}, {\tt sort\_heap}.
+{\tt \#include <algorithm>}\\
+{\tt make\_heap}, {\tt push\_heap}, {\tt pop\_heap}, {\tt sort\_heap}.
 \begin{algorithm}{update heap}
 \reflisting{update heap}
 
