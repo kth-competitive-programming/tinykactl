@@ -2,7 +2,7 @@
 
 INTERMED=lib.aux lib.dvi lib.idx lib.log lib.lol lib.lop lib.toc
 
-.PHONY: all clean lib.ps lib.pdf util
+.PHONY: all always clean spotless index lib.ps lib.pdf util code codeclean
 
 all:
 	# Try 'make ps' or 'make pdf'!
@@ -11,21 +11,20 @@ all:
 
 always: .
 
-clean: util/code.sh
+clean: codeclean
 	rm -f $(INTERMED)
-	cd util; make clean
-	bash util/code.sh clean
+	cd util && $(MAKE) clean
 
 spotless: clean
 	rm -f lib.pdf lib.ps
-	cd util; make spotless
+	cd util && $(MAKE) spotless
 
 index:
 	makeindex lib.idx
 
-ps: lib.ps always
+ps: lib.ps index always
 
-pdf: lib.pdf always
+pdf: lib.pdf index always
 
 lib.ps: lib.tex always
 	latex lib.tex
@@ -34,21 +33,28 @@ lib.ps: lib.tex always
 lib.pdf: lib.tex always
 	pdflatex lib.tex
 
-lib.tex: style.sty lgrind.sty util code numerical graph
+lib.tex: style.sty lgrind.sty util code
 
 util: always
-	cd util; make all
+	cd util && $(MAKE) util
 
-code: util/code.sh
-	bash util/code.sh gen
+code: always
+	cd util && $(MAKE) code
+	cd general && $(MAKE) code
+	cd numerical && $(MAKE) code
+	cd graph && $(MAKE) code
+	cd graph/mst && $(MAKE) code
+	cd geometry && $(MAKE) code
+	cd geometry/hull && $(MAKE) code
+	cd pattern && $(MAKE) code
 
-numerical:\
- numerical/numerical.tex\
- numerical/combinatorics.tex\
- numerical/combinatorics.tex
-
-graph:\
- graph/graph.tex\
- graph/shortest_path.tex\
- graph/mst.tex
+codeclean: always
+	cd util && $(MAKE) codeclean
+	cd general && $(MAKE) codeclean
+	cd numerical && $(MAKE) codeclean
+	cd graph && $(MAKE) codeclean
+	cd graph/mst && $(MAKE) codeclean
+	cd geometry && $(MAKE) codeclean
+	cd geometry/hull && $(MAKE) codeclean
+	cd pattern && $(MAKE) codeclean
 

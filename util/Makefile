@@ -1,6 +1,6 @@
 .PHONY: all clean lgrind
 
-all: lgrind stripcode adler
+util: lgrind stripcode adler linecode
 
 always: .
 
@@ -11,12 +11,21 @@ spotless: clean
 	rm -f lgrind/source/lgrind lgrind/source/lgrind.exe
 	rm -f stripcode stripcode.exe
 	rm -f adler adler.exe
+	rm -f linecode linecode.exe
 
 lgrind: always
-	cd lgrind; make lgrind
+	cd lgrind && $(MAKE) lgrind
 
 stripcode: stripcode.cpp
 	g++ -o stripcode stripcode.cpp
 
 adler: adler.cpp
 	g++ -o adler adler.cpp
+
+linecode: linecode.cpp
+	g++ -o linecode linecode.cpp
+
+LGSTRIP=header
+SUMSTRIP=header
+UTIL=.
+include $(UTIL)/makecode
