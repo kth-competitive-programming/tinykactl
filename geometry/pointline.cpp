@@ -33,7 +33,7 @@
 
 template <class P>
 int sideof(P p0, P p1, P q) {
-  P::coord_type d = cross(p1-p0, q-p0);
+  typename P::coord_type d = cross(p1-p0, q-p0);
   return d > 0 ? 1 : d < 0 ? -1 : 0;
 }
 
@@ -48,6 +48,6 @@ bool onsegment(P p0, P p1, P q) {
 }
 
 template <class P>
-T linedist(P p0, P p1, P q) {
-  return cross(p1-p0, q-p0);
+double linedist(P p0, P p1, P q) {
+  return (double) cross(p1-p0, q-p0) / dist(p1-p0);
 }

@@ -1,0 +1,51 @@
+ origo inside unit square
+inside
+inside
+ points outside unit square
+outside
+outside
+
+outside
+outside
+
+outside
+outside
+
+outside
+outside
+
+outside
+outside
+
+outside
+outside
+ points on unit square N border
+outside
+on
+ points on unit square E border
+outside
+on
+ points on unit square S border
+inside
+on
+ points on unit square W border
+inside
+on
+ points on unit square NE border
+outside
+on
+ points on unit square SE border
+outside
+on
+ points on unit square SW border
+inside
+on
+ points on unit square NW border
+outside
+on
+ points outside rectangular polygon but inside convex hull
+outside
+outside
+
+outside
+outside
