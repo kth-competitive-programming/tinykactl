@@ -1,0 +1,33 @@
+#!/bin/bash
+#
+# Convert #include "..." statements to real inclusions.
+# Works iterative. All leading spaces are removed (doesn't matter
+# for c-code)
+
+# Create quote flexx-cmd if neccessary.
+quote </dev/null &>/dev/null || {
+    echo "\
+%option noyywrap
+%%
+\\\\    printf( \"\\\\\\\\\" );
+\\\"    printf( \"\\\\\\\"\" );
+\\\$    printf( \"\\\\\$\" );
+%%
+main() { yylex(); }" | flex -o`echo ~/bin/quote.c`
+    g++ -o ~/bin/quote ~/bin/quote.c
+    rm ~/bin/quote.c
+}
+
+function include() {
+    if [ "$2" == "#include" ] && echo "$3" | grep \"..*\" > /dev/null; then
+	eval "cat $3" | { cd `eval "dirname $3"`; proc; }
+    else
+	echo "$1"
+    fi
+}
+
+function proc() {
+    quote | { while read x; do include "$x" $x; done }
+}
+
+proc
