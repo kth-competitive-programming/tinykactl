@@ -5,7 +5,7 @@
 # for c-code)
 
 # Create quote flexx-cmd if neccessary.
-quote </dev/null &>/dev/null || {
+~/bin/quote </dev/null &>/dev/null || {
     echo "\
 %option noyywrap
 %%
@@ -34,7 +34,7 @@ function include() {
 }
 
 function proc() {
-    quote | { while read x; do include "$x" $x; done }
+    ~/bin/quote | { while read x; do include "$x" $x; done }
 #    quote | { while read x; do include "$x"; done }
 }
 
