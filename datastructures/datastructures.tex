@@ -3,6 +3,33 @@
 \newpage
 
 \problemtitle{STL containers}
+\begin{algorithm}{STL container summary}
+\desc
+\begin{tabular}{|l|ccccc|}
+\hline
+ & [] & List op. & Front op. & Back op. & Iterators \\
+\hline
+vector & \ordo{1} & Am. \ordo{n} &          & Am. \ordo{1} & Ran \\
+list   &          & \ordo{1}     & \ordo{1} & \ordo{1}     & Bi \\
+deque  & \ordo{1} & \ordo{n}     & \ordo{1} & \ordo{1}     & Ran \\
+\hline
+stack           & & &                & \ordo{1}       & \\
+queue           & & & \ordo{1}       & \ordo{1}       & \\
+priority\_queue & & & \ordo{\log{n}} & \ordo{\log{n}} & \\
+\hline
+map      & \ordo{\log{n}} & Am. \ordo{\log{n}} & & & Bi \\
+multimap &                & Am. \ordo{\log{n}} & & & Bi \\
+set      &                & Am. \ordo{\log{n}} & & & Bi \\
+multiset &                & Am. \ordo{\log{n}} & & & Bi \\
+\hline
+string   & \ordo{1} & Am. \ordo{n} & Am. \ordo{n} & Am. \ordo{1} & Ran \\
+array    & \ordo{1} &              &              &              & Ran \\
+valarray & \ordo{1} &              &              &              & Ran \\
+bitset   & \ordo{1} &              &              &              & \\
+\hline
+\end{tabular}
+\end{algorithm}
+
 \begin{algorithm}{pair}
 \deps{{\tt utility} or {\tt algorithm}}
 \usage{{\tt make\_pair}, {\tt p.first}, {\tt p.second}, {\tt <}, {\tt ==}.}
