@@ -57,6 +57,7 @@ allcode: always
 	cd geometry && $(MAKE) code
 	cd geometry/hull && $(MAKE) code
 	cd pattern && $(MAKE) code
+	cd gametheory && $(MAKE) code
 
 allcodeclean: always
 	cd . && $(MAKE) codeclean
@@ -73,6 +74,7 @@ allcodeclean: always
 	cd geometry && $(MAKE) codeclean
 	cd geometry/hull && $(MAKE) codeclean
 	cd pattern && $(MAKE) codeclean
+	cd gametheory && $(MAKE) codeclean
 
 LGSTRIP=header
 SUMSTRIP=header
