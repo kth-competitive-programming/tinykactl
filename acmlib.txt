@@ -1,69 +1,73 @@
 Data Structures
 	map, set, queue, deque, stack, vector, list, string (hashmap) STL
-		heap, priority queue
+		heap, priority queue ...
 
-Numerical Problems
-	Gausselimination ???
-	Matrix Multiplication ??? 
-		matris som objekt...
-	Linear Programming ??? 
+Math/Numerical Problems
+	Matrix Multiplication
+		matriser som objekt... valarray ?
+	Gausselimination
+	Determinant and Permanent
+	Linear Programming
 		simplex
 	Random Number Generation
 	Primtalsgenereing (faktorering) 
 		lista primtal t. 100 + algoritm 
 	BigInt
-	Knapsack Problem ???
-	Determinant and Permanent
+		finns
+	C(n,k), Catalan, Sterling....
+	expMod
+	gcd, lcm
+	(Newton-Raphson)
 
 Combinatorial Problems
 	Sorting
 		sort(), (qsort())
 	Searching
 		binary_search(), find(), (one-sided binary_search() ?) ...
+		golden_search finns
+		binary_search
 	Median and Selection
 		nth_element()
 	Generating Permutations
 		next_permutation(), prev_permutation(), random_shuffle() ...
 	Generating Subsets
 	Generating Partitions
-	Calendrical Calculations ???
-	Job Scheduling ???
 
 Graph Problems
 	Connected Components
 	Topological Sorting
-		Finns kanske?
+		Finns
 	Minimum Spanning Tree	
-		finns kanske?
+		finns
 	Shortest Path
 		finns
 	Transitive Closure and Reduction
-		closure finns, reduction ???
+		closure finns
 	Matching ???
 		~= max-flow
 	Eulerian Cycle / Chinese Postman
 		eulerwalk finns
-	Edge and Vertex Connectivity ???
-		= max-flow
+	Edge and Vertex Connectivity
+		~= max-flow
 	Network Flow
-		finns några
-	Planarity Detection (and Embedding)
+		finns
+	Planarity Detection
 
 Computational Geometry
 	Robust Geometric Primitives
 		intersect, on, areaT, in-circle, polArea
 	Convex Hull
 		finns
-	Triangulation ???
+		Hull-line intersection finns
+	Triangulation
 	Voronoi Diagrams
 	Nearest Neighbor Search
-	Range Search ???
-	Point Location ???
-	Intersection Detection ???
-	Bin Packing ???
-	Polygon Partitioning ???
-	Maintaining Line Arrangements ???
-	Minkowski Sum ???
+	Range Search
+	Point Location
+	Intersection Detection
+	Polygon Partitioning
+	Maintaining Line Arrangements
+	Minkowski Sum
 
 Set and String Problems
 	String Matching
@@ -84,6 +88,11 @@ Input/Output
 		printf("%.2f", x) med cout ?
 
 Div. idiom
+	Calendrical Calculations ???
+
+Saker som inte placerats i kapitel än
+	Knapsack Problem ???
+	Bin Packing
 
 -----------
 Flood-fill															Graph-problem.
@@ -91,8 +100,8 @@ uttrycksevaluering post-/pre-/in-fix						Parsing
 tidtabellsökning													Search / ad hoc.
 C(n,k)																Math
 BigMod																Math
-gcd																	Math
-lcm																	Math
+gcd																Math
+lcm																Math
 ------------
 General
 Graph
