@@ -8,12 +8,17 @@
  * ACM Warmup competition 2, 11 March 2002
  *****************************************/
 
+using namespace std;
+
 #include <cstdlib>
 #include <iostream>
 
-#include "../graph/8_maxflow.cpp"
+//#include "../graph/maxflow/ford_fulkerson_1.cpp"
+#include "../graph/maxflow/lift_to_front.cpp"
 
-FlowGraph edges;
+
+//flow_graph edges;
+vector<vector<flow_edge<int> > > edges;
 
 int main( void ) {
   int M, N, c;
@@ -33,7 +38,7 @@ int main( void ) {
     for( int i=0; i<M; i++ ) {
       cin >> c;
 
-      flow_addedge( edges, 0, i+2, c );
+      flow_add_edge( edges, 0, i+2, c );
       totC1 += c;
     }
 
@@ -42,7 +47,7 @@ int main( void ) {
     for( int i=0; i<N; i++ ) {
       cin >> c;
 
-      flow_addedge( edges, i+2+M, 1, c );
+      flow_add_edge( edges, i+2+M, 1, c );
       totC2 += c;
     }
 
@@ -54,16 +59,18 @@ int main( void ) {
     // Add team-board edges
     for( int i=0; i<M; i++ ) {
       for( int j=0; j<N; j++ ) {
-	flow_addedge( edges, i+2, j+2+M, 1 );
+	flow_add_edge( edges, i+2, j+2+M, 1 );
       }
     }
-
+    /*
     while( flow_increase1(edges, 0, 1) )
       ;
+    */
+    lift_to_front( edges, 0, 1 );
 
     bool found = true;
     for( int i=0; i<M; i++ ) {
-      if( edges[0][i].cap > 0 )
+      if( edges[0][i].c > 0 )
 	found = false;
     }
 
@@ -73,7 +80,7 @@ int main( void ) {
       for( int i=0; i<M; i++ ) {
 	bool first = true;
 	for( int j=0; j<N; j++ ) {
-	  if( edges[i+2][j+1].cap == 0 ) {
+	  if( edges[i+2][j+1].c == 0 ) {
 	    if( !first )
 	      cout << " ";
 	    cout << j+1;

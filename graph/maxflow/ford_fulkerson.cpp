@@ -1,36 +1,26 @@
-/*****************************************************************************
- * 
- * MaxFlow3: fulkerson (Ford-Fulkerson for general flow networks)
- * ==============================================================
+/* KTH ACM Contest Template Library
+ *
+ * Graph/Network Flow/Ford Fulkerson
  *
  * A Maximum Flow algorithm based upon Ford-Fulkersons method with
  * either BFS or DFS search.
  *
- * COMPLEXITY: O(E*numPaths)
+ * Complexity: O(E*numPaths)
  *
- * REQUIRES:   maxflow/1_general.cpp
- *
- * ------------------------------------------------------------------------- *
- *
- * NADA acmlib (10 March 2002)
- * Templates for KTH-NADA, Ballons'R'Us, ACM 2001-2002
- *   Swedish competition, Link?ping 6 Oct 2001
- *   Revised for SWERC, Portu, Portugal 17 Nov 2001
- *   Revised for World Finals, Honolulu, 23 Mar 2002
- *   David Rydh, Mattias de Zalenski, Fredrik Niemel?
- *
- *****************************************************************************/
+ * Credit:
+ *   By David Rydh
+ */
 
 #include <queue>
-#include "1_general.cpp"
+#include "flow_graph.cpp"
 
 // Function prototypes
-bool flow_increase1( FlowGraph &g, int source, int sink );
+int flow_increase1( flow_graph &g, int source, int sink );
 
 // Internal auxillary functions
-void flow_findaugpath_dfs( const FlowGraph &g, vector<int> &backEdges,
+void flow_findaugpath_dfs( const flow_graph &g, vector<int> &backEdges,
                        int source, int sink );
-void flow_findaugpath_bfs( const FlowGraph &g, vector<int> &backEdges,
+void flow_findaugpath_bfs( const flow_graph &g, vector<int> &backEdges,
                        int source, int sink );
 
 
@@ -38,7 +28,7 @@ void flow_findaugpath_bfs( const FlowGraph &g, vector<int> &backEdges,
  * Max-flow in a general flow-graph
  ************************************************************/
 
-int flow_increase( FlowGraph &g, int source, int sink ) {
+int flow_increase( flow_graph &g, int source, int sink ) {
   const int   inf = 0x20000000;
   vector<int> backEdges;
 
@@ -57,24 +47,24 @@ int flow_increase( FlowGraph &g, int source, int sink ) {
   int  minSlack = inf;
 
   for( int node=sink; node!=source; ) {
-    FlowEdge &backEdge = g[node][backEdges[node]];
-    FlowEdge &forwardEdge = g[backEdge.destNode][backEdge.backEdgeIndex];
+    flow_edge<int> &backEdge = g[node][backEdges[node]];
+    flow_edge<int> &forwardEdge = g[backEdge.dest][backEdge.back];
 
-    if( forwardEdge.cap < minSlack )
-      minSlack = forwardEdge.cap;
+    if( forwardEdge.c < minSlack )
+      minSlack = forwardEdge.c;
 
-    node = backEdge.destNode;
+    node = backEdge.dest;
   }
 
   // Increase flow
   for( int node=sink; node!=source; ) {
-    FlowEdge &backEdge = g[node][backEdges[node]];
-    FlowEdge &forwardEdge = g[backEdge.destNode][backEdge.backEdgeIndex];
+    flow_edge<int> &backEdge = g[node][backEdges[node]];
+    flow_edge<int> &forwardEdge = g[backEdge.dest][backEdge.back];
 
-    forwardEdge.cap -= minSlack;
-    backEdge.cap += minSlack;
+    forwardEdge.c -= minSlack;
+    backEdge.c += minSlack;
 
-    node = backEdge.destNode;
+    node = backEdge.dest;
   }
 
   return minSlack;
@@ -84,7 +74,7 @@ int flow_increase( FlowGraph &g, int source, int sink ) {
 // The backEdges is an array containing the index of the backEdge
 // which should be followed to get back to the source
 
-void flow_findaugpath_bfs( const FlowGraph &g, vector<int> &backEdges,
+void flow_findaugpath_bfs( const flow_graph &g, vector<int> &backEdges,
 		       int source, int sink )
 {
   const int   inf = 0x20000000;
@@ -111,23 +101,23 @@ void flow_findaugpath_bfs( const FlowGraph &g, vector<int> &backEdges,
     q.pop();
 
     // Process node
-    const vector<FlowEdge>   &edges = g[node];
-    int                      numEdges = edges.size();
+    const vector<flow_edge<int>>   &edges = g[node];
+    int                            numEdges = edges.size();
     for( int i=0; i<numEdges; i++ ) {
-      const FlowEdge &fe = edges[i];
+      const flow_edge &fe = edges[i];
 
-      if( fe.cap <= 0 )
+      if( fe.c <= 0 )
 	continue;
 
-      int destNode = fe.destNode;
+      int dest = fe.dest;
 
-      if( length < min[destNode] ) {
+      if( length < min[dest] ) {
 	// Process this node the next run
-	min[destNode] = length;
-        backEdges[destNode] = fe.backEdgeIndex;
-	q.push( destNode );
+	min[dest] = length;
+        backEdges[dest] = fe.back;
+	q.push( dest );
 
-	if( destNode == sink )
+	if( dest == sink )
 	  return;
       }
     }
@@ -139,24 +129,24 @@ void flow_findaugpath_bfs( const FlowGraph &g, vector<int> &backEdges,
 // Make sure backEdges is initialized to -1 prior to this function
 // except for the source which should have a value >=0!
 
-bool flow_findaugpath_dfs( FlowGraph &g, vector<int> &backEdges,
+bool flow_findaugpath_dfs( flow_graph &g, vector<int> &backEdges,
                            int node, int sink )
 {
-  typedef vector<FlowEdge>::iterator  E_iter;
-  typedef vector<FlowEdge>            E;
+  typedef vector<flow_edge<int> >::iterator  E_iter;
+  typedef vector<flow_edge<int> >            E;
 
   E & el = g[node];
   for( E_iter e=el.begin(); e!=el.end(); e++ ) {
-    if( (*e).cap <= 0 )
+    if( (*e).c <= 0 )
       continue;
 
-    int destNode = (*e).destNode;
+    int dest = (*e).dest;
 
-    if( backEdges[destNode] < 0 ) {
+    if( backEdges[dest] < 0 ) {
       // Process this node
-      backEdges[destNode] = (*e).backEdgeIndex;
+      backEdges[dest] = (*e).backEdge;
 
-      if( destNode == sink || flow_findaugpath_dfs(g,backEdges,destNode,sink) )
+      if( dest == sink || flow_findaugpath_dfs(g,backEdges,dest,sink) )
         // Found augmenting path
         return true;
     }
