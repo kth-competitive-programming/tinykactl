@@ -18,7 +18,7 @@ const double pi = acos(0) * 2;
 template <class T> struct point {
   typedef T coord_type;
   T x, y;
-  point(T _x=T(), T _y=T() ) : x(_x), y(_y) {}
+  point(T _x=T(), T _y=T()) : x(_x), y(_y) { }
   bool operator <(const point<T> &p) const {
     return x < p.x || x <= p.x && y < p.y;
   }
