@@ -38,7 +38,6 @@ T int_determinant( T m[N][N], int n ) {
   }
   // Matrix is now in upper-diagonal form
   T det = 1;
-  for( int i=0; i<n; i++ )
-    det *= m[i][i];
+  for( int i=0; i<n; i++ )  det *= m[i][i];
   return det;
 }
