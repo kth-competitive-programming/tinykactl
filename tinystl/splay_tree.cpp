@@ -43,6 +43,7 @@ struct splay_node_iterator {
   sT operator++(int) { sT t(p); p = succ(p, !reverse); return t; }
   sT operator--(int) { sT t(p); p = succ(p, reverse); return t; }
   bool operator==(const sT &s) const { return p==s.p; }
+  bool operator!=(const sT &s) const { return p!=s.p; }
   T &operator *() { return p->x; }
   const T &operator *() const { return p->x; }
   const T *operator ->() const { return &(operator *()); }

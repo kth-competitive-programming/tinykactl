@@ -62,7 +62,7 @@ struct map {
   iterator lower_bound(const K &k) { find(k); return iterator(t.root); }
   iterator upper_bound(const K &k) {
     find(k); iterator i(t.root);
-    if (i != end() && !key_comp()(k, *i.first)) ++i;
+    if (i != end() && !key_comp()(k, i->first)) ++i;
     return i;
   }
   pair<iterator, iterator> equal_range(const K &k) {
