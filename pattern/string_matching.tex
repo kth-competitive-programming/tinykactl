@@ -10,7 +10,8 @@
 \usage{ \sourceline{NFA n = parseRegExp(\"{}(abc$|${}def)*{}\"{});\\
    char* s = ...;\\
    size\_t match = n.match(s);}}
-\characteristics{{\tt RegExp::match(string::iterator s)} returns the length of the longest string beginning in {\tt s} which matches the regexp, or {\tt string::npos} if there is no string beginning in {\tt s} which matches the regexp.}
+\desc
+{\tt RegExp::match(string::iterator s)} returns the length of the longest string beginning in {\tt s} which matches the regexp, or {\tt string::npos} if there is no string beginning in {\tt s} which matches the regexp.
 
 The supported regexp constructions are
 \begin{itemize}

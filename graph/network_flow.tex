@@ -9,7 +9,7 @@ struct is used in the network flow algorithms.
 \reflisting{flow graph}
 \usage{ \sourceline{%
  flow\_add\_edge( edges, source, dest, cap [, back\_cap] ); }}
-
+\desc
 Flow graphs are constructed and updated by a couple of utility functions.
 
 A flow graph should be an STL-container of {\tt vector}s with
@@ -23,7 +23,7 @@ simultaneously giving both forward and back capacity.
 
 \begin{algorithm}{lift to front}
 \reflisting{lift to front}
-\characteristics{This is a much more effective algorithm than Ford Fulkerson,
+\note{This is a much more effective algorithm than Ford Fulkerson,
 even on bi-partite graphs, and suitable for any flow graph.}
 \usage{ \sourceline{flow = lift\_to\_front(edges, source, sink);} }
 \complexity{V^3}
@@ -31,28 +31,29 @@ even on bi-partite graphs, and suitable for any flow graph.}
 
 \begin{algorithm}{ford fulkerson}
 \reflisting{ford fulkerson}
-\characteristics{This is a DFS or BFS Ford Fulkerson which maximize the
-flow in the augmenting paths. The BFS is more robust but may be slower.}
+\desc
+This is a DFS or BFS Ford Fulkerson which maximize the flow in the
+augmenting paths. The BFS is more robust but may be slower.
 \usage{ The maximum flow is calculated by repetitive calls
 to {\tt flow\_increase1}:}
-
 \sourceline{ while( ap = flow\_increase1(edges, source, sink) ) flow+=ap; }
 \complexity{E\cdot n_{aug~paths}}
 \end{algorithm}
 
 \begin{algorithm}{ford fulkerson 1}
 \reflisting{ford fulkerson 1}
-\characteristics{This is a DFS Ford Fulkerson where all augmenting paths
-are 1 and thus specially suited for bipartite graphs.}
+\desc
+This is a DFS Ford Fulkerson where all augmenting paths
+are 1 and thus specially suited for bipartite graphs.
 \usage{ The maximum flow is calculated by repetitive calls
 to {\tt flow\_increase1}: }
-
 \sourceline{ while( flow\_increase1(edges, source, sink) ) flow++; }
 \complexity{E\cdot n_{aug~paths}}
 \end{algorithm}
 
 \begin{algorithm}{Min cut}
-\keyword{} The minimum cut has the same capacity as the maximum flow,
+\desc
+The minimum cut has the same capacity as the maximum flow,
 but perhaps we want an algorithm for finding it?
 \end{algorithm}
 

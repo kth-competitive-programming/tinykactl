@@ -64,7 +64,7 @@ Standard problem template. Problems are classified as either of:
 \begin{algorithm}{adler}
 \reflisting{adler}
 \usage{\sourceline{ adler < code.cpp }}
-
+\desc
 Adler gives a checksum for all non-whitespace character it reads.
 All source code listings in this document have their checksum attached,
 calculated after comments and preprocessor directives have been stripped off
@@ -74,7 +74,7 @@ calculated after comments and preprocessor directives have been stripped off
 \begin{algorithm}{linecode}
 \reflisting{linecode}
 \usage{\sourceline{ linecode < code.cpp }}
-
+\desc
 Linecode gives 16 values encoding line number xor:s of each line's adler
 checksum. All source code listings in this document have their line code
 attached. If a checksum doesn't match for a typed-in file, xor the line code
@@ -83,8 +83,7 @@ the error might be.
 \end{algorithm}
 
 \begin{algorithm}{xor}
-\reflisting{xor}
--- A simple xor calculator.
+\reflisting{xor} -- A simple xor calculator.
 \end{algorithm}
 
 \begin{sourceslandscape}

@@ -4,7 +4,6 @@
 \reflisting{lis}
 \usage{\texttt{iterator last = long\_inc\_seq(begin, end, cmp);}}
 \complexity{n^2}
-\characteristics{The length of the subsequence is \texttt{last - begin}, and the actual values are stored in $[$\texttt{begin}, \texttt{last}$)$. Alternatively, \texttt{cmp} may be omitted, in which case the standard less comparator will be used.}
+\note{The length of the subsequence is \texttt{last - begin}, and the actual values are stored in $[$\texttt{begin}, \texttt{last}$)$. Alternatively, \texttt{cmp} may be omitted, in which case the standard less comparator will be used.}
 \valladolid{10131 (tested), 231, 497}
 \end{algorithm}
-
