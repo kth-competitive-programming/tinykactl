@@ -14,13 +14,14 @@
   \end{example}
 \end{algorithm}
 \begin{algorithm}{binary search}
-  \usage{\sourceline{ binary\_search( v.begin(), v.end(), 4 ) }}
-  \usage{\sourceline{ lower\_bound( v.begin(), v.end(), 4 ) }}
-  \usage{\sourceline{ upper\_bound( v.begin(), v.end(), 4 ) }}
+  \usage{\sourceline{ bool binary\_search( v.begin(), v.end(), 4 ) }}
+  \usage{\sourceline{ iterator lower\_bound( v.begin(), v.end(), 4 ) }}
+  \usage{\sourceline{ iterator upper\_bound( v.begin(), v.end(), 4 ) }}
 \end{algorithm}
 \begin{algorithm}{golden bound}
   \reflisting{golden bound}
-  \usage{\sourceline{ golden\_bound( v.begin(), v.end(), 4, \&val ) }}
+  \usage{\sourceline{
+ int golden\_bound( 0, v.size(), v, \&min\_value ) == min\_index }}
 \end{algorithm}
 
 \begin{sourceslandscape}

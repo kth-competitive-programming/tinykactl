@@ -12,8 +12,9 @@ Miscellaneous algorithms in number theory.
 \valladolid{202}
 \end{algorithm}
 
+\def\lcm{\mathrm{lcm}}
 \begin{algorithm}{LCM}
-\complexity{x}
+\keyword{} $\lcm(a,b)=\frac{ab}{\gcd(a,b)}$
 \end{algorithm}
 
 \begin{algorithm}{Euclid}
@@ -33,9 +34,21 @@ Miscellaneous algorithms in number theory.
 \complexity{ \sqrt(n) }
 \end{algorithm}
 
-\begin{algorithm}{primes}
+\begin{algorithm}{Primes}
 \reflisting{primes}
+\characteristics{{\tt primes} calculates a vector of primes and has a
+factor method which returns the smallest factor in the given integer.}
+\usage{ \sourceline{primes<int> p; p.generate(1000); n = factor(10); n==2;} }
 \end{algorithm}
+
+\begin{algorithm}{Prime Sieve}
+\reflisting{prime sieve}
+\characteristics{{\tt prime\_sieve} calculates a bool-vector containing
+whether an integer is prime. It is faster than {\tt primes} when dealing
+with large numbers. Returns whether an integer is prime in constant
+time.}
+\usage{ \sourceline{prime\_sieve p(1000); p.isprime(10)==false;} }
+\end{algorithm}\
 
 
 \begin{algorithm}{Josephus}

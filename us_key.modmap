@@ -1,0 +1,17 @@
+keycode 38 = 2 at
+keycode 42 = 6 asciicircum
+keycode 43 = 7 ampersand
+keycode 44 = 8 asterisk
+keycode 45 = 9 parenleft
+keycode 46 = 0 parenright
+keycode 52 = minus underscore
+keycode 53 = equal plus
+keycode 54 = bracketleft braceleft
+keycode 55 = bracketright braceright
+keycode 57 = backslash bar
+keycode 58 = semicolon colon
+keycode 59 = apostrophe quotedbl
+keycode 61 = comma less
+keycode 62 = period greater
+keycode 63 = slash question
+keycode 107 = grave asciitilde
