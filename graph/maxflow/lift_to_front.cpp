@@ -64,12 +64,12 @@ T lift_to_front(E &flow, int source, int sink) {
     while (excess[u] > 0)
       if (cur[u] == flow[u].end()) {
 	// lift u
-	int minh = v - 2;
+	height[u] = 2 * v - 1;
 	for (L::iterator it = flow[u].begin(); it != flow[u].end(); it++)
-	  if (it->c > 0) minh = min(minh, height[it->dest]);
-	height[u] = 1 + minh;
-	// last four lines may maybe be replaced by height[u]++; ..
-	cur[u] = flow[u].begin();
+	  if (it->c > 0 && height[it->dest] < height[u]) {
+	    height[u] = height[it->dest];
+	    cur[u] = it; // start from an admissable edge!
+	  }
       }
       else if (cur[u]->c > 0 && height[u] == height[cur[u]->dest] + 1)
 	// push on edge cur[u]
