@@ -5,6 +5,9 @@
 \begin{algorithm}{sort}
   \usage{\sourceline{ sort( v.begin(), v.end(), less<int>() ) }}
 \end{algorithm}
+\begin{algorithm}{isort}
+  \reflisting{isort}
+\end{algorithm}
 
 \problemtitle{Searching}
 \begin{algorithm}{median -- nth element}
@@ -22,6 +25,17 @@
   \reflisting{golden bound}
   \usage{\sourceline{
  int golden\_bound( 0, v.size(), v, \&min\_value ) == min\_index }}
+\end{algorithm}
+
+\problemtitle{Permutations}
+\begin{algorithm}{next}
+\usage{next\_permutation(begin, end [, comparator])}
+\end{algorithm}
+\begin{algorithm}{previous}
+\usage{prev\_permutation(begin, end [, comparator])}
+\end{algorithm}
+\begin{algorithm}{random}
+\usage{random\_shuffle(begin, end [, random number generator])}
 \end{algorithm}
 
 \begin{sourceslandscape}

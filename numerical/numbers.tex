@@ -1,7 +1,15 @@
 %%%
-%%% Bigint
+%%% Numbers
 %%%
-\problemtitle{Big Integers}
+\problemtitle{Numbers}
+
+\begin{algorithm}{Complex}
+\usage{{\tt \#include <complex>}}
+\end{algorithm}
+
+\begin{algorithm}{Rational}
+\reflisting{rational}
+\end{algorithm}
 
 \begin{algorithm}{Bigint Simple}
 \reflisting{bigint simple}
@@ -9,7 +17,6 @@
 positive integers. Can output numbers in base-10 only. This is a stripped
 down version of {\tt bigint full}.}
 \end{algorithm}
-
 
 \begin{algorithm}{Bigint Full}
 \reflisting{bigint full}
@@ -19,10 +26,15 @@ simple and does not use neither an iterative method, such as Newton-Raphson,
 nor FFT. Has an iterative sqrt-function.}
 \end{algorithm}
 
-
 \begin{algorithm}{Bigint Per}
 \reflisting{bigint per}
 \characteristics{Dynamic BigInt class which handles +,*. Additionally
 it can do divison/modulus with integers, find the n:th root of a number and
 do exponentiation with \^~. NB! no subtraction.}
 \end{algorithm}
+
+
+
+
+
+
