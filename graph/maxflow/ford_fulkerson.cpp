@@ -60,7 +60,7 @@ Flow inc_flow_bellman_ford(adj_list *g, int n, int s, int t) {
   for (int i = 1; !(changed = !changed); ++i)
     for (int v = 0; v < n; ++v)
       for (adj_iter it = g[v].begin(); it != g[v].end(); ++it) {
-        Flow dist = mindist[v] + (it->f < 0 ? -it->cost : it->cost);
+        Flow dist = mindist[v]+(it->f<0 ? -it->cost : it->cost);
         if (it->r() > 0 && dist < mindist[it->dest]) {
           if (i >= n) assert(0); // negative cycle! shouldn't be!
           mindist[it->dest] = dist;
