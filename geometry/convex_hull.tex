@@ -1,13 +1,13 @@
 \problemtitle{Convex Hull}
 
 \begin{algorithm}{Graham scan}
-\complexity{n\log(n)}
 \usage{\sourceline{iterator hull\_end = convex\_hull(p.begin(), p.end())}}
 \desc
-Swaps the points in {\tt p} so the hull points are in order at the beginning.  NB! Does not handle coinciding points.
+Swaps the points in {\tt p} so the hull points are in order at the
+beginning.  {\bf NB!} Does not handle coinciding points.
 \end{algorithm}
 
-\code{convex hull}{hull/convex_hull}
+\codenc{convex hull}{hull/convex_hull}
 
 \begin{algorithm}{Three dimensional hull}
 \complexity{n^2}
@@ -21,7 +21,7 @@ point vector {\tt p}.
 triangulates the surface of the hull.}
 \end{algorithm}
 
-\code{convex hull space}{hull/convex_hull_space}
+\codenc{convex hull space}{hull/convex_hull_space}
 
 \begin{algorithm}{Point inside hull}
 \complexity{\log(n)}
@@ -33,7 +33,7 @@ point vector {\tt p}. The hull should not contain colinear points. A hull with
 2~points are ok. The result is given as: 1~inside, 0~onedge, -1~outside.
 \end{algorithm}
 
-\code{inside hull}{hull/inside_hull}
+\codenc{inside hull}{hull/inside_hull}
 
 \begin{algorithm}{Hull diameter}
 \complexity{n}
@@ -45,7 +45,7 @@ Determine the points that are farthest apart in a hull.
 The squared distance is returned.
 \end{algorithm}
 
-\code{hull diameter}{hull/hull_diameter}
+\codenc{hull diameter}{hull/hull_diameter}
 
 \begin{algorithm}{Minimum enclosing circle}
 \complexity{n}
@@ -60,7 +60,7 @@ The second version returns the enclosing circle radius as a double.
 Colinearity of a third point is determined by the eps limit.
 \end{algorithm}
 
-\code{mec}{hull/mec}
+\codenc{mec}{hull/mec}
 
 \begin{algorithm}{Line-hull intersect}
 \complexity{\log(n)}
@@ -74,4 +74,4 @@ line segments that intersect after the call. Returns whether there is an
 intersection.
 \end{algorithm}
 
-\code{line hull intersect}{hull/line_hull_intersect}
+\codenc{line hull intersect}{hull/line_hull_intersect}

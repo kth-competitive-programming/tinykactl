@@ -277,6 +277,17 @@
 	\lgrindfile{\thepath #2.lg}
 }
 
+\def\codenc#1#2{
+  \refstepcounter{lstlisting}
+%  \pagebreak[3]
+  \label{code_#1}
+  \index{#1_X @{\tt #1}}
+	{\noindent\normalsize\bf Listing \thelstlisting : #1.cc}
+	\xinput{#2.incl}
+	\hrule
+	\lgrindfile{\thepath #2.lg}
+}
+
 \newcommand{\sourcesection}[1]{\section*{#1}}
 
 

@@ -1,7 +1,6 @@
 \problemtitle{Euler walk}
 
 \begin{algorithm}{Euler walk}
-\reflisting{euler walk}
 \complexity{ E }
 \usage{\sourceline{%
  euler\_walk( V \&edges, int start, list<int> \&path, bool cyclic ) }}
@@ -34,6 +33,8 @@ each vertex, the resulting path will be lexicographically
 ordered. 
 \end{algorithm}
 
+\code{euler walk}{euler_walk}
+
 \begin{algorithm}{Chinese postman}
 \desc
 A generalised euler path/cycle problem, finding the shortest
@@ -56,21 +57,15 @@ techniques (also described in the previous reference).
 \problemtitle{De Bruijn Sequences}
 Let $\Omega$ be an alphabet of size $\sigma$. A de Bruijn sequence is
 a sequence such that all words on $L$ letters appear as a contiguous
-subrange of it. In a cyclic de Bruijn sequences a word may also wrap
-around the string.  The shortest cyclic de Bruijn sequence is of
+subrange of it.  The shortest cyclic de Bruijn sequence is of
 length $\sigma^L$ and the shortest non-cyclic de Bruijn sequence is of
 length $\sigma^L+L-1$.
 
-The shortest de Bruijn sequence of all words on $3$ letters in the
-alphabet $\{0,1\}$ which is lexicographically smallest is
-
-$00011101$ (cyclic)
-
-$0001110100$ (non-cyclic)
+The lexicographically smallest, and shortest de Bruijn sequence on
+three letters and alphabet $\{0,1\}$ is $00011101$ (cyclic),
+$0001110100$ (non-cyclic).
 
 \begin{algorithm}{de Bruijn}
-\reflisting{deBruijn}
-\reflisting{deBruijn fast}
 \complexity{ N^L }
 \usage{\sourceline{%
  deBruijn( int N, int L, char symbols[N] ) }}
@@ -82,3 +77,6 @@ appear in the de Bruijn sequence.
 
 The output is given as {\tt cout}-statements.
 \end{algorithm}
+
+% \code{deBruijn}{deBruijn}
+\code{deBruijn fast}{deBruijn_fast}

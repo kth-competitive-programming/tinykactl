@@ -29,7 +29,7 @@ struct polynomial {
   void divroot(double x0) { // divide by (x-x0), ignore remainder
     double b = a.back(), c;
     a.back() = 0;
-    for (int i = n--; i--; ) c = a[i], a[i] = a[i+1]*x0 + b, b = c;
+    for (int i = n--; i--; ) c = a[i], a[i] = a[i+1]*x0+b, b = c;
     a.pop_back();
   }
 };

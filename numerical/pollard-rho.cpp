@@ -11,14 +11,14 @@
 #include "mulmod.h"
 
 template <class T>
-inline T pollard_step(T x, T N) {    /* calculates x^2+1 (mod N) */
+inline T pollard_step(T x, T N) { /* calc x^2+1 (mod N) */
   T r = mulmod(x, x, N);
   if (++r == N) r = 0;
   return r;
 }
 
-/* Returns a non-trivial factor of N, if any.  (Note that if N is
- * prime, pollard_rho never returns, so this should be checked first.) */
+/* Returns a non-trivial factor of N. (Note that if N is
+ * prime, pollard_rho never returns) */
 template <class T>
 inline T pollard_rho(T N, int maxiter = 500) {
   T x = random() % N, y = x;

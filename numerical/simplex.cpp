@@ -44,7 +44,8 @@ simplex_res simplex(M &a, I &var, int m, int n, int twophase=0) {
 }
 
 template <class M, class I>
-simplex_result twophase_simplex(M &a, I &var, int m, int n, int artificial) {
+simplex_res twophase_simplex(M &a, I &var, int m, int n,
+			     int artificial) {
   // Save primary objective, clear phase I objective
   for (int j = 0; j <= n + artificial; ++j)
     a[m + 1][j] = a[0][j], a[0][j] = 0;
