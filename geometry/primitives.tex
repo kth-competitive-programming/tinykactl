@@ -1,24 +1,77 @@
 \problemtitle{Geometric primitives}
-\begin{algorithm}{Geometry}
+\begin{algorithm}{$\pi$, sqr, point and line}
 \reflisting{geometry}
+
+The recomended way of defining pi in contests. \\
+The useful {\tt sqr} function. \\
+A very simple point struct.
+Normally one should use the one in {\tt point.cpp}. \\
+A line struct.
+\end{algorithm}
+
+\begin{algorithm}{Point}
+\reflisting{point}
+
+A point struct with comparison, difference, inverse scaling, dot and
+scalar cross product.
+\end{algorithm}
+
+\begin{algorithm}{Point operations}
+\reflisting{point ops}
+
+The operations {\tt dist2, dx, dy, dz, dist, angle, theta, unit, perm, normal}
+on points. Theta is a rational meta-angle function in the rangle $(-2,2]$.
+\end{algorithm}
+
+\begin{algorithm}{Point 3D}
+\reflisting{point3}
+
+A 3D point struct with comparison, difference, inverse scaling, dot and
+vector cross product.
 \end{algorithm}
 
 \begin{algorithm}{Inside polygon}
 \reflisting{inside}
+
+Determine whether a point is inside a polygon. If it is on an edge,
+standard computer graphics rules determine the returned value (inside above
+and to the left of the polygon, but not below or to the right).
+This is usually \emph{not} the desired behaviour in contest geometry problems.
 \end{algorithm}
 
 \begin{algorithm}{Winding number}
 \reflisting{winding number}
+
+Theta meta-angle winding number of a point.
 \end{algorithm}
 
-\begin{algorithm}{Point-line and range intersections}
+\begin{algorithm}{Point-line relations}
 \reflisting{point line}
+
+Determines which side of a line a point is and whether a point is on a line
+segment.
+\end{algorithm}
+
+\begin{algorithm}{Line intersection}
+\reflisting{line isect}
+
+Intersection point between two lines.
+\end{algorithm}
+
+\begin{algorithm}{Interval intersection}
+\reflisting{interval}
+
+Intersection between two intervals or rectangles.
 \end{algorithm}
 
 \begin{algorithm}{Poly area}
 \reflisting{poly area}
+
+The area of a polygon calculated by adding trapezium areas.
 \end{algorithm}
 
 \begin{algorithm}{Center of mass}
 \reflisting{center of mass}
+
+Polygon center of mass.
 \end{algorithm}

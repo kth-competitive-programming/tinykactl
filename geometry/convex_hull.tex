@@ -3,29 +3,60 @@
 \begin{algorithm}{Graham scan}
 \reflisting{convex hull}
 \complexity{n\log(n)}
+\usage{{\tt convex\_hull(points p, idx, int n)}}
+
+Fills the index vector {\tt idx} with indeces to the point vector {\tt p},
+returning the number of points in the hull.
+\characteristics{Does not handle colinear points on the hull consistently}
 \end{algorithm}
 
-\begin{algorithm}{Extended graham scan}
+\begin{algorithm}{Graham scan, all hull points}
 \reflisting{convex hull robust}
 \complexity{n\log(n)}
+
+Like {\tt convex\_hull}, but ensures all colinear hull points are included.
+\characteristics{Perfect, but does not handle fewer than three points}
 \end{algorithm}
 
 \begin{algorithm}{Three dimensional hull}
 \complexity{n^2}
 \reflisting{convex hull space}
+
+\usage{{\tt convex\_hull\_space(points p, int n, list<ABC> \&trilist)}}
+
+{\tt trilist} is a list of ABC-tripples of indices of vertices in the 3D
+point vector {\tt p}.
+\characteristics{Requires the hull to have positive volume. Arbitrarily
+triangulates the surface of the hull.}
 \end{algorithm}
 
 \begin{algorithm}{Point inside hull}
 \reflisting{inside hull}
 \complexity{\log(n)}
+\usage{{\tt inside\_hull(hull p, int n, point t)}}
+
+Determine whether a point {\tt t} lies inside the hull given by the
+point vector {\tt p}.
 \end{algorithm}
 
 \begin{algorithm}{Hull diameter}
 \reflisting{hull diameter}
 \complexity{n}
+\usage{{\tt hull\_diameter2(hull p, int n, \&i1, \&i2)}}
+
+Determine the points that are farthest apart in a hull.
+{\tt i1, i2} will be the indices to those points after the call.
+The squared distance is returned.
 \end{algorithm}
 
 \begin{algorithm}{Line-hull intersect}
 \reflisting{line hull intersect}
 \complexity{\log(n)}
+\usage{
+{\tt line\_hull\_intersect(hull p, int n, point p1, point p2, \&s1, \&s2)}}
+
+Determine the intersection points of a hull with a line.
+{\tt p1, p2, s1, s2} will be the intersection points and indices to the hull
+line segments that intersect after the call. Returns whether there is an
+intersection.
 \end{algorithm}

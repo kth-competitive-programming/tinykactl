@@ -4,14 +4,24 @@
 
 \xinput{primitives}
 \xinput{convex_hull}
+
+\problemtitle{Minimum enclosing circle}
+
 \xinput{voronoi_diagrams}
 
 \problemtitle{Nearest Neighbour}
 \begin{algorithm}{Divide and conquer}
 \reflisting{closest pair}
+\complexity{n\log n}
+\usage{{\tt closestpair( points p, int n, \&i1, \&i2 )}}
+
+{\tt i1, i2} are the indices to the closest pair of points in the point
+vector {\tt p} after the call. The distance is returned.
 \end{algorithm}
 \begin{algorithm}{Simpler method}
 \reflisting{closest pair simple}
+\complexity{n^2 \textrm{ (average $n$)}}
+\usage{{\tt closestpair( points p, int n, \&i1, \&i2 )}}
 \end{algorithm}
 
 %\problemtitle{Triangulation}
@@ -19,18 +29,19 @@
 %\problemtitle{Point location}
 %\problemtitle{Polygon partitioning}
 %\problemtitle{Maintaining line arrangements}
-%\problemtitle{Minkowski sum}
-%Have a look at {\tt java.awt.geom}!
 
 \begin{sourceslandscape}
-\code{geometry}{geometry.h}
 
 \subsection*{Primitives}
+\code{geometry}{geometry.h}
 \code{point}{point}
+\code{point ops}{point_ops}
 \code{point3}{point3}
 \code{inside}{inside}
 \code{winding number}{winding_number}
 \code{point line}{pointline}
+\code{line isect}{lineisect}
+\code{interval}{interval}
 \code{poly area}{polyarea}
 \code{center of mass}{centerofmass}
 
