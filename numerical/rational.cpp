@@ -7,8 +7,6 @@
  */
 
 #include <iostream>
-using namespace std;
-
 #include "gcd.cpp"
 
 template <class T>
@@ -112,13 +110,16 @@ istream &read_frac(istream &in, rational<T> &r) {
 
 template <class T>
 istream &read_dec(istream &in, rational<T> &r) {
-  T i, f(0); 
+  T i, f(0), z(1); 
   in >> i;
   if (in.peek() == '.') {
-    char c; in >> c >> f;
+    char c; in >> c;
+    while (in.peek() == '0') { in >> c; z *= 10; }
+    if (in.peek() >= '0' && in.peek() <= '9') in >> f;
   }
   r.d = T(1);
   while (r.d <= f) r.d *= 10;
+  r.d *= z;
   r.n = i*r.d + f;
   r.normalize();
   return in;
