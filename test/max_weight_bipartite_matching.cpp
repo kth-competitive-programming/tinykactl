@@ -54,8 +54,10 @@ bool solve(int P) {
 
   int max_weight;
   vector< int > match_b(tot_miss);
+  //  max_weight_bipartite_matching( edges, 8*u, tot_miss, match_b,
+  //  				 max_weight, false );
   max_weight_b_m_of_max_card( edges, 8*u, tot_miss, match_b, max_weight );
-  //  vector< int > match_b(8*u);
+  //vector< int > match_b(8*u);
   //  max_weight_bipartite_matching(edges, 8*u, 8*u, match_b, max_weight,true);
   cout << -max_weight << endl;
   return true;

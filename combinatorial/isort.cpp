@@ -16,15 +16,16 @@
 #include <algorithm>
 #include "indexed_comparator.cpp"
 
-// R, I are RandomAccessIterators to objects/int.
-template<class R, class I, class C>
-void isort( const R &array, int n, I indexlist, C comp ) {
+// V is a datastructure (vector) or RAI.
+// I is RandomAccessIterator to objects/int.
+template<class V, class I, class C>
+void isort( const V &array, int n, I indexlist, C comp ) {
   for( int i=0; i<n; i++ )
     indexlist[i] = i;
-  sort( indexlist+0, indexlist+n, indexed_comparator<R,C>(array, comp) );
+  sort( indexlist+0, indexlist+n, indexed_comparator<V,C>(array, comp) );
 }
 
-template<class R, class S>
-void isort( const R &array, int n, S indexlist ) {
-  isort( array, n, indexlist, less<typename iterator_traits<R>::value_type>());
+template<class V, class I>
+void isort( const V &array, int n, I indexlist ) {
+  isort( array, n, indexlist, less<typename iterator_traits<V>::value_type>());
 }
