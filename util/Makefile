@@ -26,6 +26,6 @@ linecode: linecode.cpp linecodesafe.cpp
 	g++ -o linecode linecodesafe.cpp
 
 LGSTRIP=header
-SUMSTRIP=header
+SUMSTRIP=header comments
 UTIL=.
 include $(UTIL)/makecode
