@@ -130,6 +130,11 @@ public:
     // Remainder = dividend
     rem.set( *this, l+1 );
 
+    if( l < d.l ) {
+      quot.set( 0, 1 );
+      return;
+    }
+
     // Quotient = 0
     quot.set( 0, (l-d.l+1) );
 
