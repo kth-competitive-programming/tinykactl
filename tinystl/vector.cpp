@@ -17,16 +17,17 @@ struct vector {
   typedef T value_type;
   typedef T *iterator;
   typedef const T *const_iterator;
+  typedef vector S;
 
   vector( int _n=0, const T &val=T() ) {
     n = a = _n;
     b = new T[a];
     fill( b, b+n, val );
   }
-  ~vector() { delete b; }
-  vector<T> &operator=( const &vector<T> x ) {
+  ~vector() { delete[] b; }
+  S &operator=( const S &x ) {
     resize(x.n); copy(x.begin(),x.end(),begin());
-    return this;
+    return *this;
   }
 
   T *begin() { return b; }
@@ -50,7 +51,7 @@ struct vector {
     int off = pos-b;
     resize( n+num );
     copy_backward( b+off, b+n-num, b+n );
-    fill( b+off, num, v );
+    fill_n( b+off, num, v );
     return b+off;
   }
   T *erase( T *pos ) { copy(pos+1,end(),pos); n--; return pos; }
@@ -64,12 +65,12 @@ struct vector {
 	T *bn = new T[a=2*ns];
 	copy( b, b+n, bn );
 	delete[] b;
-	b = bn;	a = 2*ns;
+	b = bn;
       }
       while( n<ns ) b[n++] = v;
     }
   }
-  void swap( vector<T> &x ) { swap(b,x.b); swap(n,x.n); swap(a,x.a); }
+  void swap( S &x ) { swap(b,x.b); swap(n,x.n); swap(a,x.a); }
 };
 
 template<class T>
