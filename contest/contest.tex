@@ -13,13 +13,12 @@
 
 \problemtitle{Mandatory contest material}
 
-\begin{algorithm}{Problem assessment sheet}
-\usage{}
-\end{algorithm}
+%\begin{algorithm}{Problem assessment sheet}
+%\end{algorithm}
 
 \begin{algorithm}{Template}
 \reflisting{Template}
-\usage{}
+\desc
 Standard problem template. Problems are classified as either of:
   \begin{description}
   \item{simple-solve} -- Number of test cases is 1.
@@ -46,6 +45,32 @@ Standard problem template. Problems are classified as either of:
   \end{description}
 \end{algorithm}
 
+\begin{algorithm}{Emacs Key Bindings}
+\reflisting{contest-keys.el}
+\reflisting{contest-extras.el}
+\usage{\sourceline{ M-x load-file RET contest-keys.el }}
+\usage{\sourceline{ M-x load-file RET contest-extras.el }}
+\desc
+contest-keys.el provides useful key bindings for Emacs.
+\begin{description}
+\item{C-x C-f} -- New file (overloads the usual find-file, uses Template.cc)
+\item{C-c c} -- Compile (uses compile command as specified in c-lite.el)
+\item{C-c t} -- Test solution (using ``\texttt{FILE < FILE.in}''. The
+commented line is for testing using ``\texttt{FILE}'', i.e. when files
+are used instead of stdio)
+\item{C-c s} -- Submit solution (using ``\texttt{submit FILE.cc}'')
+\end{description}
+contest-extras.el contains some additional key-bindings
+\begin{description}
+\item{C-c p} -- Print current file with line numbers.
+\item{C-c d} -- Run program on input and diff with output.
+\item{C-c g} -- Goto line (useful for fixing compilation errors).
+\end{description}
+\end{algorithm}
+
+
+\problemtitle{Optional contest material}
+
 \begin{algorithm}{adler}
 \reflisting{adler}
 \usage{\sourceline{ adler < code.cpp }}
@@ -55,8 +80,6 @@ All source code listings in this document have their checksum attached,
 calculated after comments and preprocessor directives have been stripped off
 (except for preprocessor directives in the code library utilities themselves).
 \end{algorithm}
-
-\problemtitle{Optional contest material}
 
 \begin{algorithm}{linecode}
 \reflisting{linecode}
@@ -73,33 +96,20 @@ the error might be.
 \reflisting{xor} -- A simple xor calculator.
 \end{algorithm}
 
-\begin{algorithm}{Emacs Key Bindings}
-\reflisting{contest-keys.el}
-\usage{\sourceline{ M-x load-file RET contest-keys.el }}
-contest-keys.el provides useful key bindings for Emacs.
-\begin{description}
-\item{C-x C-f} -- New file (overloads the usual find-file, uses Template.cpp)
-\item{C-c C-c} -- Compile (uses compile command as specified in c-lite.el)
-\item{C-c C-t} -- Test solution (using ``\texttt{FILE < FILE.in}''. The
-commented line is for testing using ``\texttt{FILE}'', i.e. when files
-are used instead of stdio)
-\item{C-c C-s} -- Submit solution (using ``\texttt{submit FILE.cc}'')
-\end{description}
-\end{algorithm}
-
-
 \begin{sourceslandscape}
 
 \sourcesection{Practice Session}
-\code{checklist}{checklist}
+\code{checklist}{checklist.nada}
 \code{uskey}{us_key.modmap}
 
 \sourcesection{Mandatory Contest Material}
 \code{Template}{Template}
-\code{adler}{../util/adler}
 \code{script}{script}
+\code{contest-keys.el}{contest-keys.el}
+\code{contest-extras.el}{contest-extras.el}
 
 \sourcesection{Optional Contest Material}
+\code{adler}{../util/adler}
 \code{linecode}{../util/linecode}
 \code{xor}{../util/xor}
 \begin{verbatim}
@@ -121,5 +131,4 @@ xor table:
  e f c d a b 8 9 6 7 4 5 2 3 0 1
  f e d c b a 9 8 7 6 5 4 3 2 1 0
 \end{verbatim}
-\code{contest-keys.el}{contest-keys.el}
 \end{sourceslandscape}
