@@ -47,7 +47,19 @@ triangulates the surface of the hull.}
 \usage{{\tt inside\_hull(hull p, int n, point t)}}
 
 Determine whether a point {\tt t} lies inside the hull given by the
-point vector {\tt p}.
+point vector {\tt p}. The hull should not contain colinear points. A hull with
+2~points are ok. The result is given as: 1~inside, 0~onedge, -1~outside.
+\end{algorithm}
+
+\begin{algorithm}{Point inside hull simple}
+\reflisting{inside hull simple}
+\complexity{n}
+\usage{{\tt inside\_hull\_simple(It begin, It end, point t)}}
+
+Determine whether a point {\tt t} lies inside the hull given by
+begin and end. Colinear points are ok. If duplicate points exists, it will
+return \emph{onedge} when it is inside. The hull must have at least one point.
+The result is given as: 1~inside, 0~onedge, -1~outside.
 \end{algorithm}
 
 \begin{algorithm}{Hull diameter}
