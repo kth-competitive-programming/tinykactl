@@ -29,19 +29,6 @@ Standard problem template. Problems are classified as either of:
   \end{description}
 \end{algorithm}
 
-\begin{algorithm}{c-lite.el}
-  \reflisting{c-lite.el}
-  \usage{\sourceline{ M-x load-file RET c-lite.el }}
-
-  c-lite.el provides useful key bindings for Emacs.
-  \begin{description}
-  \item{C-x C-f} -- New file (overloads the usual find-file, uses Template.cpp)
-  \item{C-c C-c} -- Compile (uses compile command as specified in c-lite.el)
-  \item{C-c C-t} -- Test solution (using ``\texttt{FILE < FILE.in}''. The commented line is for testing using ``\texttt{FILE}'', i.e. when files are used instead of stdio)
-  \item{C-c C-s} -- Submit solution (using ``\texttt{submit FILE.cc}'')
-  \end{description} 
-\end{algorithm}
-
 \begin{algorithm}{Script}
   \reflisting{script}
   \usage{\sourceline{ sh script }}
@@ -59,8 +46,6 @@ Standard problem template. Problems are classified as either of:
   \end{description}
 \end{algorithm}
 
-\problemtitle{Optional contest material}
-
 \begin{algorithm}{adler}
 \reflisting{adler}
 \usage{\sourceline{ adler < code.cpp }}
@@ -70,6 +55,8 @@ All source code listings in this document have their checksum attached,
 calculated after comments and preprocessor directives have been stripped off
 (except for preprocessor directives in the code library utilities themselves).
 \end{algorithm}
+
+\problemtitle{Optional contest material}
 
 \begin{algorithm}{linecode}
 \reflisting{linecode}
@@ -85,6 +72,21 @@ the error might be.
 \begin{algorithm}{xor}
 \reflisting{xor} -- A simple xor calculator.
 \end{algorithm}
+
+\begin{algorithm}{Emacs Key Bindings}
+\reflisting{contest-keys.el}
+\usage{\sourceline{ M-x load-file RET contest-keys.el }}
+contest-keys.el provides useful key bindings for Emacs.
+\begin{description}
+\item{C-x C-f} -- New file (overloads the usual find-file, uses Template.cpp)
+\item{C-c C-c} -- Compile (uses compile command as specified in c-lite.el)
+\item{C-c C-t} -- Test solution (using ``\texttt{FILE < FILE.in}''. The
+commented line is for testing using ``\texttt{FILE}'', i.e. when files
+are used instead of stdio)
+\item{C-c C-s} -- Submit solution (using ``\texttt{submit FILE.cc}'')
+\end{description}
+\end{algorithm}
+
 
 \begin{sourceslandscape}
 
@@ -119,5 +121,5 @@ xor table:
  e f c d a b 8 9 6 7 4 5 2 3 0 1
  f e d c b a 9 8 7 6 5 4 3 2 1 0
 \end{verbatim}
-\code{c-lite.el}{c-lite.el}
+\code{contest-keys.el}{contest-keys.el}
 \end{sourceslandscape}
