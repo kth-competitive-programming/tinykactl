@@ -6,19 +6,19 @@
  *   By David Rydh
  */
 
-template<class V, class T>
-void floyd_warshall( V &adj, T &path, int n ) {
+template<class V1, class V2, class T = int>
+void floyd_warshall( V1 &adj, V2 &path, int n, T inf = T(1<<29) ) {
   for( int x=0; x<n; x++ )
     for( int y=0; y<n; y++ )
-      paths[x][y] = -1;
+      path[x][y] = y;
 
   for( int m=0; m<n; m++ )
     for( int x=0; x<n; x++ )
-      if( adj[x][m] >= 0 )
+      if( adj[x][m] < inf )
 	for( int y=0; y<n; y++ )
-	  if( adj[m][y] >= 0 )
-	    if( adj[x][y]<0 || adj[x][m] + adj[m][y] < adj[x][y] ) {
+	  if( adj[m][y] < inf )
+	    if( adj[x][m] + adj[m][y] < adj[x][y] ) {
 	      adj[x][y] = adj[x][m] + adj[m][y];
-	      paths[x][y] = m;
+	      path[x][y] = m;
 	    }
 }
