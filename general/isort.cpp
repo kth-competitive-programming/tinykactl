@@ -13,15 +13,20 @@
  *   David Rydh, Mattias de Zalenski, Fredrik Niemel?
  *
  *****************************************************************************/
+#include <algorithm>
+#include "indexed_comparator.cpp"
 
-#include <functional>
+// R, I are RandomAccessIterators to objects/int.
+template<class R, class I, class C>
+void isort( const R &array, int n, I indexlist, C comp ) {
+  for( int i=0; i<n; i++ )
+    indexlist[i] = i;
+  sort( indexlist+0, indexlist+n, indexed_comparator<R,C>(array, comp) );
+}
 
-template<class R, class I> // R is a random_access_iterator to a T-array
-                           // I is a r_a_i to a const index-array
-struct indexed {
-  typedef typename iterator_traits<R>::value_type T;
-  R array; I index;
-  indexed( R &a, I &i ) : array(a), index(i) { }
-  T &operator[]( int i ) { return array[index[i]]; }
-  const T & operator[]( int i ) const { return array[index[i]]; }
-};
+template<class R, class S>
+void isort( const R &array, int n, S indexlist ) {
+  isort( array, n, indexlist, less<iterator_traits<R>::value_type>() );
+}
+
+#endif
