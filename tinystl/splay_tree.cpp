@@ -1,71 +1,62 @@
-#include "utility.cpp"
+/* KTH ACM Contest Template Library
+ *
+ * tinystl/balanced trees/splay tree
+ *
+ * Credit:
+ *   Based on paper by Tarjan
+ *   By Mattias de Zalenski
+ */
 
 template <class T>
 struct splay_node {
-  typedef splay_node<T> sT;
-  T x; sT *left, *right, *parent;
-  splay_node(T _x, sT *l = 0, sT *r = 0, sT *p = 0)
-    : x(_x), left(l), right(r), parent(p) {
-    if (l) l->parent = this;
-    if (r) r->parent = this;
-  }
+  typedef splay_node<T> *P;
+  T x; P l, r, p;
+  splay_node(T _x, P _l=0, P _r=0) : x(_x), l(_l), r(_r), p(0) { }
+  P &c(bool left) { return left ? l : r; } // child pointer reference
 };
 
 template <class T>
 struct splay_tree {
+  typedef splay_node<T> *P;
   typedef T value_type;
-  typedef splay_node<T> sT;
-  typedef sT *iterator;
-  sT *root; splay_tree() : root(0) { }
-  static void rot(iterator i, bool left) {
-    iterator p = i->parent;
-    iterator j = left ? i->right : i->left;
-    iterator k = left ? j->left : j->right;
-    if (p) if (p->left == i) p->left = j; else p->right = j;
-    j->parent = p;
-    i->parent = j;
-    if (left) i->right = k; else i->left = k;
-    if (left) j->left = i; else j->right = i;
-    if (k) k->parent = i;
+  typedef P iterator;
+  P root; splay_tree() : root(0) { }
+  static void rot(P i, bool left) {
+    P j = i->c(!left), p = i->p;
+    if (p) p->c(i == p->l) = j;
+    j->p = i->p; i->p = j;
+    if (left) i->r = j->l, j->l = i;
+    else /**/ i->l = j->r, j->r = i;
+    j = i->c(!left); if (j) j->p = i;
   }
-  static iterator splay(iterator i) {
-    if (i) {
-      iterator pp;
-      for (iterator p = i->parent; p; i = p, p = pp) {
-	pp = p->parent;
-	if (i == p->left) {
-	  //if (pp && p == pp->left) rot(pp, false);
-	  rot(p, false); p = i;
-	}
-	else {
-	  //if (pp && p == pp->right) rot(pp, true);
-	  rot(p, true); p = i;
-	}
+  static P splay(P i) {
+    if (i)
+      while (i->p) {
+	P p = i->p, g = p->p;
+	bool left = i == p->l;
+	if (g && p == g->c(left)) rot(g, !left);
+	rot(p, !left);
       }
-    }
     return i;
   }
-  typedef pair<iterator, iterator> Pii;
-  static Pii split(iterator i) {
-    i = splay(i);
-    iterator j = i->right;
-    i->right = 0;
-    if (j) j->parent = 0;
-    return Pii(i, j);
+  static void split(P i, P &l, P &r) {
+    l = splay(i);
+    r = l->r; l->r = 0;
+    if (r) r->p = 0;
   }
-  static iterator join(iterator i, iterator j) {
-    while (i->right) rot(i, false);
-    i->right = j;
-    if (j) j->parent = i;
-    return i;
+  static void join(P l, P r, P &i) {
+    if (l) while (l->r) rot(l, true), l = l->p;
+    if (l) l->r = r; if (r) r->p = l;
+    i = l ? l : r;
   }
   bool empty() { return root == 0; }
   iterator find(const T &x) {
-    iterator p = root, i = root;
+    P p = root, i = root;
     while (i) {
       p = i;
-      if (x < i->x) i = i->left;
-      else if (x > i->x) i = i->right;
+      if (x < i->x) i = i->l;
+      else if (x > i->x) i = i->r;
+      //else if (i->l && x >= i->l->x) i = i->l; // for duplicate keys
       else break;
     }
     root = splay(p);
@@ -73,18 +64,20 @@ struct splay_tree {
   }
   void insert(const T &x) {
     if (root) {
+      //while (i) p = i, i = p->c(x < p->x);
       find(x);
-      Pii pii = split(root);
-      root = new sT(x, pii.first, pii.second);
+      P l, r; split(root, l, r);
+      root = new splay_node<T>(x, l, r);
+      if (l) l->p = root;
+      if (r) r->p = root;
     }
     else
-      root = new sT(x);
+      root = new splay_node<T>(x);
   }
-  void erase(const T &x) {
-    find(x);
-    iterator i = root;
-    root = join(i->left, i->right);
-    if (root) root->parent = 0;
+  void erase(iterator i) {
+    splay(i);
+    join(i->l, i->r, root);
+    if (root) root->p = 0;
     delete i;
   }
 };
