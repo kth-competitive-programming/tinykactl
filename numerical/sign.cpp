@@ -3,7 +3,7 @@
  * Numerical/Numbers/Sign extend
  *
  * Credit:
- *   By David Rydh, Mattias de Zalenski, Fredrik Niemelä
+ *   By Mattias de Zalenski, Per Austrin, Fredrik Niemelä
  */
 
 template <class T>
@@ -32,3 +32,13 @@ struct sign {
 
 template <class T>
 sign<T> abs(const sign<T> &s) { return sign<T>(s.x, false); }
+
+template <class T>
+istream &operator >>(istream &in, sign<T> &s) {
+  char c; in >> c; s.neg = c == '-'; if (!s.neg) in.unget(); in >> s.x;
+}
+
+template <class T>
+ostream &operator <<(ostream &out, const sign<T> &s) {
+  if (s.neg && s.x < T()) out << '-'; out << s.x;
+}

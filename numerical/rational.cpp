@@ -6,19 +6,15 @@
  *   By Fredrik Niemelä
  */
 
-#include <iostream>
 #include "gcd.cpp"
 
 template <class T>
 struct rational {
   T n, d;
-  rational(T _n=T(), T _d=T(1)) : n(_n), d(_d) {
-    normalize();
-  }
+  rational(T _n=T(), T _d=T(1)) : n(_n), d(_d) { normalize(); }
   void normalize() {
+    T f = gcd(n, d); n /= f; d /= f;
     if (d < T()) n *= -1, d *= -1;
-    T f = n < T() ^ d < n ? gcd(n, d) : gcd(d, n);
-    n /= f; d /= f;
   }
   bool operator <(const rational<T> &r) const { return n*r.d < d*r.n; }
   bool operator ==(const rational<T> &r) const { return n*r.d == d*r.n; }
