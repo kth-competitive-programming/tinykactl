@@ -7,8 +7,6 @@
  * # cmp/add/sub
  * # multiplication [dependancy: addition]
  * # division and modulo [dependancy for arbitrary denominator: add, sub]
- * # exponentiation [dependancy: multiplication]
- * # find n:th root of (SLOW) [dependancy: exp., division, comparison]
  * # grows dynamically when In Need.
  *
  * What's bad?
@@ -45,7 +43,7 @@
 #define LSIZE 1000000000 /* 10^9 */
 #define LIMBDIGS 9
 
-typedef long long limb;  /* for subtraction to work properly, limb needs to be signed */
+typedef long long limb;
 typedef vector<limb> bigint;
 typedef bigint::const_iterator bcit;
 typedef bigint::reverse_iterator brit;
@@ -60,8 +58,7 @@ bigint BigInt(limb i) {
 }
 
 istream& operator>>(istream& i, bigint& n) {
-  string s;
-  i >> s;
+  string s;  i >> s;
   int l = s.length();
   n.clear();
   while (l > 0) {
@@ -74,7 +71,8 @@ istream& operator>>(istream& i, bigint& n) {
   return i;
 }
 
-/* Warning: the ostream must be configured to print things with right justification, lest output be ooky */
+/* Warning: the ostream must be configured to print things
+ * with right justification, lest output be ooky */
 ostream& operator<<(ostream& o, const bigint& n) {
   int began = 0, ofill = o.fill();
   o.fill('0');
@@ -101,37 +99,37 @@ int cmp(const bigint& n1, const bigint& n2) {
 }
 
 /* The other operators will be automatically defined by STL */
-bool operator==(const bigint& n1, const bigint& n2) { return !cmp(n1,n2); }
-bool operator<(const bigint& n1, const bigint& n2) { return cmp(n1,n2) < 0; }
+bool operator==(const bigint& n1, const bigint& n2) { 
+  return !cmp(n1,n2); }
+bool operator<(const bigint& n1, const bigint& n2) { 
+  return cmp(n1,n2) < 0; }
 
 bigint& operator+=(bigint& a, const bigint& b) {
   if (a.size() < b.size()) a.resize(b.size());
-  limb cy = 0;
-  bit i = a.begin();
-  for (bcit j = b.begin(); i != a.end() && (cy || j < b.end()); ++j, ++i)
-    cy += *i + (j < b.end() ? *j : 0), *i = cy % LSIZE, cy /= LSIZE;
+  limb cy = 0; bit i = a.begin();
+  for (bcit j = b.begin(); i != a.end() && 
+	 (cy || j < b.end()); ++j, ++i)
+    cy += *i + (j < b.end() ? *j : 0), 
+      *i = cy % LSIZE, cy /= LSIZE;
   if (cy) a.push_back(cy);
   return a;
 }
 
-/* Returns true if sign changed */
-bool sub(bigint& a, const bigint& b) {
+bool sub(bigint& a, const bigint& b) { /* Ret sign changed */
   if (a.size() < b.size()) a.resize(b.size());
-  limb cy = 0;
-  bit i = a.begin();
-  for (bcit j = b.begin(); i != a.end() && (cy || j < b.end()); ++j, ++i) {
+  limb cy = 0; bit i = a.begin();
+  for (bcit j = b.begin(); i != a.end() && 
+	 (cy || j < b.end()); ++j, ++i) {
     *i -= cy + (j < b.end() ? *j : 0);
     if ((cy = *i < 0)) *i += LSIZE;
   }
-  /* If sign changed, flip all digits.  These 3 lines can be ignored if it's known that the
-   * sign won't change, e.g. when using bigint in conjunction with sign.cpp, in the divmod
-   * method, or in many combinatorial counting problems. */
-  if (cy)
-    while (i-- > a.begin())
-      *i = LSIZE - *i;
+  if (cy) /* Only if sign may change. */
+    while (i-- > a.begin()) *i = LSIZE - *i;
   return cy;
 }
-bigint& operator-=(bigint& a, const bigint& b) { sub(a, b); return a; }
+
+bigint& operator-=(bigint& a, const bigint& b) { 
+  sub(a, b); return a; }
 
 bigint& operator*=(bigint& a, limb b) {
   limb cy = 0;
@@ -159,37 +157,34 @@ bigint& divmod(bigint& a, limb b, limb* rest = NULL) {
   return a;
 }
 
-/* a will hold a % b (and is returned), quo will hold floor(a/b).
- * NB!! different semantics from one-limb divmod!!     NB!! quo should be different from a!! */
-bigint& divmod(bigint& a, const bigint& b, bigint* quo = NULL) {
+/* returns a, holding a % b, quo will hold floor(a/b).
+ * NB!! different semantics from one-limb divmod!!     
+ * NB!! quo should be different from a!! */
+bigint& divmod(bigint& a, const bigint& b, bigint* quo=NULL) {
   bigint den = b;
   brit j = den.rbegin(), i = a.rbegin();
   for ( ; j != den.rend() && !*j; ++j);
   for ( ; i != a.rend() && !*i; ++i);
   int n = a.rend() - i, m = den.rend() - j;
   if (!m) { /* Division by zero! */ abort(); }
-  if (m == 1) {    /* If divisor is limbsized, resort to regular linear-time divmod. */
+  if (m == 1) {
     bigint q;
     return (quo ? *quo : q) = a, a.resize(1), 
       divmod(quo ? *quo : q, *j, &a.front()), a;
   }
   
   bigint tmp;
-  /* Use first two digits for a good estimate of the quotient. (Though this function could
-   * probably be a lot shorter if we just used one digit instead)  */
   limb den0 = (*++j + *--j * LSIZE) + 1;
   if (quo) quo->clear();
-  while (a >= den) {                /* Loop invariant: quo * den + a = num */
+  while (a >= den) { /* Loop invariant: quo * den + a = num */
     limb num0 = (*++i + *--i * LSIZE), z = num0 / den0, cy = 0;
-    if (z == 0 && n == m) z = 1;    /* Silly degenerate case */
+    if (z == 0 && n == m) z = 1;/* Silly degenerate case */
     tmp.resize(n - m - !z);
-    if (!z) z = num0 / (*j + 1);    /* Non-silly degenerate case */
-    if (quo) tmp.push_back(z), *quo += tmp, tmp.pop_back(); /* Set tmp = z * b^(n-m) and add to quot. */
-    for (bcit j = den.begin(); j != den.end(); ++j)         /* Set tmp = den * z * b^(n-m)  */
+    if (!z) z = num0 / (*j + 1);/* Non-silly degenerate case*/
+    if (quo) tmp.push_back(z), *quo += tmp, tmp.pop_back(); 
+    for (bcit j = den.begin(); j != den.end(); ++j)
       cy += *j * z, tmp.push_back(cy % LSIZE), cy /= LSIZE;
     if (cy) tmp.push_back(cy);
-    /* Note that we rely on the important fact that tmp doesn't have more limbs than a, so that
-     * a won't be resized, and the iterator i will still valid. */
     if (tmp.size() > a.size()) tmp.resize(a.size());
     sub(a, tmp);
     while (i != a.rend() && !*i) --n, ++i;
@@ -198,10 +193,10 @@ bigint& divmod(bigint& a, const bigint& b, bigint* quo = NULL) {
 }
 
 bigint& operator/=(bigint& a, const bigint& b) {
-  bigint q;
-  return divmod(a, b, &q), a = q;
-}
-bigint& operator%=(bigint& a, const bigint& b) { return divmod(a, b, NULL); }
+  bigint q; return divmod(a, b, &q), a = q; }
+
+bigint& operator%=(bigint& a, const bigint& b) { 
+  return divmod(a, b, NULL); }
 
 bigint& operator/=(bigint& a, limb b) { return divmod(a, b); }
 limb operator%(const bigint& a, limb b) {

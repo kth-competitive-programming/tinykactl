@@ -9,13 +9,8 @@
  *   By David Rydh
  */
 
-template <class T>
-T euclid( T a, T b, T &x, T &y ) {
-  if( b==T(0) )
-    return x = T(1), y = T(0), a;
-  else {
-    T d = euclid( b, a%b, y, x );
-    y -= a/b*x;
-    return d;
-  }
+template <class Z> Z euclid(Z a, Z b, Z &x, Z &y) {
+  if (b) {  Z d = euclid(b, a % b, y, x);
+            return y -= a/b * x, d;  }
+  return x = 1, y = 0, d = a;
 }

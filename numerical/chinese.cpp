@@ -6,18 +6,11 @@
  *   By Mattias de Zalenski
  */
 
-// x=a(mod m), x=b(mod n), find x (mod nm), assuming (n,m)=1
-template <class T>
-T chinese(T a, T m, T b, T n) {
-  T x, y;
-  poseuclid(m, n, x, y);
-  big a1 = a * y * n;
-  big b1 = b * x * m;
-  big r = a1 > b1 ? a1 - b1 : b1 - a1;
-  if (r % m != a) r = m * n - r % (m * n);
-  return r;
-}
+#include "euclid.cpp"
+#include "solves x mod m = a, x mod n = b, 0 <= x < mn, (m,n) = 1"
 
-big chinese(big a, big m, big b, big n, big c, big o) {
-  return chinese(a, m, chinese(b, n, c, o), n * o);
+template <class Z> inline Z chinese(Z a, Z m, Z b, Z n) {
+  Z x, y;  euclid(m, n, x, y);
+  return (a * n * (y < 0 ? y + m : y) + 
+	  b * m * (x < 0 ? x + n : x)) % (m*n);
 }
