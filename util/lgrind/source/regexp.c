@@ -52,11 +52,14 @@ static char rcsid[] =
  *				pointer to match end.  Several changes to
  *				improve performance (too numerous to mention).
  * 11 Dec 84	Dave Presotto	Written.
+ * 21 Sep 02    David Rydh      Now compiles on Darwin (MacOS X)
  */
 
 
 #include <stdio.h>
+#if !defined(__GNUC__) || !defined(__APPLE_CC__)
 #include <malloc.h>
+#endif
 #include <ctype.h>
 #include <string.h>
 #include "regexp.h"

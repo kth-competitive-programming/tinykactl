@@ -15,6 +15,8 @@ static char rcsid[] =
  *
  * This file is something like GPL, though LGrind is BSD.
  * I don't want to become a lawyer.
+ *
+ * 21 Sep 02    David Rydh      Changed return to return NULL in parsevartab
  */
 
 /*
@@ -277,7 +279,7 @@ varsubst *parsevartab(char* fname)
 	char linebuf[201], *cp;
 	varsubst *varsubsts=NULL, *substitem, *substlistpos;
 
-	if (f==NULL) return;
+	if (f==NULL) return NULL;
 	while (!feof(f))
 	{
 		fscanf(f, "%200[^\n]", linebuf);
