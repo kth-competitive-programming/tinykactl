@@ -7,18 +7,18 @@
 
 #include <iostream>
 #include <algorithm>
-//#include <fstream>  // When reading/writing from files
+#include <fstream>  // When reading/writing from files
 //#include <string>
 //#include <map>
 //#include <vector>
 //#include <cmath>
 
 using namespace std;
-#define doubt if (debug) cerr
+#define doubt debug && cerr
 
 void init() {
   // Reading from/writing to other files than stdin/stdout:
-  //cin.rdbuf((new ifstream("___.in"))->rdbuf());
+  cin.rdbuf((new ifstream("___.in"))->rdbuf());
   //cout.rdbuf((new ofstream("___.out"))->rdbuf());
 }
 
