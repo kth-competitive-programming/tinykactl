@@ -4,13 +4,7 @@
  *
  * Credit:
  *   Carl Friedrich Gauss  1+2+...+n = n*(n+1)/2
- *   Based on [Intro to Algorithms, pp. xx-yy,zz]
- *   Variation of [KTH.ACM.CTL. ff.cpp]
- *   Sketch by nn
  *   By Tomas Oppelstrup, tomaso@nada.kth.se
- *   Updated by xx
- *   Thanks to yy
- *   Greetings to hello world!
  *   Dedicated to Fredrik Niemelä
  */
 
