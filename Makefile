@@ -26,11 +26,14 @@ spotless: clean
 index:
 	makeindex lib.idx
 
-ps: lib.ps index always
+getversion:
+	bk changes | head -1 | cut -d @ -f2 | cut -d ' ' -f1,2 > version
 
-pdf: lib.pdf index always
+ps: getversion lib.ps index always
 
-pdfx3: lib.pdfx3 index always
+pdf: getversion lib.pdf index always
+
+pdfx3: getversion lib.pdfx3 index always
 
 lib.ps: libtex always
 	latex lib.tex
