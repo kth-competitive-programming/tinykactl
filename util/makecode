@@ -1,0 +1,28 @@
+# Pers förslag på automatisk target till alla .cpp-filer
+# för att få .lg och .sum
+
+code: koder summor texer
+
+codeclean:
+	rm -f *.lg *.sum
+
+koder: \
+ $(patsubst %.cpp,%.lg,$(wildcard *.cpp)) \
+ $(patsubst SCCS/s.%.cpp,%.lg,$(wildcard SCCS/s.*.cpp))
+
+summor: \
+ $(patsubst %.cpp,%.sum,$(wildcard *.cpp)) \
+ $(patsubst SCCS/s.%.cpp,%.sum,$(wildcard SCCS/s.*.cpp))
+
+texer: \
+ $(wildcard *.tex) \
+ $(patsubst SCCS/s.%.tex,%.tex,$(wildcard SCCS/s.*.tex))
+
+%.lg: %.cpp
+	$(UTIL)/stripcode $(LGSTRIP) < $< | \
+	$(UTIL)/lgrind/source/lgrind -i -d $(UTIL)/lgrind/lgrindef - > $@
+
+%.sum: %.cpp
+	$(UTIL)/stripcode $(SUMSTRIP) < $< | $(UTIL)/adler > $@
+	$(UTIL)/stripcode $(SUMSTRIP) < $< | $(UTIL)/linecode >> $@
+
