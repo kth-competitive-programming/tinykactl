@@ -7,6 +7,7 @@
  *   Based on STL
  *   By Mattias de Zalenski, David Rydh
  */
+#include "associative.cpp"
 
 template <class T, class C = less<T>, bool multi=false,
   class A = associative<T, T, C, multi> >

@@ -117,7 +117,7 @@ struct splay_tree {
       if (c(x, i->x)) i = i->l;
       else if (c(i->x, x)) i = i->r;
       else if (i->c(left) &&
-	       (left?!c(i->c(left)->x, x):!c(x, i->c(left)->x))) // sic
+	       (left ? !c(i->c(left)->x, x) : !c(x, i->c(left)->x))) // sic
 	i = i->c(left);
       else break;
     }

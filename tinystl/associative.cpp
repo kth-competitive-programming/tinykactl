@@ -11,15 +11,15 @@
 //#include "splay_tree.cpp"
 
 template <class K, class V, class C, bool multi,
-	  class P = skip_list<V, C> >
-//class P = splay_tree<V, C> >
+          class P = skip_list<V, C> >
+//          class P = splay_tree<V, C> >
 struct associative: P {
   typedef typename P::iterator iterator; // only necessary when using -pedantic
   typedef K key_type;
   typedef V value_type;
   typedef const V &VR;
   typedef const K &KR;
-  
+
   associative(C c = C()): P(c) {}
   virtual V k2v(KR k) = 0;
 
