@@ -18,6 +18,12 @@ const enum {SIMPLE, FOR, WHILE} mode = NO;
 bool debug = false;
 
 void init() {
+  // when reading from/writing to files
+  freopen("X.in", "r", stdin);
+  freopen("X.out", "w", stdout);
+  // rebinding cin/cout requires include <fstream>
+  cin.rdbuf((new ifstream("Y.in"))->rdbuf()); 
+  cout.rdbuf((new ofstream("Y.out"))->rdbuf());
 }
 
 bool solve(int P) {

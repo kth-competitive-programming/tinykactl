@@ -6,19 +6,35 @@
 
 \codenc{hopcroft karp}{matching/hopcroft_karp}
 
+\begin{algorithm}{Matching transformations}
+\desc
+\em Max weight of maximum cardinality to max weight: \em
+Change each weight to $w \leftarrow \lfloor n/2 \rfloor (w_{max}-w_{min}) + w$.
+
+\em Min weight of maximum cardinality to max weight: \em
+Change weights to $w \leftarrow (\lfloor n/2 \rfloor + 1)(w_{max}-w_{min}) -
+w$
+
+\end{algorithm}
+
 \begin{algorithm}{max weight bipartite matching}
 \complexity{V(E+V^2)}
 \end{algorithm}
 
 \codenc{mwbm}{matching/max_weight_bipartite_matching}
 
-\begin{algorithm}{max weight bipartite matching of maximum cardinality}
-\complexity{V(E+V^2)}
-\end{algorithm}
+%\begin{algorithm}{max weight bipartite matching of maximum cardinality}
+%\complexity{V(E+V^2)}
+%\end{algorithm}
 
-\codenc{mwbm of max card}{matching/max_weight_b_m_of_max_card}
+%\codenc{mwbm of max card}{matching/max_weight_b_m_of_max_card}
 
 \begin{algorithm}{General matching}
 \complexity{V^3}
 \end{algorithm}
 \codenc{edmonds}{matching/edmonds}
+
+\begin{algorithm}{General weighted matching}
+\complexity{V^3}
+\end{algorithm}
+\codenc{weighted matching}{matching/weighted_matching}

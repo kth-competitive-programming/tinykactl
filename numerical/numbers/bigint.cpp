@@ -18,7 +18,7 @@
  *
  * Credit:
  *   By
- *        Per Austrin, pego@kth.se 2002-09-15
+ *        Per Austrin, austrin@kth.se 2002-09-15
  *   Updated by
  *        Per Austrin, Christer Stålstrand, 2002-09-26
  *   Bugfixes (fix in modulo and input/output)
@@ -28,6 +28,8 @@
  *   Update (the long called-for divmod with arbitrary denominator!!
  *           and more code compression of course)
  *        Per Austrin, 2003-09-22
+ *   Update (minor code compression)
+ *        Per Austrin, 2004-10-26
  *
  */
 
@@ -93,8 +95,7 @@ int cmp(const bigint& n1, const bigint& n2) {
   while (x-- > 0) if (*j--) return -1;
   while (++x < 0) if (*i--) return 1;
   for (; i + 1 != n1.begin(); --i, --j)
-    if (*i != *j)
-      return *i-*j;
+    if (*i != *j) return *i-*j;
   return 0;
 }
 
@@ -122,9 +123,8 @@ bool sub(bigint& a, const bigint& b) { /* Ret sign changed */
 	 (cy || j < b.end()); ++j, ++i) {
     *i -= cy + (j < b.end() ? *j : 0);
     if ((cy = *i < 0)) *i += LSIZE;
-  }
-  if (cy) /* Only if sign may change. */
-    while (i-- > a.begin()) *i = LSIZE - *i;
+  } /* Line below only if sign may change. */
+  if (cy) while (i-- > a.begin()) *i = LSIZE - *i;
   return cy;
 }
 
@@ -152,8 +152,7 @@ bigint& divmod(bigint& a, limb b, limb* rest = NULL) {
   limb cy = 0;
   for (brit i = a.rbegin(); i != a.rend(); ++i)
     cy += *i, *i = cy / b, cy = (cy % b) * LSIZE;
-  if (rest)
-    *rest = cy / LSIZE;
+  if (rest) *rest = cy / LSIZE;
   return a;
 }
 

@@ -1,3 +1,11 @@
+/* KTH ACM Contest Template Library
+ *
+ * Numerical/Linear Equations/Gaussian Elimination
+ *
+ * Credit:
+ *   By Per Austrin
+ */
+
 const double undefined = 1.0/0.0;
 const double eps = 1e-12;
 
@@ -14,7 +22,7 @@ solve_linear(int n, double A[N][N], double b[N], double x[N]) {
     double v, bv = abs(A[row[i]][col[i]]);
     for (int r = i; r < n; ++r)
       for (int c = i; c < n; ++c)
-	if ((v = abs(A[row[r]][col[c]])) > bestv)
+	if ((v = abs(A[row[r]][col[c]])) > bv)
 	  br = r, bc = c, bv = v;
     if (bv < eps) break;
     if (i != br) row[i] ^= row[br] ^= row[i] ^= row[br];
