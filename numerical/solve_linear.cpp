@@ -1,14 +1,14 @@
-const double NAN = 0.0/0.0;
-const double EPS = 1e-12;
+const double undefined = 1.0/0.0;
+const double eps = 1e-12;
 
-// Solves A*x = b. Returns rank.
-int solve_linear(int n, double **A, double *b, double *x) {
-  int row[n], col[n], undef[n], invrow[n], invcol[n];
-
+// Solves A*x = b, or as much of x as possible. Returns rank.
+// Data in A and b is lost.
+template <int N> int
+solve_linear(int n, double A[N][N], double b[N], double x[N]) {
+  int row[N], col[N], undef[N], invrow[N], invcol[N], rank = 0;
   for (int i = 0; i < n; ++i)
     row[i] = col[i] = i, undef[i] = false;
   
-  int rank = 0;
   for (int i = 0; i < n; rank = ++i) {
     int br = i, bc = i;
     double v, bv = abs(A[row[i]][col[i]]);
@@ -16,7 +16,7 @@ int solve_linear(int n, double **A, double *b, double *x) {
       for (int c = i; c < n; ++c)
 	if ((v = abs(A[row[r]][col[c]])) > bestv)
 	  br = r, bc = c, bv = v;
-    if (bv < EPS) break;
+    if (bv < eps) break;
     if (i != br) row[i] ^= row[br] ^= row[i] ^= row[br];
     if (i != bc) col[i] ^= col[bc] ^= col[i] ^= col[bc];
     for (int j = i + 1; j < n; ++j) {
@@ -32,10 +32,10 @@ int solve_linear(int n, double **A, double *b, double *x) {
     b[row[i]] /= A[row[i]][col[i]];
     A[row[i]][col[i]] = 1;
     for (int j = rank; j < n; ++j)
-      if (abs(A[row[i]][col[j]]) > EPS)
+      if (abs(A[row[i]][col[j]]) > eps)
 	undef[i] = true;
     for (int j = i - 1; j >= 0; --j) {
-      if (undef[i] && abs(A[row[j]][col[i]]) > EPS)
+      if (undef[i] && abs(A[row[j]][col[i]]) > eps)
 	undef[j] = true;
       else {
 	b[row[j]] -= A[row[j]][col[i]] * b[row[i]];
@@ -47,9 +47,7 @@ int solve_linear(int n, double **A, double *b, double *x) {
   for (int i = 0; i < n; ++i)
     invrow[row[i]] = i, invcol[col[i]] = i;
   for (int i = 0; i < n; ++i)
-    if (invrow[i] >= rank || undef[invrow[i]])
-      b[i] = NAN;   // undefined
-  for (int i = 0; i < n; ++i)
-    x[i] = b[row[decol[i]]];
+    if (invrow[i] >= rank || undef[invrow[i]]) b[i] = undefined;
+  for (int i = 0; i < n; ++i) x[i] = b[row[invcol[i]]];
   return rank;
 }

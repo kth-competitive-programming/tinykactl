@@ -7,10 +7,10 @@
  *   By Mattias de Zalenski
  */
 
-enum simplex_result { OK, UNBOUNDED, NO_SOLUTION };
+enum simplex_res { OK, UNBOUNDED, NO_SOLUTION };
 
 template <class M, class I>
-simplex_result simplex(M &a, I &var, int m, int n, int twophase = 0) {
+simplex_res simplex(M &a, I &var, int m, int n, int twophase=0) {
   while (true) {
     // Choose a variable to enter the basis
     int idx = 0;
@@ -22,7 +22,8 @@ simplex_result simplex(M &a, I &var, int m, int n, int twophase = 0) {
     // Find the variable to leave the basis
     int j = idx; idx = 0;
     for (int i = 1; i <= m; ++i)
-      if (a[i][j] > 0 && (idx == 0 || a[i][0]/a[i][j] < a[idx][0]/a[idx][j]))
+      if (a[i][j] > 0 && 
+	  (idx == 0 || a[i][0]/a[i][j] < a[idx][0]/a[idx][j]))
 	idx = i;
     // Problem unbounded if all a[i][j]<=0
     if (idx == 0) return UNBOUNDED;
@@ -43,7 +44,8 @@ simplex_result simplex(M &a, I &var, int m, int n, int twophase = 0) {
 }
 
 template <class M, class I>
-simplex_result twophase_simplex(M &a, I &var, int m, int n, int artificial) {
+simplex_res twophase_simplex(M &a, I &var, int m, int n,
+			     int artificial) {
   // Save primary objective, clear phase I objective
   for (int j = 0; j <= n + artificial; ++j)
     a[m + 1][j] = a[0][j], a[0][j] = 0;

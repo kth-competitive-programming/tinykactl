@@ -26,28 +26,23 @@
 #include <vector>
 #include <queue>
 
-template <class V, class I>
-bool topo_sort(const V &edges, I &idx, int n) {
-  typedef typename V::value_type::const_iterator E_iter;
-  vector<int> indeg;
-  indeg.resize(n, 0);
+template <class E, class I>
+bool topo_sort(const E *edges, I &idx, int n) {
+  typedef typename E::const_iterator E_iter;
+  vector<int> indeg(n);
   for (int i = 0; i < n; i++)
     for (E_iter e = edges[i].begin(); e != edges[i].end(); e++)
       indeg[*e]++;
-  //queue<int> q;
-  priority_queue<int> q; // **
+  queue<int> q; // use priority_queue for lexic. smallest ans.
   for (int i = 0; i < n; i++)
-    if (indeg[i] == 0)
-      q.push(-i);
+    if (indeg[i] == 0) q.push(-i);
   int nr = 0;
   while (q.size() > 0) {
-    //int i = -q.front();
-    int i = -q.top(); // **
-    idx[i] = nr++;
+    int i = -q.front(); // top() for priority_queue
+    idx[i] = ++nr;
     q.pop();
-    for (E_iter e = edges[i].begin(); e != edges[i].end(); e++)
-      if (--indeg[*e] == 0)
-	q.push(-*e);
+    for (E_iter e = edges[i].begin(); e != edges[i].end(); ++e)
+      if (--indeg[*e] == 0) q.push(-*e);
   }
   return nr == n;
 }

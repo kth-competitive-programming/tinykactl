@@ -1,0 +1,24 @@
+TINYKACTL TODO
+
+
+Algoritmer att kanske lägga till:
+
+- Grafproblem
+	- Planaritetstest (se Avalg-komp.)
+	- Generell matchning (se Avalg-komp.)
+	- Riktad MST (vart såg Per det?)
+
+- Annat
+	- 2SAT
+	- 3SAT-heuristik?
+
+- Pussel
+	- Magiska kvadrater (Per har)
+	- Turneringar
+
+
+
+Annat:
+
+- Övergripande
+	- Gå igenom kod, bryt rader, ta bort en del kommentarer.

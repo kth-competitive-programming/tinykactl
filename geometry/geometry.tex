@@ -7,26 +7,23 @@
 \xinput{polygons}
 \xinput{convex_hull}
 
-\problemtitle{Minimum enclosing circle}
-See Convex hull, Minimum enclosing circle.
-
 \xinput{voronoi_diagrams}
 
 \problemtitle{Nearest Neighbour}
 \begin{algorithm}{Divide and conquer}
-\reflisting{closest pair}
 \complexity{n\log n}
-\usage{{\tt closestpair( points p, int n, \&i1, \&i2 )}}
-
+\usage{{\tt closestpair(points p, int n, \&i1, \&i2)}}
 \desc
 {\tt i1, i2} are the indices to the closest pair of points in the point
 vector {\tt p} after the call. The distance is returned.
 \end{algorithm}
+\codenc{closest pair}{closestpair}
+
 \begin{algorithm}{Simpler method}
-\reflisting{closest pair simple}
 \complexity{n^2 \textrm{ (average $n$)}}
-\usage{{\tt closestpair( points p, int n, \&i1, \&i2 )}}
+\usage{{\tt closestpair(points p, int n, \&i1, \&i2)}}
 \end{algorithm}
+\codenc{closest pair simple}{closest_per}
 
 %\problemtitle{Triangulation}
 %\problemtitle{Range search}
@@ -34,21 +31,4 @@ vector {\tt p} after the call. The distance is returned.
 %\problemtitle{Polygon partitioning}
 %\problemtitle{Maintaining line arrangements}
 
-
-\sourcesection{Hull}
-\code{convex hull}{hull/convex_hull}
-\code{convex hull space}{hull/convex_hull_space}
-\code{inside hull}{hull/inside_hull}
-\code{inside hull simple}{hull/inside_hull_simple}
-\code{hull diameter}{hull/hull_diameter}
-\code{mec}{hull/mec}
-\code{line hull intersect}{hull/line_hull_intersect}
-
-\sourcesection{Voronoi}
-\code{delaunay simple}{voronoi/delaunay_simple}
-\code{delaunay hull}{voronoi/delaunay_hull}
-
-\sourcesection{Closest pair}
-\code{closest pair}{closestpair}
-\code{closest pair simple}{closestpair_simple}
 

@@ -14,21 +14,32 @@
 \end{algorithm}
 \code{multinomial}{counting/multinomial}
 
+\begin{algorithm}{Partitions}
+\desc
+The number of partitions of $n$ is
+$$p(n) = \sum_{k \ge 1} (-1)^{k+1} \left[p(n- k(3k-1)/2) + p(n-k(3k+1)/2)\right]$$
+for $n \ge 1$, and $p(n) = [n == 0]$ for $n < 1$.
+
+The number of partitions into distinct, odd parts is
+$$q(n) = \frac{1}{n} \sum_{k = 1}^{n} (-1)^{k+1} \sigma(k) q(n-k)$$
+where $\sigma(k)$ is the sum of the {\em odd} divisors of $k$
+(e.g. $\sigma(9) = 13$).  If $(-1)^{k+1}$ is removed, we get the
+number of partitions into distinct parts.
+
+\end{algorithm}
+
 \begin{algorithm}{Stirling numbers of the first kind}
 \desc
-The Stirling numbers of the first kind $s(n,k)$ is defined as
+$s(n,k)$ is defined as
 $(-1)^{n-k}c(n,k)$, where $c(n,k)$ is the number of permutations on
-$n$ items with $k$ cycles. It is given by
+$n$ items with $k$ cycles.
 $$s_{n,k} = s_{n-1,k-1} - (n-1)s_{n-1,k}$$
 $$s_{n,k} = 1, n = k \qquad s_{n,k} = 0, n < 1$$
 \end{algorithm}
 
 \begin{algorithm}{Stirling numbers of the second kind}
 \desc
-The stirling number $S(n,k)$, i.e. in how many ways can $n$
-different items be put in $k$ boxes with at least one item in every
-box, or mathematically speaking -- the number of partitions of $n$
-elements into $k$ partitions. It is given by
+Partitions of $n$ elements in exactly $k$ boxes.
 $$s_{n,k} = s_{n-1,k-1} + ks_{n-1,k}$$
 $$s_{n,k} = 1, n = k \qquad s_{n,k} = 0, n < 1$$
 \end{algorithm}

@@ -29,9 +29,9 @@ struct point {
   double dist() const { return sqrt(dist2()); }
   double angle() const { return atan2(y, x); }
 
-  P unit() const { return *this / dist(); }
-  P perp() const { return P(-y, x); }
-  P normal() const { return perp().unit(); }
+  S unit() const { return *this / dist(); }
+  S perp() const { return S(-y, x); }
+  S normal() const { return perp().unit(); }
 
   double theta() {
     if (x==0 && y==0) return 0;

@@ -29,8 +29,8 @@
 
 struct sets {
   struct set_elem {
-    int head, rank; // rank is a pseudo-height with height<=rank
-    set_elem(int elem) : head(elem), rank(0) {}
+    int h, rank; // rank is a pseudo-height with height\<=rank
+    set_elem(int elem) : h(elem), rank(0) {}
   };
   vector<set_elem>  elems;
 
@@ -38,14 +38,14 @@ struct sets {
     for(int i = 0; i < nElems; i++) elems.push_back(set_elem(i));
   }
 
-  int get_head( int i ) { // Find head of set with path-compression
-    if (i != elems[i].head) elems[i].head = get_head(elems[i].head);
-    return elems[i].head;
+  int get_head(int i) { // Find set-head with path-compression
+    if (i != elems[i].h) elems[i].h = get_head(elems[i].h);
+    return elems[i].h;
   }
 
-  bool equal(int a, int b) { return (get_head(a) == get_head(b)); }
+  bool equal(int a, int b){ return (get_head(a)==get_head(b)); }
 
-  void link( int a, int b ) { // union sets
+  void link(int a, int b) { // union sets
     a = get_head(a); b = get_head(b);
     if(elems[a].rank > elems[b].rank) elems[b].head = a;
     else {

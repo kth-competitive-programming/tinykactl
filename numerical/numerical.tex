@@ -6,12 +6,18 @@
 
 \code{euclid}{euclid}
 
-\code{chinese}{chinese}
+\begin{algorithm}{Chinese remainder theorem}
+\desc
+Solves the system $x = a \pmod m$, $x = b \pmod n$.  If $\gcd(m,n) =
+1$, {\tt chinese} may be used, otherwise, {\tt chinese\_common} must be
+used, which returns $-1$ if there is no solution.  The unique solution
+with $0 \le x < \mathrm{lcm}(m, n)$ is returned.
+\end{algorithm}
+\codenc{chinese}{chinese}
 
 \begin{algorithm}{Primes}
 \desc
-The 1000th prime is 7919. The first every 10000th primes are:
-{\small
+The 1000th prime is 7919. The first every 10000th primes are: {\small
 \begin{verbatim}
   104729  224737  350377  479909  611953
   746773  882377 1020379 1159523
@@ -29,7 +35,7 @@ The 1000th prime is 7919. The first every 10000th primes are:
 $n$ is perfect iff $n = \frac{p(p+1)}{2}$, where $p = 2^k-1$ is prime.
 First Mersenne primes are obtained for $k =$ 2, 3, 5, 7, 13, 17, 19,
 31, 61, 89, 107, 127, 521, 607, 1279, 2203, 2281, 3217, 4253, 4423,
-9689, 9941, 11213, 19937, 21701, 23209, 44497.
+9689, 9941, 11213, 19937, 21701.
 \end{algorithm}
 
 \begin{algorithm}{Josephus}
@@ -39,7 +45,7 @@ total of $n$ persons (cyclic)?
 \complexity{\log_{\frac{k}{k-1}}(n)}
 \end{algorithm}
 
-\code{josephus}{josephus}
+\codenc{josephus}{josephus}
 
 \problemtitle{Linear Equations}
 \code{solve linear}{solve_linear}
@@ -54,8 +60,10 @@ can be used instead, rounding the answer at the end. The strength of
 {\tt BigInt}. Note that it uses {\tt euclid} which could be rather
 slow in the {\tt BigInt} case.
 \end{algorithm}
-\code{determinant}{determinant}
-\code{int determinant}{int_determinant}
+\codenc{determinant}{determinant}
+\codenc{int determinant}{int_determinant}
+
+\code{sqrt}{sqrt}
 
 \problemtitle{Optimization}
 \begin{algorithm}{Simplex method}
@@ -64,7 +72,7 @@ Solves a linear minimization problem. The first row of the
 input matrix is the objective function to be minimized. The
 first column is the maximum allowed value for each linear row.
 \end{algorithm}
-\code{simplex}{simplex}
+\codenc{simplex}{simplex}
 
 \problemtitle{Polynomials}
 \code{polynomial}{polynomial}

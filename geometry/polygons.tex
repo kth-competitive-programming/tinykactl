@@ -1,39 +1,34 @@
 \problemtitle{Polygons}
 \begin{algorithm}{Inside polygon}
 \complexity{n}
-\usage{\sourceline{ inside(polygon,nPts,point) == true; } }
 \desc
-Determine whether a point is inside a polygon. If it is on an edge,
-standard computer graphics rules determine the returned value (inside above
-and to the left of the polygon, but not below or to the right).
-This is usually \emph{not} the desired behaviour in contest geometry problems.
-Use {\tt on\_edge} in {\tt pointline.cpp} to check if a point is on the edge.
+Determine whether a point is inside a polygon. 
 \end{algorithm}
-\code{inside}{inside}
+\codenc{inside}{inside}
 
 
-%\begin{algorithm}{Winding number}
-%\complexity{n}
+\begin{algorithm}{Winding number}
+\complexity{n}
 
-%\desc
-%Theta meta-angle winding number of a point with a polygon. The polygon should
-%be given in ccw-order. Also function {\tt inside\_wn} which does the same as
-%{\tt inside} but uses the winding number. The value of {\tt inside\_wn} is
-%+1/-1 for inside/outside and 0 for on the edge.
-%\end{algorithm}
-%\code{winding number}{winding_number}
+\desc
+Theta meta-angle winding number of a point with a polygon. The polygon should
+be given in ccw-order. Also function {\tt inside\_wn} which does the same as
+{\tt inside} but uses the winding number. The value of {\tt inside\_wn} is
++1/-1 for inside/outside and 0 for on the edge.
+\end{algorithm}
+\codenc{winding number}{winding_number}
 
 \begin{algorithm}{Polygon area}
 \desc
 Twice the signed polygon area.
 \end{algorithm}
-\code{poly area}{poly_area}
+\codenc{poly area}{poly_area}
 
 \begin{algorithm}{Polyhedron volume}
 \desc
 Signed polyhedron volume.
 \end{algorithm}
-\code{poly volume}{poly_volume}
+\codenc{poly volume}{poly_volume}
 
 \begin{algorithm}{Polygon cut}
 \usage{\sourceline{%
@@ -46,12 +41,11 @@ interval is returned. The polygon is kept connected by (overlapping)
 line segments along the cutting line if the cut splits the polygon in parts.
 \end{algorithm}
 
-\code{poly cut}{poly_cut}
-
+\codenc{poly cut}{poly_cut}
 
 \begin{algorithm}{Center of mass}
 \desc
 Polygon and triangular center of mass.
 \end{algorithm}
-\code{center of mass}{centerofmass}
+\codenc{center of mass}{centerofmass}
 

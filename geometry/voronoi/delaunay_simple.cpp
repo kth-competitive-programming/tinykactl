@@ -7,7 +7,7 @@
  *   By Mattias de Zalenski
  */
 
-#include "../point.cpp"
+#include "point.cpp"
 
 template <class V, class F>
 void delaunay(V p, int n, F trifun) {
@@ -15,16 +15,16 @@ void delaunay(V p, int n, F trifun) {
   typedef typename P::coord_type T;
   for (int i = 0; i < n; ++i) {
     for (int j = i + 1; j < n; ++j) {
-      P J = p[j] - p[i]; T jd = dist2(J);
+      P J = p[j] - p[i]; T jd = J.dist2();
       for (int k = i + 1; (j != k || ++k) && k < n; ++k) {
-	P K = p[k] - p[i]; T kd = dist2(K);
-	T qd = cross(J,K);
+	P K = p[k] - p[i]; T kd = K.dist2();
+	T qd = J.cross(K);
 	if (qd > T()) {
 	  P q = P(J.y*kd - K.y*jd, jd*K.x - kd*J.x);
 	  bool flag = true;
 	  for (int l = 0; l < n; ++l) {
-	    P L = p[l] - p[i]; T dl = dist2(L);
-	    if (dot(L, q) + dl * qd < T()) {
+	    P L = p[l] - p[i]; T dl = L.dist2();
+	    if (L.dot(q) + dl * qd < T()) {
 	      flag = false;
 	      break;
 	    }

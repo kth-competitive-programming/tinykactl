@@ -1,24 +1,15 @@
 \problemtitle{Euler walk}
 
 \begin{algorithm}{Euler walk}
-\reflisting{euler walk}
 \complexity{ E }
-\usage{\sourceline{%
- euler\_walk( V \&edges, int start, list<int> \&path, bool cyclic ) }}
 
 \desc
-Find an eulerian walk in a directed graph, i.e. a walk traversing all
-edges exactly once.
-
 The algorithm \emph{assumes} that there exists an eulerian walk. If it
 does not exists, it will return any maximal path, not neccessarily the
-longest.
-
-If the graph is not cyclic, the start node must be a node with
-$\mathrm{deg}_{out}-\mathrm{deg}_{in} = 1$.
-
-Set {\tt cyclic=true} if the path found must be cyclic, this is mostly
-of internal use.
+longest.  If the graph is not cyclic, the start node must be a node
+with $\mathrm{deg}_{out}-\mathrm{deg}_{in} = 1$.  Set {\tt
+cyclic=true} if the path found must be cyclic, this is mostly of
+internal use.
 
 {\tt edges} is a vector/array with $V$ edge-containers. The
 edge-containers should contain vertex-indices, and may contain
@@ -34,6 +25,8 @@ each vertex, the resulting path will be lexicographically
 ordered. 
 \end{algorithm}
 
+\codenc{euler walk}{euler_walk}
+
 \begin{algorithm}{Chinese postman}
 \desc
 A generalised euler path/cycle problem, finding the shortest
@@ -45,40 +38,36 @@ variations are called rural chinese postman, and are generally
 NP-complete).
 
 Undirected chinese postman can be solved by computing a minimum
-weighted matching on the odd nodes of the graph (described in
-e.g. Edmonds and Johnson, ``Matching, Euler Tours and the Chinese
-Postman.'', Mathematical Programming 5: 88-124, 1973).
+weighted matching on the odd nodes of the graph.% (described in
+%e.g. Edmonds and Johnson, ``Matching, Euler Tours and the Chinese
+%Postman.'', Mathematical Programming 5: 88-124, 1973).
 
 Directed chinese postman can be solved by using network flow
-techniques (also described in the previous reference).
+techniques.% (also described in the previous reference).
 \end{algorithm}
 
-\problemtitle{De Bruijn Sequences}
-Let $\Omega$ be an alphabet of size $\sigma$. A de Bruijn sequence is
-a sequence such that all words on $L$ letters appear as a contiguous
-subrange of it. In a cyclic de Bruijn sequences a word may also wrap
-around the string.  The shortest cyclic de Bruijn sequence is of
-length $\sigma^L$ and the shortest non-cyclic de Bruijn sequence is of
-length $\sigma^L+L-1$.
-
-The shortest de Bruijn sequence of all words on $3$ letters in the
-alphabet $\{0,1\}$ which is lexicographically smallest is
-
-$00011101$ (cyclic)
-
-$0001110100$ (non-cyclic)
-
-\begin{algorithm}{de Bruijn}
-\reflisting{deBruijn}
-\reflisting{deBruijn fast}
+\begin{algorithm}{De Bruijn Sequences}
 \complexity{ N^L }
 \usage{\sourceline{%
  deBruijn( int N, int L, char symbols[N] ) }}
 
 \desc
+Let $\Omega$ be an alphabet of size $\sigma$. A de Bruijn sequence is
+a sequence such that all words on $L$ letters appear as a contiguous
+subrange of it.  The shortest cyclic de Bruijn sequence is of
+length $\sigma^L$ and the shortest non-cyclic de Bruijn sequence is of
+length $\sigma^L+L-1$.
+
+The lexicographically smallest, and shortest de Bruijn sequence on
+three letters and alphabet $\{0,1\}$ is $00011101$ (cyclic),
+$0001110100$ (non-cyclic).
+
 {\tt N} is the size of the alphabet and {\tt symbols} the
 corresponding letters. {\tt L} is the length of the words that should
 appear in the de Bruijn sequence.
 
-The output is given as {\tt cout}-statements.
+The answer is stored in the {\tt sol} string.
 \end{algorithm}
+
+% \code{deBruijn}{deBruijn}
+\codenc{deBruijn fast}{deBruijn_fast}
