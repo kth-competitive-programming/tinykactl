@@ -15,29 +15,29 @@ struct ABC {
   }
 };
 
-template <class V, class S>
-bool convex_hull_space(V p, int n, S &triset) {
+template <class V, class L>
+bool convex_hull_space(V p, int n, L &trilist) {
   typedef typename V::value_type P3;
   typedef typename P3::coord_type T;
-  typedef typename S::value_type I3;
-  int a, b, c;
+  typedef typename L::value_type I3;
+  int a, b, c; // Find a proper tetrahedron
   for (a = 1; a < n; ++a) if (dist2(p[a]-p[0]) != T()) break;
   for (b = a + 1; b < n; ++b) if (dist2(cross(p[a]-p[0],p[b]-p[0]))) break;
   for (c = b + 1; c < n; ++c) if (dot(cross(p[a]-p[0],p[b]-p[0]), p[c]-p[0])
 				  != T()) break;
   if (c >= n) return false;
   if (dot(cross(p[a]-p[0],p[b]-p[0]), p[c]-p[0]) > T()) swap(a, b);
-  triset.insert(I3(0, a, b));
-  triset.insert(I3(0, b, c));
-  triset.insert(I3(0, c, a));
-  triset.insert(I3(a, c, b));
+  trilist.push_back(I3(0, a, b)); // Use it as initial hull
+  trilist.push_back(I3(0, b, c));
+  trilist.push_back(I3(0, c, a));
+  trilist.push_back(I3(a, c, b));
   for (int i = 1; i < n; ++i) {
     typedef pair<int, int> I2;
     set< pair<int, int> > edges;
     P3 &P = p[i];
     {
-      typename S::iterator it = triset.begin();
-      while (it != triset.end()) {
+      typename L::iterator it = trilist.begin();
+      while (it != trilist.end()) {
         int a = it->a, b = it->b, c = it->c;
 	P3 &A = p[a], &B = p[b], &C = p[c];
 	P3 normal = cross(B-A, C-A);
@@ -46,7 +46,7 @@ bool convex_hull_space(V p, int n, S &triset) {
 	  edges.insert(make_pair(a, b));
 	  edges.insert(make_pair(b, c));
 	  edges.insert(make_pair(c, a));
-	  triset.erase(it++); // ugly!!
+	  trilist.erase(it++); // ugly!!
 	}
 	else
 	  ++it;
@@ -54,7 +54,7 @@ bool convex_hull_space(V p, int n, S &triset) {
     }
     for (set<I2>::iterator it = edges.begin(); it != edges.end(); ++it)
       if (edges.count(make_pair(it->second, it->first)) == 0)
-	triset.insert(I3(i, it->first, it->second));
+	trilist.push_back(I3(i, it->first, it->second));
   }
   return true;
 }
