@@ -29,6 +29,19 @@ Standard problem template. Problems are classified as either of:
   \end{description}
 \end{algorithm}
 
+\begin{algorithm}{c-lite.el}
+  \reflisting{c-lite.el}
+  \usage{\sourceline{ M-x load-file RET c-lite.el }}
+
+  c-lite.el provides useful key bindings for Emacs. It also contains a version of Template.cpp.
+  \begin{description}
+  \item{C-x C-f} -- New file (overloads the usual find-file, uses the template from c-lite.el)
+  \item{C-c C-c} -- Compile (uses compiler and compile flags specified in c-lite.el)
+  \item{C-c C-t} -- Test solution (using ``\texttt{FILE < FILE.in}'')
+  \item{C-c C-s} -- Submit solution (using ``\texttt{submit FILE.cc}'')
+  \end{description} 
+\end{algorithm}
+
 \begin{algorithm}{Script}
   \reflisting{script}
   \usage{\sourceline{ sh script }}
@@ -75,18 +88,22 @@ the error might be.
 \end{algorithm}
 
 \begin{sourceslandscape}
-  \code{checklist}{checklist}
-  \code{uskey}{us_key.modmap}
-\end{sourceslandscape}
-\begin{sourceslandscape}
-  \code{Template}{Template}
-  \code{script}{script}
-  \code{adler}{../util/adler}
-\end{sourceslandscape}
-\begin{sourceslandscape}
-  \code{linecode}{../util/linecode}
-  \code{xor}{../util/xor}
-  \begin{verbatim}
+
+\sourcesection{Practice Session}
+\code{checklist}{checklist}
+\code{uskey}{us_key.modmap}
+
+\sourcesection{Mandatory Contest Material}
+\code{Template}{Template}
+\code{c-lite.el}{c-lite.el}
+\code{script}{script}
+\code{adler}{../util/adler}
+\code{Template.old}{Template.old}
+
+\sourcesection{Optional Contest Material}
+\code{linecode}{../util/linecode}
+\code{xor}{../util/xor}
+\begin{verbatim}
 xor table:
  0 1 2 3 4 5 6 7 8 9 a b c d e f
  1 0 3 2 5 4 7 6 9 8 b a d c f e
@@ -104,5 +121,5 @@ xor table:
  d c f e 9 8 b a 5 4 7 6 1 0 3 2
  e f c d a b 8 9 6 7 4 5 2 3 0 1
  f e d c b a 9 8 7 6 5 4 3 2 1 0
-  \end{verbatim}
+\end{verbatim}
 \end{sourceslandscape}
