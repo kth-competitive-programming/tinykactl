@@ -56,6 +56,7 @@ allcode: always
 	cd graph/maxflow && $(MAKE) code
 	cd geometry && $(MAKE) code
 	cd geometry/hull && $(MAKE) code
+	cd geometry/voronoi && $(MAKE) code
 	cd pattern && $(MAKE) code
 	cd gametheory && $(MAKE) code
 	cd solved && $(MAKE) code
@@ -76,6 +77,7 @@ allcodeclean: always
 	cd graph/maxflow && $(MAKE) codeclean
 	cd geometry && $(MAKE) codeclean
 	cd geometry/hull && $(MAKE) codeclean
+	cd geometry/voronoi && $(MAKE) codeclean
 	cd pattern && $(MAKE) codeclean
 	cd gametheory && $(MAKE) codeclean
 	cd solved && $(MAKE) codeclean
