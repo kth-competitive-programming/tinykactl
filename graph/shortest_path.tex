@@ -81,13 +81,32 @@ Calculates the distance from a source to all other nodes.
 \reflisting{dijkstra prim}
 \reflisting{distfun}
 \complexity{(V+E)\log V}
-\usage{ \sourceline{ dijkstra\_1(edges, min, path, start, n, distfun, mst); } }
+\usage{ \sourceline{ dijkstra\_prim(edges, min, path, start, n, distfun, mst); } }
 
 Calculates the distance from a source to all other nodes.
 Takes two extra arguments:
 {\tt distfun} is the edge distance function (see exaples).
 {\tt mst = false} is used in {\tt prim} to get a
 minimum spanning tree instead.
+\notes{Dijkstra Prim can handle negative edge-weights but the complexity
+is then worse, \ordo{V(V+E)\log V} (?). Bellman-Ford is better suited for this
+case.}
+\end{algorithm}
+
+\begin{algorithm}{Dijkstra Prim Simple}
+\reflisting{dijkstra prim simple}
+\complexity{(V+E)V}
+\usage{ \sourceline{ dijkstra\_prim\_simple(edges, min, path, start, n, mst); } }
+
+Calculates the distance from a source to all other nodes.
+Takes one extra arguments:
+{\tt mst = false} is used in {\tt prim} to get a
+minimum spanning tree instead.
+
+\notes{Dijkstra Prim Simple cannot handle negative edge-weights. It can
+be modified to work with negative edge-weights by inserting
+{\tt proc[dest]=false;} when a shorter route is found, but with increased
+complexity.}
 \end{algorithm}
 
 \begin{algorithm}{Bellman-Ford}
@@ -97,6 +116,17 @@ minimum spanning tree instead.
 
 Calculates the distance from a source to all other nodes.
 Returns whether there is a negative distance cycle in the graph.
+\end{algorithm}
+
+\begin{algorithm}{Bellman-Ford-2}
+\reflisting{bellman ford 2}
+\reflisting{distfun}
+\complexity{VE}
+
+Calculates the distance from a source to all other nodes.
+Returns whether there is a negative distance cycle in the graph.
+Instead of working with edge-lists as Bellman-Ford, the algorithm BF-2 uses
+a single edge-list with pairs ((from,to), dist).
 \end{algorithm}
 
 \begin{algorithm}{Get shortest path}
@@ -109,7 +139,7 @@ Fills in {\tt path} with the nodes from {\tt start} to {\tt end}, using
 
 
 \begin{algorithm}{Shortest Tour}
-\description{} 
+\item[Description]
 Shortest tour from A to B to A again not using any edge twice, in an
 undirected graph:
 
@@ -120,7 +150,9 @@ Take the shortest path from A to B.
 Remove the paths used from A to B, but also negate the lengths of the
 reverse edges.
 
-Take the shortest path again, from A to B.
+Take the shortest path again from A to B, using an algorithm which can handle
+negative-weight edges, such as Bellman-Ford. Note that there is no
+negative-weight \emph{cycles}.
 
 The shortest tour has the length of the two shortest paths combined.
 \end{algorithm}

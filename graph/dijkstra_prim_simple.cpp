@@ -8,7 +8,7 @@
  */
 
 template<class E, class M, class P>
-void dijkstra( const E &edges, M &min, P &path, int start, int n,
+void dijkstra_prim_simple( const E &edges, M &min, P &path, int start, int n,
 	       bool mst = false ) {
   typedef typename M::value_type T;
   T inf(1<<29);
