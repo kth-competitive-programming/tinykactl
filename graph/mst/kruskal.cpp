@@ -37,7 +37,7 @@
 #include <algorithm>
 #include <vector>
 
-#include "sets.cpp"
+#include "../../datastructures/sets.cpp"
 
 template<class V>
 void kruskal( const V &graph, V &tree, int n ) {
