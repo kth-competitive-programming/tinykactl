@@ -119,31 +119,33 @@
 
 \newenvironment{source}{\verbatim\small\vspace{-0mm}}{\endverbatim}
 \def\sourceline#1{{\small \tt #1}}
-%\def\sourcefile#1{{\small \vspace{-0mm}\verbatiminput{#1}}}
 
 \def\desc{}
 \def\usage#1{\keyword{Usage}\par #1}
 \def\complexity#1{\keyword{Complexity} $O(#1)$}
 \def\characteristics#1{\keyword{Characteristics}\par #1}
-%\def\code#1{\keyword{Code} \sourcefile{\thepath #1}}
 \newenvironment{example}{\keyword{Example}\source}{\endsource}
 \def\valladolid#1{\keyword{Valladolid} #1}
-%\def\implementation#1{\sourcefile{\thepath #1}}
-%\def\implementation#1{\lagrind{\thepath #1.lg}{Testing}{fig:blaha}}
-%\def\implementation#1{\begin{sidewaysfigure}\lgrindfile{\thepath #1.lg}\end{sidewaysfigure}}
 
 % Set fontsize in lgrind to tinier in landscape-source-mode
-\newenvironment{sourceslandscape}{\begin{landscape}\begin{multicols*}{2}%
-%\def\LGfsize{\@setfontsize\tinier\@vpt{5}}}{\end{multicols*}\end{landscape}}
-\def\LGfsize{\scriptsize}}{\end{multicols*}\end{landscape}}
+\newenvironment{sourceslandscape}{
+\advance\textwidth 4 cm%
+\advance\textheight 4 cm%
+\advance\topmargin -2 cm%
+\advance\oddsidemargin  -2 cm%
+\advance\evensidemargin -2 cm%
+\begin{landscape}\begin{multicols*}{2}\def\LGfsize{\scriptsize}}%
+{\end{multicols*}\end{landscape}}
 
 \newenvironment{sources}{\def\LGfsize{\small}}{}
+
+\def\checksum#1#2#3#4{---\begin{tabular}{c}\\*[-7 mm]{\tiny #2~lines}\\*[-1 mm]{\small #1}\end{tabular}---{\tiny\tt\begin{tabular}{l}\\*[-4 mm] #3\\#4\end{tabular}}}
 
 \def\code#1#2{
 \refstepcounter{lstlisting}
 \vspace{1 cm}
 {\normalsize\bf Listing \thelstlisting : #1.cpp}
----{\bf\tt\xinput{#2.sum}}
+\xinput{#2.sum}
 \hrule
 \lgrindfile{\thepath #2.lg}
 \addcontentsline{lol}{lstlisting}
