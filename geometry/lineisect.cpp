@@ -39,7 +39,7 @@ bool lineisect(const point<T> &p0, const point<T> &p1,
   T a = mx*p0.x+my*p0.y, b = nx*q0.x+ny*q0.y;
 
   x.x = (R)(ny*a-my*b)/det;
-  x.y = (R)(-nx*a-mx*b)/det;
+  x.y = (R)(-nx*a+mx*b)/det;
 
   return true;
 }
