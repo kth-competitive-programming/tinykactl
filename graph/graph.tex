@@ -7,6 +7,22 @@
 \xinput{shortest_path}
 \xinput{mst}
 \problemtitle{Transitive Closure}
+The transitive closure, i.e. which nodes are connected, is found using
+a sligthly modified Floyd-Warshall. The algorithm also gives a path between
+two nodes, if they are connected.
+
+\begin{algorithm}{Transitive Closure}
+\reflisting{transitive closure}
+\complexity{V^3}
+\usage{ \sourceline{ floyd\_warshall(adj, path,n); } }
+
+The algorithm uses a bool adjacency matrix. The adjacency matrix should contain
+wheter there exists a path between {\tt a} and {\tt b} in {\tt adj[a][b]}.
+The adjacency matrix is updated to contain whether {\tt a} and
+{\tt b} are connected and {\tt path[a][b]} contains the from-node for a
+path between {\tt a} and {\tt b}.
+\end{algorithm}
+
 \problemtitle{Euler Cycle and Chinese Postman}
 \problemtitle{Edge and Vertex Connectivity}
 \xinput{flow}
@@ -15,12 +31,13 @@
 
 \begin{sourceslandscape}
 \code{topo sort}{topo_sort}
-\code{floyd warshall}{1_floyd_warshall}
-\code{dijkstra}{2_dijkstra}
-\code{dijkstra 1}{3_dijkstra_1}
+\code{floyd warshall}{floyd_warshall}
+\code{dijkstra}{dijkstra}
+\code{dijkstra 1}{dijkstra_1}
 \code{dijkstra heap}{4_dijkstra_heap}
 \code{dijkstra prim}{dijkstra_prim}
 \code{get shortest path}{5_get_shortest_path}
+\code{transitive closure}{transitive_closure}
 \code{sets}{mst/sets}
 \code{kruskal}{mst/kruskal}
 \code{euler walk}{6_euler_walk}
