@@ -9,9 +9,6 @@
  *   By Per Austrin
  */
 
-
-/* Running time: O(log M) */
-
 template <class T>
 int stirling_mod_2(T n, T k) {
   T i = (k - 1) / 2;
