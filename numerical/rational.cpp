@@ -6,62 +6,106 @@
  *   By Fredrik Niemelä
  */
 
+#include <iostream>
+using namespace std;
+
 #include "gcd.cpp"
 
 template <class T>
 struct rational {
   T n, d;
-  rational(T _n=T(), T _d=T(1)) : n(_n/gcd(_n,_d)), d(_d/gcd(_n,_d)) { 
-    if (d < 0) n *= -1, d *= -1;
+  rational(T _n=T(), T _d=T(1)) : n(_n), d(_d) {
+    normalize();
   }
-
-  bool operator <(const rational<T> &r) const {
-    return n*r.d < d*r.n;
+  void normalize() {
+    if (d < T()) n *= -1, d *= -1;
+    T f = n < T() ^ d < n ? gcd(n, d) : gcd(d, n);
+    n /= f; d /= f;
   }
+  bool operator <(const rational<T> &r) const { return n*r.d < d*r.n; }
+  bool operator ==(const rational<T> &r) const { return n*r.d == d*r.n; }
 };
 
 template <class T>
-rational<T> operator +(const rational<T> &lhs, const rational<T> &rhs) {
-  return rational<T>(lhs.n*rhs.d + rhs.n*lhs.d, lhs.d*rhs.d);
+rational<T> operator +(const rational<T> &a, const rational<T> &b) {
+  return rational<T>(a.n*b.d + b.n*a.d, a.d*b.d);
 }
 
 template <class T>
-rational<T> operator *(const rational<T> &lhs, const rational<T> &rhs) {
-  return rational<T>(lhs.n*rhs.n, lhs.d*rhs.d);
+rational<T> operator -(const rational<T> &a) {
+  return rational<T>(-a.n, a.d);
 }
 
-/*
 template <class T>
-ostream &operator <<(ostream &lhs, const rational<T> &rhs) {
-  lhs << rhs.n;
-  if (rhs.d != 1)
-    lhs << '/' << rhs.d;
-  return lhs;
+rational<T> operator -(const rational<T> &a, const rational<T> &b) {
+  return rational<T>(a.n*b.d - b.n*a.d, a.d*b.d);
 }
-*/
 
-const int P = 15;
 template <class T>
-ostream &operator <<(ostream &lhs, const rational<T> &rhs) {
-  int n = rhs.n, d = rhs.d;
+rational<T> operator *(const rational<T> &a, const rational<T> &b) {
+  return rational<T>(a.n*b.n, a.d*b.d);
+}
 
-  if (n < 0)
-    lhs << '-', n *= -1;
+template <class T>
+rational<T> operator /(const rational<T> &a, const rational<T> &b) {
+  return rational<T>(a.n*b.d, a.d*b.n);
+}
 
-  lhs << n/d;
-  n = n%d;
+template <class T>
+T div(const rational<T> &a, const rational<T> &b) {
+  return (a.n*b.d) / (a.d*b.n);
+}
 
-  if (n) {
-    lhs << '.';
+template <class T>
+rational<T> operator %(const rational<T> &a, const rational<T> &b) {
+  return rational<T>((a.n*b.d) % (a.d*b.n), a.d*b.d);
+}
 
-    for (int i = 0; n && i < P; ++i) {
-      n *= 10;
-      lhs << n/d;
-      n = n%d;
-    }      
+template <class T>
+rational<T> operator <<(const rational<T> &a, int b) {
+  return b < 0 ? a >> -b : rational<T>(a.n << b, a.d);
+}
+
+template <class T>
+rational<T> operator >>(const rational<T> &a, int b) {
+  return b < 0 ? a << -b : rational<T>(a.n, a.d << b);
+}
+
+template <class T>
+ostream &print_frac(ostream &out, const rational<T> &r) {
+  out << r.n;
+  if (r.d != 1) out << '/' << r.d;
+  return out;
+}
+
+template <class T>
+ostream &print_dec(ostream &out, const rational<T> &r,
+		   int radix = 10, int precision = 15) {
+  T n = r.n, d = r.d;
+  if (n < T()) out << '-', n *= -1;
+  out << n/d; n %= d;
+  if (T() < n) {
+    out << '.';
+    for (int i = 0; n && i < precision; ++i) {
+      n *= radix;
+      out << n/d; n %= d;
+    }
   }
-
-  return lhs;
+  return out;
 }
 
+template <class T>
+ostream &operator <<(ostream &out, const rational<T> &r) {
+  return print_dec(out, r);
+}
 
+typedef rational<long long> Q;
+
+int main() {
+  Q a(2, 3), b(1, 12);
+  for (int i = 0; i < 10; ++i) {
+    cout << a << endl;
+    a = a * b % a >> 3;
+  }
+  return 0;
+}
