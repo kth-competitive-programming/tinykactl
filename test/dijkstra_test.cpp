@@ -1,6 +1,10 @@
+#include <iostream>
 #include <map>
 #include <vector>
-#include "../graph/2_dijkstra.cpp"
+
+using namespace std;
+
+#include "../graph/dijkstra_simple.cpp"
 #include "../graph/dijkstra_prim.cpp"
 
 int main( void ) {
@@ -41,7 +45,7 @@ int main( void ) {
   // Calculate shortest path from 0 to 0...n-1
   min.resize( n );
   from.resize( n );
-  dijkstra( edges, min, from, 0, n );
+  dijkstra_prim( edges, min, from, 0, n, id_dist<pair<int,double>,double> );
 
   cout << from[0] << " " << from[1] << " " << from[2] << " "
        << from[3] << " " << from[4] << endl;
