@@ -33,12 +33,6 @@ The adjacency matrix is updated so the shortest path from {\tt a} to
 {\tt b} is {\tt adj[a][b]} or $-1$ if no path exists.
 \end{algorithm}
 
-\begin{algorithm}{Dijkstra simple}
-\reflisting{dijkstra simple}
-\complexity{V^2+E}
-\usage{ \sourceline{ dijkstra\_1(edges, min, path, start, n); } }
-\end{algorithm}
-
 \begin{algorithm}{Dijkstra 1}
 \reflisting{dijkstra 1}
 \complexity{V+E}
@@ -49,8 +43,11 @@ weight 1.}
 
 \begin{algorithm}{Dijkstra Prim}
 \reflisting{dijkstra prim}
+\reflisting{distfun}
 \complexity{V\log V+E}
 \usage{ \sourceline{ dijkstra\_1(edges, min, path, start, n, distfun, mst); } }
 
 {\tt dijkstra\_prim} takes two extra arguments, {\tt distfun} and {\tt mst}.
 \end{algorithm}
+
+

@@ -10,19 +10,6 @@
  */
 #include <set>
 
-/*
-template <class V> struct idxless {
-  const V &v;
-  idxless(const V &_v) : v(_v) { }
-  bool operator()( const int &i, const int &j ) const { return v[i] < v[j]; }
-};
-template <class V, class C> struct idxcomp {
-  const V &v; const C &c;
-  idxcomp(const V &_v, const C &_c) : v(_v), c(_c) { }
-  bool operator()(int i, int j) const { return c(v[i], v[j]); }
-};
-*/
-
 template <class E, class M, class P, class D>
 void dijkstra_prim(E &edges, M &min, P &path, int start, int n, D distfun,
 		   bool mst = false) {
@@ -57,26 +44,4 @@ void dijkstra_prim(E &edges, M &min, P &path, int start, int n, D distfun,
       }
     }
   }
-}
-
-
-
-// one distfun
-pair<int, int> one_dist(int node, int) { return make_pair(node, 1); }
-
-// weighted edge distfun
-template <class P, class T> P id_dist(P edge, T) { return edge; }
-
-// for time-table searches without mod:
-template <class T, T inf>
-pair<int, T> step_dist(pair<int, pair<T, T> > &edge, T t) {
-  return make_pair(edge.first, edge.second.first < t ? inf :
-		   edge.second.first - t + edge.second.second);
-}
-
-// for time-table searches:
-template <int MOD>
-pair<int, int > mod_dist(const pair<int, pair<int, int> > &edge, int t) {
-  return make_pair(edge.first, (edge.second.first - t % MOD + MOD) % MOD +
-    edge.second.second);
 }
