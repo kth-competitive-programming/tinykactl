@@ -14,27 +14,27 @@ struct list_node {
   T x;
   S *pred, *succ;
   list_node(const T &_x=T()) : x(_x) { link(this); }
-  void link(S *y) { succ = y; y.pred=this; }
+  void link(S *y) { succ = y; y->pred=this; }
 };
 
-template<class T, class TP, class TR>
+template<class T, class TR, class TP>
 struct list_iterator {
   typedef list_iterator S;
   typedef T value_type;
   typedef list_node<T> TN;
 
   TN *e;
-  list_iterator(TN *_e) : e(_e) {}
+  list_iterator(TN *_e=0) : e(_e) {}
   list_iterator(const S &x) : e(x.e) {}
-  S &operator++() { e = e.succ; return *this; }
-  S &operator--() { e = e.pred; return *this; }
-  S operator++(int) { S t(e); e=e.succ; return t; }
-  S operator--(int) { S t(e); e=e.pred; return t; }
-  bool operator==(const S&e) const { return e==x.e; }
-  bool operator!=(const S&e) const { return e!=x.e; }
+  S &operator++() { e = e->succ; return *this; }
+  S &operator--() { e = e->pred; return *this; }
+  S operator++(int) { S t(e); e=e->succ; return t; }
+  S operator--(int) { S t(e); e=e->pred; return t; }
+  bool operator==(const S&y) const { return e==y.e; }
+  bool operator!=(const S&y) const { return e!=y.e; }
   TR operator*() const { return e->x; }
   TP operator->() const { return &(e->x); }
-  void link(S &y) { e->link(y.e); }
+  void link(const S &y) { e->link(y.e); }
 };
 
 template<class T>
@@ -49,6 +49,12 @@ struct list {
 
   list() { node = new TN(); }
   list(const S&x) { node = new TN(); insert(begin(),x.begin(),x.end()); }
+  ~list() { clear(); }
+
+  S &operator=(const S&x) {
+    clear(); insert(begin(),x.begin(),x.end());
+    return *this;
+  }
 
   iterator begin() { return node->succ; }
   const_iterator begin() const { return node->succ; }
@@ -68,13 +74,14 @@ struct list {
     y.link(x); x.link(p);
     return x;
   }
-  iterator insert( iterator p, iterator b, iterator e ) {
-    while( b!=e ) { p = insert(p,*b); ++b; }
+  void insert( iterator p, const_iterator b, const_iterator e ) {
+    while( b!=e ) { insert(p,*b); ++b; }
   }
   iterator erase( iterator p ) {
     iterator x = p; --x;
     iterator y = p; ++y;
-    x.link(y); delete p->node;
+
+    x.link(y); delete p.e;
     return y;
   }
 
@@ -84,15 +91,16 @@ struct list {
   void pop_back() { erase(--end()); }
   void clear() { while( !empty() ) pop_front(); }
 
-  void splice(iterator p, S &x) { // insert BEFORE p
-    if( !x.empty() ) splice(p,x.begin(),x.end());
+  void splice(iterator p, S &l) { // insert BEFORE p
+    if( !l.empty() ) splice(p,l,l.begin(),l.end());
   }
-  void splice(iterator p, S &, iterator i) {
+  void splice(iterator p, S &l, iterator i) {
     iterator j=i; ++j;
-    if( p!=i && p!=j ) splice(p,i,j);
+    if( p!=i && p!=j ) splice(p,l,i,j);
   }
-  void splice(iterator p, iterator i, iterator j) {
+  void splice(iterator p, S &, iterator i, iterator j) {
     if( i==j || p==j ) return;
+
     iterator x = i; --x;
     iterator y = j; --y;
     iterator z = p; --z;
