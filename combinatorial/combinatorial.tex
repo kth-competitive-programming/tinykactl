@@ -35,6 +35,14 @@ G(\{n_i\})$.  A state $S$ is winning iff $G(S) \ne 0$.
 \code{nqueens}{nqueens}
 \code{magicsquare}{magicsquare}
 
+\begin{algorithm}{Tournament scheduling}
+\desc
+Compute a minimal day schedule where all teams meet all other
+teams. {\tt sched[i][j]} will contain the opponent of team {\tt j} on
+day {\tt i}, or 0 if no game that day.  Returns number of days.
+\end{algorithm}
+\codenc{tournaments}{tournaments}
+
 
 \problemtitle{Permutations}
 \begin{algorithm}{Permutations to/from integers}
