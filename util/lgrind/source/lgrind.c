@@ -88,13 +88,16 @@ static char rcsid[] =
  *    May 99	Michael Piefel	Made it Y2K compliant
  *    Oct 99	Michael Piefel	Space runs make tabstops
  *    Dec 99	Michael Piefel  Version option, space allowed after '-l'
+ * 21 Sep 02    David Rydh      Now compiles on Darwin (MacOS X)
  */
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
 #include <string.h>
+#if !defined(__GNUC__) || !defined(__APPLE_CC__)
 #include <malloc.h>
+#endif
 #include <time.h>
 /* One of the following two (depending on your system) */
 #include <unistd.h>
