@@ -14,16 +14,14 @@
 //#include <cmath>
 
 using namespace std;
-#define doubt debug && cerr
+#define doubt cout
 
 void init() {
-  // Reading from/writing to other files than stdin/stdout:
   cin.rdbuf((new ifstream("___.in"))->rdbuf());
   //cout.rdbuf((new ofstream("___.out"))->rdbuf());
 }
 
 const enum {SIMPLE, FOR, WHILE} mode = NO;
-const bool debug = true;
 
 bool solve(int P) {
   int n;
