@@ -4,88 +4,66 @@
 
 \problemtitle{STL containers}
 \begin{algorithm}{pair}
-\keyword{Include}
-{\tt utility} or {\tt algorithm}
-\usage{}
-{\tt make\_pair}, {\tt p.first}, {\tt p.second}, {\tt <}, {\tt ==}.
+\deps{{\tt utility} or {\tt algorithm}}
+\usage{{\tt make\_pair}, {\tt p.first}, {\tt p.second}, {\tt <}, {\tt ==}.}
 \end{algorithm}
 
 \begin{algorithm}{string}
-\keyword{Include}
-{\tt string}
-\usage{}
-{\tt substr}, {\tt <}, {\tt ==}.
+\deps{{\tt string}}
+\usage{{\tt substr}, {\tt <}, {\tt ==}.}
 \end{algorithm}
 
 \begin{algorithm}{vector}
-\keyword{Include}
-{\tt vector}
-\usage{}
-{\tt resize}, {\tt push\_back}, {\tt []}.
+\deps{{\tt vector}}
+\usage{{\tt resize}, {\tt push\_back}, {\tt []}.}
 \end{algorithm}
 
 \begin{algorithm}{deque}
-\keyword{Include}
-{\tt deque}
-\usage{}
-{\tt push\_front}, {\tt push\_back}, {\tt []}.
+\deps{{\tt deque}}
+\usage{{\tt push\_front}, {\tt push\_back}, {\tt []}.}
 \end{algorithm}
 
 \begin{algorithm}{set}
-\keyword{Include}
-{\tt set}
-\usage{}
-{\tt insert}, {\tt erase}, {\tt count}
+\deps{{\tt set}}
+\usage{{\tt insert}, {\tt erase}, {\tt count}.}
 \end{algorithm}
 
 \begin{algorithm}{map}
-\keyword{Include}
-{\tt map}
-\usage{}
-{\tt []}, {\tt count}
+\deps{{\tt map}}
+\usage{{\tt []}, {\tt count}.}
 \end{algorithm}
 
 \begin{algorithm}{list}
-\keyword{Include}
-{\tt list}
-\usage{}
-{\tt push\_front}, {\tt push\_back}, {\tt splice}, {\tt merge}, {\tt sort}.
+\deps{{\tt list}}
+\usage{{\tt push\_front}, {\tt push\_back}, {\tt splice}, {\tt merge}, {\tt sort}.}
 \end{algorithm}
 
 \begin{algorithm}{queue}
-\keyword{Include}
-{\tt queue}
-\usage{}
-{\tt push}, {\tt empty}, {\tt front}, {\tt pop}.
+\deps{{\tt queue}}
+\usage{{\tt push}, {\tt empty}, {\tt front}, {\tt pop}.}
 \end{algorithm}
 
 \begin{algorithm}{priority queue}
-\keyword{Note!}
-The {\tt front()} is the element with the {\em highest} key.
-\keyword{Include}
-{\tt queue}
-\usage{}
-{\tt push}, {\tt empty}, {\tt front}, {\tt pop}.
+\note{The {\tt front()} is the element with the {\em highest} key.}
+\deps{{\tt queue}}
+\usage{{\tt push}, {\tt empty}, {\tt front}, {\tt pop}.}
 \end{algorithm}
 
 \begin{algorithm}{stack}
-\keyword{Include}
-{\tt stack}
-\usage{}
-{\tt push}, {\tt empty}, {\tt top}, {\tt pop}.
+\deps{{\tt stack}}
+\usage{{\tt push}, {\tt empty}, {\tt top}, {\tt pop}.}
 \end{algorithm}
 
 \begin{algorithm}{heap}
-\keyword{Include}
-{\tt algorithm}
-\usage{}
-{\tt make\_heap}, {\tt push\_heap}, {\tt pop\_heap}, {\tt sort\_heap}.
+\deps{{\tt algorithm}}
+\usage{{\tt make\_heap}, {\tt push\_heap}, {\tt pop\_heap}, {\tt sort\_heap}.}
 \end{algorithm}
 
 \problemtitle{Null vector}
 \begin{algorithm}{null vector}
 \reflisting{null vector}
 
+\desc
 {\tt null vector} acts like a vector, but simply keeps one value.
 The value is reset and its reference returned for any index referenced.
 \usage{\sourceline{ v[3612378] = 5; v[3612378] == 0; }}
@@ -95,6 +73,7 @@ The value is reset and its reference returned for any index referenced.
 \begin{algorithm}{sets}
 \reflisting{sets}
 
+\desc
 The {\tt Kruskal} minimum spanning tree algorithm uses a data structure
 called {\tt sets} to efficiently determine whether two vertices belong to
 the same tree.
@@ -104,6 +83,7 @@ the same tree.
 \begin{algorithm}{mpq}
 \reflisting{mpq}
 
+\desc
 {\tt mpq} is a modifiable priority queue (implemented as a set). Its interface
 is identical to that of a {\tt priority\_queue}. When an element should be
 modified the {\tt update} method should be called as:
@@ -111,6 +91,7 @@ modified the {\tt update} method should be called as:
 Where {\tt oldvalue} should be a \emph{reference} to the value of the
 {\tt elem}.
 
+\desc
 A common use is to use indices as elements which is compared using external
 containers.
 \end{algorithm}
@@ -118,6 +99,7 @@ containers.
 \begin{algorithm}{update heap}
 \reflisting{update heap}
 
+\desc
 An updatable heap has an interface identical to that of a
 {\tt priority\_queue}.
 The elements need to have a method {\tt set\_position} though. When an element
