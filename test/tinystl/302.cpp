@@ -15,7 +15,6 @@
 //#include <vector>
 //#include <list>
 
-#include "../../tinystl/associative.cpp"
 
 #include "../../tinystl/vector.cpp"
 #include "../../tinystl/list.cpp"
