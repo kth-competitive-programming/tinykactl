@@ -3,7 +3,7 @@
  * Numerical/Number Theory/Soll Primes
  *
  * Credit:
- *   Eristotene
+ *   Eratosthenes
  *   By David Rydh
  */
 
