@@ -43,7 +43,7 @@ lib.pdfx3: lib.pdf
 	pdflatex lib.tex
 	pdflatex lib.tex
 
-libtex: style.sty lgrind.sty pdflscape.sty util allcode
+libtex: acmlib.sty lgrind.sty pdflscape.sty util allcode
 
 util: always
 	cd util && $(MAKE) util
