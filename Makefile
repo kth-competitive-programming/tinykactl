@@ -53,6 +53,7 @@ allcode: always
 	cd numerical/bigint && $(MAKE) code
 	cd graph && $(MAKE) code
 	cd graph/mst && $(MAKE) code
+	cd graph/maxflow && $(MAKE) code
 	cd geometry && $(MAKE) code
 	cd geometry/hull && $(MAKE) code
 	cd pattern && $(MAKE) code
@@ -68,6 +69,7 @@ allcodeclean: always
 	cd numerical/bigint && $(MAKE) codeclean
 	cd graph && $(MAKE) codeclean
 	cd graph/mst && $(MAKE) codeclean
+	cd graph/maxflow && $(MAKE) codeclean
 	cd geometry && $(MAKE) codeclean
 	cd geometry/hull && $(MAKE) codeclean
 	cd pattern && $(MAKE) codeclean
