@@ -1,26 +1,65 @@
 \categorytitle{Geometry}
 \categorycontents{}
+
 \problemtitle{Geometric primitives}
+\begin{algorithm}{Geometry}
+\reflisting{geometry}
+\end{algorithm}
+
 \problemtitle{Intersection detection}
+\begin{algorithm}{Inside polygon}
+\reflisting{inside}
+\end{algorithm}
+\begin{algorithm}{Winding number}
+\reflisting{winding number}
+\end{algorithm}
+\begin{algorithm}{Point-line and range intersections}
+\reflisting{pointline}
+\end{algorithm}
+
 \problemtitle{Convex Hull}
+\begin{algorithm}{Graham scan}
+\reflisting{convex hull}
+\end{algorithm}
+
+\problemtitle{Polygon area}
+\begin{algorithm}{Poly area}
+\reflisting{poly area}
+\end{algorithm}
+
 \problemtitle{Nearest Neighbour}
-\problemtitle{Triangulation}
-\problemtitle{Range search}
-\problemtitle{Voronoi diagram}
-\problemtitle{Point location}
-\problemtitle{Polygon partitioning}
-\problemtitle{Maintaining line arrangements}
+\begin{algorithm}{Divide and conquer}
+\reflisting{closestpair}
+\end{algorithm}
+\begin{algorithm}{Simpler method}
+\reflisting{closestpair simple}
+\end{algorithm}
+
+\problemtitle{Center of mass}
+\begin{algorithm}{Center of mass}
+\reflisting{centerofmass}
+\end{algorithm}
+
+%\problemtitle{Triangulation}
+%\problemtitle{Range search}
+%\problemtitle{Voronoi diagram}
+%\problemtitle{Point location}
+%\problemtitle{Polygon partitioning}
+%\problemtitle{Maintaining line arrangements}
 \problemtitle{Minkowski sum}
+Have a look at {\tt java.awt.geom}!
 
 \begin{sourceslandscape}
-\code{inside poly}{1_inside_poly}
+\code{geometry}{geometry.h}
+\code{inside}{10_inside_old}
+\code{winding number}{1_inside_poly}
 \code{pointline}{2_pointline}
 \code{convex hull}{3_convex_hull}
+\code{convex hull robust}{12_convex_hull_robust}
 \code{polyarea}{4_polyarea}
 \code{closestpair}{5_closestpair}
 \code{closestpair simple}{6_closestpair_simple}
-\code{poly intersect}{7_poly_intersect}
-\code{geometric mst}{8_geometric_mst}
+%\code{poly intersect}{7_poly_intersect}
+%\code{geometric mst}{8_geometric_mst}
 \code{centerofmass}{9_centerofmass}
-\code{inside old}{10_inside_old}
 \end{sourceslandscape}
