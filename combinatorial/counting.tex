@@ -17,23 +17,27 @@
 \begin{algorithm}{String permutations (multinomial)}
 \reflisting{nperms}
 \usage{ \sourceline{ string s; int n = n\_perms( s ); } }
-\desc{Algorithm for calculating the number of permutations of a string
-(multinomial numbers).}
+\desc
+Algorithm for calculating the number of permutations of a string
+(multinomial numbers).
 \end{algorithm}
 
 \begin{algorithm}{Stirling numbers of the first kind}
 \reflisting{stirling1}
 \usage{ \sourceline{s = stirling1(n,k);} }
-\desc{The Stirling numbers of the first kind $s_{nk}$ count the number of ways to permute a list of $n$ items into $k$ cycles.}
+\desc
+The Stirling numbers of the first kind $s_{nk}$ count the number of
+ways to permute a list of $n$ items into $k$ cycles.
 \end{algorithm}
 
 \begin{algorithm}{Stirling numbers of the second kind}
 \reflisting{stirling}
 \usage{ \sourceline{s = stirling(n,k);} }
-\desc{Calculates the stirling number $s_{nk}$, i.e. in how many ways can $n$
-different items be put in $k$ boxes with at least one item in every box, or
-mathematically speaking -- the number of partitions of $n$ elements into
-$k$ partitions.}
+\desc
+Calculates the stirling number $s_{nk}$, i.e. in how many ways can $n$
+different items be put in $k$ boxes with at least one item in every
+box, or mathematically speaking -- the number of partitions of $n$
+elements into $k$ partitions.
 \end{algorithm}
 
 \begin{algorithm}{Stirling numbers of the second kind modulo 2}
@@ -44,24 +48,31 @@ $k$ partitions.}
 
 
 \begin{algorithm}{Bell numbers}
-\desc{}
-$B(n) = \sum_{k=1}^n S(n,k)$, where S(n, k) is the Sterling numbers of the second kind.
+\desc
+$B(n) = \sum_{k=1}^n {n-1 \choose k-1} B(n-k) = \sum_{k=1}^n S(n,k)$,
+where S(n, k) is the Stirling numbers of the second kind.
 
-The Bell number count the ways $n$ elements can be partitioned.
+The Bell numbers count the ways $n$ elements can be partitioned.
 \end{algorithm}
 
 \begin{algorithm}{Eulerian numbers}
 \reflisting{euler}
 \usage{ \sourceline{s = euler(n,k);} }
-\desc{}
-The Eulerian number $e_{nk}$ is the number of permutations $\pi_1 \pi_2 \cdots \pi_n$ of $\{1,2,\cdots,n\}$ that have $k$ places where $\pi_j < \pi_{j+1}$.
+\desc
+The Eulerian number $e_{nk}$ is the number of permutations $\pi_1
+\pi_2 \cdots \pi_n$ of $\{1,2,\cdots,n\}$ that have $k$ places where
+$\pi_j < \pi_{j+1}$.
 \end{algorithm}
 
 \begin{algorithm}{Second-order Eulerian numbers}
 \reflisting{euler2}
 \usage{ \sourceline{s = euler2(n,k);} }
-\desc{}
-The second-order Eulerian number $e_{nk}$ is the number of permutations $\pi_1 \pi_2 \cdots \pi_{2n}$ of the multiset $\{1,1,2,2,\cdots,n,n\}$ with the property that all numbers between the two occurences of $m$ are greater than $m$ that have $k$ places where $\pi_j < \pi_{j+1}$.  
+\desc
+The second-order Eulerian number $e_{nk}$ is the number of
+permutations $\pi_1 \pi_2 \cdots \pi_{2n}$ of the multiset
+$\{1,1,2,2,\cdots,n,n\}$ with the property that all numbers between
+the two occurences of $m$ are greater than $m$ that have $k$ places
+where $\pi_j < \pi_{j+1}$.
 \end{algorithm}
 
 \begin{algorithm}{Catalan numbers}
