@@ -1,6 +1,6 @@
 /* KTH ACM Contest Template Library
  *
- * Graph/Shortest Path/Dijkstra
+ * Graph/Shortest Path and Minimum Spanning Tree/Dijkstra and Prim Simple
  *
  * Credit:
  *   Dijkstra
@@ -8,9 +8,8 @@
  */
 
 template<class E, class M, class P>
-void dijkstra( const E &edges, M &min, P &path, int start, int n ) {
-  typedef typename E::value_type L;
-  typedef typename L::const_iterator L_iter;
+void dijkstra( const E &edges, M &min, P &path, int start, int n,
+	       bool mst = false ) {
   typedef typename M::value_type T;
   T inf(1<<29);
 
@@ -26,23 +25,26 @@ void dijkstra( const E &edges, M &min, P &path, int start, int n ) {
 
   // Find shortest path
   while( true ) {
-    int node;
+    int node = -1;
     T   least = inf;
 
     for( int i=0; i<n; i++ )
       if( !proc[i] && min[i] < least )
         node = i, least = min[i];
-    if( least == inf )    // the rest of the nodes are unreachable
-      break;
+    if( node < 0 ) break;
 
-    // Process node
+    if( mst ) min[node] = T();
+    typedef typename E::value_type L;
+    typedef typename L::const_iterator L_iter;
+
     const L &l = edges[node];
-    for( L_iter e=l.begin(); e!=l.end(); ++e ) {
-      int destNode = (*e).first;
+    for( L_iter it=l.begin(); it!=l.end(); ++it ) {
+      int dest = (*it).first;
+      T dist = min[node]+(*it).second;
 
-      if( !proc[destNode] && min[node]+(*e).second < min[destNode]) {
-        min[destNode] = min[node] + (*e).second;
-	path[destNode] = node;
+      if( !proc[dest] && dist < min[dest] ) {
+        min[dest] = dist;
+	path[dest] = node;
       }
     }
 
