@@ -27,10 +27,11 @@ struct _string: public vector<T> {
     return b;
   }
 
-  istream& read(istream& i, char* delims = "\n") {
+  istream& read(istream& i, char* delims = " \t\n", bool ignore = true) {
     char c;
     clear();
-    while ((c = i.peek()) != EOF && strchr(delims, c)) i.get();
+    if (ignore)
+      while ((c = i.peek()) != EOF && strchr(delims, c)) i.get();
     while ((c = i.peek()) != EOF && !strchr(delims, c)) push_back(i.get());
     return i;
   }
@@ -65,7 +66,7 @@ ostream& operator<<(ostream& o, const _string<T>& s) {
 
 
 template <class T>
-istream& operator>>(istream& i, _string<T>& s) { return s.read(i, " \t\n"); }
+istream& operator>>(istream& i, _string<T>& s) { return s.read(i); }
 
 template<class T>
-istream& getline(istream& i, _string<T>& s) { return s.read(i); }
+istream& getline(istream& i, _string<T>& s) { return s.read(i, "\n", false); }
