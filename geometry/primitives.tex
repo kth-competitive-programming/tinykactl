@@ -79,6 +79,17 @@ The signed volume of a polyhedron calculated by adding vector tripple
 product volumes.
 \end{algorithm}
 
+\begin{algorithm}{Polygon cut}
+\reflisting{poly cut}
+\usage{\sourceline{%
+iterator r\_end = poly\_cut(v.begin(), v.end(), p0, p1, r.begin())}}
+
+Cuts a polygon with (a half plane specified by) a line.
+{\tt r} is filled in with the cut polygon, and the end of the filled in
+interval is returned. The polygon is kept connected by (overlapping)
+line segments along the cutting line if the cut splits the polygon in parts.
+\end{algorithm}
+
 \begin{algorithm}{Center of mass}
 \reflisting{center of mass}
 
