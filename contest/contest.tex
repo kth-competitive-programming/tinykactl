@@ -33,11 +33,11 @@ Standard problem template. Problems are classified as either of:
   \reflisting{c-lite.el}
   \usage{\sourceline{ M-x load-file RET c-lite.el }}
 
-  c-lite.el provides useful key bindings for Emacs. It also contains a version of Template.cpp.
+  c-lite.el provides useful key bindings for Emacs.
   \begin{description}
-  \item{C-x C-f} -- New file (overloads the usual find-file, uses the template from c-lite.el)
-  \item{C-c C-c} -- Compile (uses compiler and compile flags specified in c-lite.el)
-  \item{C-c C-t} -- Test solution (using ``\texttt{FILE < FILE.in}'')
+  \item{C-x C-f} -- New file (overloads the usual find-file, uses Template.cpp)
+  \item{C-c C-c} -- Compile (uses compile command as specified in c-lite.el)
+  \item{C-c C-t} -- Test solution (using ``\texttt{FILE < FILE.in}''. The commented line is for testing using ``\texttt{FILE}'', i.e. when files are used instead of stdio)
   \item{C-c C-s} -- Submit solution (using ``\texttt{submit FILE.cc}'')
   \end{description} 
 \end{algorithm}
@@ -94,11 +94,10 @@ the error might be.
 \code{uskey}{us_key.modmap}
 
 \sourcesection{Mandatory Contest Material}
-\code{Template}{Template}
+\code{Template}{NWERC_Template}
 \code{c-lite.el}{c-lite.el}
 \code{script}{script}
 \code{adler}{../util/adler}
-\code{Template.old}{Template.old}
 
 \sourcesection{Optional Contest Material}
 \code{linecode}{../util/linecode}
