@@ -11,7 +11,9 @@
 #include <cstdlib>
 #include <iostream>
 
-#include "../bigint/1_simple.cpp"
+using namespace std;
+
+#include "../numerical/bigint/bigint_full.cpp"
 
 
 BigInt a[10001];
