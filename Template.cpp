@@ -1,12 +1,19 @@
-// ACM-ICPC World Finals, Honolulu, 23 Mar 2002
+// ACM-Contest, Location, Date
 //
 // Template for KTH-NADA, Ballons'R'Us, ACM 2001-2002
 //   David Rydh, Mattias de Zalenski, Fredrik Niemelä
 //
-// Problem: 
+// Problem: _
 
 #include <iostream>
+#include <iomanip>
+#include <cstdio>
 #include <algorithm>
+//#include <string>
+//#include <vector>
+//#include <set>
+//#include <map>
+//#include <cmath>
 
 using namespace std;
 
@@ -17,21 +24,21 @@ bool solve(int P);
 
 int main() {
   init();
-
+  
   // simple-solve
   solve(0);
-
+  
   // for-solve
   int n;
   cin >> n;
   for (int i = 0; i < n; i++)
     solve(i);
-
+  
   // while-solve
-  int i = 0;
-  while (solve(i))
-    i++;
-
+  int n = 0;
+  while (solve(n))
+    n++;
+  
   return 0;
 }
 
@@ -39,6 +46,8 @@ void init() {
 }
 
 bool solve(int P) {
-  if (!cin.good()) return false;
+  int n;
+  cin >> n;
+  if (cin.fail() || n == 0) return false;
   return true;
 }
