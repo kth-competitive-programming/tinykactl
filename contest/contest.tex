@@ -1,64 +1,7 @@
+\begin{sourceslandscape}
 \categorytitle{Contest}
 \categorycontents{}
 
-\problemtitle{Mandatory}
-
-\begin{algorithm}{Template}
-\reflisting{Template}
-\desc
-Standard problem template. Problems are classified as either of:
-  \begin{description}
-  \item{simple-solve} -- Number of test cases is 1.
-  \item{for-solve} -- Number of test cases is given in the input.
-  \item{while-solve} -- End of test cases is indicated by special values
-    or end of input. Stop when {\tt solve} returns false.
-  \end{description}
-\end{algorithm}
-
-\begin{algorithm}{Script}
-  \reflisting{script}
-  \usage{\sourceline{ sh script }}
-  \begin{description}
-  \item{c} -- Compile
-  \item{i} -- Enter program input
-  \item{o} -- Enter correct program answer
-  \item{t} -- Test using entered program input
-  \item{td} -- Test with direct typed input
-  \item{d} -- Diff the program output with the entered correct answer
-  \item{p} -- Print source code
-  \item{submit} -- Submit a solution!!
-  \item{n} -- New problem, copy Template
-  \item{f} -- Finished problem, move to done
-  \end{description}
-\end{algorithm}
-
-\begin{algorithm}{Emacs Key Bindings}
-\reflisting{contest-keys.el}
-\reflisting{contest-extras.el}
-\usage{\sourceline{ M-x load-file RET contest-keys.el }}
-\usage{\sourceline{ M-x load-file RET contest-extras.el }}
-\desc
-contest-keys.el provides useful key bindings for Emacs.
-\begin{description}
-\item{C-x C-f} -- New file (overloads the usual find-file, uses Template.cc)
-\item{C-c c} -- Compile (uses compile command as specified in c-lite.el)
-\item{C-c t} -- Test solution (using ``\texttt{FILE < FILE.in}''. The
-commented line is for testing using ``\texttt{FILE}'', i.e. when files
-are used instead of stdio)
-\item{C-c s} -- Submit solution (using ``\texttt{submit FILE.cc}'')
-\end{description}
-contest-extras.el contains some additional key-bindings
-\begin{description}
-\item{C-c p} -- Print current file with line numbers.
-\item{C-c d} -- Run program on input and diff with output.
-\item{C-c g} -- Goto line (useful for fixing compilation errors).
-\end{description}
-\end{algorithm}
-
-
-\begin{sourceslandscape}
-
-\sourcesection{Mandatory Contest Material}
 \code{Template}{Template}
 \code{script}{script}
 \code{contest-keys.el}{contest-keys.el}
