@@ -54,7 +54,6 @@ struct splay_tree {
   typedef splay_node<T> *P;
 
   typedef T value_type;
-  typedef P iterator;
 
   P root; C comp; unsigned n;
   splay_tree(C _comp = C()) : root(0), comp(_comp), n(0) { }
@@ -79,8 +78,9 @@ struct splay_tree {
     return i;
   }
 
+  void clear() { while (!empty()) erase(root); }
   bool empty() const { return root == 0; }
-  iterator find(const T &x, bool left = false) {
+  P find(const T &x, bool left = false) {
     P p = root, i = root;
     while (i) {
       p = i;
@@ -105,7 +105,7 @@ struct splay_tree {
     else
       root = new splay_node<T>(x), ++n;
   }
-  void erase(iterator i) {
+  void erase(P i) {
     splay(i);
     P l = i->l, r = i->r; // join:
     if (l) while (l->r) rot(l, true), l = l->p;
