@@ -15,18 +15,16 @@
 // For $p = 1/2^2$ and $N = 1$ million, this becomes 10. p is determined by pm.
 template <class T, class C=less<T>, int ML = 10>
 struct skip_list {
-  static const int pm = 3; // $p = 1/(pm + 1)$
-
   struct list_node {
     typedef list_node N;
     T d; int lvl;
-    list_node **nxt, **prv;
+    N **nxt, **prv;
     list_node(T _d, int _lvl):
       d(_d), lvl(_lvl), nxt(new N*[lvl]), prv(new N*[lvl]) {}
     ~list_node() { delete[] nxt; delete[] prv; }
     void lnk(N* n, int l) { nxt[l] = n; n->prv[l] = this; }
   };
-
+  
   template <class S>
   struct list_iter {
     typedef list_iter I;
@@ -49,10 +47,10 @@ struct skip_list {
   typedef list_node N;
   typedef list_iter<T> iterator;
   typedef list_iter<const T> const_iterator;
-
-  C c;
+  
+  static const int pm = 3; // $p = 1/(pm + 1)$
+  C c; int level, n;
   list_node *head, *bck[ML];
-  int level, n;
   
   void init(const C& _c) {
     c = _c; head = new N(T(), ML); level = n = 0;
@@ -62,7 +60,6 @@ struct skip_list {
   skip_list(C _c = C()) { init(_c); }
   skip_list(const skip_list& l) { init(l.c); *this = l; }
   virtual ~skip_list() { clear(); delete head; }
-  
   skip_list& operator=(const skip_list& l) {
     clear();
     for (const_iterator i = l.begin(); i != l.end(); ++i) insert(*i);
@@ -71,10 +68,9 @@ struct skip_list {
 
   iterator begin() const { return head->nxt[0]; }
   iterator end() const { return head; }
-  
   bool empty() const { return !n; }
-  void clear() { while (!empty()) erase(begin()); }
   int size() const { return n; }
+  void clear() { while (!empty()) erase(begin()); }
   
   iterator find(TR x, bool left = true) {
     list_node *p = head;
@@ -95,7 +91,7 @@ struct skip_list {
     for (int i = level; i < r.p->lvl; ++i) bck[i] = head;
     for (int i = 0; i < r.p->lvl; ++i) {
       r.p->lnk(bck[i]->nxt[i], i);
-      bck[i]->lnk(r.p, i);
+	bck[i]->lnk(r.p, i);
     }
     if (r.p->lvl > level) level = r.p->lvl;
     return r;

@@ -18,6 +18,7 @@ struct complex {
   enum {reg, pol} kind;
 
   complex(T r = T(), T i = T()): re(r), im(i), kind(r) {}
+  complex(complex_pol<T> c): re(c.abs*cos(c.ang)), im(c.abs*sin(c.ang)) {}
   
   C operator+(CR c) { return C(re + c.re, im + c.im); }
   C operator-(CR c) { return C(re - c.re, im - c.im); }
@@ -27,16 +28,13 @@ struct complex {
   }
   T abs2() { return sqr(re) + sqr(im); }
   C conj() { return C(re, -im); }
-
-  complex_pol<T> to_polar() { return complex_pol<T>(abs(*this),atan2(im,re)); }
-  
   // TODO:
   // cos, sin, tan, sqrt...
 };
 
 template <class T>  T abs(complex<T> c) { return sqrt(c.abs2()); }
 template <class T>  complex<T> exp(complex<T> c) {
-  return to_regular(complex_pol(exp(c.re), im));
+  return complex<T>(complex_pol<T>(exp(c.re), c.im));
 }
 template <class T>
 ostream& operator<<(ostream& o, complex& c) {
@@ -48,16 +46,15 @@ template <class T>
 struct complex_pol {
   typedef complex_pol C;
   typedef const C &CR;
+  complex_pol(const complex<T> c): abs(abs(c)), ang(atan(c.im, c.re)) {}
 
   T abs, ang;
   complex_pol(T ab, T an): abs(ab), ang(an) {}
-  C operator*(CR c) { return C(abs*c.abs, ang + c.ang); }
-  C operator/(CR c) { return C(abc/c.abs, ang - c.ang); }
-  complex<T> to_regular() { return complex<T>(abs*cos(ang), abs*sin(ang)); }
+  C operator*(CR c) { return C(abs*c.abs, ang+c.ang); }
+  C operator/(CR c) { return C(abs/c.abs, ang-c.ang); }
 };
 
 template <class T>  T abs(complex_pol<T> c) { return c.abs; }
 ostream& operator<<(ostream& o, complex_pol& c) { 
   o << c.abs << '*e^(' << c.ang << 'i)';
 }
-
