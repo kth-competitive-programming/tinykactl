@@ -1,62 +1,54 @@
 /* KTH ACM Contest Template Library
  *
- * tinystl/map/splay tree implementation
+ * tinystl/dictionaries/associative wrapper for skip list
  *
  * Credit:
- *   Alexander Stepanov
- *   Based on STL
- *   By Mattias de Zalenski, David Rydh
+ *   By Per Austrin
  */
-#ifndef __TS_ASSOCIATIVE__
-#define __TS_ASSOCIATIVE__
 
 #include "pair.cpp"
-#include "splay_tree.cpp"
+#include "skip_list.cpp"
+//#include "splay_tree.cpp"
 
-template <class K, class V, class C, bool multi >
-struct associative {
+template <class K, class V, class C, bool multi,
+	  class P = skip_list<V, C> >
+//        class P = splay_tree<V, C> >
+struct associative: P {
+  typedef typename P::iterator iterator; // only necessary when using -pedantic
   typedef K key_type;
   typedef V value_type;
-  typedef const value_type &VR;
+  typedef const V &VR;
+  typedef const K &KR;
+  
+  associative(C c = C()): P(c) {}
+  virtual V k2v(KR k) = 0;
 
-  typedef splay_tree<V, C> Tree;
-  Tree t;
-  typedef Tree::iterator iterator;
-  typedef Tree::reverse_iterator reverse_iterator;
-
-  associative(C comp = C()) : t(comp) { }
-  virtual ~associative() {}
-  virtual V k2v(const K &k) = 0;
-
-  // accessors
-  iterator begin() { return t.begin(); }
-  iterator end() { return t.end(); }
-  reverse_iterator rbegin() { return t.rbegin(); }
-  reverse_iterator rend() { return t.rend(); }
-  bool empty() const { return t.empty(); }
-  unsigned size() const { return t.n; }
-
-  // insert/erase
   pair<iterator, bool> insert(VR x) {
-    bool f = t.find(x, false) == t.end();
-    if (f || multi) t.insert(x);
-    return make_pair(iterator(t.root, t), f);
+    iterator i = P::insert(x, multi);
+    return make_pair(i, i != end());
   }
-  //iterator insert(iterator pos, VR x) { return insert(x).first; }
-  void clear() { t.clear(); }
-  void erase(iterator pos) { t.erase(pos.p); }
-  unsigned erase(const K &k) { return t.erase(k2v(k)); }
+  void erase(iterator x) { P::erase(x); }
+  int erase(KR k) {
+    int r = 0;
+    pair<iterator, iterator> lu = equal_range(k);
+    for (iterator i = lu.first; i != lu.second; ++r)  erase(i++);
+    return r;
+  }
+  
+  iterator find(KR k, bool left=true) { return P::find(k2v(k), left); }
 
-  // associative operations
-  iterator find(const K &k, bool left = true) { // return first match?? (/stl)
-    return t.find(k2v(k), left);
+  int count(KR k) {
+    int r = 0;
+    V v = k2v(k);
+    iterator i = find(k);
+    while (i != end() && !c(v, *i)) ++r, ++i;
+    return r;
   }
-  unsigned count(const K &k) { return t.count(k2v(k)); }
-  iterator lower_bound(const K &k) { return t.lower_bound(k2v(k)); }
-  iterator upper_bound(const K &k) { return t.upper_bound(k2v(k)); }
-  pair<iterator, iterator> equal_range(const K &k) {
+  
+  iterator lower_bound(KR k) { return P::lower_bound(k2v(k)); }
+  iterator upper_bound(KR k) { return P::upper_bound(k2v(k)); }
+
+  pair<iterator, iterator> equal_range(KR k) {
     return make_pair(lower_bound(k), upper_bound(k));
   }
 };
-
-#endif

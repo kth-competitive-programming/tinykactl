@@ -22,12 +22,17 @@
 \begin{algorithm}{Logical}
 \reflisting{logical}
 \end{algorithm}
+
 \problemtitle{Containers, Container adaptors}
 \begin{algorithm}{Vector}
 \reflisting{vector}
+\reflisting{static vector}
 \end{algorithm}
 \begin{algorithm}{String}
 \reflisting{string}
+\end{algorithm}
+\begin{algorithm}{Hash Map}
+\reflisting{hmap}
 \end{algorithm}
 \begin{algorithm}{List}
 \reflisting{list}
@@ -46,19 +51,18 @@
 \end{algorithm}
 \begin{algorithm}{Skip list}
 \reflisting{skip list}
-\reflisting{skip list associative}
 \end{algorithm}
 \begin{algorithm}{Splay tree}
 \reflisting{splay tree}
+\reflisting{splay_tree_associative}
 \end{algorithm}
 \begin{algorithm}{Associative}
 \reflisting{associative}
+NB: Associative is not yet compatible with {\texttt splay_tree}, use
+{\texttt splay_tree_associative} instead!
 \end{algorithm}
 \begin{algorithm}{set}
 \reflisting{set}
-\end{algorithm}
-\begin{algorithm}{Static vector}
-\reflisting{static vector}
 \end{algorithm}
 \begin{algorithm}{Map}
 \reflisting{map}

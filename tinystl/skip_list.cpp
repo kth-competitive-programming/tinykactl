@@ -45,6 +45,7 @@ struct skip_list {
   };
   
   typedef T value_type;
+  typedef const T &TR;
   typedef list_node N;
   typedef list_iter<T> iterator;
   typedef list_iter<const T> const_iterator;
@@ -65,6 +66,7 @@ struct skip_list {
   skip_list& operator=(const skip_list& l) {
     clear();
     for (const_iterator i = l.begin(); i != l.end(); ++i) insert(*i);
+    return *this;
   }
 
   iterator begin() const { return head->nxt[0]; }
@@ -74,7 +76,7 @@ struct skip_list {
   void clear() { while (!empty()) erase(begin()); }
   int size() const { return n; }
   
-  iterator find(const T &x, bool left = true) {
+  iterator find(TR x, bool left = true) {
     list_node *p = head;
     for (int i = level - 1; i >= 0; --i) {
       while ((p = p->nxt[i]) != head && (left ? c(p->d, x) : !c(x, p->d)));
@@ -86,7 +88,7 @@ struct skip_list {
   
   int new_level() { int l = 0; while (++l < ML && !(pseudo() & pm)); return l; }
   
-  iterator insert(const T &x, bool multi = true) {
+  iterator insert(TR x, bool multi = true) {
     iterator r(head);
     if ((r = find(x, false)) != end() && !multi) return r;
     r.p = new list_node(x, new_level()); ++n;
@@ -102,5 +104,14 @@ struct skip_list {
   void erase(iterator x) {
     for (int i = 0; i < x.p->lvl; ++i)  x.p->prv[i]->lnk(x.p->nxt[i], i);
     delete x.p, --n;
+  }
+
+  iterator lower_bound(TR k) {
+    iterator i = find(k);
+    return i == end() ? iterator(bck[0]->nxt[0]) : i;
+  }
+  iterator upper_bound(TR k) {
+    iterator i = find(k, false);
+    return ++(i == end() ? iterator(bck[0]) : i);
   }
 };

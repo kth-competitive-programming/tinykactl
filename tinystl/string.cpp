@@ -16,6 +16,7 @@
 
 template <class T>
 struct _string: public vector<T> {
+  typedef vector<T>::const_iterator const_iterator; // only when using -pedantic
   _string(int i = 0): vector<T>(i) {}
   _string(const char* s): vector<T>(strlen(s)) { copy(s, s+n, b); }
   // Substring: create a copy of the range (f,l]
