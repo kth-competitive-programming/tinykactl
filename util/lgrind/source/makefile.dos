@@ -1,0 +1,34 @@
+# Makefile for lgrind, a LaTeX prettyprinter
+
+# $Id: makefile.dos,v 1.1.1.1 1999/05/13 13:02:55 mike Exp $
+
+# You will possibly want to change this
+DEFSFILE=$(EMTEXDIR:\\=\\\\)\\\\texinput\\\\lgrind\\\\lgrindef
+# if you encounter problems with the last line, enter the path
+# directly; if all else fails, modify lgrind.c
+
+CC=bcc
+SOURCES=lgrind.c regexp.c regexp.h lgrindef.c lgrindef.h retest.c v2lg.c
+TEXFILES=lgrind.dtx lgrind.sty lgrind.ins
+CMDS=lgrind.exe
+OBJS=lgrind.obj regexp.obj retest.obj lgrindef.obj v2lg.obj
+
+HELPOPTION=-?
+# popen? pclose? This is DOS!
+#CFLAGS=-v -mc -Dpopen=fopen -Dpclose=fclose 
+CFLAGS=-O2 -mc -Dpopen=fopen -Dpclose=fclose
+# Well, the DEFSFILE is still (semi-)fixed in the EXE...
+
+.c.obj:
+	$(CC) $(CFLAGS) -DDEFSFILE="$(DEFSFILE)" -DHELPOPTION="$(HELPOPTION)" -c $<
+
+all:	$(CMDS)
+
+lgrind.exe: lgrind.obj lgrindef.obj regexp.obj
+	$(CC) $(CFLAGS) lgrind.obj lgrindef.obj regexp.obj
+
+v2lg: v2lg.c
+	$(CC) $(CFLAGS) v2lg
+
+retest: retest.c regexp.c
+	$(CC) $(CFLAGS) retest regexp

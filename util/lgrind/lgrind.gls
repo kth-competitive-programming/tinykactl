@@ -1,0 +1,37 @@
+
+ \begin{theglossary} 
+
+    \makeatletter\scan@allowedfalse
+
+  \item v1.0\efill 
+ \subitem General:\ Written\pfill 1
+  \item v2.0\efill 
+ \subitem General:\ Upgrade to \LaTeX  2.09\pfill 1
+  \item v3.0\efill 
+ \subitem General:\ Added package options\pfill 11
+      \subsubitem Upgrade to \LaTeXe  \pfill 1
+    \subitem \verb*+\DefaultProc+:\ Reintroduced procedure names in the margins\pfill 11
+  \item v3.1\efill 
+ \subitem General:\ C functions are now detected much more reliably\pfill 8
+      \subsubitem Pascal objects now treated properly\pfill 8
+      \subsubitem The \LaTeX  -text put into the files can be configured\pfill 
+		10
+    \subitem \verb*+\NOfont+:\ Numbers can now have an own style (i.\,e. font)\pfill 11
+  \item v3.3\efill 
+ \subitem General:\ "lgrindef" position can be changed permanently\pfill 2
+      \subsubitem Allow page breaks in embedded listings\pfill 5
+    \subitem \verb*+\File+:\ given a meaningful definition\pfill 13
+  \item v3.4\efill 
+ \subitem General:\ Prevent slightly overfull hboxes. New option fussy.\pfill 11
+      \subsubitem Rules around included material can be suppressed. New option norules.\pfill 
+		11
+  \item v3.5\efill 
+ \subitem General:\ Now testing for \texttt  {LGRINDEF} environment variable.\pfill 2
+      \subsubitem Output redirection (-o) implemented.\pfill 2
+      \subsubitem Procedure names added to index in addition to printing them in the margin.\pfill 
+		3
+  \item v3.6\efill 
+ \subitem General:\ Complete \LaTeX  {} lines allowed\pfill 6
+    \subitem \verb*+\ifLGnoprocindex+:\ Added option to suppress indexing of functions\pfill 11
+
+ \end{theglossary}
