@@ -1,4 +1,7 @@
 #include <iostream>
+#include <cmath>
+
+using namespace std;
 
 #include "../numerical/prime_sieve.cpp"
 #include "../numerical/primes.cpp"

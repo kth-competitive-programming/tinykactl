@@ -1,4 +1,8 @@
+#if defined(__BORLANDC__) || __GLIBC__ < 3
+#include <iterator.h>
+#else
 #include <backward/iterator.h>
+#endif
 
 template <class T>
 struct fn_traits { typedef typename T::return_type return_type; };

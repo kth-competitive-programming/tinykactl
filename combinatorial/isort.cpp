@@ -14,6 +14,8 @@
  *
  *****************************************************************************/
 #include <algorithm>
+#include <iterator>
+#include <functional>
 #include "indexed_comparator.cpp"
 
 // V is a datastructure (vector) or RAI.

@@ -6,6 +6,8 @@
  *   By David Rydh
  */
 
+#include <algorithm>	// for swap in _gcd
+
 class BigInt {
   // If no multiplication
   /*  static const int NUMDIGITS = 9;

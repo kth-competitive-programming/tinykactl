@@ -1,5 +1,7 @@
 #include <iostream>
 #include <vector>
+#include <cmath>
+
 using namespace std;
 
 const int N = 1000;
