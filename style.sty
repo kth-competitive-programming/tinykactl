@@ -5,11 +5,10 @@
 \usepackage{makeidx}
 \usepackage{verbatim}
 \usepackage[norules, nolineno, noprocindex]{lgrind}
-\usepackage{lscape}
+\usepackage{pdflscape}
 \usepackage{multicol}
 \usepackage{listings}
 \usepackage{courier}
-
 
 \advance\textwidth 20 mm			%1.8 cm
 %\advance\textheight 2.2 cm
@@ -139,10 +138,11 @@
 
 \newenvironment{sources}{\def\LGfsize{\small}}{}
 
-\def\checksum#1#2#3#4{---\begin{tabular}{c}\\*[-7 mm]{\tiny #2~lines}\\*[-1 mm]{\small #1}\end{tabular}---{\tiny\tt\begin{tabular}{l}\\*[-4 mm] #3\\#4\end{tabular}}}
+\def\checksum#1#2#3#4{---\begin{tabular}{c}\\*[-7 mm]{\tiny #2~lines}\\*[-1 mm]{\small #1}\end{tabular}~~{\tiny\tt\begin{tabular}{l}\\*[-4 mm] #3\\#4\end{tabular}}}
 
 \def\code#1#2{
 \refstepcounter{lstlisting}
+\pagebreak[3]
 \vspace{1 cm}
 {\normalsize\bf Listing \thelstlisting : #1.cpp}
 \xinput{#2.sum}
