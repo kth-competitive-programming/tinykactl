@@ -15,11 +15,11 @@ struct robofun {
   template <class F> void operator ()(int node, F &f) {
     cubeX X(rows, cols);
     int dir, r, c; X(node, dir, r, c);
-    f(make_pair(X(dir + 1 & 3, r, c), 1)); // turn right
-    f(make_pair(X(dir + 3 & 3, r, c), 1)); // turn left
+    f(X(dir + 1 & 3, r, c), 1); // turn right
+    f(X(dir + 3 & 3, r, c), 1); // turn left
     int dr, dc; drc(dir, dr, dc);
     for (int i = 0; i < 3 && open[X(0, r += dr, c += dc)]; ++i)
-      f(make_pair(X(dir, r, c), 1)); // walk up to three steps
+      f(X(dir, r, c), 1); // walk up to three steps
   }
 };
 
