@@ -2,34 +2,9 @@
 \categorycontents{}
 \newpage
 
-\problemtitle{Geometric primitives}
-\begin{algorithm}{Geometry}
-\reflisting{geometry}
-\end{algorithm}
-
-\problemtitle{Intersection detection}
-\begin{algorithm}{Inside polygon}
-\reflisting{inside}
-\end{algorithm}
-\begin{algorithm}{Winding number}
-\reflisting{winding number}
-\end{algorithm}
-\begin{algorithm}{Point-line and range intersections}
-\reflisting{point line}
-\end{algorithm}
-
-\problemtitle{Convex Hull}
-\begin{algorithm}{Graham scan}
-\reflisting{convex hull}
-\end{algorithm}
-\begin{algorithm}{Extended graham scan}
-\reflisting{convex hull robust}
-\end{algorithm}
-
-\problemtitle{Polygon area}
-\begin{algorithm}{Poly area}
-\reflisting{poly area}
-\end{algorithm}
+\xinput{primitives}
+\xinput{convex_hull}
+\xinput{voronoi_diagrams}
 
 \problemtitle{Nearest Neighbour}
 \begin{algorithm}{Divide and conquer}
@@ -39,14 +14,8 @@
 \reflisting{closest pair simple}
 \end{algorithm}
 
-\problemtitle{Center of mass}
-\begin{algorithm}{Center of mass}
-\reflisting{center of mass}
-\end{algorithm}
-
 %\problemtitle{Triangulation}
 %\problemtitle{Range search}
-%\problemtitle{Voronoi diagram}
 %\problemtitle{Point location}
 %\problemtitle{Polygon partitioning}
 %\problemtitle{Maintaining line arrangements}
@@ -55,15 +24,27 @@ Have a look at {\tt java.awt.geom}!
 
 \begin{sourceslandscape}
 \code{geometry}{geometry.h}
-\code{inside}{10_inside_old}
-\code{winding number}{1_inside_poly}
-\code{point line}{2_pointline}
-\code{convex hull}{3_convex_hull}
-\code{convex hull robust}{12_convex_hull_robust}
-\code{poly area}{4_polyarea}
-\code{closest pair}{5_closestpair}
-\code{closest pair simple}{6_closestpair_simple}
-%\code{poly intersect}{7_poly_intersect}
-%\code{geometric mst}{8_geometric_mst}
-\code{center of mass}{9_centerofmass}
+
+\subsection*{Primitives}
+\code{point}{point}
+\code{point3}{point3}
+\code{inside}{inside}
+\code{winding number}{winding_number}
+\code{point line}{pointline}
+\code{poly area}{polyarea}
+\code{center of mass}{centerofmass}
+
+\subsection*{Hull}
+\code{convex hull}{convex_hull}
+\code{convex hull robust}{convex_hull_robust}
+\code{inside hull}{hull/inside_hull}
+\code{hull diameter}{hull/hull_diameter}
+\code{line hull intersect}{hull/line_hull_intersect}
+
+\subsection*{Voronoi}
+\code{delaunay simple}{voronoi/delaunay_simple}
+
+\subsection*{Closest pair}
+\code{closest pair}{closestpair}
+\code{closest pair simple}{closestpair_simple}
 \end{sourceslandscape}
