@@ -1,6 +1,13 @@
+#include <iostream>
 #include <vector>
-#include "../geometry/3_convex_hull.cpp"
-#include "../geometry/12_convex_hull_robust.cpp"
+#include <utility>
+
+using namespace std;
+
+#include "../geometry/point.cpp"
+#include "../geometry/point_ops.cpp"
+#include "../geometry/hull/convex_hull.cpp"
+#include "../geometry/hull/convex_hull_robust_idx.cpp"
 
 int main( void ) {
   vector< point<int> >  points;
