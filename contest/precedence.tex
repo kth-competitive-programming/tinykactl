@@ -1,0 +1,22 @@
+\subsection*{C Operator Precedence and Associativity}
+\begin{tabular}{cc}
+\verb@() [] . -> x++ x--@ & $\rightarrow$ \\
+%\hline
+\verb@++x --x + - ! ~ (cast) sizeof & *@ & $\leftarrow$ \\
+%\hline
+\verb@* / %@ & $\rightarrow$ \\
+\verb@+ -@ & \\
+\verb@<< >>@ & \\
+\verb@< <= > >=@ & \\
+\verb@== !=@ & \\
+\verb@&@ & \\
+\verb@^@ & \\
+\verb@|@ & \\
+\verb@&&@ & \\
+\verb@||@ & \\
+\verb@?:@ & \\
+%\hline
+\verb@= += -= *= /= %= &= ^= |= >>= <<=@ & $\leftarrow$ \\
+%\hline
+\verb@,@ & $\rightarrow$ \\
+\end{tabular}
