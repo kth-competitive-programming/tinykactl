@@ -43,7 +43,55 @@ on
  points on unit square NW border
 outside
 on
+ points inside rectangular polygon
+inside
+inside
+
+inside
+inside
+
+inside
+inside
+ points outside rectangular polygon
+outside
+outside
+
+outside
+outside
+
+outside
+outside
  points outside rectangular polygon but inside convex hull
+outside
+outside
+
+outside
+outside
+ points inside polygon
+inside
+inside
+ points outside polygon
+outside
+outside
+ points inside non-simple rectangular polygons
+inside
+inside
+ points both inside and outside non-simple rectangular polygons (winding)
+inside
+outside
+ points outside non-simple rectangular polygons
+outside
+outside
+
+outside
+outside
+ points inside non-simple polygons
+inside
+inside
+ points on non-simple polygons
+outside
+on
+ points outside non-simple polygons
 outside
 outside
 
