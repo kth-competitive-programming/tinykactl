@@ -2,9 +2,18 @@
 \categorycontents{}
 
 \problemtitle{Indexed}
-\begin{algorithm}{Indexed}
-  \usage{\sourceline{ isort( array, n, idxarray, comp) }}
+
+\begin{algorithm}{indexed comparator}
+  \reflisting{indexed comparator}
+\end{algorithm}
+
+\begin{algorithm}{indexed}
   \reflisting{indexed}
+\end{algorithm}
+
+\begin{algorithm}{isort}
+  \usage{\sourceline{ isort( array, n, idxarray, comp) }}
+  \reflisting{isort}
 \end{algorithm}
 
 \problemtitle{Named items}
@@ -30,7 +39,9 @@ int idx = mapper("x")  =>  mapper("x") == idx, mapper[idx] == "x"%
 \end{algorithm}
 
 \begin{sourceslandscape}
+\code{indexed comparator}{indexed_comparator}
 \code{indexed}{indexed}
+\code{isort}{isort}
 \code{index mapper}{index_mapper}
 \code{istringstream}{istringstream}
 \end{sourceslandscape}
