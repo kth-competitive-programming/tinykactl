@@ -33,7 +33,7 @@ lib.ps: libtex always
 lib.pdf: libtex always
 	pdflatex lib.tex
 
-libtex: style.sty lgrind.sty util allcode
+libtex: style.sty lgrind.sty pdflscape.sty util allcode
 
 util: always
 	cd util && $(MAKE) util
