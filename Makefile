@@ -69,10 +69,10 @@ allcode: always
 	cd util && $(MAKE) code
 	cd contest && $(MAKE) code
 	cd datastructures && $(MAKE) code
+	cd datastructures/numbers && $(MAKE) code
 	cd io && $(MAKE) code
 	cd numerical && $(MAKE) code
 	cd combinatorial && $(MAKE) code
-	cd numerical/bigint && $(MAKE) code
 	cd graph && $(MAKE) code
 	cd graph/mst && $(MAKE) code
 	cd graph/maxflow && $(MAKE) code
@@ -90,6 +90,7 @@ allcodeclean: always
 	cd util && $(MAKE) codeclean
 	cd contest && $(MAKE) codeclean
 	cd datastructures && $(MAKE) codeclean
+	cd datastructures/numbers && $(MAKE) code
 	cd io && $(MAKE) codeclean
 	cd numerical && $(MAKE) codeclean
 	cd combinatorial && $(MAKE) codeclean
