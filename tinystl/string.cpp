@@ -30,10 +30,11 @@ struct _string: public vector<T> {
   istream& read(istream& i, char* delims = "\n") {
     char c;
     clear();
-    while ((c = i.get()) != EOF && !strchr(delims, c)) push_back(c);
+    while ((c = i.peek()) != EOF && strchr(delims, c)) i.get();
+    while ((c = i.peek()) != EOF && !strchr(delims, c)) push_back(i.get());
     return i;
   }
-
+  
   int cmp(const _string &s) const {
     for (int i = 0; i < (n < s.n ? n : s.n); ++i)
       if (b[i] != s.b[i])
