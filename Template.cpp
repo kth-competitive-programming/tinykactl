@@ -1,7 +1,7 @@
-// ACM-Contest, Location, Date
+// Contest, Location, Date
 //
-// Template for KTH-NADA, Ballons'R'Us, ACM 2001-2002
-//   David Rydh, Mattias de Zalenski, Fredrik Niemelä
+// Template for KTH-NADA, Team Name
+//   Team Captain, Team Member, Team Member
 //
 // Problem: _
 
