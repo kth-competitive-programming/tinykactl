@@ -72,4 +72,4 @@ template <class T>
 istream& operator>>(istream& i, _string<T>& s) { i >> ws; return s.read(i); }
 
 template<class T>
-istream& getline(istream& i, _string<T>& s) { return s.read(i, "\n"); }
+istream& getline(istream& i, _string<T>& s) { return s.read(i, "\n").ignore();}

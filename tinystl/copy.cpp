@@ -8,6 +8,9 @@
  *   By David Rydh
  */
 
+#ifndef __TS_COPY__
+#define __TS_COPY__
+
 template<class R, class S>
 S copy(R f, R l, S d) {
   while( f<l ) *d++ = *f++;
@@ -29,3 +32,5 @@ template<class R, class T>
 void fill_n(R f, int n, const T &val) {
   while( n-- > 0 ) *f++ = val;
 }
+
+#endif
