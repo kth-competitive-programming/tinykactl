@@ -4,7 +4,7 @@
 \usepackage{graphicx}
 \usepackage{makeidx}
 \usepackage{verbatim}
-\usepackage[norules, nolineno]{lgrind}
+\usepackage[norules, nolineno, noprocindex]{lgrind}
 \usepackage{lscape}
 \usepackage{multicol}
 \usepackage{listings}
@@ -27,6 +27,11 @@
 
 \def\l@subsection#1#2{}
 
+% Define lgrind style
+\def\CMfont{\rmfamily\itshape} % Comment
+\def\KWfont{\ttfamily\bold} % Keyword
+\def\VRfont{\ttfamily} % Variables
+\def\BGfont{\ttfamily} % Background
 
 % Define own filename-parsing (similar to the filename@parse
 % in latex but doesn't split name and extension
@@ -126,7 +131,8 @@
 
 % Set fontsize in lgrind to tinier in landscape-source-mode
 \newenvironment{sourceslandscape}{\begin{landscape}\begin{multicols*}{2}%
-\def\LGfsize{\@setfontsize\tinier\@vpt{4}}}{\end{multicols*}\end{landscape}}
+%\def\LGfsize{\@setfontsize\tinier\@vpt{5}}}{\end{multicols*}\end{landscape}}
+\def\LGfsize{\scriptsize}}{\end{multicols*}\end{landscape}}
 
 \newenvironment{sources}{\def\LGfsize{\small}}{}
 

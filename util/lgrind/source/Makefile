@@ -21,8 +21,14 @@ all:	lgrind
 lgrind: lgrind.o lgrindef.o regexp.o
 	$(CC) $(CFLAGS) -o lgrind lgrind.o lgrindef.o regexp.o
 
-lgrind.o: lgrind.c lgutil.c
+lgrind.o: lgrind.c lgutil.c lgrindef.h regexp.h
 	$(CC) $(CFLAGS) -DDEFSFILE=\"$(DEFSFILE)\" -DVERSION=\"$(VERSION)\" -c lgrind.c
+
+lgrindef.o: lgrindef.c lgrindef.h
+	$(CC) $(CFLAGS) -c lgrindef.c
+
+regexp.o: regexp.c regexp.h
+	$(CC) $(CFLAGS) -c regexp.c
 
 v2lg:	v2lg.o
 	$(CC) $(CFLAGS) -o v2lg v2lg.o
