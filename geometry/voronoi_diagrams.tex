@@ -1,6 +1,16 @@
 \problemtitle{Voronoi diagrams}
 
-\begin{algorithm}{Simple Delaunay trangulation}
+Delaunay simple returns all triangles from a set of cocircular points.
+Delaunay hull returns an arbitrary actual triangulation. Depending on
+convex hull implementation it may fail if all points are cocircular,
+as is currently the case.
+
+\begin{algorithm}{Simple Delaunay triangulation}
 \reflisting{delaunay simple}
 \complexity{n^4}
+\end{algorithm}
+
+\begin{algorithm}{Convex hull Delaunay triangulation}
+\reflisting{delaunay hull}
+\complexity{\textrm{3d convex hull}}
 \end{algorithm}
