@@ -10,7 +10,7 @@
 
 template <class T>
 inline void swap(T &a, T &b) { T t = a; a = b; b = t; }
-inline void swap(int &a, int &b) { a ^= b ^= a ^= b; }
+//inline void swap(int &a, int &b) { a ^= b ^= a ^= b; }
 
 template <class S, class T>
 struct pair {
