@@ -8,6 +8,7 @@
  *   by Mattias de Zalenski
  */
 #include <set>
+#include "mpq"
 
 template <class V> struct idxless {
   const V &v;
@@ -58,7 +59,7 @@ void dijkstra_prim(int start, E &edges, M &min, P &path, D distfun,
   typedef idxless< M > C;
   typedef E::value_type L;
 
-  upq< int, C > q(C(min)); // use a modifiable priority queue
+  mpq< int, C > q(C(min)); // use a modifiable priority queue
   for (int i = 0; i < edges.size(); i++)
     min[i] = inf;
   min[start] = T();
