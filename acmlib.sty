@@ -10,13 +10,22 @@
 \RequirePackage{graphicx}
 \RequirePackage[latin1]{inputenc}
 \RequirePackage[norules, nolineno, noprocindex]{lgrind}
-\RequirePackage{listings}
 \RequirePackage{makeidx}
 \RequirePackage{multicol}
 \RequirePackage{pdflscape}
 \RequirePackage{verbatim}
 
-
+% Listings numbering and Listings contents (from listings.sty)
+\newcounter{lstlisting}[chapter]
+\renewcommand\thelstlisting
+   {\ifnum \c@chapter>\z@ \thechapter.\fi \@arabic\c@lstlisting}
+\let\lst@UserCommand\gdef
+\def\l@lstlisting#1#2{\@dottedtocline{1}{1.5em}{2.3em}{#1}{#2}}
+\lst@UserCommand\lstlistlistingname{Listings}
+\lst@UserCommand\lstlistoflistings{\bgroup
+    \let\contentsname\lstlistlistingname
+    \let\lst@temp\@starttoc \def\@starttoc##1{\lst@temp{lol}}%
+    \tableofcontents \egroup}
 
 
 % Front matter
