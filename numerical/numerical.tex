@@ -36,6 +36,13 @@ first column is the maximum allowed value for each linear row.
 \end{algorithm}
 \codenc{simplex}{simplex}
 
+\begin{algorithm}{Conjugated gradient method}
+\desc
+Search direction in step $i$ is $d_i = g_i + \beta_i d_{i-1}$, where
+$g_i$ is the gradient in step $i$ and $\beta_i =
+\frac{|g_i|^2}{|g_{i-1}|^2}$ ($d_1 = g_1$).
+\end{algorithm}
+
 \begin{algorithm}{Knapsack Heuristic}
 \complexity{\min(bound, nC)}
 \note{Exact if {\tt bound} $\ge nC$}
