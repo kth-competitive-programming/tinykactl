@@ -33,9 +33,9 @@ struct map {
   key_compare key_comp() const { return comp.comp; }
   value_compare value_comp() const { return comp; }
   iterator begin() { return iterator::begin(t.root); }
-  iterator end() { return iterator::end(); }
+  iterator end() { return iterator::end(t.root); }
   reverse_iterator rbegin() { return reverse_iterator::begin(t.root); }
-  reverse_iterator rend() { return reverse_iterator::end(); }
+  reverse_iterator rend() { return reverse_iterator::end(t.root); }
   bool empty() const { return t.empty(); }
   unsigned size() const { return t.n; }
   V &operator[](const K &k) {
@@ -59,7 +59,7 @@ struct map {
 
   // map operations
   iterator find(const K &k, bool left = true) { // return first match?? (/stl)
-    return iterator(t.find(value_type(k, V()), left));
+    return iterator(t.find(value_type(k, V()), left), t.root);
   }
   unsigned count(const K &k) {
     if (multi) {

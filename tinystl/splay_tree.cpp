@@ -23,25 +23,29 @@ struct splay_node_iterator {
   typedef T value_type;
   typedef splay_node<T> *P;
   typedef splay_node_iterator<T, reverse> sT;
-  P p; splay_node_iterator(P _p) : p(_p) { }
+  P p, t; splay_node_iterator(P _p, P _t=0) : p(_p), t(_t?_t:_p) { }
 
   static P side(P i, bool left = true) {
     if (i) while (i->c(left)) i = i->c(left);
     return i;
   }
-  static P succ(P i, bool succ = true) { // pred if succ is false
-    if (i->c(!succ)) return side(i->c(!succ), succ); // min or max of subtree
-    P p = i->p; // or first left/right ancestor (or 0)
-    while (p && p->c(!succ) == i) i = p, p = i->p;
-    return p;
+  void succ(bool succ = true) { // pred if succ is false
+    if (!p) p = side(t, reverse);
+    else if (p->c(!succ))
+      p = side(p->c(!succ), succ); // min or max of subtree
+    else {
+      P i = p;
+      p = i->p; // or first left/right ancestor (or 0)
+      while (p && p->c(!succ) == i) i = p, p = i->p;
+    }
   }
-  static sT begin(P i) { return sT(side(i, !reverse)); }
-  static sT end() { return sT(0); }
+  static sT begin(P i) { return sT(side(i, !reverse), i); }
+  static sT end(P i) { return sT(0, i); }
 
-  sT &operator ++() { p = succ(p, !reverse); return *this; }
-  sT &operator --() { p = succ(p, reverse); return *this; }
-  sT operator++(int) { sT t(p); p = succ(p, !reverse); return t; }
-  sT operator--(int) { sT t(p); p = succ(p, reverse); return t; }
+  sT &operator ++() { succ(!reverse); return *this; }
+  sT &operator --() { succ(reverse); return *this; }
+  sT operator++(int) { sT s(p, t); succ(!reverse); return s; }
+  sT operator--(int) { sT s(p, t); succ(reverse); return s; }
   bool operator==(const sT &s) const { return p==s.p; }
   bool operator!=(const sT &s) const { return p!=s.p; }
   T &operator *() { return p->x; }
