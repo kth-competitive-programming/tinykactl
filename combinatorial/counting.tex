@@ -15,8 +15,6 @@
 \end{algorithm}
 
 \begin{algorithm}{Stirling numbers of the first kind}
-\reflisting{stirling1}
-\usage{ \sourceline{s = stirling1(n,k);} }
 \desc
 The Stirling numbers of the first kind $s(n,k)$ is defined as
 $(-1)^{n-k}c(n,k)$, where $c(n,k)$ is the number of permutations on
@@ -25,10 +23,8 @@ $$s_{n,k} = s_{n-1,k-1} - (n-1)s_{n-1,k} \qquad s_{n,k} = 1, n = k \qquad s_{n,k
 \end{algorithm}
 
 \begin{algorithm}{Stirling numbers of the second kind}
-\reflisting{stirling}
-\usage{ \sourceline{s = stirling(n,k);} }
 \desc
-Calculates the stirling number $S(n,k)$, i.e. in how many ways can $n$
+The stirling number $S(n,k)$, i.e. in how many ways can $n$
 different items be put in $k$ boxes with at least one item in every
 box, or mathematically speaking -- the number of partitions of $n$
 elements into $k$ partitions. It is given by
@@ -44,8 +40,6 @@ The Bell numbers count the ways $n$ elements can be partitioned.
 \end{algorithm}
 
 \begin{algorithm}{Eulerian numbers}
-\reflisting{euler}
-\usage{ \sourceline{s = euler(n,k);} }
 \desc
 The Eulerian number $e_{n,k}$ counts the number of permutations $\pi$
 of $[n]$ with
@@ -57,21 +51,21 @@ of $[n]$ with
 $$e_{n,k} = (n-k)e_{n-1,k-1} + (k+1) e_{n-1, k} = \sum_{j=0}^{k+1}
 (-1)^j \binom{n+1}{j} (k - j + 1)^n$$
 
+with $e_{n,k} = 1, n = k = 0$ and $e_{n,k} = 0, n < 1$ or $n = k \ne 0$
+
 {\bf NB!!} It is common to define the Eulerian number as $A(n,k) =
 e_{n,k-1}$ (this stems from the fact (or does it?) that the $n$:th
 Eulerian polynomial is $A_n(x) = \sum_{k=1}^{n} A(n,k)x^k$).
 \end{algorithm}
 
 \begin{algorithm}{Second-order Eulerian numbers}
-\reflisting{euler2}
-\usage{ \sourceline{s = euler2(n,k);} }
 \desc
 The second-order Eulerian number $e_{nk}$ is the number of
 permutations $\pi_1 \pi_2 \cdots \pi_{2n}$ of the multiset
 $\{1,1,2,2,\cdots,n,n\}$ with the property that all numbers between
 the two occurences of $m$ are greater than $m$ that have $k$ places
 where $\pi_j < \pi_{j+1}$. It is given by
-$$e_{n,k} = (2n-1-k)e_{n-1,k-1} + (k+1) e_{n-1, k} \qquad e=2, $$
+$$e_{n,k} = (2n-1-k)e_{n-1,k-1} + (k+1) e_{n-1, k} \qquad e_{n,k} = 1, n = k = 0 \qquad e_{n,k} = 0, n < 1$$ or $n = k \ne 0$
 \end{algorithm}
 
 \begin{algorithm}{Catalan numbers}
