@@ -33,7 +33,7 @@ each vertex, the resulting path will be lexicographically
 ordered. 
 \end{algorithm}
 
-\code{euler walk}{euler_walk}
+\codenc{euler walk}{euler_walk}
 
 \begin{algorithm}{Chinese postman}
 \desc
@@ -54,7 +54,12 @@ Directed chinese postman can be solved by using network flow
 techniques (also described in the previous reference).
 \end{algorithm}
 
-\problemtitle{De Bruijn Sequences}
+\begin{algorithm}{De Bruijn Sequences}
+\complexity{ N^L }
+\usage{\sourceline{%
+ deBruijn( int N, int L, char symbols[N] ) }}
+
+\desc
 Let $\Omega$ be an alphabet of size $\sigma$. A de Bruijn sequence is
 a sequence such that all words on $L$ letters appear as a contiguous
 subrange of it.  The shortest cyclic de Bruijn sequence is of
@@ -65,12 +70,6 @@ The lexicographically smallest, and shortest de Bruijn sequence on
 three letters and alphabet $\{0,1\}$ is $00011101$ (cyclic),
 $0001110100$ (non-cyclic).
 
-\begin{algorithm}{de Bruijn}
-\complexity{ N^L }
-\usage{\sourceline{%
- deBruijn( int N, int L, char symbols[N] ) }}
-
-\desc
 {\tt N} is the size of the alphabet and {\tt symbols} the
 corresponding letters. {\tt L} is the length of the words that should
 appear in the de Bruijn sequence.
@@ -79,4 +78,4 @@ The output is given as {\tt cout}-statements.
 \end{algorithm}
 
 % \code{deBruijn}{deBruijn}
-\code{deBruijn fast}{deBruijn_fast}
+\codenc{deBruijn fast}{deBruijn_fast}

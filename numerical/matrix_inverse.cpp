@@ -13,22 +13,17 @@ bool matrix_inverse(int n) {
   for (int i = 0; i < n; ++i)
     tmp[i][i] = 1, row[i] = col[i] = i;
   
-  // forward pass:
-  for (int i = 0; i < n; ++i) {
-    int r = i, c = i;
-    // find pivot
+  for (int i = 0; i < n; ++i) { // forward pass:
+    int r = i, c = i; // find pivot
     for (int j = i; j < n; ++j)
       for (int k = i; k < n; ++k)
 	if (fabs(A[row[j]][col[k]]) > fabs(A[row[r]][col[c]]))
 	  r = j, c = k;
-    // pivot found?
-    if (fabs(A[row[r]][col[c]]) < EPS)
+    if (fabs(A[row[r]][col[c]]) < EPS) // pivot found?
       return false; // if singular
-    // pivot
-    if (i != r) row[i] ^= row[r] ^= row[i] ^= row[r];
+    if (i != r) row[i] ^= row[r] ^= row[i] ^= row[r]; // pivot
     if (i != c) col[i] ^= col[c] ^= col[i] ^= col[c];
-    // eliminate forward
-    double v = A[row[i]][col[i]];
+    double v = A[row[i]][col[i]]; // eliminate forward
     for (int j = i+1; j < n; ++j) {
       double f = A[row[j]][col[i]] / v;
       A[row[j]][col[i]] = 0;
@@ -36,28 +31,22 @@ bool matrix_inverse(int n) {
         A[row[j]][col[k]] -= f*A[row[i]][col[k]];
       for (int k = 0; k < n; ++k)
         tmp[row[j]][col[k]] -= f*tmp[row[i]][col[k]];
-    }
-    // normalize row
-    for (int j = i+1; j < n; ++j)
-      A[row[i]][col[j]] /= v;
-    for (int j = 0; j < n; ++j)
-      tmp[row[i]][col[j]] /= v;
+    } // normalize row
+    for (int j = i+1; j < n; ++j) A[row[i]][col[j]] /= v;
+    for (int j = 0; j < n; ++j)   tmp[row[i]][col[j]] /= v;
     A[row[i]][col[i]] = 1;
   }
 
-  // backward pass:
-  for (int i = n-1; i > 0; --i)
+  for (int i = n-1; i > 0; --i) // backward pass:
     for (int j = i-1; j >= 0; --j) {
       double v = A[row[j]][col[i]];
-      // don't care about A at this point, just eliminate tmp backward
+      // forget A at this point, just eliminate tmp backward
       for (int k = 0; k < n; ++k)
         tmp[row[j]][col[k]] -= v*tmp[row[i]][col[k]];
     }
   
   int invcol[n];
-  for (int i = 0; i < n; ++i)
-    invcol[col[i]] = i;
-  
+  for (int i = 0; i < n; ++i) invcol[col[i]] = i;
   for (int i = 0; i < n; ++i)
     for (int j = 0; j < n; ++j)
       A[i][j] = tmp[row[invcol[i]]][j];

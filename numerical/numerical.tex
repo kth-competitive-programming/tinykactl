@@ -6,12 +6,18 @@
 
 \code{euclid}{euclid}
 
-\code{chinese}{chinese}
+\begin{algorithm}{Chinese remainder theorem}
+\desc
+Solves the system $x = a \pmod m$, $x = b \pmod n$.  If $\gcd(m,n) =
+1$, {\tt chinese} may be used, otherwise, {\tt chinese\_common} must be
+used, which returns $-1$ if there is no solution.  The unique solution
+with $0 \le x < \mathrm{lcm}(m, n)$ is returned.
+\end{algorithm}
+\codenc{chinese}{chinese}
 
 \begin{algorithm}{Primes}
 \desc
-The 1000th prime is 7919. The first every 10000th primes are:
-{\small
+The 1000th prime is 7919. The first every 10000th primes are: {\small
 \begin{verbatim}
   104729  224737  350377  479909  611953
   746773  882377 1020379 1159523

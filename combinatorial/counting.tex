@@ -14,6 +14,20 @@
 \end{algorithm}
 \code{multinomial}{counting/multinomial}
 
+\begin{algorithm}{Partitions}
+\desc
+The number of partitions of $n$ is
+$$p(n) = \sum_{k \ge 1} (-1)^{k+1} \left[p(n- k(3k-1)/2) + p(n-k(3k+1)/2)\right]$$
+for $n \ge 1$, and $p(n) = [n == 0]$ for $n < 1$.
+
+The number of partitions into distinct, odd parts is
+$$q(n) = \frac{1}{n} \sum_{k = 1}^{n} (-1)^{k+1} \sigma(k) q(n-k)$$
+where $\sigma(k)$ is the sum of the {\em odd} divisors of $k$
+(e.g. $\sigma(9) = 13$).  If $(-1)^{k+1}$ is removed, we get the
+number of partitions into distinct parts.
+
+\end{algorithm}
+
 \begin{algorithm}{Stirling numbers of the first kind}
 \desc
 $s(n,k)$ is defined as
