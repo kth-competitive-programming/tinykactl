@@ -31,19 +31,8 @@ bool solve( int testNum ) {
   int i,j,n;
   int totLength, numPaths;
 
-  // Method a) map-map (slow)
-  // map< int, map<int, Length> > edges;
-
-  /*
-  // Method b) vector-vector (quite slow)
-  vector< vector<int> > edges;
-  edges.resize( 100 );
-  for( i=0; i<100; i++ )
-    edges[i].resize( 100 );
-  */
-
-  // Method c) 2D-array
   int edges[100][100];
+  int path[100][100];
 
   // Initialize matrix (for b and c)
   for( i=0; i<100; i++ )
@@ -63,7 +52,7 @@ bool solve( int testNum ) {
   if( n==0 )
     return false;
 
-  floyd_warshall( edges, (int ***)NULL, 100 );
+  floyd_warshall( edges, path, 100 );
 
   numPaths = 0;
   totLength = 0;

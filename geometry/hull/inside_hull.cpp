@@ -23,8 +23,8 @@
  *
  *****************************************************************************/
 
-#include "../geometry.h"
-#include "../2_pointline.cpp"
+#include "../geometry.h.cpp"
+#include "../pointline.cpp"
 
 template <class V, class T>
 int inside_hull_sub(const V &p, int n, const point<T> &t, int i1, int i2) {

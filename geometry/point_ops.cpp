@@ -14,7 +14,7 @@ template <class P> typename P::coord_type dz(P p, P q) { return q.z - p.z; }
 
 
 #include <cmath>
-template <class P> double dist(P p) { return sqrt(dist2(p)); }
+template <class P> double dist(P p) { return sqrt((double)dist2(p)); }
 template <class P> double angle(P p) { return atan2((double)p.y, (double)p.x);}
 template <class P> double theta(P p) {
   double x = p.x, y = p.y; if (x==0 && y==0) return 0;

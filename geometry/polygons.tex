@@ -1,17 +1,23 @@
 \problemtitle{Polygons}
 \begin{algorithm}{Inside polygon}
 \reflisting{inside}
-
+\complexity{n}
+\usage{\sourceline{ inside(polygon,nPts,point) == true; }
 Determine whether a point is inside a polygon. If it is on an edge,
 standard computer graphics rules determine the returned value (inside above
 and to the left of the polygon, but not below or to the right).
 This is usually \emph{not} the desired behaviour in contest geometry problems.
+Use {\tt on_edge} in {\tt pointline.cpp} to check if a point is on the edge.
 \end{algorithm}
 
 \begin{algorithm}{Winding number}
 \reflisting{winding number}
+\complexity{n}
 
-Theta meta-angle winding number of a point.
+Theta meta-angle winding number of a point with a polygon. The polygon should
+be given in ccw-order. Also function {\tt inside_wn} which does the same as
+{\tt inside} but uses the winding number. The value of {\tt inside_wn} is
++1/-1 for inside/outside and 0 for on the edge.
 \end{algorithm}
 
 \begin{algorithm}{Polygon area}

@@ -50,8 +50,8 @@ struct expand {
   }
 };
 
-template <class T>
-ostream &operator<<(ostream &out, T x) {
+template <class T, bool Z>
+ostream &operator<<(ostream &out, const expand<T,Z> &x) {
   return x(out);
 }
 

@@ -30,7 +30,7 @@ struct matrix_mapper3 : matrix_mapper<M> {
 
 template <class T>
 struct vector_matrix_mapper :
-  public matrix_mapper< vector<T>::iterator > {
+  public matrix_mapper< typename vector<T>::iterator > {
   vector_matrix_mapper(vector<T> &v, int c) :
-    matrix_mapper< vector<T>::iterator >(v.begin(), c) { }
+    matrix_mapper< typename vector<T>::iterator >(v.begin(), c) { }
 };

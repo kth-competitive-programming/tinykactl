@@ -1,6 +1,8 @@
 #include <iostream>
 #include <functional>
-#include "../general/6_golden_search.cpp"
+#include "../combinatorial/golden_search.cpp"
+
+using namespace std;
 
 const int X = 1000;
 const int Y = 1000;
@@ -19,7 +21,7 @@ struct fx : unary_function<int, double> {
   fx(int &x) : last_x(x) { }
   double operator()(int y) const {
     double r;
-    last_x = golden_search(-X, X, bind2nd(ptr_fun(f), y), r);
+    last_x = golden_search(bind2nd(ptr_fun(f), y), -X, X, r);
     return r;
   }
 };
@@ -31,7 +33,7 @@ int main() {
   double r;
   for (int i = 0; i < N; i++) {
     sx = 3.0 * i / N - 1, sy = 2.0 * i / N - 1, wd = (double) N / i;
-    int y = golden_search(-Y, Y, g, r);
+    int y = golden_search(g, -Y, Y, r);
     g(y);
     cout << x << "," << y << " = " << r << " = " << f(x, y) << endl;
   }
