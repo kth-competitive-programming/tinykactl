@@ -16,10 +16,10 @@
 
 \begin{algorithm}{Euclid}
 \reflisting{euclid}
-\usage{ \sourceline{d = euclid( a, b, \&x, \&y );} \quad $a>b$, %
-	$x$ and $y$ are return values that satisfy $ax+by=d$. }
+\usage{ \sourceline{d = euclid( a, b, \&x, \&y );} \quad %
+	$x$, $y$ will satisfy $ax+by=d$ after the call. }
 \complexity{ \log(b) }
-\characteristics{$x$ and $y$ have (hopefully, probably, don't know...) the smallest absolute value}
+\characteristics{$x$ and $y$ have the smallest absolute value}
 \begin{example}
 	euclid( 10, 6, x, y ) == 2, x == -1, y == 2
 \end{example}
@@ -73,7 +73,7 @@ to be tested {\tt n} may be as large as $2^{63}-1$. }
 \usage{ \sourceline{ isprime\_rabin\_miller( n, s ); } }
 \end{algorithm}
 
-\begin{algorithm}{NDivisors}
+\begin{algorithm}{Number of divisors}
 \reflisting{ndivisors}
 \characteristics{{\tt ndivisors} and {\tt ndivisors\_prob} calculates
 the number of divisors. {\tt ndivisors} needs a prime-table with all primes
@@ -116,6 +116,7 @@ an overflow).}
 	31231231231231231ULL) == 14355903581119892; } }
 \end{algorithm}
 
-\begin{algorithm}{expmod}
+\begin{algorithm}{exptmod}
+\reflisting{exptmod}
 \complexity{\log{e}}
 \end{algorithm}

@@ -6,7 +6,7 @@
  * mod must be less than Tmax/2.
  *
  * Credit:
- *   By David
+ *   By David Rydh
  */
 
 template< class T > // Note! T must be unsigned!
