@@ -65,20 +65,6 @@ elements will give strange results since there is no possible ordering
 \end{algorithm}
 \xinput{counting}
 
-\problemtitle{Hard Optimisation Problems}
-
-
-\begin{algorithm}{Knapsack}
-\reflisting{knapsack}
-\usage{{\tt R res = knapsack<R>(n, C, costs, values [, bound = 500000]);}}
-\complexity{\min(bound, nC)}
-
-\desc
-Knapsack heuristic. Returns the maximum value achievable. {\tt n} is the number of objects, {\tt C} is the kapacity of the knapsack, {\tt costs} is a random access container with the {\tt n} costs, and {\tt values} is a random access container with the {\tt n} values. {\tt bound} is an approximation factor; lower values of {\tt bound} means shorter running time, but also a greater risk that the algorithm will produce an incorrect answer (if $nC \le $ {\tt bound} and the costs are integers, the answer is ``guaranteed'' to be correct). Note that actually, all scaled values (i.e. multiplications with {\tt scale}) should be rounded upwards. However, empirical tests (using the test data from NADA Open 2002) has shown this approach to be less accurate (i.e. requiring a higher bound to produce a correct answer) in practice. For the NADA Open 2002 test cases, a bound of $\approx 90000$ was sufficient.
-
-
-\end{algorithm}
-
 \begin{sourceslandscape}
 \code{isort}{isort}
 \code{indexed comparator}{indexed_comparator}
@@ -86,12 +72,12 @@ Knapsack heuristic. Returns the maximum value achievable. {\tt n} is the number 
 \code{binary search num}{binary_search_num}
 \code{golden search}{golden_search}
 \code{permute}{permute}
-\code{choose}{../numerical/choose}
-\code{multinomial}{../numerical/multinomial}
-\code{nperms}{../numerical/nperms}
-\code{stirling1}{../numerical/stirling1}
-\code{stirling}{../numerical/stirling}
-\code{euler}{../numerical/euler}
-\code{euler2}{../numerical/euler2}
-\code{knapsack}{knapsack}
+\code{choose}{counting/choose}
+\code{multinomial}{counting/multinomial}
+\code{nperms}{counting/nperms}
+\code{stirling1}{counting/stirling1}
+\code{stirling}{counting/stirling}
+\code{stirling mod 2}{counting/smod2}
+\code{euler}{counting/euler}
+\code{euler2}{counting/euler2}
 \end{sourceslandscape}
