@@ -1,11 +1,12 @@
 /* KTH ACM Contest Template Library
  *
- * Numeric/Big Integer/Simple
+ * Numeric/Unsigned Big Integer/Simple
  *
  * Features:
  * # read/write from/to i-/ostream
  * # comparison
  * # addition
+ * # subtraction
  * # multiplication [dependancy: addition]
  * # division and modulus by small integer (max ~10^9)
  * # exponentiation [dependancy: multiplication]
@@ -13,7 +14,6 @@
  * # grows Dajnamickly when In Need.
  *
  * What's bad?
- * # subtraction not yet implemented ;)
  * # division by arbitrary integer not possible
  * # not bit-oriented, therefore no bit ops
  *   (e.g. and, not, shift, etc)
@@ -35,16 +35,19 @@
 #include <string>
 #include <vector>
 
+/* in order for subtraction to work properly, limb needs to be signed. */
+typedef long long limb;
+typedef vector<limb> bigint;
+typedef bigint::const_iterator bcit;
+typedef bigint::reverse_iterator brit;
+typedef bigint::const_reverse_iterator bcrit;
+typedef bigint::iterator bit;
+
 /*                123456789 */
 #define LIMBSIZE 1000000000
 #define LIMBDIGS 9
-typedef unsigned long long ull;
-typedef vector<ull> bigint;
-typedef bigint::const_iterator bcit;
-typedef bigint::reverse_iterator brit;
-typedef bigint::iterator bit;
 
-bigint BigInt(ull i) {
+bigint BigInt(limb i) {
   bigint res;
   do {
     res.push_back(i % LIMBSIZE);
@@ -70,11 +73,11 @@ istream& operator>>(istream& i, bigint& n) {
 /* Warning: the ostream must be configured to print things with right
  * justification.
  */
-ostream& operator<<(ostream& o, bigint& n) {
+ostream& operator<<(ostream& o, const bigint& n) {
   int began = 0;
   char ofill = o.fill();
   o.fill('0');
-  for (brit i = n.rbegin(); i != n.rend(); ++i) {
+  for (bcrit i = n.rbegin(); i != n.rend(); ++i) {
     if (began) o << setw(LIMBDIGS);
     if (*i) began = 1;
     if (began) o << *i;
@@ -106,16 +109,13 @@ int cmp(const bigint& n1, const bigint& n2) {
   return 0;
 }
 
-int operator!=(const bigint& n1, const bigint& n2) { return cmp(n1,n2); }
-int operator==(const bigint& n1, const bigint& n2) { return !cmp(n1,n2); }
-int operator<(const bigint& n1, const bigint& n2) { return cmp(n1,n2) < 0; }
-int operator>(const bigint& n1, const bigint& n2) { return cmp(n1,n2) > 0; }
-int operator<=(const bigint& n1, const bigint& n2) { return cmp(n1,n2) <= 0; }
-int operator>=(const bigint& n1, const bigint& n2) { return cmp(n1,n2) >= 0; }
+/* The other operators will be automatically define by STL */
+bool operator==(const bigint& n1, const bigint& n2) { return !cmp(n1,n2); }
+bool operator<(const bigint& n1, const bigint& n2) { return cmp(n1,n2) < 0; }
 
 
 bigint& operator+=(bigint& n1, const bigint& n2) {
-  ull mem = 0;
+  limb mem = 0;
   if (n1.size() < n2.size())
     n1.resize(n2.size());
   bit i = n1.begin();
@@ -133,8 +133,30 @@ bigint& operator+=(bigint& n1, const bigint& n2) {
   return n1;
 }
 
-bigint& operator*=(bigint& n1, ull n2) {
-  ull mem = 0;
+bool sub(bigint& n1, const bigint& n2) {
+  limb borrow = 0;
+  if (n1.size() < n2.size())
+    n1.resize(n2.size());
+  bit i = n1.begin();
+  for (bcit j = n2.begin(); j != n2.end(); ++j, ++i) {
+    *i -= borrow + *j;
+    borrow = *i < 0;
+    if (borrow)
+      *i += LIMBSIZE;
+  }
+  if (borrow && i == n1.end() - 1)
+    while (i >= n1.begin())
+      *i = LIMBSIZE - *i--;
+  return borrow;
+}
+
+bigint& operator-=(bigint& n1, const bigint& n2) {
+  sub(n1, n2);
+  return n1;
+}
+
+bigint& operator*=(bigint& n1, limb n2) {
+  limb mem = 0;
   for (bit i = n1.begin(); i != n1.end(); ++i) {
     mem = mem / LIMBSIZE + *i * n2;
     *i = mem % LIMBSIZE;
@@ -159,7 +181,7 @@ bigint& operator*=(bigint& n1, const bigint& n2) {
 }
 
 
-bigint& operator^=(bigint& n1, ull n2) {
+bigint& operator^=(bigint& n1, limb n2) {
   bigint a = n1;
   n1.clear();
   n1.push_back(1);
@@ -172,8 +194,9 @@ bigint& operator^=(bigint& n1, ull n2) {
   return n1;
 }
 
-bigint& divmod(bigint& n1, ull n2, ull* rest = NULL) {
-  ull mem = 0;
+
+bigint& divmod(bigint& n1, limb n2, limb* rest = NULL) {
+  limb mem = 0;
   for (brit i = n1.rbegin(); i != n1.rend(); ++i) {
     mem += *i;
     *i = mem / n2;
@@ -184,9 +207,9 @@ bigint& divmod(bigint& n1, ull n2, ull* rest = NULL) {
   return n1;
 }
 
-bigint& operator/=(bigint& n1, ull n2) { return divmod(n1, n2); }
-ull operator%(const bigint& n1, ull n2) {
-  ull res;
+bigint& operator/=(bigint& n1, limb n2) { return divmod(n1, n2); }
+limb operator%(const bigint& n1, limb n2) {
+  limb res;
   bigint fubar = n1;
   divmod(fubar, n2, &res);
   return res;
@@ -196,7 +219,7 @@ ull operator%(const bigint& n1, ull n2) {
 /* Finds the nth root of p in far worse time than necessary.
  * Returns 0 if the root doesn't exist.
  */
-bigint nroot(const bigint& p, ull n) {
+bigint nroot(const bigint& p, limb n) {
   int f;
   bigint lo = BigInt(0), hi, m, p2;
   hi = BigInt(LIMBSIZE);
@@ -217,3 +240,4 @@ bigint nroot(const bigint& p, ull n) {
   }
   return BigInt(0);
 }
+
