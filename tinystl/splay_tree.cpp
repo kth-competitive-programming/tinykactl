@@ -32,8 +32,6 @@ struct splay_tree {
       else if (p->c(!succ)) p = side(p->c(!succ), succ); // side of subtree
       else { P i; do i = p, p = i->p; while (p && p->c(!succ) == i); }
     } // ..or first left/right ancestor (or 0)
-    static iter begin(TR t) { return iter(side(t.root, !reverse), t); }
-    static iter end(TR t) { return iter(0, t); }
     iter &operator ++() { succ(!reverse); return *this; }
     iter &operator --() { succ(reverse); return *this; }
     iter operator++(int) { iter s(p, t); succ(!reverse); return s; }
@@ -41,15 +39,21 @@ struct splay_tree {
     bool operator==(const iter &s) const { return p==s.p; }
     bool operator!=(const iter &s) const { return p!=s.p; }
     T &operator *() { return p->x; }
+    T *operator ->() { return &(p->x); }
     const T &operator *() const { return p->x; }
     const T *operator ->() const { return &(p->x); }
+    static iter begin(TR t) { return iter(side(t.root, !reverse), t); }
+    static iter end(TR t) { return iter(0, t); }
   };
   typedef iter<false> iterator;
   typedef iter<true> reverse_iterator;
 
   P root; C comp; unsigned n;
   splay_tree(C _comp = C()) : root(0), comp(_comp), n(0) { }
-  ~splay_tree() { while (root) erase(root); }
+  splay_tree(const splay_tree &s) : root(0), comp(s.comp), n(0) { copy(s); }
+  splay_tree &operator =(const splay_tree &s) { copy(s); return *this; }
+  void copy() { clear(); for(iterator i=s.begin();i!=s.end();++i) insert(*i); }
+  ~splay_tree() { clear(); }
 
   static void rot(P i, bool left) {
     P j = i->c(!left), p = i->p;
@@ -70,23 +74,17 @@ struct splay_tree {
     return i;
   }
 
+  // accessors
+  iterator begin() { return iterator::begin(*this); }
+  iterator end() { return iterator::end(*this); }
+  reverse_iterator rbegin() { return reverse_iterator::begin(*this); }
+  reverse_iterator rend() { return reverse_iterator::end(*this); }
   void clear() { while(root) erase(root); }
   bool empty() const { return root == 0; }
-  P find(const T &x, bool left = false) {
-    P p = root, i = root;
-    while (i) {
-      p = i;
-      if (comp(x, i->x)) i = i->l;
-      else if (comp(i->x, x)) i = i->r;
-      else if (i->c(left) && !comp(x, i->c(left)->x)) i = i->c(left); //sic
-      else break;
-    }
-    root = splay(p);
-    return i;
-  }
+  // insert/erase
   void insert(const T &x) {
     if (root) {
-      find(x);
+      find(x, false);
       P l, r; // split:
       if (comp(x, root->x)) r = root, l = r->l, r->l = 0;
       else /**//**//**//**/ l = root, r = l->r, l->r = 0;
@@ -104,5 +102,39 @@ struct splay_tree {
     if (l) l->r = r, l->p = 0; if (r) r->p = l;
     root = l ? l : r;
     delete i, --n;
+  }
+  unsigned erase(const T &x) { // return number of erased elements?? (/stl)
+    unsigned count = 0;
+    while (find(x, false) != end()) erase(root), ++count;
+    return count;
+  }
+  // associative operations
+  iterator find(const T &x, bool left = true) {
+    P p = root, i = root;
+    while (i) {
+      p = i;
+      if (comp(x, i->x)) i = i->l;
+      else if (comp(i->x, x)) i = i->r;
+      else if (i->c(left) && !comp(x, i->c(left)->x)) i = i->c(left); //sic
+      else break;
+    }
+    root = splay(p);
+    return iterator(i, *this);
+  }
+  unsigned count(const T &x) {
+    unsigned count = 0;
+    iterator i = find(x, true);
+    while (i != end() && !comp(x, *i)) ++count, ++i;
+    return count;
+  }
+  iterator lower_bound(const T &x) {
+    find(x, true); iterator i(root, *this);
+    if (comp(i, x)) ++i;
+    return i;
+  }
+  iterator upper_bound(const T &x) {
+    find(x, false); iterator i(root, *this);
+    if (!comp(x, i)) ++i;
+    return i;
   }
 };
