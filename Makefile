@@ -48,6 +48,7 @@ allcode: always
 	cd general && $(MAKE) code
 	cd io && $(MAKE) code
 	cd numerical && $(MAKE) code
+	cd numerical/bigint && $(MAKE) code
 	cd graph && $(MAKE) code
 	cd graph/mst && $(MAKE) code
 	cd geometry && $(MAKE) code
@@ -60,6 +61,7 @@ allcodeclean: always
 	cd general && $(MAKE) codeclean
 	cd io && $(MAKE) codeclean
 	cd numerical && $(MAKE) codeclean
+	cd numerical/bigint && $(MAKE) codeclean
 	cd graph && $(MAKE) codeclean
 	cd graph/mst && $(MAKE) codeclean
 	cd geometry && $(MAKE) codeclean
