@@ -24,7 +24,7 @@ conveniently templatised on the type of the recieved function object.)
 \reflisting{flood fill}
 \usage{ \sourceline{ flood\_fill(edges, m, start, from, to); } }
 \complexity{E}
-
+\desc
 Flood fills around {\tt start} changing the value {\tt from} to {\tt to}
 in {\tt m}.
 \end{algorithm}
@@ -33,7 +33,7 @@ in {\tt m}.
 \reflisting{connected components}
 \usage{ \sourceline{ connected\_components(edges, m, n); } }
 \complexity{V+E}
-
+\desc
 Fills in {\tt m}, identifying each node with a connected component number,
 returning the number of connected components.
 \end{algorithm}
@@ -42,7 +42,7 @@ returning the number of connected components.
 \reflisting{transitive closure}
 \complexity{V^3}
 \usage{ \sourceline{ transitive\_closure(adj, path, n); } }
-
+\desc
 The transitive closure, i.e. which nodes are connected, is found using
 a sligthly modified Floyd-Warshall. The algorithm also gives a path between
 two nodes, if they are connected.
@@ -54,7 +54,7 @@ The adjacency matrix is updated to contain whether nodes are connected.
 \reflisting{floyd warshall}
 \complexity{V^3}
 \usage{ \sourceline{ floyd\_warshall(adj, path,n); } }
-
+\desc
 Calculates the distances between all pairs of nodes.
 The adjacency matrix is modified to contain the shortest distances.
 \end{algorithm}
@@ -71,10 +71,9 @@ The adjacency matrix is modified to contain the shortest distances.
 \reflisting{dijkstra 1}
 \complexity{V+E}
 \usage{ \sourceline{ dijkstra\_1(edges, min, path, start, n); } }
-\characteristics{{\tt dijsktra\_1} shortest path when all edges have weight
-1.}
-
-Calculates the distance from a source to all other nodes.
+\desc
+Calculates the distance from a source to all other nodes,
+when all edges have weight 1.
 \end{algorithm}
 
 \begin{algorithm}{Dijkstra Prim}
@@ -82,13 +81,13 @@ Calculates the distance from a source to all other nodes.
 \reflisting{distfun}
 \complexity{(V+E)\log V}
 \usage{ \sourceline{ dijkstra\_prim(edges, min, path, start, n, distfun, mst); } }
-
+\desc
 Calculates the distance from a source to all other nodes.
 Takes two extra arguments:
 {\tt distfun} is the edge distance function (see exaples).
 {\tt mst = false} is used in {\tt prim} to get a
 minimum spanning tree instead.
-\notes{Dijkstra Prim can handle negative edge-weights but the complexity
+\note{Dijkstra Prim can handle negative edge-weights but the complexity
 is then worse, \ordo{V(V+E)\log V} (?). Bellman-Ford is better suited for this
 case.}
 \end{algorithm}
@@ -97,13 +96,13 @@ case.}
 \reflisting{dijkstra prim simple}
 \complexity{(V+E)V}
 \usage{ \sourceline{ dijkstra\_prim\_simple(edges, min, path, start, n, mst); } }
-
+\desc
 Calculates the distance from a source to all other nodes.
 Takes one extra arguments:
 {\tt mst = false} is used in {\tt prim} to get a
 minimum spanning tree instead.
 
-\notes{Dijkstra Prim Simple cannot handle negative edge-weights. It can
+\note{Dijkstra Prim Simple cannot handle negative edge-weights. It can
 be modified to work with negative edge-weights by inserting
 {\tt proc[dest]=false;} when a shorter route is found, but with increased
 complexity.}
@@ -113,7 +112,7 @@ complexity.}
 \reflisting{bellman ford}
 \reflisting{distfun}
 \complexity{VE}
-
+\desc
 Calculates the distance from a source to all other nodes.
 Returns whether there is a negative distance cycle in the graph.
 \end{algorithm}
@@ -122,7 +121,7 @@ Returns whether there is a negative distance cycle in the graph.
 \reflisting{bellman ford 2}
 \reflisting{distfun}
 \complexity{VE}
-
+\desc
 Calculates the distance from a source to all other nodes.
 Returns whether there is a negative distance cycle in the graph.
 Instead of working with edge-lists as Bellman-Ford, the algorithm BF-2 uses
@@ -132,14 +131,14 @@ a single edge-list with pairs ((from,to), dist).
 \begin{algorithm}{Get shortest path}
 \reflisting{get shortest path}
 \usage{ \sourceline{ get\_shortest\_path( from, path, start, end ) } }
-
+\desc
 Fills in {\tt path} with the nodes from {\tt start} to {\tt end}, using
 {\tt from} to see where the path got from to the end.
 \end{algorithm}
 
 
 \begin{algorithm}{Shortest Tour}
-\item[Description]
+\desc
 Shortest tour from A to B to A again not using any edge twice, in an
 undirected graph:
 
