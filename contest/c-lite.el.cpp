@@ -4,17 +4,15 @@
 			 (file-name-sans-extension buffer-file-name) " "
 			 buffer-file-name)))
 
-(defun c-lite-new-file (name) (interactive "FCFF: ") 
-  (find-file name) (and (not (file-exists-p name))
-			(string-equal (file-name-extension name) kactl-ext)
-			(insert-file "Template.cpp"))
-  (indent-buffer)
-  (replace-string "%P" (file-name-nondirectory (file-name-sans-extension name))
-		  nil (point-min) (point-max)))
+(defun c-lite-new-file (N) (interactive "FCFF: ") 
+  (find-file N) (or (file-exists-p N)
+		    (not (string-equal (file-name-extension N) kactl-ext))
+		    (insert-file "Template.cpp")))
 
 (defun c-lite-test () (interactive) 
-  (let ((name (file-name-sans-extension buffer-file-name)))
-    (shell-command (concat name " < " name ".in"))))
+  (let ((N (file-name-sans-extension buffer-file-name)))
+    (shell-command (concat N " < " N ".in"))))
+;;(shell-command (file-name-sans-extension buffer-file-name)))
 
 (defun c-lite-send () (interactive)
   (and (string-equal (file-name-extension buffer-file-name) kactl-ext)

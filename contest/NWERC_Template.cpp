@@ -1,25 +1,22 @@
 // Contest, Location, Date
 //
-// Template for KTH-NADA, Team Name
+// NWERC02 Template for KTH-NADA, Team Name
 //   Team Captain, Team Member, Team Member
 //
 // Problem: ___
 
-#include <iostream>
-#include <algorithm>
-//#include <fstream>  // When reading/writing from files
-//#include <string>
-//#include <map>
-//#include <vector>
-//#include <cmath>
+#include <iostream.h>
+#include <fstream.h>
+//#include <stdio.h>
+//#include <stdlib.h>
+//#include <string.h>
+//#include <math.h>
+//#include <ctype.h>
 
-using namespace std;
 #define doubt if (debug) cerr
 
 void init() {
-  // Reading from/writing to other files than stdin/stdout:
-  //cin.rdbuf((new ifstream("T.in"))->rdbuf());
-  //cout.rdbuf((new ofstream("T.out"))->rdbuf());
+  cin.rdbuf((new ifstream("!!!.in"))->rdbuf());
 }
 
 const enum {SIMPLE, FOR, WHILE} mode = NO;

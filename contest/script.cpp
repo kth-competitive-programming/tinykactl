@@ -1,6 +1,4 @@
-mkdir data
-mkdir done
-mkdir done/data
+mkdir data done done/data
 
 echo 'g++ -Wall -o $1 $1.cpp' > c
 
