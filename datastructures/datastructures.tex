@@ -1,10 +1,31 @@
 \categorytitle{Data Structures}
 \categorycontents{}
 \problemtitle{pair}
-\problemtitle{map}
-\problemtitle{set}
-\problemtitle{queue}
+\problemtitle{string}
+\problemtitle{vector}
+
+\begin{algorithm}{null vector}
+\reflisting{null vector}
+
+{\tt null vector} acts like a vector, but simply keeps one value.
+The value is reset and its reference returned for any index referenced.
+\usage{\sourceline{ v[3612378] = 5; v[3612378] == 0; }}
+\end{algorithm}
+
 \problemtitle{deque}
+\problemtitle{set}
+
+\begin{algorithm}{sets}
+\reflisting{sets}
+
+The {\tt Kruskal} minimum spanning tree algorithm uses a data structure
+called {\tt sets} to efficiently determine whether two vertices belong to
+the same tree.
+\end{algorithm}
+
+\problemtitle{map}
+\problemtitle{list}
+\problemtitle{queue}
 
 \problemtitle{priority queue}
 \begin{algorithm}{mpq}
@@ -22,9 +43,6 @@ containers.
 \end{algorithm}
 
 \problemtitle{stack}
-\problemtitle{vector}
-\problemtitle{list}
-\problemtitle{string}
 
 \problemtitle{heap}
 \begin{algorithm}{update heap}
@@ -37,9 +55,8 @@ is changed, the {\tt key\_increased} or {\tt key\_decreased} method should
 be called with its position as argument.
 \end{algorithm}
 
-\problemtitle{valarray}
-
 \begin{sourceslandscape}
-\code{update heap}{update_heap}
+\code{null vector}{null_vector}
 \code{mpq}{mpq}
+\code{update heap}{update_heap}
 \end{sourceslandscape}
