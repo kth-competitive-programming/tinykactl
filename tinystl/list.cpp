@@ -78,9 +78,7 @@ struct list {
     while( b!=e ) { insert(p,*b); ++b; }
   }
   iterator erase( iterator p ) {
-    iterator x = p; --x;
-    iterator y = p; ++y;
-
+    iterator x=p, y=p; --x; ++y;
     x.link(y); delete p.e;
     return y;
   }
@@ -100,10 +98,7 @@ struct list {
   }
   void splice(iterator p, S &, iterator i, iterator j) {
     if( i==j || p==j ) return;
-
-    iterator x = i; --x;
-    iterator y = j; --y;
-    iterator z = p; --z;
+    iterator x=i, y=j, z=p; --x; --y; --z;
     x.link(j); y.link(p); z.link(i);
   }
 };
