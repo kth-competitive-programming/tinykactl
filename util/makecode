@@ -1,5 +1,6 @@
 # Pers förslag på automatisk target till alla .cpp-filer
 # för att få .lg och .sum
+.PHONY: code codeclean koder summor texer
 
 code: koder summor texer
 
