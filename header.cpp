@@ -4,12 +4,7 @@
  *
  * Credit:
  *   Aristoteles yyyy-yyyy
- *   Based on [Intro to Algorithms, pp. xx-yy,zz]
- *   Variation of [KTH.ACM.CTL. ff.cpp]
- *   Sketch by nn
+ *   Based on [book, pp. x-y], Variation of [KACTL ff.cpp], Sketch by nn
  *   By nn
- *   Updated by xx
- *   Thanks to yy
- *   Greetings to mum!
- *   Dedicated to Dirk van Dalen
+ *   Updated by xx, Thanks to yy, Greetings to mum, Dedicated to Dirk van Dalen
  */
