@@ -30,11 +30,17 @@ ps: lib.ps index always
 
 pdf: lib.pdf index always
 
+pdfx3: lib.pdfx3 index always
+
 lib.ps: libtex always
 	latex lib.tex
 	dvips -o lib.ps lib.dvi
 
 lib.pdf: libtex always
+	pdflatex lib.tex
+
+lib.pdfx3: lib.pdf
+	pdflatex lib.tex
 	pdflatex lib.tex
 
 libtex: style.sty lgrind.sty pdflscape.sty util allcode
