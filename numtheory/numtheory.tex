@@ -23,10 +23,11 @@
 
 \begin{algorithm}{Chinese remainder theorem}
 \desc
-Solves the system $x = a \pmod m$, $x = b \pmod n$.  If $\gcd(m,n) =
-1$, {\tt chinese} may be used, otherwise, {\tt chinese\_common} must be
-used, which returns $-1$ if there is no solution.  The unique solution
-with $0 \le x < \mathrm{lcm}(m, n)$ is returned.
+Solves the system $x = a \pmod m$, $x = b \pmod n$.  {\tt chinese}
+returns the unique solution with $0 \le x < \mathrm{lcm}(m, n)$.  If
+$\gcd(m,n) = 1$, {\tt chinese} may be used, otherwise, {\tt
+chinese\_common} must be used, which returns $-1$ if there is no
+solution.
 \end{algorithm}
 \codenc{chinese}{chinese}
 
