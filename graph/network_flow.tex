@@ -1,45 +1,19 @@
 \problemtitle{Network Flow}
 
-Flow graphs are directed graphs with flow capacities on their edges.
 
-To get quick access to the ``back edge'' of all egdes, a special flow edge
-struct is used in the network flow algorithms.
+\code{flow graph}{maxflow/flow_graph}
 
-\begin{algorithm}{flow graph}
-\reflisting{flow graph}
-\usage{ \sourceline{%
- flow\_add\_edge( edges, source, dest, cap [, back\_cap] ); }}
-\desc
-Flow graphs are constructed and updated by a couple of utility functions.
-
-A flow graph should be an STL-container of {\tt vector}s with
-{\tt flow\_edge}s ({\tt map}s are not allowed).
-
-Edges should be added using {\tt flow\_add\_edge}.
-
-Note that an edge {\emph must be} added only once for each pair,
-simultaneously giving both forward and back capacity.
-\end{algorithm}
-
-\begin{algorithm}{lift to front}
-\reflisting{lift to front}
-\note{This is a much more effective algorithm than Ford Fulkerson,
-even on bi-partite graphs, and suitable for any flow graph.}
-\note{Ford Fulkerson {\it is} faster if $En_{aug~paths}<V^3$.}
-\usage{ \sourceline{flow = lift\_to\_front(edges, source, sink);} }
+\begin{algorithm}{Lift to Front}
 \complexity{V^3}
 \end{algorithm}
+\code{lift to front}{maxflow/lift_to_front}
 
-\begin{algorithm}{ford fulkerson}
-\reflisting{ford fulkerson}
+\begin{algorithm}{Ford Fulkerson}
 \desc
-This is a DFS or BFS Ford Fulkerson which maximize the flow in the
-augmenting paths. The BFS is more robust but may be slower.
-\usage{ The maximum flow is calculated by repetitive calls
-to {\tt flow\_increase1}:}
-\sourceline{ while( ap = flow\_increase1(edges, source, sink) ) flow+=ap; }
+DFS and BFS Ford Fulkerson implementations.
 \complexity{E\cdot n_{aug~paths}}
 \end{algorithm}
+\code{ford fulkerson}{maxflow/ford_fulkerson}
 
 \begin{algorithm}{Flow constructions}
 \keyword{Minimal cut} of a graph, generalization of edge connectivity. A
