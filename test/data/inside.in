@@ -137,7 +137,7 @@
 4 3
 4 5
 % points outside rectangular polygon
-6 3
+4 4
 6
 1 4
 1 1
@@ -146,7 +146,7 @@
 3 2
 3 4
 %
-4 4
+6 3
 8
 1 4
 1 1
@@ -226,7 +226,7 @@
 4 4
 4 3
 1 3
-%
+% points both inside and outside non-simple rectangular polygons (winding)
 3 3
 8
 1 1
@@ -264,7 +264,7 @@
 4 3
 1 1
 1 3
-%
+% points on non-simple polygons
 6 4
 9
 3 1
@@ -278,6 +278,7 @@
 1 2
 % points outside non-simple polygons
 2 3
+4
 4 1
 4 3
 1 1
