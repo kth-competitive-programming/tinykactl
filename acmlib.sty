@@ -1,14 +1,40 @@
-\usepackage[latin1]{inputenc}
-\usepackage{amsmath}
-\usepackage{amsfonts}
-\usepackage{graphicx}
-\usepackage{makeidx}
-\usepackage{verbatim}
-\usepackage[norules, nolineno, noprocindex]{lgrind}
-\usepackage{pdflscape}
-\usepackage{multicol}
-\usepackage{listings}
-\usepackage{courier}
+% The KTH ACM Code Library style definition
+%
+
+\NeedsTeXFormat{LaTeX2e}[1990/01/01] % I really have no idea which version is necessary...
+\ProvidesPackage{acmlib}[2002/11/01]
+
+\RequirePackage{amsmath}
+\RequirePackage{amsfonts}
+\RequirePackage{courier}
+\RequirePackage{graphicx}
+\RequirePackage[latin1]{inputenc}
+\RequirePackage[norules, nolineno, noprocindex]{lgrind}
+\RequirePackage{listings}
+\RequirePackage{makeidx}
+\RequirePackage{multicol}
+\RequirePackage{pdflscape}
+\RequirePackage{verbatim}
+
+
+
+
+% Front matter
+
+\def\@subtitle{\PackageWarning{acmlib}{No subtitle given}}
+\newcommand{\subtitle}[1]{\def\@subtitle{#1}}
+
+\renewcommand{\maketitle}{
+  $\;$\\[8cm] % This is really ugly...
+  \begin{center}
+    {\LARGE \@title}\\[0.6cm]
+    {\Large \@subtitle{} version \input{version}}
+  \end{center}
+  \thispagestyle{empty}
+  \newpage
+}
+
+
 
 \advance\textwidth 20 mm			%1.8 cm
 %\advance\textheight 2.2 cm
@@ -64,10 +90,18 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%
 
-\def\categorytitle#1{\def\thecategoryname{#1}\chapter{#1}\index{#1}}
-\def\categoryindex#1{\index{\thecategoryname!#1 @\MakeLowercase{#1}}\index{#1}}
+\newcommand{\categorytitle}[1]{
+  \def\thecategoryname{#1}
+  \chapter{#1}
+  \index{#1}
+}
 
-\def\categorycontents{\@input{\jobname.lop}}
+\newcommand{\categoryindex}[1]{
+  \index{\thecategoryname!#1 @\MakeLowercase{#1}}
+  \index{#1}
+}
+
+\newcommand{\categorycontents}{\@input{\jobname.lop}}
 
 \def\categorywritecontents{%
   \begingroup
@@ -90,6 +124,7 @@
 		\contentsline{#2}{#3}{#4}
 	\fi
 }
+
 \def\categoryaddtocontents#1#2{\addtocontents{lop}{\protect\categorycontentline%
 	{\thecategoryname}{#1}{#2}{\thepage}}}
 
@@ -100,11 +135,19 @@
 %
 %%%%%%%%%%%%%%%%%%%%%
 
-\def\problemtitle#1{\def\theproblemname{#1}\section{#1}
-	\categoryindex{#1}\categoryaddtocontents{problem}{#1}}
-\def\problemindex#1{\index{\thecategoryname!\theproblemname @\MakeLowercase{\theproblemname}!#1 @\MakeLowercase{#1}}%
-	\index{\theproblemname!#1 @\MakeLowercase{#1}}
-	\index{#1 @\MakeLowercase{#1}}}
+\newcommand{\problemtitle}[1]{
+  \def\theproblemname{#1}
+  \section{#1}
+  \categoryindex{#1}
+  \categoryaddtocontents{problem}{#1}
+}
+
+\newcommand{\problemindex}[1]{
+  \index{\thecategoryname!\theproblemname @\MakeLowercase{\theproblemname}!#1 @\MakeLowercase{#1}}%
+  \index{\theproblemname!#1 @\MakeLowercase{#1}}
+  \index{#1 @\MakeLowercase{#1}}
+}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%
 %
@@ -112,49 +155,66 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%
 
-\newenvironment{algorithm}[1]{\def\thealgorithm{#1}\subsection{#1}\problemindex{#1}%
-   \categoryaddtocontents{algorithm}{\MakeLowercase{#1}}\begin{description}}{\end{description}}
 
+\newenvironment{algorithm}[1]
+	       {\def\thealgorithm{#1}
+		 \subsection{#1}
+		 \problemindex{#1}
+		 \categoryaddtocontents{algorithm}{\MakeLowercase{#1}}
+		 \begin{description}}
+	       {\end{description}}
+	       
 
-\def\keyword#1{\item[#1]}
+\newcommand{\keyword}[1]{\item[#1]}
 
 \newenvironment{source}{\verbatim\small\vspace{-0mm}}{\endverbatim}
-\def\sourceline#1{{\small \tt #1}}
 
-\def\usage#1{\keyword{Usage}\par #1}
-\def\complexity#1{\keyword{Complexity} $\mathcal{O}(#1)$}
-\def\characteristics#1{\keyword{Characteristics}\par #1}
+\newcommand{\sourceline}[1]{{\small \tt #1}}
+\newcommand{\usage}[1]{\keyword{Usage}\par #1}
+\newcommand{\complexity}[1]{\keyword{Complexity} $\mathcal{O}\left(#1\right)$}
+\newcommand{\characteristics}[1]{\keyword{Characteristics}\par #1}
 \newenvironment{example}{\keyword{Example}\source}{\endsource}
-\def\valladolid#1{\keyword{Valladolid} #1}
-\def\reflisting#1{\keyword{Listing} -- #1.cpp, p. \pageref{code_#1}}
+\newcommand{\valladolid}[1]{\keyword{Valladolid} #1}
+\newcommand{\reflisting}[1]{\keyword{Listing} -- #1.cpp, p. \pageref{code_#1}}
+
+
 % Set fontsize in lgrind to tinier in landscape-source-mode
 \newenvironment{sourceslandscape}{
-\newpage
-\advance\textwidth 4 cm%
-\advance\textheight 4 cm%
-\advance\topmargin -2 cm%
-\advance\oddsidemargin  -2 cm%
-\advance\evensidemargin -2 cm%
-\begin{landscape}\begin{multicols*}{2}\def\LGfsize{\scriptsize}}%
-{\end{multicols*}\end{landscape}}
+  \newpage
+  \advance\textwidth 4 cm%
+  \advance\textheight 4 cm%
+  \advance\topmargin -2 cm%
+  \advance\oddsidemargin  -2 cm%
+  \advance\evensidemargin -2 cm%
+  \begin{landscape}
+    \begin{multicols*}{2}
+      \def\LGfsize{\scriptsize}}{\end{multicols*}\end{landscape}}
+
 
 \newenvironment{sources}{\def\LGfsize{\small}}{}
 
+
+%\newcommand{\checksum}[4]{---~{\small\tt #1}~~
+%  {\tiny\tt\begin{tabular}{1}\\*[-7 mm] \\#2\\#3\\#4\end{tabular}}}
+
+
 \def\checksum#1#2#3#4{---~{\small\tt #1}~~
-	{\tiny\tt\begin{tabular}{l}\\*[-7 mm] \\#2\\#3\\#4\end{tabular}}}
+  {\tiny\tt\begin{tabular}{l}\\*[-7 mm] \\#2\\#3\\#4\end{tabular}}}
 
 % \code{displayname}{filename}[label] (filenames without cpp)
 \def\code#1#2{
-\refstepcounter{lstlisting}
-\pagebreak[3]
-\label{code_#1}
-\categoryaddtocontents{code}{\tt\MakeLowercase{#1}}
-\index{#1_X @{\tt #1}}
-\vspace{1 cm}
-{\normalsize\bf Listing \thelstlisting : #1.cpp}
-\xinput{#2.sum}
-\hrule
-\lgrindfile{\thepath #2.lg}
-\addcontentsline{lol}{lstlisting}
-	{\protect\numberline{\thelstlisting}#1}%
+  \refstepcounter{lstlisting}
+  \pagebreak[3]
+  \label{code_#1}
+  \categoryaddtocontents{code}{\tt\MakeLowercase{#1}}
+  \index{#1_X @{\tt #1}}
+  \vspace{1 cm}
+	 {\normalsize\bf Listing \thelstlisting : #1.cpp}
+	 \xinput{#2.sum}
+	 \hrule
+	 \lgrindfile{\thepath #2.lg}
+	 \addcontentsline{lol}{lstlisting}
+			 {\protect\numberline{\thelstlisting}#1}%
 }
+
+\newcommand{\sourcesection}[1]{\newpage\section*{#1}}
