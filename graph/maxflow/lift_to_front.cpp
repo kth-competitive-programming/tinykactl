@@ -58,8 +58,8 @@ typename E::value_type::value_type::flow_type lift_to_front(E &flow,
 	// lift u
 	height[u] = 2 * v - 1;
 	for (L_iter it = flow[u].begin(); it != flow[u].end(); it++)
-	  if (it->c > 0 && height[it->dest] < height[u]) {
-	    height[u] = height[it->dest];
+	  if (it->c > 0 && height[it->dest]+1 < height[u]) {
+	    height[u] = height[it->dest]+1;
 	    cur[u] = it; // start from an admissable edge!
 	  }
       }
