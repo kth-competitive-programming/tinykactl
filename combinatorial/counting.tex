@@ -20,7 +20,8 @@
 \desc
 The Stirling numbers of the first kind $s(n,k)$ is defined as
 $(-1)^{n-k}c(n,k)$, where $c(n,k)$ is the number of permutations on
-$n$ items with $k$ cycles.
+$n$ items with $k$ cycles. It is given by
+$$s_{n,k} = s_{n-1,k-1} - (n-1)s_{n-1,k} \qquad s_{n,k} = 1, n = k \qquad s_{n,k} = 0, n < 1$$
 \end{algorithm}
 
 \begin{algorithm}{Stirling numbers of the second kind}
@@ -30,7 +31,8 @@ $n$ items with $k$ cycles.
 Calculates the stirling number $S(n,k)$, i.e. in how many ways can $n$
 different items be put in $k$ boxes with at least one item in every
 box, or mathematically speaking -- the number of partitions of $n$
-elements into $k$ partitions.
+elements into $k$ partitions. It is given by
+$$s_{n,k} = s_{n-1,k-1} + ks_{n-1,k} \qquad s_{n,k} = 1, n = k \qquad s_{n,k} = 0, n < 1$$
 \end{algorithm}
 
 \begin{algorithm}{Bell numbers}
@@ -68,7 +70,8 @@ The second-order Eulerian number $e_{nk}$ is the number of
 permutations $\pi_1 \pi_2 \cdots \pi_{2n}$ of the multiset
 $\{1,1,2,2,\cdots,n,n\}$ with the property that all numbers between
 the two occurences of $m$ are greater than $m$ that have $k$ places
-where $\pi_j < \pi_{j+1}$.
+where $\pi_j < \pi_{j+1}$. It is given by
+$$e_{n,k} = (2n-1-k)e_{n-1,k-1} + (k+1) e_{n-1, k} \qquad e=2, $$
 \end{algorithm}
 
 \begin{algorithm}{Catalan numbers}
