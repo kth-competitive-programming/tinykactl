@@ -35,7 +35,7 @@ typename E::value_type::value_type::flow_type lift_to_front(E &flow,
   height[source] = v - 2;
 
   for (L_iter it = flow[source].begin(); it != flow[source].end(); it++)
-    add_flow(flow, *it, (*it).c, excess);
+    add_flow(flow, *it, it->c, excess);
 
   // init lift-to-front
   vector<int> l(v, sink); // lift-to-front list
@@ -56,14 +56,14 @@ typename E::value_type::value_type::flow_type lift_to_front(E &flow,
     while (excess[u] > 0)
       if (cur[u] == flow[u].end()) {
 	// lift u
-	int minh = v - 2;
+	height[u] = 2 * v - 1;
 	for (L_iter it = flow[u].begin(); it != flow[u].end(); it++)
-	  if ((*it).c > 0) minh = min(minh, height[(*it).dest]);
-	height[u] = 1 + minh;
-	// last four lines may maybe be replaced by height[u]++; ..
-	cur[u] = flow[u].begin();
+	  if (it->c > 0 && height[it->dest] < height[u]) {
+	    height[u] = height[it->dest];
+	    cur[u] = it; // start from an admissable edge!
+	  }
       }
-      else if ((*cur[u]).c > 0 && height[u] == height[(*cur[u]).dest] + 1)
+      else if (cur[u]->c > 0 && height[u] == height[cur[u]->dest] + 1)
 	// push on edge cur[u]
 	add_flow(flow, *cur[u], min(excess[u], (*cur[u]).c), excess);
       else
