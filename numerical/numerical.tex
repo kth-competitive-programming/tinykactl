@@ -121,11 +121,17 @@ an overflow).}
 	31231231231231231ULL) == 14355903581119892; } }
 \end{algorithm}
 
-\begin{algorithm}{exptmod}
-\reflisting{exptmod}
-\complexity{\log{b}\textrm{ ops}}
-\characteristics{{\tt exptmod} calculates $a^b\mod n$ by repeated
-squaring.}
+\begin{algorithm}{expmod}
+\reflisting{expmod}
+\complexity{\log{e}\textrm{ ops}}
+\characteristics{{\tt expmod} calculates $b^e\mod n$ by repeated squaring.}
+\end{algorithm}
+
+\problemtitle{Big numerical operations}
+\begin{algorithm}{exp}
+\reflisting{exp}
+\complexity{\log{e}\textrm{ ops}}
+\characteristics{{\tt exp} calculates $b^e$ by repeated squaring.}
 \end{algorithm}
 
 \begin{sourceslandscape}
@@ -143,5 +149,6 @@ squaring.}
 \code{ndivisors}{ndivisors}
 \code{ndivisors prob}{ndivisors_prob}
 \code{mulmod}{mulmod}
-\code{exptmod}{exptmod}
+\code{expmod}{expmod}
+\code{exp}{exp}
 \end{sourceslandscape}
