@@ -1,3 +1,10 @@
+/* KTH ACM Contest Template Library
+ *
+ * Numerical/Combinatorics/Binomial coefficients
+ *
+ * Credit:
+ *   By Fredrik Niemelä
+ */
 #include <algorithm>
 
 template <class T>
@@ -10,3 +17,4 @@ T choose(int n, int k) {
 
   return c;
 }
+
