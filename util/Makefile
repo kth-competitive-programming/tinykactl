@@ -1,3 +1,4 @@
+CC = g++
 CXX = g++
 
 .PHONY: all clean lgrind

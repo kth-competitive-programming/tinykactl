@@ -6,6 +6,28 @@
 Repetitive asymmetric games are best solved by recursing backwards from
 known winning \& losing positions.
 
+\problemtitle{Combinatorial Games}
+
+\begin{algorithm}{Impartial take-and-break games (NIM-like games)}
+\desc
+An impartial take-and-break game is a game where two players take
+turns removing (indistinguisable) tokens from a set of some heaps of
+tokens.  The player removing the last token (thus causing the next
+player to be unable to move) is the winner.  The moves available are:
+removing $x$ tokens from a heap (for some set of allowed $x$), and
+splitting a heap of $n$ tokens into two heaps of $n_1$ and $n_2$
+tokens where $n_1, n_2 < n$.  Because every move reduces a heap size
+by at least 1, such games can never end in draw.  To find optimal
+strategies, Grundy numbers (or nimbers) can be used.  The Grundy value
+of a state $S = \{n\}$ is defined as $G(S) =
+\mathrm{mex}\;S'$ where $S'$ runs over all successor states to $S$ and
+$\mathrm{mex}$ is the minimal excluded (nonnegative) value.  The
+Grundy value of $S =
+\{n_1, n_2, \ldots n_k\}$ is defined as $\bigoplus_{i=1}^{k}
+G(\{n_i\})$.  A state $S$ is winning iff $G(S) \ne 0$.
+
+\end{algorithm}
+
 \problemtitle{Card Games}
 
 \begin{algorithm}{Poker Hands}
