@@ -25,6 +25,7 @@ simultaneously giving both forward and back capacity.
 \reflisting{lift to front}
 \note{This is a much more effective algorithm than Ford Fulkerson,
 even on bi-partite graphs, and suitable for any flow graph.}
+\note{Ford Fulkerson {\it is} faster if $En_{aug~paths}<V^3$.}
 \usage{ \sourceline{flow = lift\_to\_front(edges, source, sink);} }
 \complexity{V^3}
 \end{algorithm}
