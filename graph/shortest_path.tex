@@ -1,44 +1,62 @@
-\problemtitle{Shortest Path}
+\problemtitle{Shortest Path and Connectivity}
 
-All algorithms work with a (directed) graph with non-negative distances.
-Self and multiple edges are allowed. Floyd Warshall calculates the distances
-between all pairs of nodes. The dijkstra variants calculate the
-distance from a source to all other nodes.
+Parameter descriptions:
+\begin{description}
+\item[{\tt adj}] is an adjecency matrix. {\tt adj[i][j]} is the distance
+   from {\tt i} to {\tt j}.
+\item[{\tt edges}] is the graph given as an STL-container of
+   {\tt vector}s, {\tt map}s or {\tt multimap}s
+   (or {\tt set} in {\tt dijkstra\_1}) of the edges from each node.
+   Edges should have non-negative distances.
+   Self and multiple edges are allowed.
+\item[{\tt n}] is the number of nodes is the graph.
+\item[{\tt min}] is filled in with the shortest distance to each node.
+\item[{\tt path} or {\tt from}] is filled in with the node number from which
+   each node was entered. (there is inconsistency in the name choice!)
+\end{description}
 
-The graph is given as a STL-container of
-{\tt vector}s/{\tt map}s/{\tt multimap}s
-(or {\tt set} in {\tt dijkstra\_1}) with edges.
-The edges are simple indices for {\tt dijkstra\_1} and {\tt pair<int, T>} for
-{\tt dijkstra} and {\tt dijkstra\_prim}.
+\begin{algorithm}{Flood fill}
+\keyword{}
 
-The shortest distance to each node from the source is returned in a vector,
-{\tt min} which must be pre-allocated to the same size as the number of nodes.
-The path is similary returned in a pre-allocated vector. For each {\tt node},
-{\tt path[node]} is the previous node from which the {\tt node} was entered
-from in the shortest path to {\tt node}.
+Flood fills the connected area around a point. This is the same as finding
+one local transitive connected component.
+\end{algorithm}
 
-All graphs also take a number of nodes, {\tt n}, which usually is
-{\tt edges.size()}.
+\begin{algorithm}{Connected components}
+\keyword{}
+
+Enumerates groups of connected transitive components.
+\end{algorithm}
+
+\begin{algorithm}{Transitive Closure}
+\reflisting{transitive closure}
+\complexity{V^3}
+\usage{ \sourceline{ transitive\_closure(adj, path, n); } }
+
+The transitive closure, i.e. which nodes are connected, is found using
+a sligthly modified Floyd-Warshall. The algorithm also gives a path between
+two nodes, if they are connected.
+
+The adjacency matrix is updated to contain whether nodes are connected.
+\end{algorithm}
 
 \begin{algorithm}{Floyd Warshall}
 \reflisting{floyd warshall}
 \complexity{V^3}
 \usage{ \sourceline{ floyd\_warshall(adj, path,n); } }
 
-Floyd-Warshall uses an \emph{adjacency matrix} instead of a usual edge-list
-graph. The adjacency matrix should contain the edge-cost between
-{\tt a} and {\tt b} in {\tt adj[a][b]} if there is an edge between
-{\tt a} and {\tt b} and otherwise {\tt adj[a][b]} should be negative.
-The adjacency matrix is updated so the shortest path from {\tt a} to
-{\tt b} is {\tt adj[a][b]} or $-1$ if no path exists.
+Calculates the distances between all pairs of nodes.
+The adjacency matrix is modified to contain the shortest distances.
 \end{algorithm}
 
 \begin{algorithm}{Dijkstra 1}
 \reflisting{dijkstra 1}
 \complexity{V+E}
 \usage{ \sourceline{ dijkstra\_1(edges, min, path, start, n); } }
-\characteristics{{\tt dijsktra\_1} calcs the shortest path where all edges have
-weight 1.}
+\characteristics{{\tt dijsktra\_1} shortest path when all edges have weight
+1.}
+
+Calculates the distance from a source to all other nodes.
 \end{algorithm}
 
 \begin{algorithm}{Dijkstra Prim}
@@ -47,7 +65,17 @@ weight 1.}
 \complexity{V\log V+E}
 \usage{ \sourceline{ dijkstra\_1(edges, min, path, start, n, distfun, mst); } }
 
-{\tt dijkstra\_prim} takes two extra arguments, {\tt distfun} and {\tt mst}.
+Calculates the distance from a source to all other nodes.
+Takes two extra arguments:
+{\tt distfun} is the edge distance function (see exaples).
+{\tt mst = false} is used in {\tt prim} to get a
+minimum spanning tree instead.
 \end{algorithm}
 
+\begin{algorithm}{Get shortest path}
+\reflisting{get shortest path}
+\usage{ \sourceline{ get\_shortest\_path( from, path, start, end ) } }
 
+Fills in {\tt path} with the nodes from {\tt start} to {\tt end}, using
+{\tt from} to see where the path got from to the end.
+\end{algorithm}
