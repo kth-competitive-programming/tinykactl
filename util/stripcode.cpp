@@ -49,7 +49,8 @@ struct strip_parser {
     p = !strip_preproc && !strip_include; lex();
     if( !strip_include && c=='i' ) {
       lex(); if(c=='n' ) {
-	p = true; put('i'); put('n');
+	if (!p) put('#'), put('i');
+	p = true;
       }
     }
     rdEsc('\n');

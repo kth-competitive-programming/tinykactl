@@ -21,13 +21,14 @@ clean: allcodeclean
 
 spotless: clean
 	cd util && $(MAKE) spotless
-	rm -f lib.pdf lib.ps version
+	rm -f lib.pdf lib.ps version tag
 
 index:
 	makeindex lib.idx
 
 getversion:
 	bk changes | head -1 | cut -d @ -f2 | cut -d ' ' -f1,2 > version
+	bk changes | head -4 | grep TAG | cut -f 4 -d ' ' > tag
 
 ps: getversion lib.ps index always
 
