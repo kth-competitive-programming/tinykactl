@@ -11,7 +11,7 @@
 template <class T, class C>
 struct mpq {
   set<T, C> s;
-  upq(const C &c = C()) : s(c) { }
+  mpq(const C &c = C()) : s(c) { }
   void empty() { return s.empty(); }
   void push(const T &x) { s.insert(x); }
   const T &front() { return *s.begin(); }
