@@ -6,73 +6,49 @@
  *   Karzanov, Goldberg (, Tarjan?)
  *   From [Intro to Algs ed. 8, pp.605-625,629]
  *   By Mattias de Zalenski
+ *   tinyKACTLised by Per Austrin
  */
 
-#include <vector>
 #include "flow_graph.cpp"
 
-
-template <class E, class T, class V>
-void add_flow(E &flow, flow_edge<T> &edge, T f, V &excess) {
-  flow_edge<T> &back = flow[edge.dest][edge.back];
-  edge.f += f; edge.c -= f;
-  back.f -= f; back.c += f;
-  excess[edge.dest] += f;
-  excess[back.dest] -= f;
+void add_flow(adj_list *g, flow_edge &e, Flow f, Flow *exc) {
+  flow_edge &back = g[e.dest][e.back];
+  e.f += f; e.c -= f; exc[e.dest] += f;
+  back.f -= f; back.c += f; exc[back.dest] -= f;
 }
 
-template <class E>
-typename E::value_type::value_type::flow_type lift_to_front(E &flow,
-						   int source, int sink) {
-  typedef typename E::value_type::value_type::flow_type T;
-  typedef typename E::value_type L;
-  typedef typename L::iterator L_iter;
-  int v = flow.size();
+Flow lift_to_front(adj_list *g, int n, int s, int t) {
+  int l[MAXNODES], hgt[MAXNODES]; // l == list, hgt == height
+  Flow exc[MAXNODES]; // exc == excess
+  adj_iter cur[MAXNODES];
 
-  // init preflow
-  vector<int> height(v, 0);
-  vector<T> excess(v, T());
-  height[source] = v - 2;
-
-  for (L_iter it = flow[source].begin(); it != flow[source].end(); it++)
-    add_flow(flow, *it, it->c, excess);
-
-  // init lift-to-front
-  vector<int> l(v, sink); // lift-to-front list
-  vector<L_iter> cur; // current edge, per node
-  int p = sink; 
-  for (int i = 0; i < v; i++)
-    if (i != source && i != sink)
-      l[i] = p, p = i; // turn l into a linked list from p to sink
-  for (int i = 0; i < v; i++)
-    cur.push_back(flow[i].begin());
-
-  // lift-to-front loop
-  int r = p, u = p;
-  while (u != sink) {
-    int oldheight = height[u];
-
-    // discharge u
-    while (excess[u] > 0)
-      if (cur[u] == flow[u].end()) {
-	// lift u
-	height[u] = 2 * v - 1;
-	for (L_iter it = flow[u].begin(); it != flow[u].end(); it++)
-	  if (it->c > 0 && height[it->dest]+1 < height[u]) {
-	    height[u] = height[it->dest]+1;
-	    cur[u] = it; // start from an admissable edge!
-	  }
-      }
-      else if (cur[u]->c > 0 && height[u] == height[cur[u]->dest] + 1)
-	// push on edge cur[u]
-	add_flow(flow, *cur[u], min(excess[u], (*cur[u]).c), excess);
-      else
-	++cur[u];
-
-    // the lift-to-front bit:
-    if (height[u] > oldheight && u != p)
-      l[r] = l[u], l[u] = p, p = u; // move u to front of list
-    r = u, u = l[r]; // move to next in list
+  memset(hgt, 0, sizeof(int)*v);
+  memset(exc, 0, sizeof(Flow)*v);
+  hgt[s] = v - 2;
+  for (adj_iter it = g[s].begin(); it != g[s].end(); it++)
+    add_flow(g, *it, it->c, exc);
+  int p = t; // make l a linked list from p to t (sink)
+  for (int i = 0; i < v; i++) {
+    if (i != s && i != t) l[i] = p, p = i; 
+    else l[i] = t; 
+    cur[i] = g[i].begin();
   }
-  return excess[sink];
+
+  int r = 0, u = p; // lift-to-front loop
+  while (u != t) {
+    int oldheight = hgt[u];
+    while (exc[u] > 0)  // discharge u
+      if (cur[u] == g[u].end()) {
+	hgt[u] = 2 * v - 1; // lift u, find admissible edge
+	for (adj_iter it = g[u].begin(); it!=g[u].end(); ++it)
+	  if (it->c > 0 && hgt[it->dest] + 1 < hgt[u])
+	    hgt[u] = hgt[it->dest]+1, cur[u] = it;
+      } else if (cur[u]->c>0 && hgt[u] == hgt[cur[u]->dest]+1)
+	add_flow(g, *cur[u], min(exc[u], (*cur[u]).c), exc);
+      else ++cur[u];
+    if (hgt[u] > oldheight && p != u)    // lift-to-front!
+      l[r] = l[u], l[u] = p, p = u;      // u to front of list
+    r = u, u = l[r];
+  }
+  return exc[t];
 }

@@ -8,144 +8,47 @@
  * Complexity: O(E*numPaths)
  *
  * Credit:
- *   By David Rydh
+ *   David Rydh for previous impl.
+ *   By Per Austrin
  */
 
 #include <queue>
 #include "flow_graph.cpp"
 
-// Function prototypes
-int flow_increase( flow_graph &g, int source, int sink );
+int mark[MAXNODES];
 
-// Internal auxillary functions
-bool flow_findaugpath_dfs( const flow_graph &g, vector<int> &backEdges,
-                       int source, int sink );
-void flow_findaugpath_bfs( const flow_graph &g, vector<int> &backEdges,
-                       int source, int sink );
-
-
-/************************************************************
- * Max-flow in a general flow-graph
- ************************************************************/
-
-int flow_increase( flow_graph &g, int source, int sink ) {
-  const int   inf = 0x20000000;
-  vector<int> backEdges;
-
-  backEdges.resize( g.size(), -1 );
-  backEdges[source] = 0; // backEdges>=0 is also used to mark
-  // if the node has been traversed
-
-  // Find augmenting path (choose one of these)
-  flow_findaugpath_dfs( g, backEdges, source, sink );
-  //flow_findaugpath_bfs( g, backEdges, source, sink );
-
-  if( backEdges[sink] < 0 )
-    return 0;
-
-  // Find min-slack
-  int  minSlack = inf;
-
-  for( int node=sink; node!=source; ) {
-    flow_edge<int> &be = g[node][backEdges[node]];
-    flow_edge<int> &fe = g[be.dest][be.back];
-
-    minSlack = min( minSlack, fe.c );
-    node = be.dest;
-  }
-
-  // Increase flow
-  for( int node=sink; node!=source; ) {
-    flow_edge<int> &be = g[node][backEdges[node]];
-    flow_edge<int> &fe = g[be.dest][be.back];
-
-    fe.f += minSlack; fe.c -= minSlack;
-    be.f -= minSlack; be.c += minSlack;
-    node = be.dest;
-  }
-
-  return minSlack;
+Flow inc_flow_dfs(adj_list *g, int s, int t, Flow maxf) {
+  if (s == t) return maxf;
+  Flow inc;   mark[s] = 0;
+  for (adj_iter it = g[s].begin(); it != g[s].end(); ++it)
+    if (mark[it->dest] && it->r() && 
+	(inc=inc_flow_dfs(g,it->dest,t,min(maxf, it->r()))))
+      return it->f+=inc, g[it->dest][it->back].f -= inc, inc;
+  return 0;
 }
 
-
-// The backEdges is an array containing the index of the backEdge
-// which should be followed to get back to the source
-
-void flow_findaugpath_bfs( const flow_graph &g, vector<int> &backEdges,
-		       int source, int sink )
-{
-  const int   inf = 0x20000000;
-  queue<int>  q;
-  vector<int> min;
-
-  min.resize( g.size() );
-
-  // Initialize min/backEdges
-  int n = g.size();
-  for( int i=0; i<n; i++ ) {
-    min[i] = inf;
-    backEdges[i] = -1;
+Flow inc_flow_bfs(adj_list *g, int s, int t, Flow inc) {
+  queue<int> q;  q.push(s);
+  while (!q.empty() && mark[t] < 0) {
+    int v = q.front();  q.pop();
+    for (adj_iter it = g[v].begin(); it != g[v].end(); ++it)
+      if (mark[it->dest] < 0 && it->r())
+        mark[it->dest] = it->back, q.push(it->dest);
   }
-  min[source] = 0;
-
-  // BFS-search
-  q.push( source );
-
-  while( !q.empty() ) {
-    int node = q.front();
-    int length = min[node]+1;
-
-    q.pop();
-
-    // Process node
-    const vector<flow_edge<int> > &edges = g[node];
-    int numEdges = edges.size();
-    for( int i=0; i<numEdges; i++ ) {
-      const flow_edge<int> &fe = edges[i];
-
-      if( fe.c <= 0 )
-	continue;
-
-      int dest = fe.dest;
-
-      if( length < min[dest] ) {
-	// Process this node the next run
-	min[dest] = length;
-        backEdges[dest] = fe.back;
-	q.push( dest );
-
-	if( dest == sink )
-	  return;
-      }
-    }
-  }
+  if (mark[t] < 0) return 0;
+  flow_edge* e;  int v = t;
+  while (v != s)
+    e = &g[v][mark[v]], v = e->dest, inc<?=g[v][e->back].r();
+  v = t;
+  while (v != s)
+    e = &g[v][mark[v]], e->f -= inc, 
+      v = e->dest, g[v][e->back].f += inc;
+  return inc;
 }
 
-// The backEdges is an array containing the index of the backEdge
-// which should be followed to get back to the source.
-// Make sure backEdges is initialized to -1 prior to this function
-// except for the source which should have a value >=0!
-
-bool flow_findaugpath_dfs( const flow_graph &g, vector<int> &backEdges,
-                           int node, int sink )
-{
-  typedef const vector<flow_edge<int> > E;
-  typedef E::const_iterator E_iter;
-
-  E & el = g[node];
-  for( E_iter e=el.begin(); e!=el.end(); ++e ) {
-    if( e->c <= 0 )
-      continue;
-
-    int dest = e->dest;
-    if( backEdges[dest] < 0 ) {
-      // Process this node
-      backEdges[dest] = e->back;
-
-      if( dest == sink || flow_findaugpath_dfs(g,backEdges,dest,sink) )
-        return true;        // Found augmenting path
-    }
-  }
-
-  return false;
+Flow max_flow(adj_list *graph, int n, int s, int t) {
+  Flow flow = 0, inc = 0;
+  do flow += inc, memset(mark, 255, sizeof(int)*n);
+  while ((inc = inc_flow_dfs(graph, s, t, 1<<28)));
+  return flow;//inc_flow_bfs(...             ...)
 }

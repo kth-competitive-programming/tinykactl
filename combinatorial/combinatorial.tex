@@ -2,7 +2,7 @@
 \categorycontents{}
 
 
-\problemtitle{Combinatorial Games}
+\problemtitle{Misc}
 
 \begin{algorithm}{Impartial take-and-break games (NIM-like games)}
 \desc
@@ -21,6 +21,30 @@ $\mathrm{mex}$ is the minimal excluded (nonnegative) value.  The
 Grundy value of $S =
 \{n_1, n_2, \ldots n_k\}$ is defined as $\bigoplus_{i=1}^{k}
 G(\{n_i\})$.  A state $S$ is winning iff $G(S) \ne 0$.
+
+\end{algorithm}
+
+
+\begin{algorithm}{Knapsack}
+\reflisting{knapsack}
+\usage{{\tt R res = knapsack<R>(n, C, costs, values [, bound = 500000]);}}
+\complexity{\min(bound, nC)}
+
+\desc
+Knapsack heuristic. Returns the maximum value achievable. {\tt n} is
+the number of objects, {\tt C} is the capacity of the knapsack, {\tt
+costs} is a random access container with the {\tt n} costs, and {\tt
+values} is a random access container with the {\tt n} values. {\tt
+bound} is an approximation factor; lower values of {\tt bound} means
+shorter running time, but also a greater risk that the algorithm will
+produce an incorrect answer (if $nC \le $ {\tt bound} and the costs
+are integers, the answer is ``guaranteed'' to be correct). Note that
+actually, all scaled values (i.e. multiplications with {\tt scale})
+should be rounded upwards. However, empirical tests (using the test
+data from NADA Open 2002) has shown this approach to be less accurate
+(i.e. requiring a higher bound to produce a correct answer) in
+practice. For the NADA Open 2002 test cases, a bound of $\approx
+90000$ was sufficient.
 
 \end{algorithm}
 
@@ -45,6 +69,7 @@ what you consider feasible)).
 \xinput{counting}
 
 \sourcesection{Permutations \& Counting}
+\code{knapsack}{knapsack}
 \code{intperm}{intperm}
 \code{choose}{counting/choose}
 \code{multinomial}{counting/multinomial}

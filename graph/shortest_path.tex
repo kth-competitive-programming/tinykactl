@@ -1,8 +1,7 @@
 \problemtitle{Shortest Path and Connectivity}
 
-\begin{algorithm}{Bellman-Ford-2}
-\reflisting{bellman ford 2}
-\reflisting{distfun}
+\begin{algorithm}{Bellman-Ford}
+\reflisting{bellman ford}
 \complexity{VE}
 \desc
 Calculates the distance from a source to all other nodes.
@@ -15,18 +14,11 @@ a single edge-list with pairs ((from,to), dist).
 \begin{algorithm}{Shortest Tour}
 \desc
 Shortest tour from A to B to A again not using any edge twice, in an
-undirected graph:
-
-Convert the graph to a directed graph.
-
-Take the shortest path from A to B.
-
-Remove the paths used from A to B, but also negate the lengths of the
-reverse edges.
-
-Take the shortest path again from A to B, using an algorithm which can handle
-negative-weight edges, such as Bellman-Ford. Note that there is no
-negative-weight \emph{cycles}.
-
-The shortest tour has the length of the two shortest paths combined.
+undirected graph: Convert the graph to a directed graph.  Take the
+shortest path from A to B.  Remove the paths used from A to B, but
+also negate the lengths of the reverse edges.  Take the shortest path
+again from A to B, using an algorithm which can handle negative-weight
+edges, such as Bellman-Ford. Note that there is no negative-weight
+\emph{cycles}.  The shortest tour has the length of the two shortest
+paths combined. 
 \end{algorithm}

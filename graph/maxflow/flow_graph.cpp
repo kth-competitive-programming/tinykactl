@@ -12,25 +12,29 @@
  *
  * Credit:
  *   By David Rydh and Mattias de Zalenski
+ *   Detemplatised for tiny by Per Austrin
  */
 
 #include <vector>
 
+typedef int Flow;
 
-template <class T>
 struct flow_edge {
-  typedef T flow_type;
-  int dest, back; // back is the index of the back-edge in graph[dest]
-  T c, f; // capacity and flow
+  int dest, back;// back is index of back-edge in graph[dest]
+  Flow c, f; // capacity and flow
+  Flow r() { return c - f; } // used by ford fulkerson
   flow_edge() {}
-  flow_edge(int _dest, int _back, T _c, T _f = T())
+  flow_edge(int _dest, int _back, Flow _c, Flow _f = 0)
     : dest(_dest), back(_back), c(_c), f(_f) { }
 };
 
-template <class E, class T>
-void flow_add_edge(E &flow, int node, int dest, T c, T back_c = T()) {
-  flow[node].push_back(flow_edge<T>(dest, flow[dest].size(), c));
-  flow[dest].push_back(flow_edge<T>(node, flow[node].size() - 1, back_c));
+typedef vector<flow_edge> adj_list;
+typedef adj_list::iterator adj_iter;
+
+void flow_add_edge(adj_list *g, int s, int t, // add s -> t
+		   Flow c, Flow back_c = 0) {
+  g[s].push_back(flow_edge(t, g[t].size(), c));
+  g[t].push_back(flow_edge(s, g[s].size() - 1, back_c));
 }
 
-typedef vector< vector< flow_edge<int> > > flow_graph;
+#define MAXNODES 6000
