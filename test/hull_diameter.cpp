@@ -1,4 +1,6 @@
 #include <iostream>
+#include <iomanip>
+#include <cstdio>
 
 using namespace std;
 
@@ -24,9 +26,7 @@ int main() {
     int r = convex_hull(a, idx, N + 1);
     indexed<Pt*, int*> b(a+0, idx+0);
     double d = hull_diameter2(b, r, i1, i2);
-    cout << "r=" << r << " ";
-    cout << i << ": dist2(a[" << idx[i1] << "],a[" << idx[i2] << "])="
-	 << d << endl;
+    printf( "r=%d %d: dist2(a[%d],a[%d])=%g\n", r, i, idx[i1], idx[i2], d );
   }
   return 0;
 }
