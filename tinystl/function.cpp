@@ -8,6 +8,9 @@
  *   By Mattias de Zalenski
  */
 
+#ifndef __TS_FUNCTION__
+#define __TS_FUNCTION__
+
 /*
 //argument_type and result_type typedefs are seldom used.
 template <class A, class R>
@@ -74,3 +77,5 @@ inline unary_negate<P> not1(const P &p) { return unary_negate<P>(p); }
 
 ...
 */
+
+#endif

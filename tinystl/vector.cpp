@@ -8,6 +8,9 @@
  *   By David Rydh
  */
 
+#ifndef __TS_VECTOR__
+#define __TS_VECTOR__
+
 #include "copy.cpp"
 
 template< class T >
@@ -78,3 +81,5 @@ struct vector {
 
 template<class T>
 inline void swap(vector<T> &x, vector<T> &y) { x.swap(y); }
+
+#endif

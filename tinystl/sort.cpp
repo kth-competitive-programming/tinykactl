@@ -8,7 +8,11 @@
  *   By David Rydh
  */
 
+#ifndef __TS_SORT__
+#define __TS_SORT__
+
 #include "base.cpp"
+#include "function.cpp"
 
 template<class T> void sort(T *first, T *last )
 { sort( first, last, T(), less<T>() ); }
@@ -76,3 +80,5 @@ void nth_element(R first, R nth, R last, const T &dummy, C c ) {
   if( nth < a ) nth_element( first, nth, a, dummy, c );
   else if( nth >= b+1 ) nth_element( b+1, nth, last, dummy, c );
 }
+
+#endif
