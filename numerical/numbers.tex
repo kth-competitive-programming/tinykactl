@@ -11,6 +11,15 @@
 \reflisting{rational}
 \end{algorithm}
 
+\begin{algorithm}{mulmod}
+\reflisting{mulmod}
+\characteristics{{\tt mulmod} calculates $ab\mbox{ mod } n$ in a way that
+allows numbers as large as MAXINT/2 to be used (which would otherwise give
+an overflow).}
+\usage{ \sourceline{ mulmod(5678945893454353ULL, 2423948234343ULL,
+	31231231231231231ULL) == 14355903581119892; } }
+\end{algorithm}
+
 \begin{algorithm}{Bigint Simple}
 \reflisting{bigint simple}
 \characteristics{Fully dynamic BigInt class which handles +,-,* for
