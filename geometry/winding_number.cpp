@@ -32,21 +32,20 @@
  *
  *****************************************************************************/
 
-#include "geometry.h"
-#include "2_pointline.cpp"
+#include "pointline.cpp"
 
-template<class V, class T>
-double winding_nr(const V &p, int n, const point<T> &t, bool *onEdge=NULL) {
+template<class V, class P>
+double winding_nr(const V &p, int n, P t, bool &onEdge) {
   double wind = 0;
 
-  if( onEdge ) *onEdge = false;
+  onEdge = false;
 
   for (int i=0, j=n-1; i<n; j=i++) {
     if( onsegment(p[i], p[j], t) ) {
-      if( onEdge ) *onEdge = true;
+      onEdge = true;
       continue;
     }
-    double t1 = theta(t, p[i]), t2 = theta(t, p[j]);
+    double t1 = theta(t-p[i]), t2 = theta(t-p[j]);
     double dt = t1-t2;
     if( dt > 2 ) dt -= 4;
     if( dt < -2 ) dt += 4;
@@ -56,10 +55,10 @@ double winding_nr(const V &p, int n, const point<T> &t, bool *onEdge=NULL) {
   return wind;
 }
 
-template<class T, class V>     // V is vector/array of point<T>s
-int inside_poly(const V &p, int n, const point<T> &t) {
+template<class P, class V>     // V is vector/array of point<T>s
+int inside_poly(P t, const V &p, int n) {
   bool edge;
-  double wind = winding_nr(p,n,t, &edge);
+  double wind = winding_nr(p,n,t, edge);
 
   if( edge ) return wind>4 ? 1:0;
 

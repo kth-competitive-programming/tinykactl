@@ -7,10 +7,10 @@
  */
 
 template <class P> typename P::coord_type dist2(P p) { return dot(p, p); }
-template <class P> typename P::coord_type dx(P p, Q q) { return q.x - p.x; }
-template <class P> typename P::coord_type dy(P p, Q q) { return q.y - p.y; }
+template <class P> typename P::coord_type dx(P p, P q) { return q.x - p.x; }
+template <class P> typename P::coord_type dy(P p, P q) { return q.y - p.y; }
 // for point3:
-template <class P> typename P::coord_type dz(P p, Q q) { return q.z - p.z; }
+template <class P> typename P::coord_type dz(P p, P q) { return q.z - p.z; }
 
 
 #include <cmath>
