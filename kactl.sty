@@ -14,6 +14,7 @@
 \RequirePackage{multicol}
 \RequirePackage{pdflscape}
 \RequirePackage{verbatim}
+\RequirePackage{tabularx}
 
 % Listings numbering and Listings contents (from listings.sty)
 \newcounter{lstlisting}[chapter]
@@ -208,7 +209,7 @@
 \def\checksum#1#2#3#4{---~{\small\tt #1}~~
   {\tiny\tt\begin{tabular}{l}\\*[-7 mm] \\#2\\#3\\#4\end{tabular}}}
 
-\def\includelist#1#2{---~{\small\tt #1}~~{\tiny\tt #2}}
+\def\includelist#1#2{---{\tiny\begin{tabular}{p{5cm}}\vspace{-0.35cm}\begin{flushleft}#1 lines, \tt #2 \end{flushleft}\end{tabular}}}
 
 % \code{displayname}{filename}[label] (filenames without cpp)
 \def\code#1#2{
