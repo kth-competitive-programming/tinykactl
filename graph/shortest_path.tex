@@ -106,3 +106,21 @@ Returns whether there is a negative distance cycle in the graph.
 Fills in {\tt path} with the nodes from {\tt start} to {\tt end}, using
 {\tt from} to see where the path got from to the end.
 \end{algorithm}
+
+
+\begin{algorithm}{Shortest Tour}
+\description{} 
+Shortest tour from A to B to A again not using any edge twice, in an
+undirected graph:
+
+Convert the graph to a directed graph.
+
+Take the shortest path from A to B.
+
+Remove the paths used from A to B, but also negate the lengths of the
+reverse edges.
+
+Take the shortest path again, from A to B.
+
+The shortest tour has the length of the two shortest paths combined.
+\end{algorithm}
