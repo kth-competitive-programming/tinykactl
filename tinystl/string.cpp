@@ -19,9 +19,9 @@ struct _string: public vector<T> {
   _string(int i = 0): vector<T>(i) {}
   _string(const char* s): vector<T>(strlen(s)) { copy(s, s+n, b); }
   // Substring: create a copy of the range (f,l]
-  _string(const_iterator f, const_iterator l): vector<T>(l-f) { copy(f, l, b); }
+  _string(const_iterator f, const_iterator l):vector<T>(l-f) { copy(f, l, b); }
 
-  int length() { return n; }
+  int length() const { return n; }
 
   char* c_str() {
     reserve(n+1);
@@ -72,4 +72,4 @@ template <class T>
 istream& operator>>(istream& i, _string<T>& s) { i >> ws; return s.read(i); }
 
 template<class T>
-istream& getline(istream& i, _string<T>& s) { return s.read(i, "\n", false); }
+istream& getline(istream& i, _string<T>& s) { return s.read(i, "\n"); }

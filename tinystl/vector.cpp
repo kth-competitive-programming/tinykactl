@@ -12,7 +12,7 @@
 
 template< class T >
 struct vector {
-  T *b; int n, a;
+  int n, a; T *b;
 
   typedef T value_type;
   typedef T *iterator;

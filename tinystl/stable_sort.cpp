@@ -8,10 +8,8 @@
  *   By David Rydh
  */
 
-template<class T>
-void stable_sort(T *first, T *last) {
-  stable_sort( first, last, first, T() );
-}
+template<class T> void stable_sort(T *first, T *last)
+{ stable_sort( first, last, first, T() ); }
 
 template<class R>
 void merge( R first, R middle, R last, R dest ) {
