@@ -1,12 +1,17 @@
 UTIL = $(BASEDIR)/util
 
 RECURSE = \
-        @export BASEDIR;\
+	@export BASEDIR;\
 	for DIR in [ `ls` ];\
-	   do if [ -d $$DIR -a -f $$DIR/Makefile ];\
-              then $(MAKE) $@ -C $$DIR BASEDIR=$(BASEDIR) FLAGS=$(FLAGS);\
-	      fi\
-           done
+	do\
+		if [ -d $$DIR/SCCS -a -f $$DIR/SCCS/s.Makefile -a\
+		     ! -f $$DIR/Makefile ];\
+		then bk co $$DIR/Makefile;\
+		fi;\
+		if [ -d $$DIR -a -f $$DIR/Makefile ];\
+		then $(MAKE) $@ -C $$DIR BASEDIR=$(BASEDIR) FLAGS=$(FLAGS);\
+		fi\
+	done
 
 
 clean: codeclean
