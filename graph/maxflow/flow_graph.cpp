@@ -29,8 +29,8 @@ struct flow_edge {
 
 template <class E, class T>
 void flow_add_edge(E &flow, int node, int dest, T c, T back_c = T()) {
-  flow[node].push_back(flow_edge<T>(dest, edges[dest].size(), c));
-  flow[dest].push_back(flow_edge<T>(node, edges[node].size() - 1, back_c));
+  flow[node].push_back(flow_edge<T>(dest, flow[dest].size(), c));
+  flow[dest].push_back(flow_edge<T>(node, flow[node].size() - 1, back_c));
 }
 
 typedef vector< vector< flow_edge<int> > > flow_graph;

@@ -41,7 +41,7 @@ struct bigint {
   // addition
   S &add(T c, unsigned i = 0) {
     while (c != T() && i < v.size())
-      c += v[i], v[i] = c % P, c /= P;
+      c += v[i], v[i] = c % P, c /= P, ++i;
     return carry(c);
   }
   S &operator ++() { return add(T(1)); }
@@ -53,6 +53,7 @@ struct bigint {
     for (unsigned i = 0; i < n.size(); ++i)
       c += v[i] + n[i], v[i] = c % P, c /= P;
     add(c, n.size());
+    return *this;
   }
   S operator +(T c) const { S t = *this; return t += c; }
   S operator +(R n) const { S t = *this; return t += n; }
@@ -73,6 +74,7 @@ struct bigint {
     for (unsigned i = 0; i < n.size(); ++i)
       c += P-1 + n[i] - v[i], v[i] = P-1 - c % P, c /= P;
     sub(c, n.size());
+    return *this;
   }
   S operator -(T c) const { S t = *this; return t -= c; }
   S operator -(R n) const { S t = *this; return t -= n; }
@@ -88,21 +90,22 @@ struct bigint {
     return carry(T(c));
   }
   S operator *(T c) const { S t = *this; return t *= c; }
-  S &mul(R m, R n) {
-    v.clear();
+
+  S operator *(R n) const {
+    R m = *this;
+    S r;
     if (m.size() > 0 && n.size() > 0) {
-      v.resize(m.size() + n.size() - 1);
+      r.v.resize(m.size() + n.size() - 1);
       for (unsigned i = 0; i < m.size(); ++i) {
 	M c = M();
 	for (unsigned j = 0; j < n.size(); ++j)
-	  c += v[i+j] + M(m[i]) * M(n[j]), v[i+j] = T(c % P), c /= P;
-	add(T(c), i + n.size());
+	  c += r[i+j] + M(m[i]) * M(n[j]), r[i+j] = T(c % P), c /= P;
+	r.add(T(c), i + n.size());
       }
     }
-    return *this;
+    return r;
   }
-  S operator *(R n) const { S t; t.mul(*this, n); return t; }
-  S &operator *=(R n) { S t1 = *this, t2 = n; return mul(t1, t2); }
+  S &operator *=(R n) { return *this = *this * n; }
 
   // division and modulo T
   S &divmod(T &d) {

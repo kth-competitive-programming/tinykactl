@@ -62,6 +62,11 @@ but perhaps we want an algorithm for finding it?
 with only one-capacities determines an optimal matching.
 \keyword{Edge and Vertex Connectivity} of a graph, determines how connected
 it is. For vertex connectivity, each node is split in two.
+\keyword{Minimal cut} of a graph, generalization of edge connectivity. A
+minimal cut is found by first finding a maximal flow. Then we consider the
+set $A$ of all nodes that can be reached from the source using edges which
+has capacity left (i.e. edges in the residue network). The edges between
+$A$ and the complement of $A$ is a minimal cut.
 \keyword{Escaping problem} on a grid, determines whether and how a set of
 points may be connected by grid-lines to the edge.
 \keyword{Minimal path cover} of a graph, determines a minimum set of paths to
