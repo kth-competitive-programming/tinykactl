@@ -18,9 +18,9 @@ texer: \
  $(wildcard *.tex) \
  $(patsubst SCCS/s.%.tex,%.tex,$(wildcard SCCS/s.*.tex))
 
-%.lg: %.cpp
+%.lg: %.cpp $(UTIL)/lgrind/lgrindef
 	$(UTIL)/stripcode $(LGSTRIP) < $< | \
-	$(UTIL)/lgrind/source/lgrind -i -d $(UTIL)/lgrind/lgrindef - > $@
+	$(UTIL)/lgrind/source/lgrind -i -l c++ -d $(UTIL)/lgrind/lgrindef - > $@
 
 %.sum: %.cpp
 	$(UTIL)/stripcode $(SUMSTRIP) < $< | $(UTIL)/adler > $@
