@@ -1,5 +1,7 @@
 #include "Testplate.cpp"
 
+using namespace std;
+
 #include "../io/manipulators.cpp"
 
 void init() {}

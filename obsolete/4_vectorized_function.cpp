@@ -1,4 +1,4 @@
-#include <iterator>
+#include <backward/iterator.h>
 
 template <class T>
 struct fn_traits { typedef typename T::return_type return_type; };
@@ -8,14 +8,14 @@ struct fn_traits<T (*)(A)> { typedef T return_type; };
 
 template< class T >
 class fn_iter : public random_access_iterator<int, int> {
-  int  off;
   T    fn;
+  int  off;
 
 public:
-  fn_iter() : off(0), fn((T)0) {}
+  fn_iter() : fn((T)0), off(0) {}
   fn_iter( T _fn, int _off ) : fn(_fn), off(_off) {}
 
-  fn_traits<T>::return_type operator*() { return fn(off); }
+  typename fn_traits<T>::return_type operator*() { return fn(off); }
   fn_iter<T> &operator++() { off++; return *this; }
   fn_iter<T> &operator--() { off--; return *this; }
   fn_iter<T> &operator+=( int d ) { off+=d; return *this; }
