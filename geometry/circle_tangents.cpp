@@ -14,5 +14,5 @@ bool circle_tangents(const P &p, const P &c, T r, P &t1, P &t2) {
 
   t1 = x + y;
   t2 = x - y;
-  return a2==r2;
+  return fabs(a2-r2) < 1e-10; // or other eps.
 }

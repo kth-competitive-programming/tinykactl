@@ -1,5 +1,5 @@
 (defun kactl-compile () (interactive)
-  (shell-command (concat "g++ -ansi -lm -O2 -pedantic -Wall -o "
+  (shell-command (concat "g++ -ansi -lm -Wall -o "
 			 (file-name-sans-extension buffer-file-name)
 			 " " buffer-file-name)))
 

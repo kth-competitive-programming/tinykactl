@@ -13,9 +13,9 @@ OI poly_cut(CI first, CI last, P p0, P p1, OI result) {
   if (first == last) return result;
   P p = p1-p0;
   CI j = last; --j;
-  bool pside = cross(p, *j-p0) > 0;
+  bool pside = p.cross(*j-p0) > 0;
   for (CI i = first; i != last; ++i) {
-    bool side = cross(p, *i-p0) > 0;
+    bool side = p.cross(*i-p0) > 0;
     if (pside ^ side)
       line_isect(p0, p1, *i, *j, *result++);
     if (side)

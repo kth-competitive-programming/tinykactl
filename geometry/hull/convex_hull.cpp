@@ -27,7 +27,7 @@ It convex_hull(It begin, It end) {
   swap(*begin, *min_element(begin, end));
   cross_dist_comparator<P> comp(*begin);
   sort(begin + 1, end, comp);
-  // colinear points on the first line of the hull must be reversed
+  // colinear points on first line of the hull must be reversed
   It i = begin + 1;
   for (It j = i++; i != end; j = i++)
     if ((*i-*begin).cross(*j-*begin) != 0)

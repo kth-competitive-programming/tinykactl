@@ -14,7 +14,7 @@ struct point3 {
   T x, y, z;
   point3(T _x=T(), T _y=T(), T _z=T()) : x(_x), y(_y), z(_z) { }
   bool operator< (R p) const {
-    return x < p.x || x <= p.x && (y < p.y || y <= p.y && z < p.z);
+    return x < p.x || x <= p.x && (y < p.y || y <= p.y && z<p.z);
   }
   S operator-(R p) const { return S(x - p.x, y - p.y, z - p.z); }
   S operator+(R p) const { return S(x + p.x, y + p.y, z + p.z); }
@@ -26,5 +26,5 @@ struct point3 {
 };
 
 // unit normal to a plane from two vectors
-template <class P> P normal(P p, P q) { return unit(p.cross(q)); }
+template <class P> P normal(P p, P q) { return unit(p.cross(q));}
 

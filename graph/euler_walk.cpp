@@ -10,7 +10,8 @@
 #include <list>
 
 template<class V>
-void euler_walk( V &edges, int start, list< int > &path, bool cyclic=false ) {
+void euler_walk(V &edges, int start, list<int> &path, 
+		bool cyclic = false) {
   int node = start, next_node;
   // Find a maximal path
   while(true) {

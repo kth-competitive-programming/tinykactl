@@ -1,5 +1,5 @@
 (defun kactl-print () (interactive)
-  (shell-command (concat "a2ps --line-number=1 " 
+  (shell-command (concat "a2ps --line-numbers=1 " 
 			 buffer-file-name) " &"))
 
 (defun kactl-diff () (interactive)

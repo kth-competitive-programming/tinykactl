@@ -18,10 +18,9 @@ struct line_hull_isct {
   int &s1, &s2;
   line_hull_isct(const V &_p, int _n, const P &_p1, const P &_p2,
 		 int &_s1, int &_s2)
-    : p(_p), n(_n), p1(_p1), p2(_p2), s1(_s1), s2(_s2) {
-  }
+    : p(_p), n(_n), p1(_p1), p2(_p2), s1(_s1), s2(_s2) { }
   
-// assumes 0 <= md <= i1d, i2d
+  // assumes 0 <= md <= i1d, i2d
   bool isct(int i1, int m, int i2, double md) {
     if (md <= 0) {
       s1 = findisct(i1, m) % n;

@@ -2,7 +2,7 @@
 \categorytitle{Graph}
 \categorycontents{}
 
-\problemtitle{Misc basics}
+\problemtitle{Fundamentals}
 
 \begin{algorithm}{Bellman-Ford}
 \complexity{VE}
@@ -33,6 +33,28 @@ be the same variable as the graph.
 \reflisting{sets}
 \end{algorithm}
 \codenc{kruskal}{mst/kruskal}
+
+\begin{algorithm}{Directed Minimum Spanning Tree}
+\desc
+Chu-Liu/Edmonds Algorithm:
+\begin{enumerate}
+
+\item Discard the arcs entering the root if any; For each node other than the root, select the entering arc with the smallest cost; Let the selected $n-1$ arcs be the set $S$.
+
+\item  If no cycle formed, $G(N,S)$ is a MST. Otherwise, continue.  
+
+
+\item For each cycle formed, contract the nodes in the cycle into a pseudo-node
+ $(k)$, and modify the cost of each arc which enters a node $(j)$ in the
+  cycle from some node $(i)$ outside the cycle according to the
+  following equation:  $$c(i,k)=c(i,j)-(c(x(j),j)-min_{j}(c(x(j),j))$$
+  where $c(x(j),j)$ is the cost of the arc in the cycle which enters $j$.
+  
+\item For each pseudo-node, select the entering arc which has the smallest modified cost; Replace the arc which enters the same real node in $S$ by the new selected arc.
+
+\item Go to step 2 with the contracted graph.
+\end{enumerate}
+\end{algorithm}
 
 \code{topo sort}{topo_sort}
 

@@ -38,12 +38,15 @@ variations are called rural chinese postman, and are generally
 NP-complete).
 
 Undirected chinese postman can be solved by computing a minimum
-weighted matching on the odd nodes of the graph.% (described in
+weight perfect matching on the odd nodes of the graph.% (described in
 %e.g. Edmonds and Johnson, ``Matching, Euler Tours and the Chinese
 %Postman.'', Mathematical Programming 5: 88-124, 1973).
 
-Directed chinese postman can be solved by using network flow
-techniques.% (also described in the previous reference).
+Directed chinese postman can be solved by computing a minimum weight
+perfect bipartite matching between the positive and negative nodes of
+the graph.  If a node $v$ has surplus (outvalency - invalency) $k$,
+$k$ copies of this node occurs in the bipartite graph. {\bf NB!}  The
+bipartite graph may have $2E$ vertices!
 \end{algorithm}
 
 \begin{algorithm}{De Bruijn Sequences}
