@@ -32,8 +32,9 @@ Datastructures
 Number Theory
   Dynamic josephus
   More linalg.? matrix factorisation?
-  Linear programming!!
+  Linear programming!!				Mattias har skrivit
   DFT?
+  Determinant, Permanent (Matrixmult?)
 
 Combinatorial
   generating: subsets, partitions, graphs ; calendrical ; job sched.
@@ -49,6 +50,8 @@ Graph
   Planarity detection?
   more for_edge functional routines
   flow constructions: the actual constructions
+  Transportation algorithm			\
+  Simplex-on-a-graph				-Mattias tittar på det
 
 Geometry
   a.dot(b) instead of dot(a, b)!
