@@ -25,8 +25,6 @@
  * r:    The number of points in the convex hull (return value).
  *
  * COMPLEXITY  O( n log n )
- *
- * REQUIRES  geometry.h, general/1_indexed.cpp
  * ------------------------------------------------------------------------- *
  *
  * NADA acmlib (10 March 2002)
@@ -38,47 +36,9 @@
  *
  *****************************************************************************/
 
-#include "geometry.h"
-#include "../general/1_indexed.cpp"
-
-template <class T>
-int ccw(point<T> p0, point<T> p1, point<T> p2) {
-  T dx1 = dx(p0,p1); T dy1 = dy(p0,p1);
-  T dx2 = dx(p0,p2); T dy2 = dy(p0,p2);
-  T d = dx1*dy2 - dy1*dx2;
-
-  if( d != 0 ) return d>0 ? 1:-1;
-
-  // Points are on a line
-
-  // If points are on different sides of p1, the angle is 
-  // 180 degrees (a degenerated triangle). This is a ambigous
-  // case which never occurs for the convex_hull algorithm.
-  if (dx1 * dx2 < 0 || dy1 * dy2 < 0) return -1;
-
-  // The correct ordering of 3 points on a row is p0-p1-p2.
-  if (dx1 * dx1 + dy1 * dy1 < dx2 * dx2 + dy2 * dy2) return +1;
-
-  // If all three points coincide return 0.
-  return 0;
-}
-
-template <class T>
-bool intersect( line<T> l1, line<T> l2 ) {
-  int c11, c12, c21, c22;
-
-  c11 = ccw( l1.p1, l1.p2, l2.p1 );
-  c12 = ccw( l1.p1, l1.p2, l2.p2 );
-  c21 = ccw( l2.p1, l2.p2, l1.p1 );
-  c22 = ccw( l2.p1, l2.p2, l1.p2 );
-
-  if( c11*c12<=0 && c21*c22<=0 )
-    return true;
-
-  return c11*c12*c21*c22==0;
-}
-
-
+#include "../ccw.cpp"
+#include "../../combinatorial/isort.cpp"
+#include "../../datastructures/indexed.cpp"
 
 // Define an ordering on the points given by their angle
 template<class P>

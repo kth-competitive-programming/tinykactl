@@ -1,0 +1,25 @@
+ No point
+ One point
+1 2 3
+ Two points
+2 3 4 5 6
+ Three points, colinear
+3 4 5 6 7 8 9
+ Three points, in order
+3 4 5 6 7 6 9
+ Three points, out of order
+3 4 5 9 8 6 7
+ Four points: a square
+4 0 0 1 0 1 1 0 1
+ Four points: a diamond
+4 -1 0 0 -1 1 0 0 1
+ Eight points: around a square
+8 -1 -1 0 -1 1 -1 1 0 1 1 0 1 -1 1 -1 0
+ Eight points: around a diamond
+8 -2 0 -1 -1 0 -2 1 -1 2 0 1 1 0 2 -1 1
+ Twelve points: square union diamond
+8 -2 0 -1 -1 0 -2 1 -1 2 0 1 1 0 2 -1 1
+ Thirteen points: square union diamond and midpoint
+8 -2 0 -1 -1 0 -2 1 -1 2 0 1 1 0 2 -1 1
+ Eleven arbitrary points
+6 1 5 4 1 7 1 9 2 7 8 3 6
