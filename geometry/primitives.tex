@@ -36,10 +36,13 @@ vector cross product.
 
 \begin{algorithm}{Point-line relations}
 \reflisting{point line}
-
-\desc
-Determines which side of a line a point is and whether a point is on a line
-segment.
+%\desc
+\item[{\tt sideof}] Determine on which side of a line a point is.
++1/-1 is left/right of vector $p_1-p_0$ and 0 is on the line.
+\item[{\tt onsegment}] Determine if a point is on a line segment (incl the end
+points).
+\item[{\tt linedist}] Get a measure of the distance of a point from a line
+(0 on the line and positive/negative on the different sides).
 \end{algorithm}
 
 \begin{algorithm}{Line intersection}

@@ -6,8 +6,10 @@
  *   By David Rydh, Mattias de Zalenski
  */
 
+#include "../point_ops.cpp"
+
 template <class V>
-double hull_diameter2(V p, int n, int &i1, int &i2) {
+double hull_diameter2(const V &p, int n, int &i1, int &i2) {
   typedef typename V::value_type::coord_type T;
   if (n < 2) { i1 = i2 = 0; return 0; }
   T m = 0;

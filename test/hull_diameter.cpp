@@ -1,6 +1,11 @@
 #include <iostream>
-#include "../geometry/3_convex_hull.cpp"
-#include "../geometry/hull/2_hull_diameter.cpp"
+
+using namespace std;
+
+#include "../geometry/point.cpp"
+#include "../geometry/geometry.h.cpp"
+#include "../geometry/hull/convex_hull_idx.cpp"
+#include "../geometry/hull/hull_diameter.cpp"
 
 typedef point<double> Pt;
 
@@ -17,7 +22,7 @@ int main() {
     a[N] = Pt(cos(i * 2 * pi / M) * 2, sin(i * 2 * pi / M) * 2);
     int i1, i2;
     int r = convex_hull(a, idx, N + 1);
-    indexed<Pt> b(a, idx);
+    indexed<Pt*, int*> b(a+0, idx+0);
     double d = hull_diameter2(b, r, i1, i2);
     cout << "r=" << r << " ";
     cout << i << ": dist2(a[" << idx[i1] << "],a[" << idx[i2] << "])="

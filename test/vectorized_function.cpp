@@ -1,5 +1,10 @@
-#include "../general/4_vectorized_function.cpp"
+#include <iostream>
 #include <algorithm>
+
+using namespace std;
+
+#include "../obsolete/4_vectorized_function.cpp"
+
 
 int square( int a ) { return a*a; }
 
