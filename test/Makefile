@@ -45,8 +45,8 @@ Testplate.kexe: Testplate.cpp
 %.kexe: %.cpp
 	bc++ -q -lq -O2 -w-par- -w-pia- -w-ovf- -e$@ $<; rm $(patsubst %.cpp,%.o,$<)
 
-clean: \
-	rm *.kexe *.exe *.o
+clean:
+	rm -f *.kexe *.exe *.o
 
 data/%.out: %.exe data/%.in
 	./$< <$(patsubst %.exe,data/%.in,$<) >$@
