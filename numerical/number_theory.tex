@@ -7,7 +7,7 @@ Miscellaneous algorithms in number theory.
 
 \begin{algorithm}{GCD}
 \reflisting{gcd}
-\usage{ \sourceline{d = gcd( a, b );} \quad\quad $a>b$ }
+\usage{ \sourceline{d = gcd( a, b );} }
 \complexity{ \log(b) }
 \valladolid{202}
 \end{algorithm}
@@ -104,4 +104,17 @@ $[0,2^{62}-1]$.}
 \characteristics{{\tt fpseudo} gives a pseudo-random number in
 $[0,1)$.}
 \complexity{1}
+\end{algorithm}
+
+\begin{algorithm}{mulmod}
+\reflisting{mulmod}
+\characteristics{{\tt mulmod} calculates $ab\mbox{ mod } n$ in a way that
+allows numbers as large as MAXINT/2 to be used (which would otherwise give
+an overflow).}
+\usage{ \sourceline{ mulmod(5678945893454353ULL, 2423948234343ULL,
+	31231231231231231ULL) == 14355903581119892; } }
+\end{algorithm}
+
+\begin{algorithm}{$b^e \textrm{ mod } n$}
+\complexity{\log{e}}
 \end{algorithm}
