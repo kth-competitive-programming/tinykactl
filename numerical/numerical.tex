@@ -24,17 +24,6 @@ The 1000th prime is 7919. The first every 10000th primes are:
 \end{verbatim}
 }
 
-\begin{algorithm}{Primes Many}
-\reflisting{primes many simple}
-\reflisting{primes many fast}
-\usage{ \sourceline{primes\_many p(100000); p.primes[2] == 5;} }
-\desc
-{\tt primes\_many\_simple} and {\tt primes\_many\_fast}
-calculates a vector of primes and is suitable when dealing with lots of
-primes (10000 or more). It calculates them by first sieving and then
-putting them into an array.
-\end{algorithm}
-
 \problemtitle{Josephus}
 \begin{algorithm}{Josephus}
 \reflisting{josephus}
@@ -91,16 +80,13 @@ intervals. Then find the roots with either Newton's algorithm (with bisective
 fall-back) or the bisective method.
 \end{algorithm}
 
-\begin{sourceslandscape}
-
 \sourcesection{Divisibility}
 
 \code{euclid}{euclid}
 \code{chinese}{chinese}
 
 \sourcesection{Primes}
-\code{primes many simple}{primes_many_simple}
-\code{primes many fast}{primes_many_fast}
+\code{prime sieve}{prime_sieve}
 \code{miller-rabin}{miller-rabin}
 \code{pollard-rho}{pollard-rho}
 
@@ -123,4 +109,3 @@ fall-back) or the bisective method.
 \code{poly roots}{poly_roots}
 \code{poly roots bisect}{poly_roots_bisect}
 
-\end{sourceslandscape}
