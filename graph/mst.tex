@@ -1,11 +1,16 @@
 \problemtitle{Minimum Spanning Tree}
 
-\begin{desc}
 MST is a nice problem.
-\end{desc}
+
+\begin{algorithm}{Prim}
+\reflisting{dijkstra prim}
+\complexity{ E\log V }
+\usage{\sourceline{%
+dijkstra\_prim( 0, graph, minarray, path, distfun, inf, true ) }}
+\end{algorithm}
 
 \begin{algorithm}{Kruskal}
-\usage{ kruskal( graph, tree, n ); }
+\usage{ \sourceline{kruskal( graph, tree, n );} }
 \complexity{ E\log E }
 \characteristics{Kruskal is faster when dealing with...}
 \begin{example}
@@ -14,10 +19,11 @@ MST is a nice problem.
 	edges.resize( 100 );
 	kruskal( edges, edges, 100 );
 \end{example}
+\reflisting{kruskal}
 \valladolid{10147}
 \end{algorithm}
 
 \begin{sourceslandscape}
-\code{sets}{mst/1_sets}
-\code{kruskal}{mst/2_kruskal}
+\code{sets}{mst/sets}
+\code{kruskal}{mst/kruskal}
 \end{sourceslandscape}

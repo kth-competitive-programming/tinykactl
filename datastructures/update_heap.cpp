@@ -1,9 +1,11 @@
-/*****************************************************************************
- * 
- * General3: upd_heap
- * ==================
+/* KTH ACM Contest Template Library
  *
- * updatable heap
+ * <area>/<problem>/<algorithm>
+ *
+ * Credit:
+ *   Variation of std::priority_queue
+ *   By David Rydh
+ *
  *
  * The class of heap elements, T, must support the method set_position.
  *
@@ -14,17 +16,7 @@
  * void                          pop();
  * void                          key_increased( Index p );
  * void                          key_decreased( Index p );
- *
- * ------------------------------------------------------------------------- *
- *
- * NADA acmlib (10 March 2002)
- * Templates for KTH-NADA, Ballons'R'Us, ACM 2001-2002
- *   Swedish competition, Link?ping 6 Oct 2001
- *   Revised for SWERC, Portu, Portugal 17 Nov 2001
- *   Revised for World Finals, Honolulu, 23 Mar 2002
- *   David Rydh, Mattias de Zalenski, Fredrik Niemel?
- *
- *****************************************************************************/
+ */
 
 #include <vector>
 

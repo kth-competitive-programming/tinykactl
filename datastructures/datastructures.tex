@@ -1,0 +1,62 @@
+\categorytitle{Data Structures}
+\categorycontents{}
+\problemtitle{pair}
+\problemtitle{string}
+\problemtitle{vector}
+
+\begin{algorithm}{null vector}
+\reflisting{null vector}
+
+{\tt null vector} acts like a vector, but simply keeps one value.
+The value is reset and its reference returned for any index referenced.
+\usage{\sourceline{ v[3612378] = 5; v[3612378] == 0; }}
+\end{algorithm}
+
+\problemtitle{deque}
+\problemtitle{set}
+
+\begin{algorithm}{sets}
+\reflisting{sets}
+
+The {\tt Kruskal} minimum spanning tree algorithm uses a data structure
+called {\tt sets} to efficiently determine whether two vertices belong to
+the same tree.
+\end{algorithm}
+
+\problemtitle{map}
+\problemtitle{list}
+\problemtitle{queue}
+
+\problemtitle{priority queue}
+\begin{algorithm}{mpq}
+\reflisting{mpq}
+
+{\tt mpq} is a modifiable priority queue (implemented as a set). Its interface
+is identical to that of a {\tt priority\_queue}. When an element should be
+modified the {\tt update} method should be called as:
+\sourceline{update(elem, oldvalue, newvalue)}
+Where {\tt oldvalue} should be a \emph{reference} to the value of the
+{\tt elem}.
+
+A common use is to use indices as elements which is compared using external
+containers.
+\end{algorithm}
+
+\problemtitle{stack}
+
+\problemtitle{heap}
+\begin{algorithm}{update heap}
+\reflisting{update heap}
+
+An updatable heap has an interface identical to that of a
+{\tt priority\_queue}.
+The elements need to have a method {\tt set\_position} though. When an element
+is changed, the {\tt key\_increased} or {\tt key\_decreased} method should
+be called with its position as argument.
+\end{algorithm}
+
+\begin{sourceslandscape}
+\code{null vector}{null_vector}
+\code{mpq}{mpq}
+\code{update heap}{update_heap}
+\end{sourceslandscape}

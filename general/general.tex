@@ -1,13 +1,29 @@
-\categorytitle{General (old code library code)}
+\categorytitle{General}
 \categorycontents{}
-\problemtitle{General code}
+
+\problemtitle{Indexed}
+\begin{algorithm}{Indexed}
+  \usage{\sourceline{ isort( array, n, idxarray, comp) }}
+  \reflisting{indexed}
+\end{algorithm}
+
+\problemtitle{Named items}
+When items are named, for example graph nodes identified by strings or big
+non-contiguous integers, it is often practical to keep a map from the
+names to an index numbering starting from 0, and a vector to retrieve a name
+back from an index.
+
+The {\tt index mapper} does this.
+It has function semantics to retrieve an index for a name,
+and vector semantics to retrieve a name from an index:
+\begin{algorithm}{Index mapper}
+  \usage{\sourceline{%
+int idx = mapper("x")  =>  mapper("x") == idx, mapper[idx] == "x"%
+}}
+  \reflisting{index mapper}
+\end{algorithm}
+
 \begin{sourceslandscape}
-\code{indexed}{1_indexed}
-\code{input/output}{2_input_output}
-\code{upd heap}{3_upd_heap}
-\code{vectorized function}{4_vectorized_function}
-\code{null vector}{5_null_vector}
-\code{golden search}{6_golden_search}
-\code{pseudo}{7_random}
-\code{indexed container}{10_indexed_container}
+\code{indexed}{indexed}
+\code{index mapper}{index_mapper}
 \end{sourceslandscape}

@@ -1,0 +1,96 @@
+\categorytitle{Contest}
+\categorycontents{}
+
+\problemtitle{Source code template}
+\begin{algorithm}{Template.cpp}
+\reflisting{Template}
+\usage{}
+Standard problem template. Problems are classified as either of:
+  \begin{description}
+  \item{simple-solve} -- Number of test cases is 1.
+  \item{for-solve} -- Number of test cases is given in the input.
+  \item{while-solve} -- End of test cases is indicated by special values
+    or end of input. Stop when {\tt solve} returns false.
+  \end{description}
+\end{algorithm}
+
+\problemtitle{Contest scripts}
+\begin{algorithm}{script}
+  \reflisting{script}
+  \usage{\sourceline{ sh script }}
+  \begin{description}
+  \item{c} -- Compile
+  \item{i} -- Enter program input
+  \item{o} -- Enter correct program answer
+  \item{t} -- Test using entered program input
+  \item{td} -- Test with direct typed input
+  \item{d} -- Diff the program output with the entered correct answer
+  \item{p} -- Print source code
+  \item{submit} -- Submit a solution!!
+  \item{n} -- New problem, copy Template
+  \item{f} -- Finished problem, move to done
+  \end{description}
+\end{algorithm}
+
+\problemtitle{Code library utilities}
+
+\begin{algorithm}{adler}
+\reflisting{adler}
+\usage{\sourceline{ adler < code.cpp }}
+
+Adler gives a checksum for all non-whitespace character it reads.
+All source code listings in this document have their checksum attached,
+calculated after comments and preprocessor directives have been stripped off
+(except for preprocessor directives in the code library utilities themselves).
+\end{algorithm}
+
+\begin{algorithm}{linecode}
+\reflisting{linecode}
+\usage{\sourceline{ linecode < code.cpp }}
+
+Linecode gives 16 values encoding line number xor:s of each line's adler
+checksum. All source code listings in this document have their line code
+attached. If a checksum doesn't match for a typed-in file, xor the line code
+from the document and the typed-in file to obtain candidate line numbers where
+the error might be.
+\end{algorithm}
+
+\begin{algorithm}{xor}
+\reflisting{xor}
+-- A simple xor calculator.
+\end{algorithm}
+
+\begin{algorithm}{linecodesafe}
+\reflisting{linecodesafe}
+-- Fixes an {\tt istringstream} if {\tt sstream} is not present.
+\end{algorithm}
+
+\begin{sourceslandscape}
+  \code{Template}{Template}
+  \code{script}{script}
+  \code{adler}{util/adler}
+\end{sourceslandscape}
+\begin{sourceslandscape}
+  \code{linecode}{util/linecode}
+  \code{xor}{util/xor}
+  \begin{verbatim}
+xor table:
+ 0 1 2 3 4 5 6 7 8 9 a b c d e f
+ 1 0 3 2 5 4 7 6 9 8 b a d c f e
+ 2 3 0 1 6 7 4 5 a b 8 9 e f c d
+ 3 2 1 0 7 6 5 4 b a 9 8 f e d c
+ 4 5 6 7 0 1 2 3 c d e f 8 9 a b
+ 5 4 7 6 1 0 3 2 d c f e 9 8 b a
+ 6 7 4 5 2 3 0 1 e f c d a b 8 9
+ 7 6 5 4 3 2 1 0 f e d c b a 9 8
+ 8 9 a b c d e f 0 1 2 3 4 5 6 7
+ 9 8 b a d c f e 1 0 3 2 5 4 7 6
+ a b 8 9 e f c d 2 3 0 1 6 7 4 5
+ b a 9 8 f e d c 3 2 1 0 7 6 5 4
+ c d e f 8 9 a b 4 5 6 7 0 1 2 3
+ d c f e 9 8 b a 5 4 7 6 1 0 3 2
+ e f c d a b 8 9 6 7 4 5 2 3 0 1
+ f e d c b a 9 8 7 6 5 4 3 2 1 0
+  \end{verbatim}
+  \code{linecodesafe}{util/linecodesafe}
+\end{sourceslandscape}

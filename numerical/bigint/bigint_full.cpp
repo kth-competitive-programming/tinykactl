@@ -1,21 +1,10 @@
-/*****************************************************************************
- * 
- * BigInt1: simple
- * ===============
+/* KTH ACM Contest Template Library
  *
- * Simple dynamic BigInt class with only positive integers and +,-,*,/.
- * (can easily be reduced not to support * and /)
+ * Numerical/BigInt/bigint_full
  *
- * ------------------------------------------------------------------------- *
- *
- * NADA acmlib (10 March 2002)
- * Templates for KTH-NADA, Ballons'R'Us, ACM 2001-2002
- *   Swedish competition, Linköping 6 Oct 2001
- *   Revised for SWERC, Portu, Portugal 17 Nov 2001
- *   Revised for World Finals, Honolulu, 23 Mar 2002
- *   David Rydh, Mattias de Zalenski, Fredrik Niemelä
- *
- *****************************************************************************/
+ * Credit:
+ *   By David Rydh
+ */
 
 class BigInt {
   // If no multiplication

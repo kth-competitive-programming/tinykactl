@@ -1,5 +1,6 @@
 # Pers förslag på automatisk target till alla .cpp-filer
 # för att få .lg och .sum
+.PHONY: code codeclean koder summor texer
 
 code: koder summor texer
 
@@ -24,10 +25,10 @@ texer: \
 
 %.sum: %.cpp
 	$(UTIL)/stripcode $(SUMSTRIP) < $< | $(UTIL)/adler | \
-		awk -- '{printf "\\checksum{0x%8s}",$$1};' > $@
+		awk -- '{printf "\\checksum{%s}",$$1};' > $@
 	$(UTIL)/stripcode $(SUMSTRIP) < $< | $(UTIL)/linecode | \
-		awk -F",| |, " -- '{printf "{%s}{{}",$$1; \
-		{for(i=3;i<=10;i++) printf "%2s,",$$i;} printf "}{{}"; \
-		{for(i=11;i<=17;i++) printf "%2s,",$$i;} \
-		printf "%2s}\n", $$18;};' >> $@
+		awk -F, -- '{printf "{%s}{{}",$$1; \
+		{for(i=2;i<10;i++) printf "%2s,",$$i;} printf "}{{}"; \
+		{for(i=10;i<17;i++) printf "%2s,",$$i;} \
+		printf "%2s}\n", $$17;};' >> $@
 
