@@ -39,3 +39,10 @@ int sideof(const P& p0, const P& p1, const P& q) {
   typename P::coord_type d = (p1-p0).cross(q-p0);
   return d > 0 ? 1 : d < 0 ? -1 : 0;
 }
+
+// Reflect point q around line passing through origin and p
+template <class P>
+P reflection(const P& p, const P &q) {
+  double a = p.x*p.x - p.y*p.y, b = 2*p.x*p.y, det = p.dist2();
+  return P(a*q.x + b*q.y, b*q.x - a*q.y) / det;
+}

@@ -11,7 +11,7 @@ const double NO_ISECT = -1.0/0.0;
 template <class P> inline 
 double line_isect(const P& A0, const P& A1, 
 		  const P& B0, const P& B1) {
-  typedef P::value_type T;
+  typedef typename P::coord_type T;
   P dP1 = A1-A0, dP2 = B1-B0, dL = B0-A0;
   T det = dP1.cross(dP2), s = dL.cross(dP1), t = dL.cross(dP2);
 
