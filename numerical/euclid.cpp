@@ -9,13 +9,12 @@
  *   By David Rydh
  */
 
-int euclid( int a, int b, int &x, int &y ) {
-  if( b==0 ) {
-    x = 1;
-    y = 0;
-    return a;
-  } else {
-    int d = euclid( b, a%b, y, x );
+template <class T>
+T euclid( T a, T b, T &x, T &y ) {
+  if( b==T(0) )
+    return x = T(1), y = T(0), a;
+  else {
+    T d = euclid( b, a%b, y, x );
     y -= a/b*x;
     return d;
   }
