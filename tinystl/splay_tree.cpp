@@ -8,7 +8,7 @@
  */
 
 // for less<>:
-#include "function.cpp"
+#include "comparisons.cpp"
 
 template <class T>
 struct splay_node {

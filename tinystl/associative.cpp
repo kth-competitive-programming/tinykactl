@@ -7,6 +7,9 @@
  *   Based on STL
  *   By Mattias de Zalenski, David Rydh
  */
+#ifndef __TS_ASSOCIATIVE__
+#define __TS_ASSOCIATIVE__
+
 #include "pair.cpp"
 #include "splay_tree.cpp"
 
@@ -78,3 +81,5 @@ struct associative {
     return make_pair(lower_bound(k), upper_bound(k));
   }
 };
+
+#endif

@@ -12,7 +12,7 @@
 #define __TS_SORT__
 
 #include "base.cpp"
-#include "function.cpp"
+#include "comparisons.cpp"
 
 template<class T> void sort(T *first, T *last )
 { sort( first, last, T(), less<T>() ); }

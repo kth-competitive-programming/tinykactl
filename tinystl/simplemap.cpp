@@ -9,7 +9,7 @@
  */
 
 #include "pair.cpp"
-#include "function.cpp"
+#include "comparisons.cpp"
 #include "sort.cpp"
 #include "binary_search.cpp"
 

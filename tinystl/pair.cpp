@@ -7,6 +7,8 @@
  *   Based on STL
  *   By Mattias de Zalenski
  */
+#ifndef __TS_PAIR__
+#define __TS_PAIR__
 
 template <class S, class T>
 struct pair {
@@ -25,3 +27,5 @@ struct pair {
 
 template <class S, class T>
 pair<S, T> make_pair(const S& s, const T &t) { return pair<S, T>(s, t); }
+
+#endif
