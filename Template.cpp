@@ -18,6 +18,7 @@
 using namespace std;
 
 const int N = 0;
+const bool deBug = false;
 
 void init();
 bool solve(int P);
@@ -49,5 +50,6 @@ bool solve(int P) {
   int n;
   cin >> n;
   if (cin.fail() || n == 0) return false;
+  if (deBug) cerr << n << endl;
   return true;
 }
