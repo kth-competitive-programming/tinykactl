@@ -23,7 +23,7 @@ struct vector {
     n = a = _n;
     b = new T[a];
   }
-  vector( int _n, const T &val=T() ) {
+  vector( int _n, const T &val ) {
     n = a = _n;
     b = new T[a];
     fill( b, b+n, val );
