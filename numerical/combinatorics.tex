@@ -22,16 +22,13 @@ Algorithm for calculating the number of permutations of a string
 (multinomial numbers).
 \end{algorithm}
 
-\begin{algorithm}{Sterling numbers}
-\reflisting{sterling}
-\usage{ \sourceline{s = sterling(n,k);} }
+\begin{algorithm}{Stirling numbers}
+\reflisting{stirling}
+\usage{ \sourceline{s = stirling(n,k);} }
 
-Calculates the sterling number $s_{nk}$, i.e. in how many ways can $n$
+Calculates the stirling number $s_{nk}$, i.e. in how many ways can $n$
 different items be put in $k$ boxes with at least one item in every box, or
 mathematically speaking -- the number of partitions of $n$ elements into
 $k$ partitions.
 \end{algorithm}
 
-\begin{algorithm}{$b^e \textrm{ mod } n$}
-\complexity{\log{e}}
-\end{algorithm}
