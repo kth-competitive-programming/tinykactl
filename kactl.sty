@@ -211,7 +211,7 @@
 \def\checksum#1#2#3#4{---~{\small\tt #1}~~
   {\tiny\tt\begin{tabular}{l}\\*[-7 mm] \\#2\\#3\\#4\end{tabular}}}
 
-\def\includelist#1#2{---{\tiny\begin{tabular}{p{5cm}}\vspace{-0.35cm}\begin{flushleft}#1 lines, \tt #2 \end{flushleft}\end{tabular}}}
+\def\includelist#1#2{\\{\tiny #1 lines, \tt #2}}
 
 % \code{displayname}{filename}[label] (filenames without cpp)
 \def\code#1#2{
@@ -220,7 +220,7 @@
   \label{code_#1}
   \categoryaddtocontents{code}{\tt\MakeLowercase{#1}}
   \index{#1_X @{\tt #1}}
-  \vspace{1 cm}
+  \vspace{0 cm}
 	 {\normalsize\bf Listing \thelstlisting : #1.cc}
 	 \xinput{#2.incl}
 	 \hrule

@@ -7,32 +7,26 @@
 
 #include <cmath>
 #include <cstdio>
-#include <iostream>
 #include <algorithm>
-//#include <string>
-//#include <map>
-//#include <vector>
+#include <string>
+#include <map>
+#include <vector>
 
 using namespace std;
-#define doubt if (debug) cerr
+const enum {SIMPLE, FOR, WHILE} mode = NO;
+#define dprintf debug && printf
+bool debug = false;
 
 void init() {
 }
 
-const enum {SIMPLE, FOR, WHILE} mode = NO;
-bool debug = false;
-
 bool solve(int P) {
-  int n;
-  cin >> n;
-  if (!cin /* || stopcond*/) return false;
-  return true;
 }
 
 int main() {
   init();
   int n = mode == SIMPLE ? 1 : 1<<30;
-  if (mode == FOR) cin >> n;
+  if (mode == FOR) scanf("%d", &n);
   for (int i = 0; i < n && solve(i); ++i);
   return 0;
 }
