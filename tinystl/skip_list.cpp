@@ -87,15 +87,16 @@ struct skip_list {
   int new_level() { int l = 0; while (++l < ML && !(pseudo() & pm)); return l; }
   
   iterator insert(const T &x, bool multi = true) {
-    if (find(x, false) != end() && !multi) return end();
-    list_node *p = new list_node(x, new_level()); ++n;
-    for (int i = level; i < p->lvl; ++i) bck[i] = head;
-    for (int i = 0; i < p->lvl; ++i) {
-      p->lnk(bck[i]->nxt[i], i);
-      bck[i]->lnk(p, i);
+    iterator r(head);
+    if ((r = find(x, false)) != end() && !multi) return r;
+    r.p = new list_node(x, new_level()); ++n;
+    for (int i = level; i < r.p->lvl; ++i) bck[i] = head;
+    for (int i = 0; i < r.p->lvl; ++i) {
+      r.p->lnk(bck[i]->nxt[i], i);
+      bck[i]->lnk(r.p, i);
     }
-    if (p->lvl > level) level = p->lvl;
-    return p;
+    if (r.p->lvl > level) level = r.p->lvl;
+    return r;
   }
   
   void erase(iterator x) {

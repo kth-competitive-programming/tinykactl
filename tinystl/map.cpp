@@ -20,9 +20,7 @@ template <class K, class V, class C = less<K>, bool multi=false,
   class A = associative<K, KV, AC, multi> >
 struct map : A {
   map(C key_comp = C()) : A(AC(key_comp)) { }
-  V &operator[](const K &k) {
-    return (*insert(k2v(k)).first).second;
-  }
+  V &operator[](const K &k) { return (*insert(k2v(k)).first).second; }
   virtual KV k2v(const K &k) { return make_pair(k,V()); }
 };
 

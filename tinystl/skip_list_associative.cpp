@@ -26,7 +26,7 @@ struct associative: skip_list<V, C> {
   }
 
   void erase(iterator x) { L::erase(x); }
-  iterator find(KR k, bool left=true) { return L::find(k2v(k),left); }
+  iterator find(KR k, bool left=true) { return L::find(k2v(k), left); }
 
   int count(KR k) {
     int r = 0;

@@ -8,7 +8,7 @@ all: \
 	g++2 -Wall -o $@ $<
 
 clean: ;
-	rm *.exe
+	rm -f *.exe
 
 
 
