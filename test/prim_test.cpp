@@ -54,8 +54,7 @@ int main( void ) {
     for( int j=0; j<numEdges; j++ ) {
       pair<int,double>  &edge = edges[i][j];
 
-      // only count half of the edges.
-      if( path[edge.first] == i && i < edge.first )
+      if( path[edge.first] == i )
 	totLen += sqrt(edge.second);
     }
   }
