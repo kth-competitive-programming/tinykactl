@@ -2,13 +2,16 @@
 
 \begin{algorithm}{NFA}
 \reflisting{nfa}
-\characteristics{The primary use of the NFA in its current state is for RegExp matching.}
+\characteristics{The primary use of the NFA in its current state is for RegExp
+matching.}
 \end{algorithm}
 
 \begin{algorithm}{DFA}
 \reflisting{dfa}
-\characteristics{A DFA class implementation. Biggest feature is the possibility to create a DFA from an NFA, which provides for faster matching for automata that will run several times.\\
-\\
+\characteristics{A DFA class implementation. Biggest feature is the
+possibility to create a DFA from an NFA, which provides for faster matching
+for automata that will run several times.
+
 No DFA compression is made. This means, for example, that the regexp
 {\tt (a|b|c|d|e|f)*} will result in a DFA with seven states, occupying
 roughly 7 $\cdot$ 256 bytes of memory, (whereas the optimal number of states
