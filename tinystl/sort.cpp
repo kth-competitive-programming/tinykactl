@@ -8,9 +8,9 @@
  *   By David Rydh
  */
 
-template<class T>
-void sort(T *first, T *last ) {
-  sort( first, last, T() );
+template<class T, class C >
+void sort(T *first, T *last, C c=less<T>() ) {
+  sort( first, last, T(), c );
 }
 
 template<class R, class T>
@@ -30,8 +30,8 @@ T _pivot(R first, R last, const T &dummy ) {
   */
 }
 
-template<class R, class T>
-void sort(R first, R last, const T &dummy ) {
+template<class R, class T, class C >
+void sort(R first, R last, const T &dummy, C c=less<T>() ) {
   if( first == last || first+1 == last )
     return;
   T pivot = _pivot( first, last, dummy );
@@ -39,13 +39,13 @@ void sort(R first, R last, const T &dummy ) {
   // Partition
   R a = first, b = last-1;
   while( a<=b ) {
-    while( *a < pivot ) a++;
-    while( pivot < *b ) b--;
+    while( c(*a,pivot) ) a++;
+    while( c(pivot,*b) ) b--;
     if( a>=b ) break;
     swap( *a, *b );
     a++; b--;
   }
   // Divide & conquer
-  sort( first, a );
-  sort( b+1, last );
+  sort( first, a, dummy, c );
+  sort( b+1, last, dummy, c );
 }

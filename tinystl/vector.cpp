@@ -24,6 +24,10 @@ struct vector {
     b = new T[a];
     fill( b, b+n, val );
   }
+  vector( const S &x ) {
+    n = a = x.n; b = new T[a];
+    copy(x.begin(),x.end(),begin());
+  }
   ~vector() { delete[] b; }
   S &operator=( const S &x ) {
     resize(x.n); copy(x.begin(),x.end(),begin());

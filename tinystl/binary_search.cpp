@@ -8,30 +8,30 @@
  *   By David Rydh
  */
 
-template<class F, class T> // F is Forward-iterator
-F lower_bound(F first, F last, const T &val ) {
+template<class F, class T, class C> // F is Forward-iterator
+F lower_bound(F first, F last, const T &val, C c=less<T>() ) {
   while( first<last ) {
     F middle = first+(last-first)/2; // first<=middle<last
 
-    if( !(*middle < val) ) last = middle;
+    if( !c(*middle,val) ) last = middle;
     else first = middle+1;
   }
   return first;
 }
 
-template<class F, class T> // F is Forward-iterator
-F upper_bound(F first, F last, const T &val ) {
+template<class F, class T, class C> // F is Forward-iterator
+F upper_bound(F first, F last, const T &val, C c=less<T>() ) {
   while( first<last ) {
     F middle = first+(last-first)/2; // first<=middle<last
 
-    if( val < *middle ) last = middle;
+    if( c(val,*middle) ) last = middle;
     else first = middle+1;
   }
   return first;
 }
 
-template<class F, class T> // F is Forward-iterator
-bool binary_search( F first, F last, const T &val ) {
+template<class F, class T, class C> // F is Forward-iterator
+bool binary_search( F first, F last, const T &val, C c=less<T>() ) {
   F x = lower_bound(first,last,val);
-  returnx != last && !(val < *x);
+  returnx != last && !c(val,*x);
 }
