@@ -14,14 +14,6 @@
 \complexity{(\Sigma k_i)-k_1}
 \end{algorithm}
 
-\begin{algorithm}{String permutations (multinomial)}
-\reflisting{nperms}
-\usage{ \sourceline{ string s; int n = n\_perms( s ); } }
-\desc
-Algorithm for calculating the number of permutations of a string
-(multinomial numbers).
-\end{algorithm}
-
 \begin{algorithm}{Stirling numbers of the first kind}
 \reflisting{stirling1}
 \usage{ \sourceline{s = stirling1(n,k);} }
@@ -40,13 +32,6 @@ different items be put in $k$ boxes with at least one item in every
 box, or mathematically speaking -- the number of partitions of $n$
 elements into $k$ partitions.
 \end{algorithm}
-
-\begin{algorithm}{Stirling numbers of the second kind modulo 2}
-\reflisting{stirling mod 2}
-\usage{ \sourceline{s = stirling\_mod\_2(n, k);} }
-\complexity{ \log{k} }
-\end{algorithm}
-
 
 \begin{algorithm}{Bell numbers}
 \desc
@@ -118,19 +103,3 @@ involutions on $[n]$ is given by
 $$s(n) = s(n-1) + (n-1)s(n-2) \qquad s(0) = s(1) = 1$$
 \end{algorithm}
 
-\begin{algorithm}{Permutation statistics}
-\keyword{}
-\desc
-Let $f: S_n \rightarrow \mathbb{Z}_{\ge}$ be a function describing
-some property of a permutation (e.g. the number of inversions), and
-$F(n,k) = \#\{\pi | f(\pi) = k\}$.  Then the polynomial
-$$\sum_{\pi \in S_n} x^{f(\pi)} = \sum_{k} F(n,k) x^k$$ 
-is called the permutation statistic (c.f. the Eulerian polynomials)
-for the property. We have
-\begin{eqnarray*}
-\sum_{\pi \in S_n} x^{c(\pi)} & = & \sum_{k} c(n,k) x^k = x (x+1) \cdots (x+n-1)\\
-\sum_{\pi \in S_n} q^{i(\pi)} & = & (1 + q)\cdot(1+q+q^2) \cdots (1 + q + \cdots + q^{n-1})
-\end{eqnarray*}
-where $c(\pi)$ is the number of cycles of $\pi$, and $i(\pi)$ is the
-number of inversions of $\pi$.
-\end{algorithm}

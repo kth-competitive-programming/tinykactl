@@ -1,20 +1,7 @@
 \categorytitle{Contest}
 \categorycontents{}
 
-\problemtitle{Practice session}
-
-\begin{algorithm}{Checklist}
-\reflisting{checklist}
-\end{algorithm}
-
-\begin{algorithm}{us\_key.modmap}
-\reflisting{uskey}
-\end{algorithm}
-
-\problemtitle{Mandatory contest material}
-
-%\begin{algorithm}{Problem assessment sheet}
-%\end{algorithm}
+\problemtitle{Mandatory}
 
 \begin{algorithm}{Template}
 \reflisting{Template}
@@ -69,38 +56,7 @@ contest-extras.el contains some additional key-bindings
 \end{algorithm}
 
 
-\problemtitle{Optional contest material}
-
-\begin{algorithm}{adler}
-\reflisting{adler}
-\usage{\sourceline{ adler < code.cpp }}
-\desc
-Adler gives a checksum for all non-whitespace character it reads.
-All source code listings in this document have their checksum attached,
-calculated after comments and preprocessor directives have been stripped off
-(except for preprocessor directives in the code library utilities themselves).
-\end{algorithm}
-
-\begin{algorithm}{linecode}
-\reflisting{linecode}
-\usage{\sourceline{ linecode < code.cpp }}
-\desc
-Linecode gives 16 values encoding line number xor:s of each line's adler
-checksum. All source code listings in this document have their line code
-attached. If a checksum doesn't match for a typed-in file, xor the line code
-from the document and the typed-in file to obtain candidate line numbers where
-the error might be.
-\end{algorithm}
-
-\begin{algorithm}{xor}
-\reflisting{xor} -- A simple xor calculator.
-\end{algorithm}
-
 \begin{sourceslandscape}
-
-\sourcesection{Practice Session}
-\code{checklist}{checklist.nada}
-\code{uskey}{us_key.modmap}
 
 \sourcesection{Mandatory Contest Material}
 \code{Template}{Template}
@@ -109,26 +65,4 @@ the error might be.
 \code{contest-extras.el}{contest-extras.el}
 
 \sourcesection{Optional Contest Material}
-\code{adler}{../util/adler}
-\code{linecode}{../util/linecode}
-\code{xor}{../util/xor}
-\begin{verbatim}
-xor table:
- 0 1 2 3 4 5 6 7 8 9 a b c d e f
- 1 0 3 2 5 4 7 6 9 8 b a d c f e
- 2 3 0 1 6 7 4 5 a b 8 9 e f c d
- 3 2 1 0 7 6 5 4 b a 9 8 f e d c
- 4 5 6 7 0 1 2 3 c d e f 8 9 a b
- 5 4 7 6 1 0 3 2 d c f e 9 8 b a
- 6 7 4 5 2 3 0 1 e f c d a b 8 9
- 7 6 5 4 3 2 1 0 f e d c b a 9 8
- 8 9 a b c d e f 0 1 2 3 4 5 6 7
- 9 8 b a d c f e 1 0 3 2 5 4 7 6
- a b 8 9 e f c d 2 3 0 1 6 7 4 5
- b a 9 8 f e d c 3 2 1 0 7 6 5 4
- c d e f 8 9 a b 4 5 6 7 0 1 2 3
- d c f e 9 8 b a 5 4 7 6 1 0 3 2
- e f c d a b 8 9 6 7 4 5 2 3 0 1
- f e d c b a 9 8 7 6 5 4 3 2 1 0
-\end{verbatim}
 \end{sourceslandscape}

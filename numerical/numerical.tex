@@ -3,43 +3,14 @@
 
 \problemtitle{Divisibility}
 
-
-\begin{algorithm}{GCD}
-\reflisting{gcd}
-\usage{ \sourceline{d = gcd( a, b );} }
-\complexity{ \log(b) }
-
-\reflisting{gcd fast}
-\usage{ \sourceline{d = gcd\_fast(a, b);} }
-\complexity{ \log(a) + \log(b) }
-\note{The \sourceline{gcd\_fast} routine is slightly more writing
-than the usual gcd routine, but can be useful where speed is
-{\em really essential}, as it only uses subtraction and shift operations
-instead of the evil modulo.}
-
-\valladolid{202}
-\end{algorithm}
-
-\def\lcm{\mathrm{lcm}}
-\begin{algorithm}{LCM}
-\desc $\lcm(a,b)=\frac{ab}{\gcd(a,b)}$
-\end{algorithm}
-
 \begin{algorithm}{Euclid}
 
 \reflisting{euclid}
 \usage{ \sourceline{d = euclid( a, b, \&x, \&y );} }
 \desc
 $x, y$ will satisfy $ax+by=d$ after the call.
-\reflisting{poseuclid}
-\desc
-$x, y\ge 0$ will satisfy $ax-by=\pm d$ after the call.
 \complexity{ \log(b) }
 \note{$x$ and $y$ have the smallest absolute value}
-\begin{example}
-	euclid( 10, 6, x, y ) == 2, x == -1, y == 2
-\end{example}
-\valladolid{202}
 \end{algorithm}
 
 \begin{algorithm}{Chinese remainder theorem}
@@ -47,14 +18,6 @@ $x, y\ge 0$ will satisfy $ax-by=\pm d$ after the call.
 \desc
 Given $x=a\mod m$, $x=b\mod n$, calculates $x\mod mn$.
 \note{When poseuclid is used, $mn$ may be returned.}
-\end{algorithm}
-
-\begin{algorithm}{$\phi$-function}
-\reflisting{phi}
-\desc $\phi(n)=\#\{d<n|\gcd(n,d)=1\}$
-\desc If $n=\prod p_i^{k_i}$,
-$\phi(n)=n\prod\left(1-\frac{1}{p_i}\right)=\prod p_i^{k_i-1}(p_i-1)$
-\complexity{ \sqrt{n} }
 \end{algorithm}
 
 \begin{algorithm}{Perfect numbers}
@@ -170,25 +133,6 @@ large as the third root of the number. The second algorithm uses a
 probabilistic primality test (Miller-Rabin).
 \end{algorithm}
 
-\begin{algorithm}{Factor}
-\reflisting{factor}
-\usage{\sourceline{int n = 2*2*3*3*5; vector<pair<int, int> > \&facs =
-Factor(n);} }
-\desc
-{\tt Factor} calculates the prime factorization of an integer.
-The returned vector is an increasing sequence of primes/exponents pairs.
-That is (letting $p_i = $ {\tt Factor(n)[i].first}, and $e_i = $
-{\tt Factor(n)[i].second}): $n = \prod_i \, p_i^{e_i}$, where all $p_i$ are
-prime and $i < j \Leftrightarrow p_i < p_j$.
-
-As it basically works by dynamic programming, {\tt Factor} requires
-roughly $\mathcal{O}(n \log \log n)$ memory, but the good news is that
-the time complexity for factoring all numbers from $1$ to $n$ is also
-roughly $\mathcal{O}(n \log \log n)$, and that once a number's been
-factored, {\tt Factor} remembers the factorization and can give it in
-constant time.
-\end{algorithm}
-
 \begin{algorithm}{Prime factorization}
 \reflisting{factor2}
 \usage{vector<long long> factors; factor(N, factors); }
@@ -237,14 +181,6 @@ can be used instead, rounding the answer at the end. The strength of
 slow in the {\tt BigInt} case.
 \end{algorithm}
 
-\problemtitle{Big numerical operations}
-\begin{algorithm}{exp}
-\reflisting{exp}
-\complexity{\log{e}\textrm{ ops}}
-\desc
-{\tt exp} calculates $b^e$ by repeated squaring.
-\end{algorithm}
-
 \begin{algorithm}{mulmod}
 \reflisting{mulmod}
 \usage{ \sourceline{ mulmod(5678945893454353ULL, 2423948234343ULL,
@@ -270,29 +206,6 @@ next number with same number of bits, bit count, bit reversal,
 binary length.
 \end{algorithm}
 
-\problemtitle{Coordinates and directions}
-\begin{algorithm}{coords}
-\reflisting{coords}
-\usage{\sourceline{%
-sqrX X(cols); idx = X(3, 4); X(idx, \&r, \&c);}}
-\usage{\sourceline{%
-cubeX X(rows, cols); idx = X(3, 4, 5); X(idx, \&l, \&r, \&c);}}
-\usage{\sourceline{%
-quadX X(levs, rows, cols); idx = X(3, 4, 5, 6); X(idx, \&h, \&l, \&r, \&c);}}
-\usage{\sourceline{%
-triX X; idx = X(3, 4); X(idx, \&r, \&c);}}
-\desc
-Coordinate to index and index to coordinate calculations for
-plane, space and hyperspace grid and plane triangle layouts.
-
-\usage{\sourceline{dxy(dir, \&dx, \&dy);}}
-\usage{\sourceline{drc(dir, \&dr, \&dc);}}
-\usage{\sourceline{dknight(dir, \&dr, \&dc);}}
-\desc
-Direction to x and y or row and column displacement. {\tt dir} values
-0, 1, 2, 3 mod 4 correspond to right, up, left, right or north, east, south,
-west, respectively. Or chess knight jump directions.
-\end{algorithm}
 
 \problemtitle{Optimization}
 \begin{algorithm}{Simplex method}
@@ -327,12 +240,8 @@ fall-back) or the bisective method.
 
 \sourcesection{Divisibility}
 
-\code{gcd}{gcd}
-\code{gcd fast}{gcd_fast}
 \code{euclid}{euclid}
-\code{poseuclid}{poseuclid}
 \code{chinese}{chinese}
-\code{phi}{phi}
 
 \sourcesection{Primes}
 \code{primes}{primes}
@@ -344,7 +253,6 @@ fall-back) or the bisective method.
 \code{pollard-rho}{pollard-rho}
 \code{ndivisors}{ndivisors}
 \code{ndivisors prob}{ndivisors_prob}
-\code{factor}{factor}
 \code{factor2}{factor2}
 
 \sourcesection{Linear Algebra}
@@ -356,12 +264,10 @@ fall-back) or the bisective method.
 \sourcesection{Numerical Misc}
 \code{josephus}{josephus}
 \code{pseudo}{pseudo}
-\code{exp}{exp}
 \code{mulmod}{mulmod}
 \code{expmod}{expmod}
 
 \code{bitmanip}{bitmanip}
-\code{coords}{coords}
 
 \sourcesection{Optimization}
 \code{simplex}{simplex}

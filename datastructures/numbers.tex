@@ -3,10 +3,6 @@
 %%%
 \problemtitle{Numerical data structures}
 
-\begin{algorithm}{Complex}
-\usage{{\tt \#include <complex>}}
-\end{algorithm}
-
 \begin{algorithm}{Sign}
 \reflisting{sign}
 \desc
@@ -19,27 +15,6 @@ a bigint).
 \desc
 Class for rational numbers over a number type (i.e. typically some
 integer type).
-\end{algorithm}
-
-\begin{algorithm}{Bigint}
-\reflisting{bigint}
-\end{algorithm}
-
-\begin{algorithm}{Bigint Simple}
-\reflisting{bigint simple}
-\desc
-Fully dynamic BigInt class which handles +,-,* for
-positive integers. Can output numbers in base-10 only. This is a stripped
-down version of {\tt bigint full}.
-\end{algorithm}
-
-\begin{algorithm}{Bigint Full}
-\reflisting{bigint full}
-\desc
-Fully dynamic BigInt class which handles +,-,*,/ for
-positive integers. Can output numbers in base-10 only. Division/modulus is
-simple and uses neither an iterative method, such as Newton-Raphson,
-nor FFT. Has an iterative sqrt-function.
 \end{algorithm}
 
 \begin{algorithm}{Bigint Per}

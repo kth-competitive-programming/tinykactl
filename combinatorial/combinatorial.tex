@@ -1,68 +1,8 @@
 \categorytitle{Combinatorial}
 \categorycontents{}
 
-\problemtitle{Sorting}
-\begin{algorithm}{sort}
-  \usage{\sourceline{ sort( v.begin(), v.end(), less<int>() ) }}
-\end{algorithm}
-
-\begin{algorithm}{isort}
-  \usage{\sourceline{ isort( array, n, idxarray, comp) }}
-  \reflisting{isort}
-\end{algorithm}
-
-\begin{algorithm}{indexed comparator}
-  \reflisting{indexed comparator}
-\end{algorithm}
-
-\begin{algorithm}{indexed less}
-  \reflisting{indexed less}
-\end{algorithm}
-
-\problemtitle{Searching}
-\begin{algorithm}{median -- nth element}
-  \usage{\sourceline{ nth\_element( v.begin(), v.end(), 4 ) }}
-  \begin{example}
-	nth_element( v.begin(), v.end(), v.size() / 2 ) // mid value
-  \end{example}
-\end{algorithm}
-\begin{algorithm}{binary search}
-  \usage{\sourceline{ bool binary\_search( v.begin(), v.end(), 4 ) }}
-  \usage{\sourceline{ iterator lower\_bound( v.begin(), v.end(), 4 ) }}
-  \usage{\sourceline{ iterator upper\_bound( v.begin(), v.end(), 4 ) }}
-\end{algorithm}
-\begin{algorithm}{binary search (numerical)}
-  \reflisting{binary search num}
-  \usage{\sourceline{double binary\_search\_num( 0.0, 1.0, pred ); }}
-\end{algorithm}
-\begin{algorithm}{golden search}
-  \reflisting{golden search}
-  \usage{\sourceline{
- int golden\_search( f, l, r, \&min\_value ) == min\_index }}
-\end{algorithm}
 
 \problemtitle{Permutations}
-\begin{algorithm}{next}
-\usage{{\tt next\_permutation(begin, end [, comparator])}}
-\end{algorithm}
-\begin{algorithm}{previous}
-\usage{{\tt prev\_permutation(begin, end [, comparator])}}
-\end{algorithm}
-\begin{algorithm}{random}
-\usage{{\tt random\_shuffle(begin, end [, random\_number\_generator])}}
-\end{algorithm}
-\begin{algorithm}{permute}
-\reflisting{permute}
-\desc
-{\tt permute} recursively generates all permutations
-without comparisons. The permutations are given in lexicographic order
-using the original order (i.e. permute on ``baa'' gives baa, aba, aab).
-It can also be useful when the processing is done for each individual
-position (unnecessary duplicate work is avoided). Repetitions of non-adjacent
-elements will give strange results since there is no possible ordering
-(i.e ``aba'').
-\usage{\sourceline{char a[n] = "caab"; permute(a+0,a+0,a+n);}}
-\end{algorithm}
 \begin{algorithm}{Permutations to/from integers}
 \reflisting{intperm}
 \usage{{\tt int perm[n], x;\\perm\_to\_int(x, perm, perm + n);\\int\_to\_perm(x, perm, perm + n);}}
@@ -82,19 +22,11 @@ what you consider feasible)).
 \xinput{counting}
 
 \begin{sourceslandscape}
-\sourcesection{Sorting \& Searching}
-\code{isort}{isort}
-\code{indexed comparator}{indexed_comparator}
-\code{indexed less}{indexed_less}
-\code{binary search num}{binary_search_num}
-\code{golden search}{golden_search}
 
 \sourcesection{Permutations \& Counting}
-\code{permute}{permute}
 \code{intperm}{intperm}
 \code{choose}{counting/choose}
 \code{multinomial}{counting/multinomial}
-\code{nperms}{counting/nperms}
 \code{stirling1}{counting/stirling1}
 \code{stirling}{counting/stirling}
 \code{stirling mod 2}{counting/smod2}

@@ -2,105 +2,6 @@
 \categorycontents{}
 \newpage
 
-\problemtitle{STL containers}
-\begin{algorithm}{STL container summary}
-\desc
-\begin{tabular}{|l|ccccc|}
-\hline
- & [] & List op. & Front op. & Back op. & Iterators \\
-\hline
-vector & \ordo{1} & Am. \ordo{n} &          & Am. \ordo{1} & Ran \\
-list   &          & \ordo{1}     & \ordo{1} & \ordo{1}     & Bi \\
-deque  & \ordo{1} & \ordo{n}     & \ordo{1} & \ordo{1}     & Ran \\
-\hline
-stack           & & &                & \ordo{1}       & \\
-queue           & & & \ordo{1}       & \ordo{1}       & \\
-priority\_queue & & & \ordo{\log{n}} & \ordo{\log{n}} & \\
-\hline
-map      & \ordo{\log{n}} & Am. \ordo{\log{n}} & & & Bi \\
-multimap &                & Am. \ordo{\log{n}} & & & Bi \\
-set      &                & Am. \ordo{\log{n}} & & & Bi \\
-multiset &                & Am. \ordo{\log{n}} & & & Bi \\
-\hline
-string   & \ordo{1} & Am. \ordo{n} & Am. \ordo{n} & Am. \ordo{1} & Ran \\
-array    & \ordo{1} &              &              &              & Ran \\
-valarray & \ordo{1} &              &              &              & Ran \\
-bitset   & \ordo{1} &              &              &              & \\
-\hline
-\end{tabular}
-\end{algorithm}
-
-\begin{algorithm}{pair}
-\deps{{\tt utility} or {\tt algorithm}}
-\usage{{\tt make\_pair}, {\tt p.first}, {\tt p.second}, {\tt <}, {\tt ==}.}
-\end{algorithm}
-
-\begin{algorithm}{string}
-\deps{{\tt string}}
-\usage{{\tt substr}, {\tt <}, {\tt ==}.}
-\end{algorithm}
-
-\begin{algorithm}{vector}
-\deps{{\tt vector}}
-\usage{{\tt resize}, {\tt push\_back}, {\tt []}.}
-\books{\bookJosuttis{148}}
-\end{algorithm}
-
-\begin{algorithm}{deque}
-\deps{{\tt deque}}
-\usage{{\tt push\_front}, {\tt push\_back}, {\tt []}.}
-\books{\bookJosuttis{160}}
-\end{algorithm}
-
-\begin{algorithm}{set}
-\deps{{\tt set}}
-\usage{{\tt insert}, {\tt erase}, {\tt count}.}
-\books{\bookJosuttis{175}}
-\end{algorithm}
-
-\begin{algorithm}{map}
-\deps{{\tt map}}
-\usage{{\tt []}, {\tt count}.}
-\books{\bookJosuttis{194}}
-\end{algorithm}
-
-\begin{algorithm}{list}
-\deps{{\tt list}}
-\usage{{\tt push\_front}, {\tt push\_back}, {\tt splice}, {\tt merge}, {\tt sort}.}
-\books{\bookJosuttis{166}}
-\end{algorithm}
-
-\begin{algorithm}{queue}
-\deps{{\tt queue}}
-\usage{{\tt push}, {\tt empty}, {\tt front}, {\tt pop}.}
-\end{algorithm}
-
-\begin{algorithm}{priority queue}
-\note{The {\tt front()} is the element with the {\em highest} key.}
-\deps{{\tt queue}}
-\usage{{\tt push}, {\tt empty}, {\tt front}, {\tt pop}.}
-\end{algorithm}
-
-\begin{algorithm}{stack}
-\deps{{\tt stack}}
-\usage{{\tt push}, {\tt empty}, {\tt top}, {\tt pop}.}
-\end{algorithm}
-
-\begin{algorithm}{heap}
-\deps{{\tt algorithm}}
-\usage{{\tt make\_heap}, {\tt push\_heap}, {\tt pop\_heap}, {\tt sort\_heap}.}
-\end{algorithm}
-
-\problemtitle{Null vector}
-\begin{algorithm}{null vector}
-\reflisting{null vector}
-
-\desc
-{\tt null vector} acts like a vector, but simply keeps one value.
-The value is reset and its reference returned for any index referenced.
-\usage{\sourceline{ v[3612378] = 5; v[3612378] == 0; }}
-\end{algorithm}
-
 \problemtitle{Disjoint sets}
 \begin{algorithm}{sets}
 \reflisting{sets}
@@ -111,89 +12,12 @@ called {\tt sets} to efficiently determine whether two vertices belong to
 the same tree.
 \end{algorithm}
 
-\problemtitle{Modifiable priority queue}
-\begin{algorithm}{mpq}
-\reflisting{mpq}
-
-\desc
-{\tt mpq} is a modifiable priority queue (implemented as a set). Its interface
-is identical to that of a {\tt priority\_queue}. When an element should be
-modified the {\tt update} method should be called as:
-\sourceline{update(elem, oldvalue, newvalue)}
-Where {\tt oldvalue} should be a \emph{reference} to the value of the
-{\tt elem}.
-
-\desc
-A common use is to use indices as elements which is compared using external
-containers.
-\end{algorithm}
-
-\begin{algorithm}{update heap}
-\reflisting{update heap}
-
-\desc
-An updatable heap has an interface identical to that of a
-{\tt priority\_queue}.
-The elements need to have a method {\tt set\_position} though. When an element
-is changed, the {\tt key\_increased} or {\tt key\_decreased} method should
-be called with its position as argument.
-\end{algorithm}
-
-\problemtitle{Named items}
-When items are named, for example graph nodes identified by strings or big
-non-contiguous integers, it is often practical to keep a map from the
-names to an index numbering starting from 0, and a vector to retrieve a name
-back from an index.
-
-The {\tt index mapper} does this.
-It has function semantics to retrieve an index for a name,
-and vector semantics to retrieve a name from an index:
-\begin{algorithm}{Index mapper}
-  \usage{\sourceline{%
-int idx = mapper("x")  =>  mapper("x") == idx, mapper[idx] == "x"%
-}}
-  \reflisting{index mapper}
-\end{algorithm}
-
-\problemtitle{Matrices kept in arrays}
-It is often convenient to keep a two-dimensional matrix in a one-dimensional
-array, but then one has to explicitly calculate absolute indices into the
-array from the row and column of the matrix.
-
-The {\tt matrix mapper} helps with this.
-It has function semantics for retrieving absolute indices from a (row,column)
-pair, and, even better: matrix double bracket semantics for accessing the
-array elements directly as if they were in a matrix.
-\begin{algorithm}{Matrix mapper}
-  \usage{\sourceline{%
-vector\_matrix\_mapper m(v, 12); \\
-v[row*12 + col] <=> v[m(row, col)] <=> m[row][col]%
-}}
-  \reflisting{matrix mapper}
-\end{algorithm}
-
-\problemtitle{Indexed arrays}
-\begin{algorithm}{indexed}
-  \reflisting{indexed}
-\end{algorithm}
-
 \xinput{numbers}
 
 \begin{sourceslandscape}
 \sourcesection{Data Structures}
-\code{null vector}{null_vector}
 \code{sets}{sets}
-\code{mpq}{mpq}
-\code{update heap}{update_heap}
-\code{index mapper}{index_mapper}
-\code{matrix mapper}{matrix_mapper}
-\code{indexed}{indexed}
 \code{sign}{numbers/sign}
 \code{rational}{numbers/rational}
-
-\sourcesection{Bigint}
-\code{bigint}{numbers/bigint}
-\code{bigint simple}{numbers/bigint_simple}
-\code{bigint full}{numbers/bigint_full}
 \code{bigint per}{numbers/bigint_per}
 \end{sourceslandscape}

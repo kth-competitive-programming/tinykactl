@@ -1,13 +1,13 @@
-# Makefile for lib.tex, the KTH ACM Contest Template Library document
+# Makefile for tinykactl.tex, the KTH ACM Contest Template Tinykactlrary document
 
 BASEDIR=$(PWD)
 INTERMED= \
-lib.aux lib.dvi lib.idx lib.ilg lib.ind \
-lib.log lib.lol lib.lop lib.toc
+tinykactl.aux tinykactl.dvi tinykactl.idx tinykactl.ilg tinykactl.ind \
+tinykactl.log tinykactl.lol tinykactl.lop tinykactl.toc
 
 .PHONY: \
 all always clean spotless index ps pdf \
-lib.ps lib.pdf libtex util allcode allcodeclean
+tinykactl.ps tinykactl.pdf tinykactltex util allcode allcodeclean
 
 all:
 	# Try 'make ps' or 'make pdf'!
@@ -18,34 +18,34 @@ always: .
 
 spotless: clean
 	$(MAKE) spotless -C util BASEDIR=$(BASEDIR)
-	rm -f lib.pdf lib.ps version tag
+	rm -f tinykactl.pdf tinykactl.ps version tag
 
 index:
-	makeindex lib.idx
+	makeindex tinykactl.idx
 
 getversion:
 	bk changes | head -1 | cut -d @ -f2 | cut -d ' ' -f1,2 > version
 	bk changes | grep TAG | head -1 | cut -f 4- -d ' ' > tag
 
-ps: lib.ps index always
+ps: tinykactl.ps index always
 
-pdf: lib.pdf index always
+pdf: tinykactl.pdf index always
 
-pdfx3: lib.pdfx3 index always
+pdfx3: tinykactl.pdfx3 index always
 
-lib.ps: libtex always
-	latex lib.tex
-	dvips -o lib.ps lib.dvi
+tinykactl.ps: tinykactltex always
+	latex tinykactl.tex
+	dvips -o tinykactl.ps tinykactl.dvi
 
-lib.pdf: libtex always
-	pdflatex lib.tex
+tinykactl.pdf: tinykactltex always
+	pdflatex tinykactl.tex
 
-lib.pdfx3: lib.pdf
-	pdflatex lib.tex
-	makeindex lib.idx
-	pdflatex lib.tex
+tinykactl.pdfx3: tinykactl.pdf
+	pdflatex tinykactl.tex
+	makeindex tinykactl.idx
+	pdflatex tinykactl.tex
 
-libtex: getversion lib.tex acmlib.sty lgrind.sty pdflscape.sty util code
+tinykactltex: getversion tinykactl.tex kactl.sty lgrind.sty pdflscape.sty util code
 
 util: always
 	$(MAKE) util -C util BASEDIR=$(BASEDIR)
