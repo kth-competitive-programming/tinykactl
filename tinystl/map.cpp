@@ -7,7 +7,6 @@
  *   Based on STL
  *   By Mattias de Zalenski, David Rydh
  */
-#include "associative.cpp"
 
 template <class vR, class C>
 struct map_compare {

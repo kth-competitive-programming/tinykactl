@@ -7,11 +7,11 @@
  *   Based on STL
  *   By Mattias de Zalenski, David Rydh
  */
-#include "associative.cpp"
 
 template <class T, class C = less<T>, bool multi=false,
   class A = associative<T, T, C, multi> >
 struct set : A {
+  set(C c = C()): A(c) {}
   virtual T k2v(const T &k) { return k; }
 };
 
