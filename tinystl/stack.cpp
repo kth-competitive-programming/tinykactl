@@ -23,7 +23,7 @@ struct stack {
   ~stack() { while( !empty() ) pop(); }
   bool empty() { return root == 0; }
   void push(const T &x) { root = new sT(x, root); }
-  void pop() { sT *o=root; root = root.next; delete o; }
-  T &top() { return root.x; }
-  const T &top() const { return root.x; }
+  void pop() { sT *o=root; root = root->next; delete o; }
+  T &top() { return root->x; }
+  const T &top() const { return root->x; }
 };
