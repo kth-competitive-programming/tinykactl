@@ -3,20 +3,38 @@
  * Geometry/Primitives/Line intersection
  *
  * Credit:
- *   By Mattias de Zalenski
+ *   By Per Austrin
  */
 
-template <class P, class R>
-bool line_isect(P p0, P p1, P q0, P q1, R &x) {
-  typedef typename R::coord_type T;
+const double NO_ISECT = -1.0/0.0;
 
-  P p = p1-p0, q = q1-q0;
-  T det = cross(p, q);
-  if (det == 0)
-    return false;
+template <class P> inline 
+double line_isect(const P& A0, const P& A1, const P& B0, const P& B1) {
+  typedef P::value_type T;
+  P dP1 = A1-A0, dP2 = B1-B0, dL = B0-A0;
+  T det = dP1.cross(dP2), s = dL.cross(dP1), t = dL.cross(dP2);
 
-  T a = dot(perp(p), p0), b = dot(perp(q), q0);
-  x.x = (a*q.x - b*p.x) / det;
-  x.y = (a*q.y - b*p.y) / det;
-  return true;
+  /* intersection between infinitely extending lines: */
+  if (det == 0) return NO_ISECT;
+
+  /* intersection between finite line segments: */
+  if (det == 0) {
+    T s1 = dP1.dot(dL), s2 = dP1.dot(B1)-dP1.dot(A0);
+    if (t != 0 || min(s1, s2) > dP1.dist2() || max(s1, s2) < 0)
+      return NO_ISECT;
+    return sqrt((double) max(0, min(s1, s2)));
+  } 
+
+  /* both: */
+  if (det < 0) det = -det, t = -t, s = -s;
+  if (!(t >= 0 && t <= det && s >= 0 && s <= det))
+    return NO_ISECT;
+  return (double)t / det;
+}
+
+template <class P> inline 
+bool line_isect(const P& A0, const P& A1, const P& B0, const P& B1, P &R) {
+  double t = line_isect(A0, A1, B0, B1);
+  if (t != NO_ISECT) R = (1-t)*A0 + t*A1;
+  return t != NO_ISECT;
 }

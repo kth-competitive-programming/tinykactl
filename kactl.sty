@@ -34,10 +34,26 @@
     {\Large \@subtitle{} version \input{version}}\\[0.6cm]
     {\LARGE \textsc{\input{tag}}}
   \end{center}
-  \thispagestyle{empty}
-  \pagestyle{empty}
-  %\newpage
 }
+
+
+\renewcommand\tableofcontents{%
+    \@makeschapterhead{\contentsname
+      \@mkboth{\MakeUppercase\contentsname}
+	      {\MakeUppercase\contentsname}}%
+    \@starttoc{toc}%
+}
+
+
+\renewenvironment{theindex}
+		 {\clearpage\@makeschapterhead{\indexname}
+		   \@mkboth{\MakeUppercase\indexname}%
+                           {\MakeUppercase\indexname}%
+			   \parindent\z@
+			   \parskip\z@ \@plus .3\p@\relax
+			   \let\item\@idxitem}
+		 {}
+		 
 
 
 
@@ -101,7 +117,7 @@
 }
 
 \newcommand{\categoryindex}[1]{
-  \index{\thecategoryname!#1 @\MakeLowercase{#1}}
+%  \index{\thecategoryname!#1 @\MakeLowercase{#1}}
   \index{#1}
 }
 
@@ -147,8 +163,8 @@
 }
 
 \newcommand{\problemindex}[1]{
-  \index{\thecategoryname!\theproblemname @\MakeLowercase{\theproblemname}!#1 @\MakeLowercase{#1}}%
-  \index{\theproblemname!#1 @\MakeLowercase{#1}}
+%  \index{\thecategoryname!\theproblemname @\MakeLowercase{\theproblemname}!#1 @\MakeLowercase{#1}}%
+%  \index{\theproblemname!#1 @\MakeLowercase{#1}}
   \index{#1 @\MakeLowercase{#1}}
 }
 
@@ -158,6 +174,8 @@
 % Algorithm definitions
 %
 %%%%%%%%%%%%%%%%%%%%%%%
+
+
 
 
 \newenvironment{algorithm}[1]
@@ -189,7 +207,7 @@
 
 % Set fontsize in lgrind to tinier in landscape-source-mode
 \newenvironment{sourceslandscape}{
-  \newpage
+  \clearpage
   \advance\textwidth 4 cm%
   \advance\textheight 8 cm%
   \advance\topmargin -4 cm%
@@ -199,6 +217,19 @@
     \begin{multicols*}{3}\raggedcolumns
       \setlength\columnseprule{.2pt}
       \def\LGfsize{\scriptsize}}{\end{multicols*}\end{landscape}}
+
+
+\newenvironment{indexlandscape}{
+  \clearpage
+  \advance\textwidth 4 cm%
+  \advance\textheight 8 cm%
+  \advance\topmargin -4 cm%
+  \advance\oddsidemargin  -3 cm%
+  \advance\evensidemargin -3 cm%
+  \begin{landscape}
+    \begin{multicols*}{4}\raggedcolumns
+      \setlength\columnseprule{.2pt}}{\end{multicols*}\end{landscape}}
+
 
 
 \newenvironment{sources}{\def\LGfsize{\small}}{}
@@ -227,3 +258,8 @@
 }
 
 \newcommand{\sourcesection}[1]{\section*{#1}}
+
+
+
+
+

@@ -3,17 +3,19 @@
  * Geometry/Polygons/Inside
  *
  * Credit:
- *   By David Rydh
+ *   By Per Austrin
  */
 
-template<class P, class V>     // V is vector/array of point<T>s
-bool inside(const V &p, int n, P t) {
-  bool c = false;
+#include "point_line_relations.cc"
 
-  for (int i=0, j=n-1; i<n; j=i++) {
-    if ( ((p[i].y<=t.y && t.y<p[j].y) || (p[j].y<=t.y && t.y<p[i].y)) &&
-         (dx(p[i],t) < dx(p[i],p[j])*dy(p[i],t)/dy(p[i],p[j])) )
-      c = !c;
+template <class It, class P>
+bool poly_inside(It begin, It end, const P &p, bool strict = true) {
+  bool inside = false;
+  for (It i = begin, j = end - 1; i != end; j = i++) {
+    if (on_segment(*j, *i, p)) return !strict;
+    if (min(j->x, i->x) < p.x && max(j->x, i->x) >= p.x &&
+	abs(j->x - i->x)*(p.y - i->y) > abs(p.x - i->x)*(j->y - i->y))
+      inside ^= 1;
   }
-  return c;
+  return inside;
 }
