@@ -1,20 +1,48 @@
 \categorytitle{Graph}
 \categorycontents{}
 
-\xinput{shortest_path}
-\xinput{mst}
-\xinput{toposort}
+\problemtitle{Misc basics}
+
+\begin{algorithm}{Bellman-Ford}
+\complexity{VE}
+\end{algorithm}
+\code{bellman ford}{bellman_ford}
+
+
+\begin{algorithm}{Shortest Tour}
+\desc
+Shortest tour from A to B to A again not using any edge twice, in an
+undirected graph: Convert the graph to a directed graph.  Take the
+shortest path from A to B.  Remove the paths used from A to B, but
+also negate the lengths of the reverse edges.  Take the shortest path
+again from A to B, using an algorithm which can handle negative-weight
+edges, such as Bellman-Ford. Note that there is no negative-weight
+\emph{cycles}.  The shortest tour has the length of the two shortest
+paths combined. 
+\end{algorithm}
+
+
+\begin{algorithm}{Kruskal}
+\usage{ \sourceline{kruskal( graph, tree, n );} }
+\complexity{ E\log E }
+\desc
+{\bf NB!} Requires {\texttt sets.cc}!
+The resulting tree which is returned in {\tt tree} may
+be the same variable as the graph.
+\reflisting{sets}
+\end{algorithm}
+\code{kruskal}{mst/kruskal}
+
+\code{topo sort}{topo_sort}
+
+
+
 \xinput{euler_cycle}
 \xinput{network_flow}
 \xinput{matching}
 %\problemtitle{Planarity detection}
 
-\sourcesection{Shortest Path / Minimum Spanning Tree}
-\code{bellman ford}{bellman_ford}
-\code{kruskal}{mst/kruskal}
-
 \sourcesection{Graph Misc}
-\code{topo sort}{topo_sort}
 \code{euler walk}{euler_walk}
 \code{deBruijn}{deBruijn}
 \code{deBruijn fast}{deBruijn_fast}

@@ -26,50 +26,19 @@ G(\{n_i\})$.  A state $S$ is winning iff $G(S) \ne 0$.
 
 
 \begin{algorithm}{Knapsack}
-\reflisting{knapsack}
 \usage{{\tt R res = knapsack<R>(n, C, costs, values [, bound = 500000]);}}
 \complexity{\min(bound, nC)}
-
-\desc
-Knapsack heuristic. Returns the maximum value achievable. {\tt n} is
-the number of objects, {\tt C} is the capacity of the knapsack, {\tt
-costs} is a random access container with the {\tt n} costs, and {\tt
-values} is a random access container with the {\tt n} values. {\tt
-bound} is an approximation factor; lower values of {\tt bound} means
-shorter running time, but also a greater risk that the algorithm will
-produce an incorrect answer (if $nC \le $ {\tt bound} and the costs
-are integers, the answer is ``guaranteed'' to be correct). Note that
-actually, all scaled values (i.e. multiplications with {\tt scale})
-should be rounded upwards. However, empirical tests (using the test
-data from NADA Open 2002) has shown this approach to be less accurate
-(i.e. requiring a higher bound to produce a correct answer) in
-practice. For the NADA Open 2002 test cases, a bound of $\approx
-90000$ was sufficient.
-
 \end{algorithm}
+\code{knapsack}{knapsack}
 
 
 \problemtitle{Permutations}
 \begin{algorithm}{Permutations to/from integers}
-\reflisting{intperm}
 \usage{{\tt int perm[n], x;\\perm\_to\_int(x, perm, perm + n);\\int\_to\_perm(x, perm, perm + n);}}
 \complexity{ n^2 }
-\desc
-{\tt int\_to\_perm} and {\tt perm\_to\_int} defines a bijection
-between permutations $\pi \in S_n$ and integers $x \in \{0, \ldots
-n!-1\}$, with the additional property that it is order-preserving (so
-that it could be used for generating all permutations in lexicographic
-order, though {\tt next\_permutation} is much handier for this).  In
-theory, this could be useful when doing some graph search on
-permutations (though in practice, the number of integers for which
-$n!$ but not $n^n$ memory is feasible is quite small (2-3 depending on
-what you consider feasible)).
 \end{algorithm}
+\code{intperm}{intperm}
+
 
 \xinput{counting}
 
-\sourcesection{Permutations \& Counting}
-\code{knapsack}{knapsack}
-\code{intperm}{intperm}
-\code{choose}{counting/choose}
-\code{multinomial}{counting/multinomial}

@@ -6,15 +6,15 @@
  *   By David Rydh
  */
 
-template <class F, class O>
-O ival_union( F begin, F end, O dest ) {
+#include <algorithm>
+
+template <class It, class OIt>
+It ival_union( It begin, It end, OIt dest ) {
   sort( begin, end );
   while( begin != end ) {
     *dest = *begin++;
-    while( begin != end && begin->first <= dest->second ) {
-      dest->second = max(dest->second,begin->second);
-      ++begin;
-    }
+    while( begin != end && begin->first <= dest->second )
+      dest->second >?= begin++->second;
     ++dest;
   }
   return dest;

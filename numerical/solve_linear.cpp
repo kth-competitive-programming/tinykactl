@@ -1,58 +1,55 @@
-/* KTH ACM Contest Template Library
- *
- * Numerical problems/Linear Algebra/Solve Ax=b
- *
- * Credit:
- *   Carl Friedrich Gauss
- *   By David Rydh
- */
+const double NAN = 0.0/0.0;
+const double EPS = 1e-12;
 
-template< class T, int N >
-int solve_linear( T A[N][N], T x[N], T b[N], int nR, int nC ) {
-  bool proc[N] = {false};
+// Solves A*x = b. Returns rank.
+int solve_linear(int n, double **A, double *b, double *x) {
+  int row[n], col[n], undef[n], invrow[n], invcol[n];
 
-  for( int c=0; c<nC; c++ ) {
-    for( int r=0; r<nR; r++ ) {
-      if( proc[r] ) continue;
+  for (int i = 0; i < n; ++i)
+    row[i] = col[i] = i, undef[i] = false;
+  
+  int rank = 0;
+  for (int i = 0; i < n; rank = ++i) {
+    int br = i, bc = i;
+    double v, bv = abs(A[row[i]][col[i]]);
+    for (int r = i; r < n; ++r)
+      for (int c = i; c < n; ++c)
+	if ((v = abs(A[row[r]][col[c]])) > bestv)
+	  br = r, bc = c, bv = v;
+    if (bv < EPS) break;
+    if (i != br) row[i] ^= row[br] ^= row[i] ^= row[br];
+    if (i != bc) col[i] ^= col[bc] ^= col[i] ^= col[bc];
+    for (int j = i + 1; j < n; ++j) {
+      double fac = A[row[j]][col[i]] / bv;
+      A[row[j]][col[i]] = 0;
+      b[row[j]] -= fac * b[row[i]];
+      for (int k = i + 1; k < n; ++k)
+	A[row[j]][col[k]] -= fac * A[row[i]][col[k]];
+    }
+  }
 
-//    if( abs(A[r][c]) >= 1e-8 ) { // if T=double
-      if( A[r][c] != 0 ) {
-	// Eliminate column c using row r
-	proc[r] = true;
-
-	T f = A[r][c];
-	for( int j=0; j<nC; j++ )
-	  A[r][j] /= f;
-	b[r] /= f;
-
-	for( int i=0; i<nR; i++ ) {
-	  if( i==r ) continue;
-	  f = A[i][c];
-	  for( int j=0; j<nC; j++ )
-	    A[i][j] -= A[r][j]*f;
-	  b[i] -= b[r]*f;
-	}
-	break;
+  for (int i = rank; i-- ; ) {
+    b[row[i]] /= A[row[i]][col[i]];
+    A[row[i]][col[i]] = 1;
+    for (int j = rank; j < n; ++j)
+      if (abs(A[row[i]][col[j]]) > EPS)
+	undef[i] = true;
+    for (int j = i - 1; j >= 0; --j) {
+      if (undef[i] && abs(A[row[j]][col[i]]) > EPS)
+	undef[j] = true;
+      else {
+	b[row[j]] -= A[row[j]][col[i]] * b[row[i]];
+	A[row[j]][col[i]] = 0;
       }
     }
   }
 
-  int nFree = nC;
-
-  for( int r=0; r<nR; r++ ) {
-    if( !proc[r] ) {
-      if( b[r] != 0 )
-	return -1;
-    } else {
-      for( int c=0; c<nC; c++ ) {
-//      if( abs(A[r][c]) >= 1e-8 ) { // if T=double
-	if( A[r][c] != 0 ) {
-	  x[c] = b[r];
-	  break;
-	}
-      }
-      nFree --;
-    }
-  }
-  return nFree;
+  for (int i = 0; i < n; ++i)
+    invrow[row[i]] = i, invcol[col[i]] = i;
+  for (int i = 0; i < n; ++i)
+    if (invrow[i] >= rank || undef[invrow[i]])
+      b[i] = NAN;   // undefined
+  for (int i = 0; i < n; ++i)
+    x[i] = b[row[decol[i]]];
+  return rank;
 }

@@ -18,10 +18,8 @@ template <class R, class T, class W, class V>
 R knapsack(int n, const T& C, const W& costs, const V& values,
 	   int bound=500000) {
   double scale = bound / ((double) n * C);
-
-  // (Usually) no point in scaling upwards... This line should be
-  // removed if the costs are all small-valued doubles, in which case
-  // it will be very healthy to stretch 'em out a bit.
+  // This line should be removed if the costs are all 
+  // small-valued doubles.
   if (scale > 1) scale = 1;
 
   int C_max = (int) (scale * C) + 1;

@@ -19,9 +19,9 @@ struct prime_sieve {
   uchar *isprime;
   int *prime, primes;
 
-  prime_sieve(int _n): n(_n), sqrtn((int)ceil(sqrt((double)n))) {
+  prime_sieve(int _n): n(_n), sqrtn((int)ceil(sqrt(1.0*n))) {
     int n0 = n >> 4;
-    prime = new int[max(5000,(int)(2.4*n/log(2.0*n)))];
+    prime = new int[max(2775,(int)(1.12*n/log(n)))];
     prime[0] = 2; prime[1] = 3; prime[2] = 5;
     prime[3] = 7; prime[4] = 11; prime[5] = 13;
     primes = 6;
@@ -48,3 +48,5 @@ struct prime_sieve {
       } // end if
   } // end constructor
 };
+
+

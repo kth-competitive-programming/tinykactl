@@ -41,23 +41,6 @@ to {\tt flow\_increase1}:}
 \complexity{E\cdot n_{aug~paths}}
 \end{algorithm}
 
-\begin{algorithm}{ford fulkerson 1}
-\reflisting{ford fulkerson 1}
-\desc
-This is a DFS Ford Fulkerson where all augmenting paths
-are 1 and thus specially suited for bipartite graphs.
-\usage{ The maximum flow is calculated by repetitive calls
-to {\tt flow\_increase1}: }
-\sourceline{ while( flow\_increase1(edges, source, sink) ) flow++; }
-\complexity{E\cdot n_{aug~paths}}
-\end{algorithm}
-
-\begin{algorithm}{Min cut}
-\desc
-The minimum cut has the same capacity as the maximum flow,
-but perhaps we want an algorithm for finding it?
-\end{algorithm}
-
 \begin{algorithm}{Flow constructions}
 \keyword{Minimal cut} of a graph, generalization of edge connectivity. A
 minimal cut is found by first finding a maximal flow. Then we consider the
