@@ -4,11 +4,10 @@
 #include <algorithm>
 #include <vector>
 #include <string>
+using namespace std;
 #include "../graph/prijm.cpp"
 #include "../numerical/coords.cpp"
 #include "../datastructures/null_vector.cpp"
-
-using namespace std;
 
 int rows, cols;
 struct robofun {
@@ -38,7 +37,7 @@ bool solve() {
   // mark positions that are open to the robot (no adjacent obstacles)
   // shift to keep a frame of false values, to avoid edge coordinate checks
   sqrX Y(cols + 1);
-  vector<bool> open(X(rows + 1, 0), false);
+  vector<bool> open(Y(rows + 1, 0), false);
   for (int i = 1; i < rows; ++i)
     for (int j = 1; j < cols; ++j)
       open[Y(i, j)] =

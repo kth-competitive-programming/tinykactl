@@ -2,6 +2,10 @@
 
 Parameter descriptions:
 \begin{description}
+\item[{\tt f}] is a function object that takes a node index and a funcion
+object, and that for each edge from that node calls the function object with
+the destination node index and distance of the edge. ({\tt f} is most
+conveniently templatised on the type of the recieved function object.)
 \item[{\tt adj}] is an adjecency matrix. {\tt adj[i][j]} is the distance
    from {\tt i} to {\tt j}.
 \item[{\tt edges}] is the graph given as an STL-container of
@@ -53,6 +57,14 @@ The adjacency matrix is updated to contain whether nodes are connected.
 
 Calculates the distances between all pairs of nodes.
 The adjacency matrix is modified to contain the shortest distances.
+\end{algorithm}
+
+\begin{algorithm}{Prijm}
+\reflisting{prijm}
+\reflisting{for edge}
+\complexity{(V+E)\log V}
+\usage{\sourceline{dijkstra(f, min, path, start);}}
+\usage{\sourceline{prim(f, min, path, start);}}
 \end{algorithm}
 
 \begin{algorithm}{Dijkstra 1}
