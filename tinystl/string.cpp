@@ -29,7 +29,7 @@ struct _string: public vector<T> {
     return b;
   }
 
-  istream& read(istream& i, char* delims = " \t\n", bool ignore = true) {
+  istream& read(istream& i, char* delims = " \t\n") {
     char c;
     clear();
     while ((c = i.peek()) != EOF && !strchr(delims, c)) push_back(i.get());
@@ -62,6 +62,7 @@ ostream& operator<<(ostream& o, const _string<T>& s) {
   // String is not necessarily null-terminated.
   for (T* i = s.b; i < s.b + s.n; ++i)
     o << *i;
+  return o;
 }
 
 
