@@ -23,7 +23,11 @@ texer: \
 	$(UTIL)/lgrind/source/lgrind -i -l c++ -d $(UTIL)/lgrind/lgrindef - > $@
 
 %.sum: %.cpp
-	$(UTIL)/stripcode $(SUMSTRIP) < $< | $(UTIL)/adler > $@
-	echo "\\\\" >> $@
-	$(UTIL)/stripcode $(SUMSTRIP) < $< | $(UTIL)/linecode >> $@
+	$(UTIL)/stripcode $(SUMSTRIP) < $< | $(UTIL)/adler | \
+		awk -- '{printf "\\checksum{0x%8s}",$$1};' > $@
+	$(UTIL)/stripcode $(SUMSTRIP) < $< | $(UTIL)/linecode | \
+		awk -F",| |, " -- '{printf "{%s}{{}",$$1; \
+		{for(i=3;i<=10;i++) printf "%2s,",$$i;} printf "}{{}"; \
+		{for(i=11;i<=17;i++) printf "%2s,",$$i;} \
+		printf "%2s}\n", $$18;};' >> $@
 
