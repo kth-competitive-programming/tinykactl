@@ -35,7 +35,17 @@
  */
 #include <iostream>
 #include <iomanip>
-#include <sstream> // copy util/adler.cpp to get most of the adler function!!!
+#if __GNUC__ >= 3
+#include <sstream>
+#else
+#include <strstream>
+#include <string>
+struct istringstream : istrstream {
+  istringstream( const string &s ) : istrstream( s.c_str(), s.length() ) {}
+};
+#endif
+
+// copy util/adler.cpp to get most of the adler function!!!
 using namespace std;
 int adler(istream &in) {  // "Adler-32 by Mark Adler" -> 411f06c9
   unsigned long crcbase = 65521, s1 = 1, s2 = 0; unsigned char c;
