@@ -1,9 +1,88 @@
-Write flood_fill
-Refactor Bigints, there can be only one...
-Convex Hull... check it
-Testing!!!!
-Write binary_search
-Write golden_search
-Geometrical shortest path distfun ?
+Document improvements:
+  front page
+  consistent margins
+  fill in descriptions everywhere
+  number of lines in listings!!
+  a somewhat more appealing layout?
 
-Write minimal enclosing circle!!
+
+Content improvements: (by chapter)
+
+Contest
+  Problem assessment sheet
+  (as in algomanual "How to design algorithms")
+  kylix specific?
+  c-lite/script
+
+Datastructures
+  STL and complex descriptions
+  Sign, rational, bigint descriptions
+  BigInt!!
+  codelisting headers
+  suffix tree, kd tree, tries?
+
+Number Theory
+  Shorten prime number section?
+  Dynamic josephus
+  More linalg.? matrix factorisation?
+  Linear programming!!
+  knight's jump to coords!
+  DFT?
+
+Combinatorial
+  generating: subsets, partitions, graphs ; calendrical ; job sched.
+  numerical golden search
+  root finding? (as in last contest)
+  knapsack is here
+  satisfiability..?
+
+Graph
+  (algo manual har mst före s-p!)
+  chinese postman?
+  finding min cut edges?
+  cost flows!!
+  Planarity detection?
+  more for_edge functional routines
+  flow constructions: the actual constructions
+
+Geometry
+  a.dot(b) instead of dot(a, b)!
+  Structure the interval and ccw stuff
+  Triangulation?
+  Range search?
+  Point location?
+  Polygon partitioning?
+  Maintaining line arrangements?
+  Some textbook geometry results!! (cross product? finding the xx point..)
+  Sweeping pendulum! (from nwerc)
+
+Pattern
+  Longest common subsequence
+  Shortest common superstring
+  Pattern discovery .. ?
+
+Game Theory!!!
+
+In/out
+  graph input away
+  more paradigms?
+
+
+Additions:
+
+  Optimisation: linear programming
+  Poker hands
+  Simple algorithms!!
+  Cryptography?
+
+  (commented-out of lib.pdf:)
+  Parsing (LALR/SLR?), Hard Problems (more heuristics!), Idioms!!,
+  Calendrical, Time table
+
+  Something on dynamic programming!! examples? general considerations?
+
+  Extract useful methods and concepts from old problems!
+  (browse old problem descriptions to find topics)
+
+
+Testing!!
