@@ -1,13 +1,9 @@
-#define MAXS 100
-
-const double EPS = 1e-12;
-double A[MAXS][MAXS]
-
 /* Invert matrix A.  Result is stored in A. */
-bool matrix_inverse(int n) {
+template <int N>
+bool matrix_inverse(double A[N][N], int n) {
   bool singular = false;
-  int row[MAXS], col[MAXS];
-  double tmp[MAXS][MAXS] ;
+  int row[N], col[N];
+  double tmp[N][N] ;
   memset(tmp, 0, sizeof(tmp));
   
   for (int i = 0; i < n; ++i)
@@ -19,7 +15,7 @@ bool matrix_inverse(int n) {
       for (int k = i; k < n; ++k)
 	if (fabs(A[row[j]][col[k]]) > fabs(A[row[r]][col[c]]))
 	  r = j, c = k;
-    if (fabs(A[row[r]][col[c]]) < EPS) // pivot found?
+    if (fabs(A[row[r]][col[c]]) < 1e-12) // pivot found?
       return false; // if singular
     if (i != r) row[i] ^= row[r] ^= row[i] ^= row[r]; // pivot
     if (i != c) col[i] ^= col[c] ^= col[i] ^= col[c];

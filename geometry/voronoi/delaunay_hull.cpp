@@ -9,8 +9,8 @@
 #include <vector>
 #include <list>
 
-#include "../point3.cpp"
-#include "../hull/convex_hull_space.cpp"
+#include "point3.cpp"
+#include "convex_hull_space.cpp"
 
 template <class V, class F>
 void delaunay(V &p, int n, F trifun) {
@@ -23,6 +23,7 @@ void delaunay(V &p, int n, F trifun) {
   L l;
   convex_hull_space(p3, n, l);
   for (L::iterator it = l.begin(); it != l.end(); ++it)
-    if (dot(cross(p3[it->b]-p3[it->a], p3[it->c]-p3[it->a]), P3(0, 0, 1)) < 0)
+    if ((p3[it->b]-p3[it->a]).
+	cross(p3[it->c]-p3[it->a]).dot(P3(0,0,1)) < 0)
       trifun(it->a, it->c, it->b); // triangles are turned!
 }

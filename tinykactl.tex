@@ -1,19 +1,25 @@
-\documentclass[10pt,a4paper]{report}
+\documentclass[10pt,a4paper,landscape]{report}
 \usepackage{kactl}
+\usepackage{fancyhdr}
 
 \makeindex
 
 \title{Tiny KTH ACM Contest Template Library}
 \subtitle{{\tiny tiny}KACTL}
 
+  \advance\textwidth 17 cm%
+  \advance\textheight 7 cm%
+  \advance\topmargin -3 cm%
+  \advance\oddsidemargin  -8.5 cm%
+
+    \pagestyle{fancy}
+    \chead{\thepage}
+    \lhead{} \rhead{}
+    \renewcommand{\headrulewidth}{0pt}
+
 \begin{document}
 
-  \advance\textwidth 6 cm%
-  \advance\textheight 8 cm%
-  \advance\topmargin -4 cm%
-  \advance\oddsidemargin  -3.5 cm%
-  \advance\evensidemargin -3.5 cm%
-  \begin{landscape}
+%  \begin{landscape}
 
     \maketitle
 
@@ -37,6 +43,6 @@
       
     \end{indexcols}
 
-  \end{landscape}
+%  \end{landscape}
 
 \end{document}

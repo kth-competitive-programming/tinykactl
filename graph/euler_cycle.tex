@@ -2,22 +2,14 @@
 
 \begin{algorithm}{Euler walk}
 \complexity{ E }
-\usage{\sourceline{%
- euler\_walk( V \&edges, int start, list<int> \&path, bool cyclic ) }}
 
 \desc
-Find an eulerian walk in a directed graph, i.e. a walk traversing all
-edges exactly once.
-
 The algorithm \emph{assumes} that there exists an eulerian walk. If it
 does not exists, it will return any maximal path, not neccessarily the
-longest.
-
-If the graph is not cyclic, the start node must be a node with
-$\mathrm{deg}_{out}-\mathrm{deg}_{in} = 1$.
-
-Set {\tt cyclic=true} if the path found must be cyclic, this is mostly
-of internal use.
+longest.  If the graph is not cyclic, the start node must be a node
+with $\mathrm{deg}_{out}-\mathrm{deg}_{in} = 1$.  Set {\tt
+cyclic=true} if the path found must be cyclic, this is mostly of
+internal use.
 
 {\tt edges} is a vector/array with $V$ edge-containers. The
 edge-containers should contain vertex-indices, and may contain
@@ -46,12 +38,12 @@ variations are called rural chinese postman, and are generally
 NP-complete).
 
 Undirected chinese postman can be solved by computing a minimum
-weighted matching on the odd nodes of the graph (described in
-e.g. Edmonds and Johnson, ``Matching, Euler Tours and the Chinese
-Postman.'', Mathematical Programming 5: 88-124, 1973).
+weighted matching on the odd nodes of the graph.% (described in
+%e.g. Edmonds and Johnson, ``Matching, Euler Tours and the Chinese
+%Postman.'', Mathematical Programming 5: 88-124, 1973).
 
 Directed chinese postman can be solved by using network flow
-techniques (also described in the previous reference).
+techniques.% (also described in the previous reference).
 \end{algorithm}
 
 \begin{algorithm}{De Bruijn Sequences}
@@ -74,7 +66,7 @@ $0001110100$ (non-cyclic).
 corresponding letters. {\tt L} is the length of the words that should
 appear in the de Bruijn sequence.
 
-The output is given as {\tt cout}-statements.
+The answer is stored in the {\tt sol} string.
 \end{algorithm}
 
 % \code{deBruijn}{deBruijn}

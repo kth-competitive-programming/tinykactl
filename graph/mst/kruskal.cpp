@@ -32,47 +32,38 @@
  *   Revised for World Finals, Honolulu, 23 Mar 2002
  *   David Rydh, Mattias de Zalenski, Fredrik Niemel?
  *
+ *   Revised for World Finals, Prague, ?? Mar 2004
+ *   Per Austrin/Three-Headed Monkey
+ *
  *****************************************************************************/
 
 #include <algorithm>
 #include <vector>
+#include "sets.cpp"
 
-#include "../../datastructures/sets.cpp"
-
-template<class V>
-void kruskal( const V &graph, V &tree, int n ) {
-  typedef typename V::value_type              E;
-  typedef typename E::const_iterator          E_iter;
-  typedef typename E::value_type::second_type D;
-
+template <class G>
+void kruskal(const G *graph, G *tree, int n) {
+  typedef typename G::const_iterator          G_iter;
+  typedef typename G::value_type::second_type D;
   sets sets(n);
-  vector< pair< D,pair<int,int> > > edges;
+  vector<pair< D,pair<int,int> > > E;
 
   // Convert all edges into a single edge-list
-  for( int i=0; i<n; i++ ) {
-    for( E_iter iter=graph[i].begin(); iter!=graph[i].end(); iter++ ) {
-      if( i < (*iter).first ) // Undirected: only use half of the edges
-	edges.push_back( make_pair((*iter).second,
-				   make_pair(i,(*iter).first)) );
-    }
-  }
-
-  // Clear tree
   for( int i=0; i<n; i++ )
-    tree[i].clear();
+    for(G_iter it = graph[i].begin(); it!=graph[i].end(); ++it)
+      if (i < it->first)//Undirected:only use half of the edges
+	E.push_back(make_pair(it->second,
+			      make_pair(i, it->first)));
+  sort(E.begin(), E.end());
+  for(int i=0; i<n; i++) tree[i].clear();
 
-  sort( edges.begin(), edges.end() );
-
-  // Add edges in order of non-decreasing weight
   int numEdges = edges.size();
-  for( int i=0; i<numEdges; i++ ) {
-    pair<int,int>  &edge = edges[i].second;
-
-    // Add edge if the edge-endpoints aren't in the same set
-    if( !sets.equal(edge.first, edge.second) ) {
-      sets.link( edge.first, edge.second );
-      tree[edge.first].push_back( make_pair(edge.second, edges[i].first) );
-      tree[edge.second].push_back( make_pair(edge.first, edges[i].first) );
+  for(int i = 0; i < numEdges; ++i) {
+    pair<int,int> &e = E[i].second;
+    if(!sets.equal(e.first, e.second)) {
+      sets.link(e.first, e.second);
+      tree[e.first].push_back(make_pair(e.second, E[i].first));
+      tree[e.second].push_back(make_pair(e.first, E[i].first));
     }
   }
 }

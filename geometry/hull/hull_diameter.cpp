@@ -4,28 +4,28 @@
  *
  * Credit:
  *   By David Rydh, Mattias de Zalenski
+ *   Revised (STLised) by Per Austrin
  */
 
-#include "../point_ops.cpp"
+#include "point.cpp"
 
-template <class V>
-double hull_diameter2(const V &p, int n, int &i1, int &i2) {
-  typedef typename V::value_type::coord_type T;
+template <class It>
+double hull_diameter2(It begin, It end, It &i1, It &i2) {
+  typedef iterator_traits<It>::value_type::coord_type T;
+  int n = end - begin;
   if (n < 2) { i1 = i2 = 0; return 0; }
   T m = 0;
   int i, j = 1, k = 0;
-  // wander around
-  for (i = 0; i <= k; i++) { 
-    // find opposite
-    T d2 = dist2(p[j]-p[i]);
-    while (j + 1 < n) {
-      T t = dist2(p[j+1]-p[i]);
+  It i, j = begin+1, k = begin;
+  for (i = begin; i <= k; i++) {  // wander around
+    T d2 = (*j-*i).dist2(); // find opposite
+    while (++j != end) {
+      T t = (*j-*i).dist2();
       if (t > d2) d2 = t; else break;
-      j++;
     }
-    if (i == 0) k = j; // remember first opposite index
+    --j;
+    if (i == begin) k = j; // remember first opposite index
     if (d2 > m) m = d2, i1 = i, i2 = j;
   }
-  //  cout << "first opposite: " << k << endl;
   return m;
 }

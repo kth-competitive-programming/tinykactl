@@ -30,138 +30,86 @@
  *   Revised for World Finals, Honolulu, 23 Mar 2002
  *   David Rydh, Mattias de Zalenski, Fredrik Niemel?
  *
+ *   Revised for World Finals, Prague, 31 Mar 2004
+ *   Per Austrin, Max Bennedich, Gunnar Kreitz
+ *
  *****************************************************************************/
 
 #include <iterator>
 #include <vector>
 
-struct x_sort {
-  template<class P>
-  bool operator()(const P &p1, const P &p2) const
-  { return p1.x < p2.x; }
-};
-struct y_sort {
-  template<class P>
-  bool operator()(const P &p1, const P &p2) const
-  { return p1.y < p2.y; }
-};
-struct xy_sort {
-  template<class P>
-  bool operator()(const P &p1, const P &p2) const
-  { return p1.x < p2.x || (p1.x == p2.x && p1.y < p2.y); }
-};
+template <class It>
+bool it_less(const It& i, const It& j) { return *i < *j; }
 
-template<class V, class R>
-double closestpair_sub(const V &p, int n, R xa, R ya, int &i1, int &i2) {
-  typedef typename V::value_type P;
-  vector< int > lefty, righty;
+template <class It>
+bool y_it_less(const It& i, const It& j) { return i->y < j->y; }
 
-  if( n <= 3 ) {   // base case
-    double a = dist( p[xa[1]]-p[xa[0]] );
-    if( n == 3 ) {
-      double b = dist( p[xa[2]]-p[xa[0]] );
-      double c = dist( p[xa[2]]-p[xa[1]] );
-      if(a <= b) {
-	 i1 = xa[1];
-	 if(a <= c) {
-	    i2 = xa[0];
-	    return a;
-	 } else {
-	    i2 = xa[2];
-	    return c;
-	 }
-      } else {
-	 i1 = xa[2];
-	 if(b <= c) {
-	    i2 = xa[0];
-	    return b;
-	 } else {
-	    i2 = xa[1];
-	    return c;
-	 }
-      }
+template<class It, class IIt> /* IIt = vector<It>::iterator */
+double cp_sub(IIt ya, IIt yaend, IIt xa, It &i1, It &i2) {
+  typedef typename iterator_traits<It>::value_type P;
+  int n = yaend-ya, split = n/2;
+
+  if(n <= 3) {   // base case
+    double a = (*xa[1] - *xa[0]).dist();
+    double b = 1e50, c = 1e50;
+    if(n == 3)
+      b = (*xa[2] - *xa[0]).dist(), c = (*xa[2] - *xa[1]).dist();
+    if(a <= b) {
+      i1 = xa[1];
+      if(a <= c) return i2 = xa[0], a;
+      else return i2 = xa[2], c;
     } else {
-      i1 = xa[0];
-      i2 = xa[1];
-      return a;
+      i1 = xa[2];
+      if(b <= c) return i2 = xa[0], b;
+      else return i2 = xa[1], c;
     }
   }
 
-  int split = n/2;  // Divide
-  P splitp = p[xa[split]];
-
-  for( int i=0; i<n; i++ ) {
-    if(ya[i] != xa[split] && d2(p[ya[i]],splitp) < 1e-12) {
-      i1 = ya[i];
-      i2 = xa[split];
-      return 0;
-    }
-    if( p[ya[i]] < splitp )
-      lefty.push_back( ya[i] );
-    else
-      righty.push_back( ya[i] );
-  }
-
-  int j1,j2;  // Conquer
-  assert(lefty.size() == split);
-  double a = closestpair_sub( p, split, xa, lefty.begin(), i1, i2 );
-  double b = closestpair_sub( p, n-split, xa+split, righty.begin(), j1, j2 );
-
-  if( b<a ) a = b, i1=j1, i2=j2;
-
-  vector<int> stripy; // Combine: Create strip (with sorted y)
+  vector<It> ly, ry, stripy;
+  P splitp = *xa[split];
   double splitx = splitp.x;
 
-  for( int i=0; i<n; i++ ) {
-    double x = p[ya[i]].x;
+  for(IIt i = ya; i != yaend; ++i) {  // Divide
+    if(*i != xa[split] && (**i-splitp).dist2() < 1e-12)
+      return i1 = *i, i2 = xa[split], 0;// nasty special case!
+    if (**i < splitp) ly.push_back(*i);
+    else ry.push_back(*i);
+  }  // assert((signed)lefty.size() == split)
 
-    if( x >= splitx-a && x <= splitx+a )
-      stripy.push_back( ya[i] );
-  }
-
-  int nStrip = stripy.size();
+  It j1, j2;  // Conquer
+  double a = cp_sub(ly.begin(), ly.end(), xa, i1, i2);
+  double b = cp_sub(ry.begin(), ry.end(), xa+split, j1, j2);
+  if(b < a) a = b, i1 = j1, i2 = j2;
   double a2 = a*a;
 
-  for( int i=0; i<nStrip; i++ ) {
-    const P &p1 = p[stripy[i]];
-
-    for( int j=i+1; j<nStrip; j++ ) {
-      const P &p2 = p[stripy[j]];
-
-      if( dy(p1,p2) > a )
-	break;
-
-      double d2 = dist2(p2-p1);
-      if( d2<a2 ) {
-	i1 = stripy[i];
-	i2 = stripy[j];
-	a2 = d2;
-        a = sqrt(a2);
-      }
+  for(IIt i = ya; i != yaend; ++i) { // Create strip (y-sorted)
+    double x = (*i)->x;
+    if(x >= splitx-a && x <= splitx+a)
+      stripy.push_back(*i);
+  }
+  
+  for(IIt i = stripy.begin(); i != stripy.end(); ++i) {
+    const P &p1 = **i;
+    for(IIt j = i+1; j != stripy.end(); ++j) {
+      const P &p2 = **j;
+      if(p2.y-p1.y > a) break;
+      double d2 = (p2-p1).dist2();
+      if(d2 < a2)
+	i1 = *i, i2 = *j, a2 = d2;
     }
   }
-
-  return a;
+  return sqrt(a2);
 }
 
-inline double sqr(double a) {
-   return a * a;
-}
+template<class It> // It is random access iterators of point<T>s
+double closestpair(It begin, It end, It &i1, It &i2 ) {
+  vector<It> xa, ya;
+  assert(end-begin >= 2);
+  for (It i = begin; i != end; ++i)
+    xa.push_back(i), ya.push_back(i);
 
-double d2(point<double> p1, point<double> p2) {
-   return sqr(p1.x - p2.x) + sqr(p1.y - p2.y);
-}
+  sort(xa.begin(), xa.end(), it_less<It>);
+  sort(ya.begin(), ya.end(), y_it_less<It>);
 
-template<class V>     // R is random access iterators of point<T>s
-double closestpair( const V &p, int n, int &i1, int &i2 ) {
-  vector< int > xa, ya;
-
-  assert(n >= 2);
-
-  xa.resize( n );
-  ya.resize( n );
-  isort( p, n, xa.begin(), xy_sort() );
-  isort( p, n, ya.begin(), y_sort() );
-
-  return closestpair_sub( p, n, xa.begin(), ya.begin(), i1, i2 );
+  return cp_sub(ya.begin(), ya.end(), xa.begin(), i1, i2);
 }

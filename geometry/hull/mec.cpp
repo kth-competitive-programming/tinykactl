@@ -4,30 +4,32 @@
  *
  * Credit:
  *   By Mattias de Zalenski
+ *   Revised (STLised) by Per Austrin
  */
 
 #include "hull_diameter.cpp"
-#include "../incircle.cpp"
+#include "incircle.cpp"
 
-template <class V, class P>
-bool mec(V p, int n, P &c, int &i1, int &i2, int &i3, double eps = 1e-13) {
+template <class It, class P>
+bool mec(It begin, It end, P &c, It &i1, It &i2, It &i3, 
+	 double eps = 1e-13) {
   typedef typename P::coord_type T;
-  hull_diameter2(p, n, i1, i2);
-  c = (p[i1] + p[i2]) / 2;
-  T r2 = dist2(c, p[i1]);
+  hull_diameter2(begin, end, i1, i2);
+  c = (*i1 + *i2) / 2;
+  T r2 = (c-*i1).dist2();
   bool f = false;
   for (int i = 0; i < n; ++i)
-    if (dist2(c, p[i]) > r2) {
+    if ((c-*i).dist2() > r2) {
       i3 = i, f = true;
-      enclosing_centre(p[i1], p[i2], p[i3], c, eps);
-      r2 = dist2(c, p[i]);
+      enclosing_centre(*i1, *i2, *i3, c, eps);
+      r2 = (c-*i).dist2();
     }
   return f;
 }
 
-template <class V, class P>
-double mec(V p, int n, P &c, double eps = 1e-13) {
-  int i1, i2, i3;
-  mec(p, n, c, i1, i2, i3, eps);
-  return dist(c, p[i1]);
+template <class It, class P>
+double mec(It begin, It end, P &c, double eps = 1e-13) {
+  It i1, i2, i3;
+  mec(begin, end, c, i1, i2, i3, eps);
+  return dist(c, *i1);
 }
