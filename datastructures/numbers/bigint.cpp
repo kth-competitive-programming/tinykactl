@@ -38,12 +38,10 @@
 #include <string>
 #include <vector>
 
-/* if long longs are disallowed, use the following alternative
- * definitions (the rest should work by magic):
+/* if long longs are disallowed:
  * #define LSIZE 10000
  * #define LIMBDIGS 4
  * typedef int limb;     */
-
 #define LSIZE 1000000000 /* 10^9 */
 #define LIMBDIGS 9
 
@@ -99,16 +97,6 @@ int cmp(const bigint& n1, const bigint& n2) {
   bcit i = n1.end() - 1, j = n2.end() - 1;
   while (x-- > 0) if (*j--) return -1;
   while (++x < 0) if (*i--) return 1;
-  // above replace below (untested)
-  /*
-  if (x > 0) {
-    while (x--)
-      if (*j--) return -1;
-  } else if (x < 0) {
-    while (x++)
-      if (*i--) return 1;
-  }
-  */
   for (; i + 1 != n1.begin(); --i, --j)
     if (*i != *j)
       return *i-*j;
@@ -179,8 +167,6 @@ bigint& divmod(bigint& a, limb b, limb* rest = NULL) {
  * NB!! different semantics from one-limb divmod!!
  * NB!! quo should be different from a!! */
 bigint& divmod(bigint& a, const bigint& b, bigint* quo = NULL) {
-  /* If divmod is never called with b the same as a or quo
-   * this copying is not necessary. */
   bigint den = b;
   brit j = den.rbegin(), i = a.rbegin();
   for ( ; j != den.rend() && !*j; ++j);
@@ -237,46 +223,3 @@ limb operator%(const bigint& a, limb b) {
   bigint fubar = a;
   return divmod(fubar, b, &res), res;
 }
-
-
-/* Auxilliary stuff which should probably be moved out.
- */ 
-
-
-/* Exponentiation. */
-bigint& operator^=(bigint& a, limb b) {
-  bigint aa = a;
-  a.clear(); a.push_back(1);
-  while (b) {
-    if (b & 1) a *= aa;
-    aa *= aa;
-    b >>= 1;
-  }
-  return a;
-}
-
-/* Finds the e:th root of n in far worse time than necessary.
- * Returns 0 if the root doesn't exist.    */
-bigint root(const bigint& n, limb e) {
-  int f;
-  bigint lo = BigInt(0), hi, m, n2;
-  hi = BigInt(LSIZE);
-  // let hi ~ LS^(1+log_LS(n))/e) = O(n^(1 + 1/e))
-  hi ^= ((n.size()+1) / e) + 1;
-  while (1) {
-    (m = lo) += hi;
-    divmod(m, 2);
-    if (m == lo) break;
-    (n2 = m) ^= e;
-    f = cmp(n, n2);
-    if (f < 0) hi = m;
-    else if (f > 0) lo = m;
-    else return m;
-  }
-  /* If just an approximation of the root is wanted, change return
-   * statement to:
-   * return lo;    (for floor(root))
-   * return hi;    (for ceil(root))          */
-  return BigInt(0);
-}
-
