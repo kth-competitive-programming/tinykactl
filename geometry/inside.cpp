@@ -32,10 +32,8 @@
  *
  *****************************************************************************/
 
-#include "geometry.h"
-
-template<class T, class V>     // V is vector/array of point<T>s
-bool inside(const point<T> &t, const V &p, int n) {
+template<class P, class V>     // V is vector/array of point<T>s
+bool inside(P t, const V &p, int n) {
   bool c = false;
 
   for (int i=0, j=n-1; i<n; j=i++) {
