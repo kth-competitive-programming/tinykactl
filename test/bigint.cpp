@@ -13,7 +13,7 @@
 
 using namespace std;
 
-#include "../numerical/bigint/bigint_full.cpp"
+#include "../datastructures/numbers/bigint_full.cpp"
 
 
 BigInt a[10001];

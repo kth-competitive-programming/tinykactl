@@ -2,7 +2,10 @@
 
 #include <vector>
 #include <map>
-#include "../graph/1_floyd_warshall.cpp"
+
+using namespace std;
+
+#include "../graph/floyd_warshall.cpp"
 
 
 bool solve( int testNum );

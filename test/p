@@ -1,1 +1,1 @@
-lpr $1.cc
+lpr $1.cpp

@@ -1,7 +1,11 @@
+#include <iostream>
 #include <vector>
 #include <set>
 #include <list>
-#include "../graph/6_euler_walk.cpp"
+
+using namespace std;
+
+#include "../graph/euler_walk.cpp"
 
 void deBruijn( int numSymbols, int L, char symbols[]);
 

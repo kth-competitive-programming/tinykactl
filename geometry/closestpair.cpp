@@ -32,8 +32,6 @@
  *
  *****************************************************************************/
 
-#include "geometry.h"
-#include "../general/1_indexed.cpp"
 #include <iterator>
 #include <vector>
 
@@ -57,10 +55,10 @@ double closestpair_sub(const V &p, int n, R xa, R ya, int &i1, int &i2) {
   // 2 or 3 points
   if( n <= 3 ) {
     // Largest dist is either between the two farthest in x or y.
-    double a = dist2( p[xa[0]], p[xa[1]] );
+    double a = dist2( p[xa[1]]-p[xa[0]] );
     if( n == 3 ) {
-      double b = dist2( p[xa[0]], p[xa[2]] );
-      double c = dist2( p[xa[1]], p[xa[2]] );
+      double b = dist2( p[xa[2]]-p[xa[0]] );
+      double c = dist2( p[xa[2]]-p[xa[1]] );
 
       return min(a,min(b,c));
     } else
@@ -110,7 +108,7 @@ double closestpair_sub(const V &p, int n, R xa, R ya, int &i1, int &i2) {
       if( dy(p1,p2) > a )
 	break;
 
-      double d2 = dist2(p1,p2);
+      double d2 = dist2(p2-p1);
       if( d2<a2 ) {
 	i1 = stripy[i];
 	i2 = stripy[j];

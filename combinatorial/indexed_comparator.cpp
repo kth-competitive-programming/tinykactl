@@ -17,6 +17,6 @@
 template<class V, class C >
 struct indexed_comparator {
   const V &v; const C &c; // array, comparator
-  indexed_comparator( const V &v_, const C _c ) : v(_v), c(_c) { }
+  indexed_comparator( const V &_v, const C _c ) : v(_v), c(_c) { }
   bool operator()( int a, int b ) const { return c(v[a], v[b]); }
 };

@@ -4,8 +4,8 @@
 
 using namespace std;
 
-#include "../numerical/bigint/bigint_full.cpp"
-#include "../numerical/bigint/bignum_jimmy.cpp"
+#include "../datastructures/numbers/bigint_full.cpp"
+#include "../datastructures/numbers/bignum_jimmy.cpp"
 #include "../numerical/pseudo.cpp"
 
 void bipseudo( int size, BigInt &bi, Bignum &bn ) {
