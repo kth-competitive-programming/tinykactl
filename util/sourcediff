@@ -1,0 +1,21 @@
+# Run this script from the base directory.
+# Wait for a while..
+
+# Diffs existing source files aginst files actually included in KACTL
+
+bk sfiles -g |
+	grep "cpp$" |
+	grep -v "^test" |
+	grep -v "^obsolete" |
+	grep -v "^util" |
+	grep -v "^solved" |
+	while read file; do basename $file; done |
+	sort > existing_files
+
+grep "\\code{" $(find . -name "*.tex") |
+	cut -d'{' -f 3 |
+	cut -d'}' -f 1 |
+	while read file; do basename $file.cpp; done |
+	sort > included_files
+
+diff included_files existing_files
