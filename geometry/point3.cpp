@@ -10,14 +10,14 @@
 template <class T>
 struct point3 { // probably easiest to extend point to write this
   typedef T coord_type;
-  T x, y, z; point(T _x=T(), _y=T(), _z=T()) : x(_x), y(_y), z(_z);
-  bool operator<(const point<T> &p) const {
+  T x, y, z; point3(T _x=T(), T _y=T(), T _z=T()) : x(_x), y(_y), z(_z) { }
+  bool operator<(const point3<T> &p) const {
     return x!=p.x ? x<p.x : y!=p.y ? y<p.y : z<p.z;
   }
-  point<T> operator-(const point<T> &p) const {
+  point3<T> operator-(const point3<T> &p) const {
     return point3<T>(x-p.x,y-p.y,z-p.z);
   }
-  point<T> operator/(T d) const { return point<T>(x/d, y/d,z/d); }
+  point3<T> operator/(T d) const { return point3<T>(x/d, y/d,z/d); }
 };
 
 template <class T> T dx(point3<T> p, point3<T> q) { return q.x - p.x; }
