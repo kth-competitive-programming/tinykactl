@@ -31,7 +31,10 @@ Miscellaneous algorithms in number theory.
 
 \begin{algorithm}{$\phi$-function}
 \reflisting{phi}
-\complexity{ \sqrt(n) }
+\keyword{} $\phi(n)=\#\{d<n|\gcd(n,d)=1\}$
+\keyword{} If $n=\prod p_i^{k_i}$,
+$\phi(n)=n\prod\left(1-\frac{1}{p_i}\right)=\prod p_i^{k_i-1}(p_i-1)$
+\complexity{ \mathcal{O}(\sqrt(n)) }
 \end{algorithm}
 
 \begin{algorithm}{Primes}
@@ -60,14 +63,11 @@ removing the $k$:th person from a total of $n$ persons (cyclic).
 \end{algorithm}
 
 
-\begin{algorithm}{pseudo}
+\begin{algorithm}{Pseudo random numbers}
 \reflisting{pseudo}
-\characteristics{{\tt pseudo} gives a pseudo-random integer in $[0,2^{31}-1]$.}
-\complexity{1}
-\end{algorithm}
-
-\begin{algorithm}{fpseudo}
-\reflisting{pseudo}
-\characteristics{{\tt fpseudo} gives a pseudo-random number in $[0,1)$.}
+\characteristics{{\tt pseudo} gives a pseudo-random integer in
+$[0,2^{31}-1]$.}
+\characteristics{{\tt fpseudo} gives a pseudo-random number in
+$[0,1)$.}
 \complexity{1}
 \end{algorithm}
