@@ -37,7 +37,7 @@ summor: \
  $(patsubst %.cpp,%.sum,$(wildcard *.cpp)) \
  $(patsubst SCCS/s.%.cpp,%.sum,$(wildcard SCCS/s.*.cpp))
 
-includes: \
+includes: $(UTIL)/inc_files.sed $(UTIL)/stripcode \
  $(patsubst %.cpp,%.incl,$(wildcard *.cpp)) \
  $(patsubst SCCS/s.%.cpp,%.incl,$(wildcard SCCS/s.*.cpp))
 
@@ -59,7 +59,7 @@ texer: \
 		{for(i=2;i<10;i++) printf "%2s,",$$i;} printf "}{{}"; \
 		{for(i=10;i<17;i++) printf "%2s,",$$i;} \
 		printf "%2s}\n", $$17;};' >> $@
-%.incl: %.cpp $(UTIL)/inc_files.sed $(UTIL)/stripcode
+%.incl: %.cpp 
 	echo "\\includelist{" > $@
 	$(UTIL)/stripcode $(SUMSTRIP) < $< | wc -l >> $@
 	echo "}{" >> $@
