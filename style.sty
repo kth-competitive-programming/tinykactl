@@ -82,6 +82,7 @@
 
 \def\l@problem{\@dottedtocline{1}{1.5em}{2.3em}}
 \def\l@algorithm{\@dottedtocline{2}{3.8em}{3.2em}}
+\def\l@code{\@dottedtocline{1}{1.5em}{2.3em}}
 
 \def\categorycontentline#1#2#3#4{%
 	\def\style@temp{#1}%
@@ -99,8 +100,8 @@
 %
 %%%%%%%%%%%%%%%%%%%%%
 
-\def\problemtitle#1{\def\theproblemname{#1}\section{#1}\categoryindex{#1}%
-	\categoryaddtocontents{problem}{#1}}
+\def\problemtitle#1{\def\theproblemname{#1}\section{#1}
+	\categoryindex{#1}\categoryaddtocontents{problem}{#1}}
 \def\problemindex#1{\index{\thecategoryname!\theproblemname @\MakeLowercase{\theproblemname}!#1 @\MakeLowercase{#1}}%
 	\index{\theproblemname!#1 @\MakeLowercase{#1}}}
 
@@ -119,13 +120,12 @@
 \newenvironment{source}{\verbatim\small\vspace{-0mm}}{\endverbatim}
 \def\sourceline#1{{\small \tt #1}}
 
-\def\desc{}
 \def\usage#1{\keyword{Usage}\par #1}
 \def\complexity#1{\keyword{Complexity} $O(#1)$}
 \def\characteristics#1{\keyword{Characteristics}\par #1}
 \newenvironment{example}{\keyword{Example}\source}{\endsource}
 \def\valladolid#1{\keyword{Valladolid} #1}
-
+\def\reflisting#1{\keyword{Listing} p. \pageref{code_#1}}
 % Set fontsize in lgrind to tinier in landscape-source-mode
 \newenvironment{sourceslandscape}{
 \advance\textwidth 4 cm%
@@ -138,11 +138,15 @@
 
 \newenvironment{sources}{\def\LGfsize{\small}}{}
 
-\def\checksum#1#2#3#4{---\begin{tabular}{c}\\*[-7 mm]{\tiny #2~lines}\\*[-1 mm]{\small #1}\end{tabular}~~{\tiny\tt\begin{tabular}{l}\\*[-4 mm] #3\\#4\end{tabular}}}
+\def\checksum#1#2#3#4{---~{\small\tt #1}~~
+	{\tiny\tt\begin{tabular}{l}\\*[-7 mm] \\#2\\#3\\#4\end{tabular}}}
 
+% \code{displayname}{filename}[label] (filenames without cpp)
 \def\code#1#2{
 \refstepcounter{lstlisting}
 \pagebreak[3]
+\label{code_#1}
+\categoryaddtocontents{code}{\tt\MakeLowercase{#1}}
 \vspace{1 cm}
 {\normalsize\bf Listing \thelstlisting : #1.cpp}
 \xinput{#2.sum}
