@@ -1,6 +1,7 @@
 #include <map>
 #include <vector>
 #include "../graph/2_dijkstra.cpp"
+#include "../graph/dijkstra_prim.cpp"
 
 int main( void ) {
   vector< double > min;
