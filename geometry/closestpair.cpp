@@ -43,48 +43,74 @@ struct x_sort {
 struct y_sort {
   template<class P>
   bool operator()(const P &p1, const P &p2) const
-  { return p1.x < p2.x; }
+  { return p1.y < p2.y; }
+};
+struct xy_sort {
+  template<class P>
+  bool operator()(const P &p1, const P &p2) const
+  { return p1.x < p2.x || (p1.x == p2.x && p1.y < p2.y); }
 };
 
-// Gives square distance of closest pair.
 template<class V, class R>
 double closestpair_sub(const V &p, int n, R xa, R ya, int &i1, int &i2) {
-  typedef typename iterator_traits<V>::value_type P;
+  typedef typename V::value_type P;
   vector< int > lefty, righty;
 
-  // 2 or 3 points
-  if( n <= 3 ) {
-    // Largest dist is either between the two farthest in x or y.
-    double a = dist2( p[xa[1]]-p[xa[0]] );
+  if( n <= 3 ) {   // base case
+    double a = dist( p[xa[1]]-p[xa[0]] );
     if( n == 3 ) {
-      double b = dist2( p[xa[2]]-p[xa[0]] );
-      double c = dist2( p[xa[2]]-p[xa[1]] );
-
-      return min(a,min(b,c));
-    } else
+      double b = dist( p[xa[2]]-p[xa[0]] );
+      double c = dist( p[xa[2]]-p[xa[1]] );
+      if(a <= b) {
+	 i1 = xa[1];
+	 if(a <= c) {
+	    i2 = xa[0];
+	    return a;
+	 } else {
+	    i2 = xa[2];
+	    return c;
+	 }
+      } else {
+	 i1 = xa[2];
+	 if(b <= c) {
+	    i2 = xa[0];
+	    return b;
+	 } else {
+	    i2 = xa[1];
+	    return c;
+	 }
+      }
+    } else {
+      i1 = xa[0];
+      i2 = xa[1];
       return a;
+    }
   }
 
-  // Divide
-  int split = n/2;
-  double splitx = p[xa[split]].x;
+  int split = n/2;  // Divide
+  P splitp = p[xa[split]];
 
   for( int i=0; i<n; i++ ) {
-    if( p[ya[i]].x < splitx )
+    if(ya[i] != xa[split] && d2(p[ya[i]],splitp) < 1e-12) {
+      i1 = ya[i];
+      i2 = xa[split];
+      return 0;
+    }
+    if( p[ya[i]] < splitp )
       lefty.push_back( ya[i] );
     else
       righty.push_back( ya[i] );
   }
 
-  // Conquer
-  int j1,j2;
+  int j1,j2;  // Conquer
+  assert(lefty.size() == split);
   double a = closestpair_sub( p, split, xa, lefty.begin(), i1, i2 );
   double b = closestpair_sub( p, n-split, xa+split, righty.begin(), j1, j2 );
 
   if( b<a ) a = b, i1=j1, i2=j2;
 
-  // Combine: Create strip (with sorted y)
-  vector<int> stripy;
+  vector<int> stripy; // Combine: Create strip (with sorted y)
+  double splitx = splitp.x;
 
   for( int i=0; i<n; i++ ) {
     double x = p[ya[i]].x;
@@ -96,14 +122,11 @@ double closestpair_sub(const V &p, int n, R xa, R ya, int &i1, int &i2) {
   int nStrip = stripy.size();
   double a2 = a*a;
 
-  //  cout << "Combining " << nStrip << " points...";
-  //  cout.flush();
-
   for( int i=0; i<nStrip; i++ ) {
-    P &p1 = p[stripy[i]];
+    const P &p1 = p[stripy[i]];
 
-    for( int j=i+1; j<nStrip; j++ ) { // This loop will be run <8 times/"i"
-      P &p2 = p[stripy[j]];
+    for( int j=i+1; j<nStrip; j++ ) {
+      const P &p2 = p[stripy[j]];
 
       if( dy(p1,p2) > a )
 	break;
@@ -113,24 +136,31 @@ double closestpair_sub(const V &p, int n, R xa, R ya, int &i1, int &i2) {
 	i1 = stripy[i];
 	i2 = stripy[j];
 	a2 = d2;
+        a = sqrt(a2);
       }
     }
   }
 
-  //  cout << " done" << endl;
-  return sqrt(a2);
+  return a;
+}
+
+inline double sqr(double a) {
+   return a * a;
+}
+
+double d2(point<double> p1, point<double> p2) {
+   return sqr(p1.x - p2.x) + sqr(p1.y - p2.y);
 }
 
 template<class V>     // R is random access iterators of point<T>s
 double closestpair( const V &p, int n, int &i1, int &i2 ) {
   vector< int > xa, ya;
 
-  if( n < 2 )
-    throw "closestpair called with less than 2 points";
+  assert(n >= 2);
 
   xa.resize( n );
   ya.resize( n );
-  isort( p, n, xa.begin(), x_sort() );
+  isort( p, n, xa.begin(), xy_sort() );
   isort( p, n, ya.begin(), y_sort() );
 
   return closestpair_sub( p, n, xa.begin(), ya.begin(), i1, i2 );
