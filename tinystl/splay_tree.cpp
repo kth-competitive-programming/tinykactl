@@ -117,4 +117,6 @@ struct splay_tree {
     root = l ? l : r;
     delete i, --n;
   }
+
+  void clear() { while(root) erase(root); }
 };
