@@ -8,13 +8,13 @@
  */
 #include <set>
 
-// min should be initialised before-hand to inf values, path to -1 values
+// min should be initialised before-hand to inf values [path to -1 values]
 template <class F, class M, class P, class X>
-struct prijmx {
+struct prijm {
   typedef typename M::value_type T;
-  M min; P path; X node;
+  M &min; P &path; X node;
   set< pair<T, X> > q; // use a set as a modifiable priority queue
-  prijmsktrax(F f, M &m, P &p, X start, bool mst = false) : min(m), path(p) {
+  prijm(F f, M &m, P &p, X start, bool mst = false) : min(m), path(p) {
     min[start] = T();
     q.insert(make_pair(min[start], start));
     while (!q.empty()) {
@@ -35,7 +35,9 @@ struct prijmx {
   }
 };
 template <class F, class M, class P, class X>
-void prijm(F f, M &m, P &p, X x, bool t) { prijmx<F, M, P, X>(f, m, p, x, t); }
+void dijkstra(F f, M &m, P &p, X x) { prijm<F, M, P, X>(f, m, p, x, false); }
+template <class F, class M, class P, class X>
+void prim(F f, M &m, P &p, X x) { prijm<F, M, P, X>(f, m, p, x, true); }
 
 /*
 // example for_edge function objects:

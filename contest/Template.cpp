@@ -18,15 +18,16 @@ using namespace std;
 
 void init() {
   // Reading from/writing to other files than stdin/stdout:
-  //cin.rdbuf((new ifstream("T.in"))->rdbuf());
-  //cout.rdbuf((new ofstream("T.out"))->rdbuf());
+  //cin.rdbuf((new ifstream("___.in"))->rdbuf());
+  //cout.rdbuf((new ofstream("___.out"))->rdbuf());
 }
 
 const enum {SIMPLE, FOR, WHILE} mode = NO;
-const bool debug = false;
+const bool debug = true;
 
 bool solve(int P) {
-  int n; cin >> n;
+  int n;
+  cin >> n;
   if (!cin /* || stopcond*/) return false;
   return true;
 }
