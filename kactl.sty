@@ -68,7 +68,7 @@
 
 
 \renewcommand\tableofcontents{%
-  \vglue -2.3 cm
+  \vglue -2.4 cm
     \chapter*{\contentsname
       \@mkboth{\MakeUppercase\contentsname}
 	      {\MakeUppercase\contentsname}}%
@@ -229,6 +229,7 @@
 \newcommand{\sourceline}[1]{{\small \tt #1}}
 \newcommand{\usage}[1]{\keyword{Usage}\par #1}
 \newcommand{\complexity}[1]{\keyword{Complexity} \ordo{#1}}
+\newcommand{\expectedcomplexity}[1]{\keyword{Expected complexity} \ordo{#1}}
 \newenvironment{example}{\keyword{Example}\source}{\endsource}
 \newcommand{\valladolid}[1]{\keyword{Valladolid} #1}
 \newcommand{\reflisting}[1]{\keyword{Listing} -- #1.cc, p. \pageref{code_#1}}

@@ -49,12 +49,13 @@ The squared distance is returned.
 
 \begin{algorithm}{Minimum enclosing circle}
 \complexity{n}
-\usage{\sourceline{bool mec(p, n, c, \&i1, \&i2, \&i3[, eps]);}}
-\usage{\sourceline{double mec(p, n, c[, eps]);}}
+%\usage{\sourceline{bool mec(p, n, c, \&i1, \&i2, \&i3[, eps]);}}
+%\usage{\sourceline{double mec(p, n, c[, eps]);}}
 
 \desc
 Fills in c with the centre point of the minimum circle, enclosing the
-n point vector p. The first version fills in indices to the points
+n point vector p. 
+The first version fills in indices to the points
 determining the circle, and returns whether the third index is used.
 The second version returns the enclosing circle radius as a double.
 Colinearity of a third point is determined by the eps limit.

@@ -9,8 +9,8 @@
 
 \xinput{voronoi_diagrams}
 
-\problemtitle{Nearest Neighbour}
-\begin{algorithm}{Divide and conquer}
+\problemtitle{Misc. Point Set Problems}
+\begin{algorithm}{Closest Pair Divide and Conquer}
 \complexity{n\log n}
 \usage{{\tt closestpair(points p, int n, \&i1, \&i2)}}
 \desc
@@ -19,11 +19,17 @@ vector {\tt p} after the call. The distance is returned.
 \end{algorithm}
 \codenc{closest pair}{closestpair}
 
-\begin{algorithm}{Simpler method}
+\begin{algorithm}{Closest Pair Simpler method}
 \complexity{n^2 \textrm{ (average $n$)}}
 \usage{{\tt closestpair(points p, int n, \&i1, \&i2)}}
 \end{algorithm}
 \codenc{closest pair simple}{closest_per}
+
+\begin{algorithm}{Minimal enclosing $d$-ball}
+\expectedcomplexity{ d! n }
+\end{algorithm}
+
+\codenc{enclosing ball}{enclosing_ball}
 
 %\problemtitle{Triangulation}
 %\problemtitle{Range search}
