@@ -78,7 +78,7 @@ struct skip_list {
     list_node *p = head;
     for (int i = level - 1; i >= 0; --i) {
       while ((p = p->nxt[i]) != head && (left ? c(p->d, x) : !c(x, p->d)));
-      bck[i] = p =  p->prv[i];
+      bck[i] = p = p->prv[i];
     }
     if (left) bck[0] = p, p = p->nxt[0];
     return (left ? c(x, p->d) : c(p->d, x)) ? end() : p;
