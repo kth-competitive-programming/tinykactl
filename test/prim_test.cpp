@@ -12,10 +12,9 @@
 #include <iostream>
 #include <stdio.h>
 #include <vector>
-
 using namespace std;
 
-#include "../graph/mst/kruskal.cpp"
+#include "../graph/mst/prim.cpp"
 
 
 vector< pair<double,double> > coords;
@@ -45,7 +44,8 @@ int main( void ) {
     }
   }
 
-  kruskal( edges, edges, n );
+  vector<int> path(n);
+  prim( 0, edges, path, n );
 
   double totLen = 0.0;
   for( int i=0; i<n; i++ ) {
@@ -54,7 +54,8 @@ int main( void ) {
     for( int j=0; j<numEdges; j++ ) {
       pair<int,double>  &edge = edges[i][j];
 
-      if( i < edge.first )    // only count half of the edges
+      // only count half of the edges.
+      if( path[edge.first] == i && i < edge.first )
 	totLen += sqrt(edge.second);
     }
   }

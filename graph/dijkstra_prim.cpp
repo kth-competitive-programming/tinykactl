@@ -12,7 +12,7 @@
 template <class V> struct idxless {
   const V &v;
   idxless(const V &_v) : v(_v) { }
-  bool operator()(int i, int j) const { return v[i] < v[j]; }
+  bool operator()( const int &i, const int &j ) const { return v[i] < v[j]; }
 };
 /*
 template <class V, class C> struct idxcomp {
@@ -29,7 +29,8 @@ void dijkstra_prim(E &edges, M &min, P &path, int start, int n, D distfun,
   T inf(1<<29);
 
   typedef idxless< M > C;
-  set< int, C > q(C(min)); // use a set as a modifiable priority queue
+  C comp( min );
+  set< int, C > q(comp); // use a set as a modifiable priority queue
 
   for (int i = 0; i < n; i++) {
     min[i] = inf;
