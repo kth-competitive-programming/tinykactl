@@ -7,7 +7,7 @@ all: \
 %.exe: %.cpp
 	g++2 -Wall -o $@ $<
 
-clean: \
+clean: ;
 	rm *.exe
 
 

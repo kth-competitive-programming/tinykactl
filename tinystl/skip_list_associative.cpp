@@ -26,7 +26,7 @@ struct associative: skip_list<V, C> {
   }
 
   void erase(iterator x) { L::erase(x); }
-  iterator find(KR k) { return L::find(k2v(k)); }
+  iterator find(KR k, bool left=true) { return L::find(k2v(k),left); }
 
   int count(KR k) {
     int r = 0;
@@ -44,13 +44,13 @@ struct associative: skip_list<V, C> {
   }
   
   iterator lower_bound(KR k) {
-    iterator i = find(k2v(k));
-    return i == end() ? bck[0]->nxt[0] : i;
+    iterator i = find(k);
+    return i == end() ? iterator(bck[0]->nxt[0]) : i;
   }
   
   iterator upper_bound(KR k) {
-    iterator i = find(k2v(k, false));
-    return (i == end() ? bck[0] : i)->nxt[0];
+    iterator i = find(k, false);
+    return (i == end() ? iterator(bck[0]) : i)++;
   }
 
   pair<iterator, iterator> equal_range(KR k) {

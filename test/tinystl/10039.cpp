@@ -18,6 +18,10 @@
 //#include <vector>
 //#include <map>
 //#include <set>
+
+#include "../../tinystl/skip_list_associative.cpp"
+//#include "../../tinystl/associative.cpp"
+
 #include "../../tinystl/string.cpp"
 #include "../../tinystl/map.cpp"
 #include "../../tinystl/base.cpp"

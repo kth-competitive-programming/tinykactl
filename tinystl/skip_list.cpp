@@ -60,7 +60,7 @@ struct skip_list {
   
   skip_list(C _c = C()) { init(_c); }
   skip_list(const skip_list& l) { init(l.c); *this = l; }
-  ~skip_list() { clear(); delete head; }
+  virtual ~skip_list() { clear(); delete head; }
   
   skip_list& operator=(const skip_list& l) {
     clear();
