@@ -24,7 +24,7 @@ F upper_bound(F first, F last, const T &val ) {
   while( first<last ) {
     F middle = first+(last-first)/2; // first<=middle<last
 
-    if( *middle > val ) last = middle;
+    if( val < *middle ) last = middle;
     else first = middle+1;
   }
   return first;
