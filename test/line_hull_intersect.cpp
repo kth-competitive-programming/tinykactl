@@ -1,6 +1,9 @@
 #include <iostream>
-#include "../geometry/3_convex_hull.cpp"
-#include "../geometry/hull/3_line_hull_intersect.cpp"
+
+using namespace std;
+
+#include "../geometry/hull/convex_hull_idx.cpp"
+#include "../geometry/hull/line_hull_intersect.cpp"
 
 typedef point<double> Pt;
 
@@ -18,7 +21,7 @@ int main() {
   for (i = 0; i < M; i++) {
     a[N] = Pt(cos(i * 2 * pi / M) * 2, sin(i * 2 * pi / M) * 2);
     int r = convex_hull(a, idx, N + 1);
-    indexed<Pt> b(a, idx);
+    indexed<Pt *,int *> b(a+0, idx+0);
     Pt p1(-1, 0.7), p2(0, 0.7);
     Pt p3(-1, 1.5), p4(1, 1);
     int i1, i2, i3, i4;

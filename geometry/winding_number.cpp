@@ -1,41 +1,15 @@
-/*****************************************************************************
- * 
- * Geometry1: inside_poly
- * ======================
+/* KTH ACM Contest Template Library
  *
- * Determine if a point is inside/outside or on the edge of a polygon.
+ * Geometry/Polygons/Winding Number
  *
- * INPUT
- * -----
- * p:    An array of size n representing the polygon, given as points either
- *       in cw or ccw order. (the start/end point should not be repeated)
- * n:    the number of vertices
- * t:    The test point
- *
- * OUTPUT
- * ------
- * +1    inside
- * 0     on the edge
- * -1    outside
- *
- * COMPLEXITY  O( n )
- *
- * REQUIRES  geometry.h, pointline.cpp (onedge)
- * ------------------------------------------------------------------------- *
- *
- * NADA acmlib (10 March 2002)
- * Templates for KTH-NADA, Ballons'R'Us, ACM 2001-2002
- *   Swedish competition, Link?ping 6 Oct 2001
- *   Revised for SWERC, Portu, Portugal 17 Nov 2001
- *   Revised for World Finals, Honolulu, 23 Mar 2002
- *   David Rydh, Mattias de Zalenski, Fredrik Niemel?
- *
- *****************************************************************************/
+ * Credit:
+ *   By Matthias de Zalenski and David Rydh
+ */
 
 #include "pointline.cpp"
 
 template<class V, class P>
-double winding_nr(const V &p, int n, P t, bool &onEdge) {
+double winding_nr(const V &p, int n, const P &t, bool &onEdge) {
   double wind = 0;
 
   onEdge = false;
@@ -56,7 +30,7 @@ double winding_nr(const V &p, int n, P t, bool &onEdge) {
 }
 
 template<class P, class V>     // V is vector/array of point<T>s
-int inside_poly(P t, const V &p, int n) {
+int inside_wn(const V &p, int n, P t) {
   bool edge;
   double wind = winding_nr(p,n,t, edge);
 

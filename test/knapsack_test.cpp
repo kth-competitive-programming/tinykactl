@@ -4,6 +4,9 @@
 
 #include <iostream>
 #include <vector>
+
+using namespace std;
+
 #include "../combinatorial/knapsack.cpp"
 
 #define doubt if (debug) cerr

@@ -1,35 +1,12 @@
-/*****************************************************************************
- * 
- * Geometry2: pointline
- * ====================
+/* KTH ACM Contest Template Library
  *
- * sideof: Determine on which side of a line a point is (+/- 1 or 0)
- * onsegment: Determine if a point is on a line segment (incl the end points).
- * linedist: Get a measure of the distance of a point from a line (0 on the
- *           line and positive/negative on the different sides).
+ * Geometry/Polygons/Inside
  *
- * INPUT
- * -----
- * p1, p2: A line.
- * t:      The test point.
- *
- * OUTPUT
- * ------
- * sideof: int
- *     +1 if left of directed line, -1 if right of dir line and 0 if on line.
- * onsegment: bool
- *     true if the point is on the segment.
- *
- * ------------------------------------------------------------------------- *
- *
- * NADA acmlib (10 March 2002)
- * Templates for KTH-NADA, Ballons'R'Us, ACM 2001-2002
- *   Swedish competition, Link?ping 6 Oct 2001
- *   Revised for SWERC, Portu, Portugal 17 Nov 2001
- *   Revised for World Finals, Honolulu, 23 Mar 2002
- *   David Rydh, Mattias de Zalenski, Fredrik Niemel?
- *
- *****************************************************************************/
+ * Credit:
+ *   By David Rydh
+ */
+
+#include "point_ops.cpp"
 
 template <class P>
 int sideof(P p0, P p1, P q) {

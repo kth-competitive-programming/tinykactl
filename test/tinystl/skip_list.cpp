@@ -1,6 +1,6 @@
 #include <iostream>
-#include "../tinystl/skip_list_associative.cpp"
-#include "../tinystl/set.cpp"
+#include "../../tinystl/skip_list_associative.cpp"
+#include "../../tinystl/set.cpp"
 
 typedef multiset<int> sli;
 

@@ -1,5 +1,9 @@
 #include <iostream>
-#include "../geometry/hull/1_inside_hull.cpp"
+
+using namespace std;
+
+#include "../geometry/point.cpp"
+#include "../geometry/hull/inside_hull.cpp"
 
 typedef point<double> Pt;
 
