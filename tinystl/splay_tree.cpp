@@ -82,7 +82,7 @@ struct splay_tree {
     return i;
   }
 
-  void clear() { while (!empty()) erase(root); }
+  void clear() { while(root) erase(root); }
   bool empty() const { return root == 0; }
   P find(const T &x, bool left = false) {
     P p = root, i = root;
@@ -117,6 +117,4 @@ struct splay_tree {
     root = l ? l : r;
     delete i, --n;
   }
-
-  void clear() { while(root) erase(root); }
 };
