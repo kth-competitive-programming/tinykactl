@@ -34,7 +34,8 @@
     {\LARGE \textsc{\input{tag}}}
   \end{center}
   \thispagestyle{empty}
-  \newpage
+  \pagestyle{empty}
+  %\newpage
 }
 
 
@@ -189,12 +190,13 @@
 \newenvironment{sourceslandscape}{
   \newpage
   \advance\textwidth 4 cm%
-  \advance\textheight 4 cm%
-  \advance\topmargin -2 cm%
-  \advance\oddsidemargin  -2 cm%
-  \advance\evensidemargin -2 cm%
+  \advance\textheight 8 cm%
+  \advance\topmargin -4 cm%
+  \advance\oddsidemargin  -3 cm%
+  \advance\evensidemargin -3 cm%
   \begin{landscape}
-    \begin{multicols*}{2}\raggedcolumns
+    \begin{multicols*}{3}\raggedcolumns
+      \setlength\columnseprule{.2pt}
       \def\LGfsize{\scriptsize}}{\end{multicols*}\end{landscape}}
 
 

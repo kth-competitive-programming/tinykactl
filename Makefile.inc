@@ -1,3 +1,6 @@
+LGSTRIP = header include
+# !!
+
 UTIL = $(BASEDIR)/util
 
 RECURSE = \
@@ -49,6 +52,7 @@ texer: \
 
 %.lg: %.cpp $(UTIL)/lgrind/lgrindef
 	$(UTIL)/stripcode $(LGSTRIP) < $< | \
+	$(UTIL)/breakcode 65 | \
 	$(UTIL)/lgrind/source/lgrind -i -l c++ -d $(UTIL)/lgrind/lgrindef - > $@
 
 %.sum: %.cpp
