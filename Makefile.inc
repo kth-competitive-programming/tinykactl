@@ -19,14 +19,14 @@ clean: codeclean
 	$(RECURSE)
 
 
-code: koder summor texer
+code: koder summor texer includes
 	$(RECURSE)
 
 allcodeclean: codeclean
 	$(RECURSE)
 
 codeclean:
-	rm -f *.lg *.sum
+	rm -f *.lg *.sum *.incl
 
 
 koder: \
@@ -37,9 +37,15 @@ summor: \
  $(patsubst %.cpp,%.sum,$(wildcard *.cpp)) \
  $(patsubst SCCS/s.%.cpp,%.sum,$(wildcard SCCS/s.*.cpp))
 
+includes: \
+ $(patsubst %.cpp,%.incl,$(wildcard *.cpp)) \
+ $(patsubst SCCS/s.%.cpp,%.incl,$(wildcard SCCS/s.*.cpp))
+
 texer: \
  $(wildcard *.tex) \
  $(patsubst SCCS/s.%.tex,%.tex,$(wildcard SCCS/s.*.tex))
+
+
 
 %.lg: %.cpp $(UTIL)/lgrind/lgrindef
 	$(UTIL)/stripcode $(LGSTRIP) < $< | \
@@ -53,3 +59,9 @@ texer: \
 		{for(i=2;i<10;i++) printf "%2s,",$$i;} printf "}{{}"; \
 		{for(i=10;i<17;i++) printf "%2s,",$$i;} \
 		printf "%2s}\n", $$17;};' >> $@
+%.incl: %.cpp $(UTIL)/inc_files.sed $(UTIL)/stripcode
+	echo "\\includelist{" > $@
+	$(UTIL)/stripcode $(SUMSTRIP) < $< | wc -l >> $@
+	echo "}{" >> $@
+	sed -f $(UTIL)/inc_files.sed < $< | sed '$$!s/$$/,/' >> $@
+	echo "}" >> $@
