@@ -7,7 +7,7 @@
 (defun kactl-new-file (N) (interactive "FCFF: ") 
   (find-file N) (or (file-exists-p N)
 		    (not (string-equal (file-name-extension N) kactl-ext))
-		    (insert-file "Template.cpp")))
+		    (insert-file "Template.cc")))
 
 (defun kactl-test () (interactive) 
   (let ((N (file-name-sans-extension buffer-file-name)))

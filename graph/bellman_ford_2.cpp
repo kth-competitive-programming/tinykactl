@@ -28,7 +28,7 @@ bool bellman_ford_2(E &edges, M &min, P &path, int start, int n, int m) {
       T dist = min[node] + edges[j].second;
 
       if (dist < min[dest]) {
-	if( i>=N )
+	if( i>=n )
 	  return false; // negative cycle!
 	min[dest] = dist;
 	path[dest] = node;

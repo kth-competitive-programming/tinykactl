@@ -5,23 +5,22 @@
 //
 // Problem: ___
 
+#include <cmath>
+#include <cstdio>
 #include <iostream>
 #include <algorithm>
-#include <fstream>  // When reading/writing from files
 //#include <string>
 //#include <map>
 //#include <vector>
-//#include <cmath>
 
 using namespace std;
-#define doubt cout
+#define doubt if (debug) cerr
 
 void init() {
-  cin.rdbuf((new ifstream("___.in"))->rdbuf());
-  //cout.rdbuf((new ofstream("___.out"))->rdbuf());
 }
 
 const enum {SIMPLE, FOR, WHILE} mode = NO;
+bool debug = false;
 
 bool solve(int P) {
   int n;
