@@ -37,4 +37,4 @@ template <class P> P cross(P p, P q) {
 	   p.x*q.y-p.y*q.x);
 }
 
-template <class P> P unit(P p) { return p / dist(p); }
+// template <class P> P unit(P p) { return p / dist(p); }
