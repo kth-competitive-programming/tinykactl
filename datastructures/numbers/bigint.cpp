@@ -45,14 +45,12 @@
 #define LSIZE 1000000000 /* 10^9 */
 #define LIMBDIGS 9
 
-/* in order for subtraction to work properly, limb needs to be signed. */
-typedef long long limb;
+typedef long long limb;  /* for subtraction to work properly, limb needs to be signed */
 typedef vector<limb> bigint;
 typedef bigint::const_iterator bcit;
 typedef bigint::reverse_iterator brit;
 typedef bigint::const_reverse_iterator bcrit;
 typedef bigint::iterator bit;
-
 
 bigint BigInt(limb i) {
   bigint res;
@@ -76,8 +74,7 @@ istream& operator>>(istream& i, bigint& n) {
   return i;
 }
 
-/* Warning: the ostream must be configured to print things with right
- * justification, lest output be ooky.    */
+/* Warning: the ostream must be configured to print things with right justification, lest output be ooky */
 ostream& operator<<(ostream& o, const bigint& n) {
   int began = 0, ofill = o.fill();
   o.fill('0');
@@ -91,7 +88,7 @@ ostream& operator<<(ostream& o, const bigint& n) {
   return o;
 }
 
-/* The base comparison function. semantics like strcmp(...).   */
+/* The base comparison function. semantics like strcmp(...) */
 int cmp(const bigint& n1, const bigint& n2) {
   int x = n2.size() - n1.size();
   bcit i = n1.end() - 1, j = n2.end() - 1;
@@ -117,7 +114,7 @@ bigint& operator+=(bigint& a, const bigint& b) {
   return a;
 }
 
-/* Returns true if sign changed   */
+/* Returns true if sign changed */
 bool sub(bigint& a, const bigint& b) {
   if (a.size() < b.size()) a.resize(b.size());
   limb cy = 0;
@@ -126,10 +123,9 @@ bool sub(bigint& a, const bigint& b) {
     *i -= cy + (j < b.end() ? *j : 0);
     if ((cy = *i < 0)) *i += LSIZE;
   }
-  /* If sign changed, flip all digits.  These three lines can be
-   * ignored if it is known that the sign will not change, e.g. when
-   * using bigint in conjunction with sign.cpp, in the divmod method,
-   * or in many combinatorial counting problems.  */
+  /* If sign changed, flip all digits.  These 3 lines can be ignored if it's known that the
+   * sign won't change, e.g. when using bigint in conjunction with sign.cpp, in the divmod
+   * method, or in many combinatorial counting problems. */
   if (cy)
     while (i-- > a.begin())
       *i = LSIZE - *i;
@@ -153,7 +149,7 @@ bigint& operator*=(bigint& a, const bigint& b) {
   return a;
 }
 
-/* a will hold floor(a/b), rest will hold a % b  */
+/* a will hold floor(a/b), rest will hold a % b */
 bigint& divmod(bigint& a, limb b, limb* rest = NULL) {
   limb cy = 0;
   for (brit i = a.rbegin(); i != a.rend(); ++i)
@@ -164,8 +160,7 @@ bigint& divmod(bigint& a, limb b, limb* rest = NULL) {
 }
 
 /* a will hold a % b (and is returned), quo will hold floor(a/b).
- * NB!! different semantics from one-limb divmod!!
- * NB!! quo should be different from a!! */
+ * NB!! different semantics from one-limb divmod!!     NB!! quo should be different from a!! */
 bigint& divmod(bigint& a, const bigint& b, bigint* quo = NULL) {
   bigint den = b;
   brit j = den.rbegin(), i = a.rbegin();
@@ -173,43 +168,34 @@ bigint& divmod(bigint& a, const bigint& b, bigint* quo = NULL) {
   for ( ; i != a.rend() && !*i; ++i);
   int n = a.rend() - i, m = den.rend() - j;
   if (!m) { /* Division by zero! */ abort(); }
-  /* If divisor is limbsized, resort to regular linear-time divmod. */
-  if (m == 1) {
+  if (m == 1) {    /* If divisor is limbsized, resort to regular linear-time divmod. */
     bigint q;
     return (quo ? *quo : q) = a, a.resize(1), 
       divmod(quo ? *quo : q, *j, &a.front()), a;
   }
   
   bigint tmp;
-  /* Use first two digits for a good estimate of the quotient.
-   * (Though this function could probably be a lot shorter if we just
-   * used one digit instead)  */
+  /* Use first two digits for a good estimate of the quotient. (Though this function could
+   * probably be a lot shorter if we just used one digit instead)  */
   limb den0 = (*++j + *--j * LSIZE) + 1;
   if (quo) quo->clear();
-  /* Loop invariant: quo * den + a = num */
-  while (a >= den) {
+  while (a >= den) {                /* Loop invariant: quo * den + a = num */
     limb num0 = (*++i + *--i * LSIZE), z = num0 / den0, cy = 0;
-    /* Silly degenerate case: */
-    if (z == 0 && n == m) z = 1;
+    if (z == 0 && n == m) z = 1;    /* Silly degenerate case */
     tmp.resize(n - m - !z);
-    /* Non-silly degenerate case: */
-    if (!z) z = num0 / (*j + 1);
-    /* Set tmp = z * b^(n-m) and add to quotient */
-    if (quo) tmp.push_back(z), *quo += tmp, tmp.pop_back();
-    /* Set tmp = den * z * b^(n-m)  */
-    for (bcit j = den.begin(); j != den.end(); ++j)
+    if (!z) z = num0 / (*j + 1);    /* Non-silly degenerate case */
+    if (quo) tmp.push_back(z), *quo += tmp, tmp.pop_back(); /* Set tmp = z * b^(n-m) and add to quot. */
+    for (bcit j = den.begin(); j != den.end(); ++j)         /* Set tmp = den * z * b^(n-m)  */
       cy += *j * z, tmp.push_back(cy % LSIZE), cy /= LSIZE;
     if (cy) tmp.push_back(cy);
-    /* Note that we rely on the important fact that tmp doesn't have
-     * more limbs than a, so that a won't be resized, and the iterator
-     * i will still valid. */
+    /* Note that we rely on the important fact that tmp doesn't have more limbs than a, so that
+     * a won't be resized, and the iterator i will still valid. */
     if (tmp.size() > a.size()) tmp.resize(a.size());
     sub(a, tmp);
     while (i != a.rend() && !*i) --n, ++i;
   }
   return a; 
 }
-
 
 bigint& operator/=(bigint& a, const bigint& b) {
   bigint q;
