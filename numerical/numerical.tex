@@ -206,6 +206,19 @@ $[0,1)$.
 \problemtitle{Linear Equations}
 \begin{algorithm}{Solving linear equations}
 \reflisting{linear solve}
+\reflisting{linear solve TO}
+\end{algorithm}
+
+\begin{algorithm}{Calculating determinant}
+\reflisting{determinant}
+\reflisting{int determinant}
+\desc {\tt determinant} and {\tt int\_determinant} both reduces the matrix
+to an upper diagonal form using elementary row operations. There could be an
+overflow in the integral variant and in that case the double variant
+can be used instead, rounding the answer at the end. The strength of
+{\tt int\_determinant} is that it can be used for {\tt long long} or
+{\tt BigInt}. Note that it uses {\tt euclid} which could be rather
+slow in the {\tt BigInt} case.
 \end{algorithm}
 
 \problemtitle{Optimization}
@@ -296,10 +309,15 @@ west, respectively. Or chess knight jump directions.
 \code{ndivisors prob}{ndivisors_prob}
 \code{factor}{factor}
 
+\sourcesection{Linear Algebra}
+\code{solve linear}{solve_linear}
+\code{solve linear TO}{solve_linear_TO}
+\code{determinant}{determinant}
+\code{int determinant}{int_determinant}
+
 \sourcesection{Numerical Misc}
 \code{josephus}{josephus}
 \code{pseudo}{pseudo}
-\code{linear solve}{linear_solve}
 \code{simplex}{simplex}
 \code{exp}{exp}
 \code{mulmod}{mulmod}
