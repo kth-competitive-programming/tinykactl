@@ -1,6 +1,6 @@
-[ -d data ] || mkdir data
-[ -d done ] || mkdir done
-[ -d done/data ] || mkdir done/data
+mkdir data
+mkdir done
+mkdir done/data
 
 echo 'g++ -Wall -o $1 $1.cpp' > c
 

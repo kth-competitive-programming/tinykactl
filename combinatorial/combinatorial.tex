@@ -1,0 +1,27 @@
+\categorytitle{Combinatorial}
+\categorycontents{}
+
+\problemtitle{Sorting}
+\begin{algorithm}{sort}
+  \usage{\sourceline{ sort( v.begin(), v.end(), less<int>() ) }}
+\end{algorithm}
+
+\problemtitle{Searching}
+\begin{algorithm}{median -- nth element}
+  \usage{\sourceline{ nth\_element( v.begin(), v.end(), 4 ) }}
+  \begin{example}
+	nth_element( v.begin(), v.end(), v.size() / 2 ) // mid value
+  \end{example}
+\end{algorithm}
+\begin{algorithm}{binary search}
+  \usage{\sourceline{ lower\_bound( v.begin(), v.end(), 4 ) }}
+  \usage{\sourceline{ upper\_bound( v.begin(), v.end(), 4 ) }}
+\end{algorithm}
+\begin{algorithm}{golden search}
+  \reflisting{golden bound}
+  \usage{\sourceline{ golden\_bound( v.begin(), v.end(), 4 ) }}
+\end{algorithm}
+
+\begin{sourceslandscape}
+  \code{golden bound}{golden_bound}
+\end{sourceslandscape}

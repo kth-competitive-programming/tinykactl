@@ -33,6 +33,16 @@ void matrix_input(istream &in, M &g, I x) {
     }
 }
 
+// Do not take an extra type I
+template <class M>
+void matrix_input(istream &in, M &g) {
+  int v;
+  in >> v; // number of vertices
+  for (int i = 0; i < v; i++)
+    for (int j = 0; j < v; j++)
+      in >> g[i][j];
+}
+
 void edge_list_input(istream &in, vector< vector< int > > &g,
 		     bool undirected = true) {
   int v;
@@ -160,12 +170,15 @@ void nedges_input(istream &in, M mapper, N name,
   in >> e; // number of edges
   for (int i = 0; i < e; i++) {
     int a, b;
+
     in >> name;
     a = mapper(name);
     if (g.size() <= a) g.resize(a + 1);
+
     in >> name;
     b = mapper(name);
     if (g.size() <= b) g.resize(b + 1);
+
     g[a].push_back(b);
     if (undirected)
       g[b].push_back(a);
@@ -180,17 +193,20 @@ void nwedges_input(istream &in, M mapper, N name,
   in >> e; // number of edges
   for (int i = 0; i < e; i++) {
     int a, b;
+
     in >> name;
     a = mapper(name);
     if (g.size() <= a) g.resize(a + 1);
+
     in >> name;
     b = mapper(name);
     if (g.size() <= b) g.resize(b + 1);
+
     W w;
     in >> w;
-    g[a].push_back(make_pair(b, w));
+    g[a].insert(g[a].end(), make_pair(b, w));
     if (undirected)
-      g[b].push_back(make_pair(a, w));
+      g[b].insert(g[b].end(), make_pair(a, w));
   }
 }
 
