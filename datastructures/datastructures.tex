@@ -141,6 +141,23 @@ int idx = mapper("x")  =>  mapper("x") == idx, mapper[idx] == "x"%
   \reflisting{index mapper}
 \end{algorithm}
 
+\problemtitle{Matrices kept in arrays}
+It is often convenient to keep a two-dimensional matrix in a one-dimensional
+array, but then one has to explicitly calculate absolute indices into the
+array from the row and column of the matrix.
+
+The {\tt matrix mapper} helps with this.
+It has function semantics for retrieving absolute indices from a (row,column)
+pair, and, even better: matrix double bracket semantics for accessing the
+array elements directly as if they were in a matrix.
+\begin{algorithm}{Matrix mapper}
+  \usage{\sourceline{%
+vector\_matrix\_mapper m(v, 12); \\
+v[row*12 + col] <=> v[m(row, col)] <=> m[row][col]%
+}}
+  \reflisting{matrix mapper}
+\end{algorithm}
+
 \problemtitle{Indexed arrays}
 \begin{algorithm}{indexed}
   \reflisting{indexed}
@@ -154,6 +171,7 @@ int idx = mapper("x")  =>  mapper("x") == idx, mapper[idx] == "x"%
 \code{mpq}{mpq}
 \code{update heap}{update_heap}
 \code{index mapper}{index_mapper}
+\code{matrix mapper}{matrix_mapper}
 \code{indexed}{indexed}
 \code{sign}{../numerical/sign}
 \code{rational}{../numerical/rational}
