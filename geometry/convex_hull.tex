@@ -60,6 +60,19 @@ Determine the points that are farthest apart in a hull.
 The squared distance is returned.
 \end{algorithm}
 
+\begin{algorithm}{Minimum enclosing circle}
+\reflisting{mec}
+\complexity{n}
+\usage{\sourceline{bool mec(p, n, c, \&i1, \&i2, \&i3[, eps]);}}
+\usage{\sourceline{double mec(p, n, c[, eps]);}}
+
+Fills in c with the centre point of the minimum circle, enclosing the
+n point vector p. The first version fills in indices to the points
+determining the circle, and returns whether the third index is used.
+The second version returns the enclosing circle radius as a double.
+Colinearity of a third point is determined by the eps limit.
+\end{algorithm}
+
 \begin{algorithm}{Line-hull intersect}
 \reflisting{line hull intersect}
 \complexity{\log(n)}
