@@ -14,8 +14,8 @@
 template<class R>
 void inplace_stable_sort(R first, R last ) {
   R middle = first + (last-first)/2;
-  inplace_stable_sort( first, middle );
-  inplace_stable_sort( middle, last );
+  if( middle-first>1 ) inplace_stable_sort( first, middle );
+  if( last-middle>1 ) inplace_stable_sort( middle, last );
   inplace_merge( first, middle, last, middle-first, last-middle );
 }
 
