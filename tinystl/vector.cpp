@@ -35,7 +35,7 @@ struct vector {
   T *end() { return b+n; }
   const T *begin() const { return b; }
   const T *end() const { return b+n; }
-  int size() { return n; }
+  int size() const { return n; }
 
   T &front() { return b[0]; }
   const T &front() const { return b[0]; }

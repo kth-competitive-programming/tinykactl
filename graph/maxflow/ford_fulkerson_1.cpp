@@ -16,8 +16,6 @@
 
 #include "flow_graph.cpp"
 
-typedef vector< vector< flow_edge<int> > > flow_graph;
-
 // Function prototypes
 bool flow_increase1( flow_graph &g, int source, int sink );
 // Internal auxillary function
@@ -41,17 +39,17 @@ bool flow_dfs1( flow_graph &g, vector<int> &proc, int node, int sink ) {
 
   E & el = g[node];
   for( E_iter e=el.begin(); e!=el.end(); e++ ) {
-    if( (*e).c <= 0 )
+    if( e->c <= 0 )
       continue;
 
-    int dest = (*e).dest;
+    int dest = e->dest;
 
     if( !proc[dest] ) {
       // Process this node
       if( dest == sink || flow_dfs1(g,proc,dest,sink) ) {
 	// Found augmenting path - add flow 1
-	(*e).c--;
-	g[dest][(*e).back].c++;
+	e->f++; e->c--;
+	g[dest][e->back].f--; g[dest][e->back].c++;
 
         found = true;
         break;
