@@ -11,8 +11,9 @@
 #include <cstdlib>
 #include <iostream>
 
+using namespace std;
 
-#include "../bigint/1_simple.cpp"
+#include "../numerical/bigint/bigint_full.cpp"
 
 int k;
 

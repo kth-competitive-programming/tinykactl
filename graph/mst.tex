@@ -2,15 +2,16 @@
 
 \begin{algorithm}{Prim}
 \reflisting{dijkstra prim}
-\complexity{ E\log V }
+\complexity{V\log V + E}
 \usage{\sourceline{%
-dijkstra\_prim( 0, graph, minarray, path, distfun, inf, true ) }}
+dijkstra\_prim( graph, minarray, path, 0, distfun, true ) }}
 \end{algorithm}
 
 \begin{algorithm}{Kruskal}
 \usage{ \sourceline{kruskal( graph, tree, n );} }
 \complexity{ E\log E }
-\characteristics{Kruskal is faster when dealing with...}
+\characteristics{ The resulting tree which is returned in {\tt tree} may
+be the same variable as the graph. }
 \begin{example}
 	vector< vector<pair<int,double> > > edges;
 
