@@ -1,0 +1,1 @@
+./$1 < data/$1$2.in | tee data/$1$2.out

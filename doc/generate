@@ -1,0 +1,10 @@
+cat ../header.cpp
+echo
+echo
+for i in $(cat list); do
+  echo
+  echo " $i"
+  for j in $(ls ../$i | sort -n | grep '\.cpp$'); do
+    echo "  $j:$(cat ../$i/$j | wc -l) lines"
+  done
+done

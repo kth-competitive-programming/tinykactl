@@ -1,0 +1,88 @@
+/*****************************************************************************
+ * 
+ * <file>: <description>
+ * =====================
+ *
+ * <explanation>
+ *
+ * INPUT
+ * -----
+ *
+ * OUTPUT
+ * ------
+ *
+ * COMPLEXITY  -
+ *
+ * REQUIRES  -
+ * ------------------------------------------------------------------------- *
+ *
+ * NADA acmlib (10 March 2002)
+ * Templates for KTH-NADA, Ballons'R'Us, ACM 2001-2002
+ *   Swedish competition, Linköping 6 Oct 2001
+ *   Revised for SWERC, Portu, Portugal 17 Nov 2001
+ *   Revised for World Finals, Honolulu, 23 Mar 2002
+ *   David Rydh, Mattias de Zalenski, Fredrik Niemelä
+ *
+ *****************************************************************************/
+
+
+
+ Template.cc
+
+ header.cpp
+  ../header.cpp:     26 lines
+
+ bigint
+  1_simple.cpp:    289 lines
+  2_bignum_jimmy.cpp:    264 lines
+
+ general
+  1_indexed.cpp:     65 lines
+  2_input_output.cpp:     44 lines
+  3_upd_heap.cpp:     91 lines
+  4_vectorized_function.cpp:     49 lines
+  5_null_vector.cpp:      6 lines
+  6_golden_search.cpp:     50 lines
+  7_random.cpp:     31 lines
+  10_indexed_container.cpp:     51 lines
+  11_resizing_vector.cpp:     27 lines
+  12_pair_listing.cpp:     35 lines
+  13_#_for_ijkl.cpp:     23 lines
+
+ geometry
+  1_inside_poly.cpp:     68 lines
+  2_pointline.cpp:    105 lines
+  3_convex_hull.cpp:    117 lines
+  4_polyarea.cpp:     31 lines
+  5_closestpair.cpp:    139 lines
+  6_closestpair_simple.cpp:     72 lines
+  10_inside_old.cpp:     47 lines
+  11_onedge_old.cpp:     48 lines
+
+ geometry/hull
+  1_inside_hull.cpp:     55 lines
+  2_hull_diameter.cpp:     53 lines
+  3_line_hull_intersect.cpp:     83 lines
+
+ graph
+  1_floyd_warshall.cpp:     66 lines
+  2_dijkstra.cpp:    100 lines
+  3_dijkstra_1.cpp:     83 lines
+  4_dijkstra_heap.cpp:    118 lines
+  5_get_shortest_path.cpp:     44 lines
+  6_euler_walk.cpp:     91 lines
+  10_dijkstra_general.cpp:    121 lines
+
+ graph/mst
+  1_sets.cpp:     66 lines
+  2_kruskal.cpp:     79 lines
+
+ graph/maxflow
+  1_general.cpp:     53 lines
+  2_fulkerson1.cpp:     69 lines
+  3_fulkerson.cpp:    166 lines
+
+ pattern
+  kmp.cpp:     62 lines
+
+ script

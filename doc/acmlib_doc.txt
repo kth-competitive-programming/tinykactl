@@ -1,0 +1,76 @@
+/*****************************************************************************
+ * 
+ * ACMLIB INDEX
+ * ============
+ *
+ * NADA acmlib (18 March 2002)
+ * Templates for KTH-NADA, Ballons'R'Us, ACM 2001-2002
+ *   Swedish competition, Linköping 6 Oct 2001
+ *   Revised for SWERC, Portu, Portugal 17 Nov 2001
+ *   Revised for World Finals, Honolulu, 23 Mar 2002
+ *   David Rydh, Mattias de Zalenski, Fredrik Niemelä
+ *
+ *****************************************************************************/
+
+ Template.cc
+ header.cpp
+
+ script (c, i, o, td, t, d, p)
+
+ bigint
+  1_simple.cpp         - simple bignum with +,-,*,/,sqrt but not with neg ints
+  2_bignum_jimmy.cpp   - slow bignum but supports neg ints
+
+ general
+  1_indexed.cpp             - indexed, isort
+  2_input_output.cpp        - 
+  3_upd_heap.cpp            - upd_heap: an updatable heap
+  4_vectorized_function.cpp -
+  5_null_vector.cpp         -
+  6_golden_search.cpp       - golden_search: find the minimum of f:Z->X
+  7_random.cpp              - pseudo [0,2^31-1], fpseudo [0,1)
+
+  10_indexed_container.cpp  - 
+  11_resizing_vector.cpp    -
+  12_pair_listing.cpp       -
+  13_#_for_ijkl.cpp         -
+
+ geometry
+  1_inside_poly.cpp         - winding_nr, inside_poly
+  2_pointline.cpp           - sideof, onsegment, linedist,
+                              lineisect, ivalisect, rectisect
+  3_convex_hull.cpp         - convex_hull (ccw, intersect)
+  4_polyarea.cpp            - poly_area
+  5_closestpair.cpp         - closestpair (n log n)
+  6_closestpair_simple.cpp  - closestpair (n^2, aver: n?)
+  7_topo_sort.cpp           - topo_sort (p)-queue
+
+  10_inside_old.cpp         - Sedgewick-inside. WRONG!
+  11_onedge_old.cpp         - egen algo - dålig
+
+ geometry/hull
+  1_inside_hull.cpp         - inside_hull
+  2_hull_diameter.cpp       - hull_diameter2
+  3_line_hull_intersect.cpp - line_hull_intersect
+
+ graph
+  1_floyd_warshall.cpp      - floyd_warshall, transitive_closure
+  2_dijkstra.cpp            - dijkstra
+  3_dijkstra_1.cpp          - dijkstra1
+  4_dijkstra_heap.cpp       - dijkstra_heap
+  5_get_shortest_path.cpp   - get_shortest_path
+  6_euler_walk.cpp          - euler_walk
+
+  10_dijkstra_general.cpp   -
+
+ graph/mst
+  1_sets.cpp                - sets: maintains sets
+  2_kruskal.cpp             - kruskal
+
+ graph/maxflow
+  1_general.cpp             - flow_graph:
+  2_fulkerson1.cpp          - fulkerson1 (bipartite matching)
+  3_fulkerson.cpp           - fulkerson (dfs/bfs)
+
+ pattern
+  kmp.cpp:     62 lines
