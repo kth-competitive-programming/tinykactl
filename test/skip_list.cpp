@@ -1,8 +1,8 @@
 #include <iostream>
-#include "../tinystl/skip_list.cpp"
-#include <stdlib.h>
+#include "../tinystl/skip_list_associative.cpp"
+#include "../tinystl/set.cpp"
 
-typedef skip_list<int> sli;
+typedef multiset<int> sli;
 
 int main(void) {
   sli hej;
@@ -35,5 +35,13 @@ int main(void) {
   for (sli::const_iterator i = hej.begin(); i != hej.end(); ++i)
     cout << "  " << *i;
   cout << endl;
+  
+  
+  sli h2(hej);
+  
+  for (sli::const_iterator i = hej.begin(); i != hej.end(); ++i)
+    cout << "  " << *i;
+  cout << endl;
+  
   return 0;
 }
