@@ -20,11 +20,14 @@ template <class T>
 struct queue {
   typedef T value_type;
   typedef queue_entry<T> qT;
-  qT *first, *last; stack() { first = last = new qT(); }
-  ~stack() { while( !empty() ) pop(); }
+  qT *first, *last; queue() { first = last = new qT(); }
+  ~queue() { while( !empty() ) pop(); delete first; }
   bool empty() { return first == last; }
   void push(const T &x) { last = last->next = new qT(x); }
-  void pop() { qT *o=first->next; first = o->next; delete o; }
+  void pop() {
+    qT *o=first->next; first->next = o->next; delete o;
+    if( o==last ) last = first;
+  }
   T &front() { return first->next->x; }
-  const T &front() const { return first->nex->x; }
+  const T &front() const { return first->next->x; }
 };
