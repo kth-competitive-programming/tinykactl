@@ -94,7 +94,6 @@ allcodeclean: always
 	cd io && $(MAKE) codeclean
 	cd numerical && $(MAKE) codeclean
 	cd combinatorial && $(MAKE) codeclean
-	cd numerical/bigint && $(MAKE) codeclean
 	cd graph && $(MAKE) codeclean
 	cd graph/mst && $(MAKE) codeclean
 	cd graph/maxflow && $(MAKE) codeclean
