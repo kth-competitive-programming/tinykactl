@@ -221,15 +221,6 @@ can be used instead, rounding the answer at the end. The strength of
 slow in the {\tt BigInt} case.
 \end{algorithm}
 
-\problemtitle{Optimization}
-\begin{algorithm}{Simplex method}
-\reflisting{simplex}
-\desc
-Solves a linear minimization problem. The first row of the
-input matrix is the objective function to be minimized. The
-first column is the maximum allowed value for each linear row.
-\end{algorithm}
-
 \problemtitle{Big numerical operations}
 \begin{algorithm}{exp}
 \reflisting{exp}
@@ -287,6 +278,34 @@ Direction to x and y or row and column displacement. {\tt dir} values
 west, respectively. Or chess knight jump directions.
 \end{algorithm}
 
+\problemtitle{Optimization}
+\begin{algorithm}{Simplex method}
+\reflisting{simplex}
+\desc
+Solves a linear minimization problem. The first row of the
+input matrix is the objective function to be minimized. The
+first column is the maximum allowed value for each linear row.
+\end{algorithm}
+
+\problemtitle{Finding roots of polynomials}
+\begin{algorithm}{Newton's method}
+\reflisting{poly roots}
+\desc
+Finds roots of a polynomial without multiple roots. The roots are found from
+the left to the right and the input {\tt xmin} variable needs to be lesser than
+all roots. A sufficiently small value (?) is
+$-\sum_{i=1}^n |a_i|/|a_0|-\epsilon$ where the polynomial is
+$a_0 x^n + a_1 x^{n-1} + \dots + a_n$.
+\end{algorithm}
+
+\begin{algorithm}{Newton's method}
+\reflisting{poly roots bisect}
+\desc
+Finds roots of a polynomial $p$ without multiple roots. The roots are found by
+bisecting a given interval until it contains $\mathrm{deg}(p)$ sign-changing
+intervals. Then find the roots with either Newton's algorithm (with bisective
+fall-back) or the bisective method.
+\end{algorithm}
 
 \begin{sourceslandscape}
 
@@ -318,12 +337,17 @@ west, respectively. Or chess knight jump directions.
 \sourcesection{Numerical Misc}
 \code{josephus}{josephus}
 \code{pseudo}{pseudo}
-\code{simplex}{simplex}
 \code{exp}{exp}
 \code{mulmod}{mulmod}
 \code{expmod}{expmod}
 
 \code{bitmanip}{bitmanip}
 \code{coords}{coords}
+
+\sourcesection{Optimization}
+\code{simplex}{simplex}
+\code{polynom}{polynom}
+\code{poly roots}{poly_roots}
+\code{poly roots bisect}{poly_roots_bisect}
 
 \end{sourceslandscape}
