@@ -23,10 +23,7 @@ struct associative: P {
   associative(C c = C()): P(c) {}
   virtual V k2v(KR k) = 0;
 
-  pair<iterator, bool> insert(VR x) {
-    iterator i = P::insert(x, multi);
-    return make_pair(i, i != end());
-  }
+  pair<iterator, bool> insert(VR x) { return P::insert(x, multi); }
   void erase(iterator x) { P::erase(x); }
   int erase(KR k) {
     int r = 0;
