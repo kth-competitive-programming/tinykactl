@@ -19,11 +19,7 @@ struct vector {
   typedef const T *const_iterator;
   typedef vector S;
 
-  vector( int _n=0 ) {
-    n = a = _n;
-    b = new T[a];
-  }
-  vector( int _n, const T &val ) {
+  vector( int _n=0, const T &val=T() ) {
     n = a = _n;
     b = new T[a];
     fill( b, b+n, val );
@@ -70,13 +66,7 @@ struct vector {
       b = bn;
     }
   }
-
-  void resize( int ns ) {
-    if( ns>a ) reserve( 2*ns );
-    while( n<ns ) b[n++] = T();
-    n = ns;
-  }
-  void resize( int ns, const T &v ) {
+  void resize( int ns, const T &v=T() ) {
     if( ns>a ) reserve( 2*ns );
     while( n<ns ) b[n++] = v;
     n = ns;
