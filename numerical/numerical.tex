@@ -1,10 +1,129 @@
 \categorytitle{Number Theory}
 \categorycontents{}
 
-\xinput{number_theory}
+\problemtitle{Divisibility}
+\begin{algorithm}{GCD}
+\reflisting{gcd}
+\usage{ \sourceline{d = gcd( a, b );} }
+\complexity{ \log(b) }
+\valladolid{202}
+\end{algorithm}
+
+\def\lcm{\mathrm{lcm}}
+\begin{algorithm}{LCM}
+\keyword{} $\lcm(a,b)=\frac{ab}{\gcd(a,b)}$
+\end{algorithm}
+
+\begin{algorithm}{Euclid}
+\reflisting{euclid}
+\usage{ \sourceline{d = euclid( a, b, \&x, \&y );} \quad %
+	$x$, $y$ will satisfy $ax+by=d$ after the call. }
+\complexity{ \log(b) }
+\characteristics{$x$ and $y$ have the smallest absolute value}
+\begin{example}
+	euclid( 10, 6, x, y ) == 2, x == -1, y == 2
+\end{example}
+\valladolid{202}
+\end{algorithm}
+
+\begin{algorithm}{$\phi$-function}
+\reflisting{phi}
+\keyword{} $\phi(n)=\#\{d<n|\gcd(n,d)=1\}$
+\keyword{} If $n=\prod p_i^{k_i}$,
+$\phi(n)=n\prod\left(1-\frac{1}{p_i}\right)=\prod p_i^{k_i-1}(p_i-1)$
+\complexity{ \sqrt{n} }
+\end{algorithm}
+
+\problemtitle{Primes}
+\begin{algorithm}{Primes}
+\reflisting{primes}
+\characteristics{{\tt primes} calculates a vector of primes and has a
+factor method which returns the smallest factor in the given integer.}
+\usage{ \sourceline{primes<int> p; p.generate(1000); n = factor(10); n==2;} }
+\end{algorithm}
+
+\begin{algorithm}{Prime Sieve}
+\reflisting{prime sieve}
+\characteristics{{\tt prime\_sieve} calculates a bool-vector containing
+whether an integer is prime. It is faster than {\tt primes} when dealing
+with large numbers. Returns whether an integer is prime in constant
+time.}
+\usage{ \sourceline{prime\_sieve p(1000); p.isprime(10)==false;} }
+\end{algorithm}\
+
+\begin{algorithm}{Primes Many}
+\reflisting{primes many simple}
+\reflisting{primes many fast}
+\characteristics{{\tt primes\_many\_simple} and {\tt primes\_many\_fast}
+calculates a vector of primes and is suitable when dealing with lots of
+primes (10000 or more). It calculates them by first sieving and then
+putting them into an array.}
+\usage{ \sourceline{primes\_many p(100000); p.primes[2] == 5;} }
+\end{algorithm}
+
+\begin{algorithm}{Miller-Rabin}
+\reflisting{miller-rabin}
+\complexity{ s \log(n) }
+\characteristics{{\tt isprime\_rabin\_miller} is a probabilistic primality
+test. It will never say that a prime is composite but may erroneous claim
+that a composite number is prime. The argument {\tt s} is the number of
+iterations to be used. The probability of a false answer is not more than
+$2^{-s}$ so $s=50$ is more than enough for most applications. The integer
+to be tested {\tt n} may be as large as $2^{63}-1$. }
+\usage{ \sourceline{ isprime\_rabin\_miller( n, s ); } }
+\end{algorithm}
+
+\begin{algorithm}{Number of divisors}
+\reflisting{ndivisors}
+\characteristics{{\tt ndivisors} and {\tt ndivisors\_prob} calculates
+the number of divisors. {\tt ndivisors} needs a prime-table with all primes
+upto the square root of the number and {\tt ndivisors\_prob} only primes as
+large as the third root of the number. The second algorithm uses a
+probabilistic primality test (Rabin-Miller).}
+\usage{ \sourceline{primes\_many\_fast p(100000);
+	ndivisors\_prob(23424234234243, p.primes) == 8;} }
+\end{algorithm}
+
+\problemtitle{Josephus}
+\begin{algorithm}{Josephus}
+\reflisting{josephus}
+\complexity{log_{\frac{k}{k-1}}(n)}
+
+Josephus is the problem to determine which person remains when repeatedly
+removing the $k$:th person from a total of $n$ persons (cyclic).
+\end{algorithm}
+
+
+\problemtitle{Random}
+\begin{algorithm}{Pseudo random numbers}
+\reflisting{pseudo}
+\characteristics{{\tt pseudo} gives a pseudo-random integer in
+$[0,2^{31}-1]$.}
+\characteristics{{\tt ullpseudo} gives a pseudo-random integer in
+$[0,2^{62}-1]$.}
+\characteristics{{\tt fpseudo} gives a pseudo-random number in
+$[0,1)$.}
+\complexity{1}
+\end{algorithm}
+
+\problemtitle{Bigmod}
+\begin{algorithm}{mulmod}
+\reflisting{mulmod}
+\characteristics{{\tt mulmod} calculates $ab\mbox{ mod } n$ in a way that
+allows numbers as large as MAXINT/2 to be used (which would otherwise give
+an overflow).}
+\usage{ \sourceline{ mulmod(5678945893454353ULL, 2423948234343ULL,
+	31231231231231231ULL) == 14355903581119892; } }
+\end{algorithm}
+
+\begin{algorithm}{exptmod}
+\reflisting{exptmod}
+\complexity{\log{b}\textrm{ ops}}
+\characteristics{{\tt exptmod} calculates $a^b\mod n$ by repeated
+squaring.}
+\end{algorithm}
 
 \begin{sourceslandscape}
-%%% Number theory
 \code{gcd}{gcd}
 \code{euclid}{euclid}
 \code{phi}{phi}
