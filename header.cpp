@@ -1,26 +1,15 @@
-/*****************************************************************************
- * 
- * <file>: <description>
- * =====================
+/* KTH ACM Contest Template Library
  *
- * <explanation>
+ * <area>/<problem>/<algorithm>
  *
- * INPUT
- * -----
- *
- * OUTPUT
- * ------
- *
- * COMPLEXITY  -
- *
- * REQUIRES  -
- * ------------------------------------------------------------------------- *
- *
- * NADA acmlib (10 March 2002)
- * Templates for KTH-NADA, Ballons'R'Us, ACM 2001-2002
- *   Swedish competition, Linköping 6 Oct 2001
- *   Revised for SWERC, Portu, Portugal 17 Nov 2001
- *   Revised for World Finals, Honolulu, 23 Mar 2002
- *   David Rydh, Mattias de Zalenski, Fredrik Niemelä
- *
- *****************************************************************************/
+ * Credit:
+ *   Aristoteles yyyy-yyyy
+ *   Based on [Intro to Algorithms, pp. xx-yy,zz]
+ *   Variation of [KTH.ACM.CTL. ff.cpp]
+ *   Sketch by nn
+ *   By nn
+ *   Updated by xx
+ *   Thanks to yy
+ *   Greetings to mum!
+ *   Dedicated to Dirk van Dalen
+ */
