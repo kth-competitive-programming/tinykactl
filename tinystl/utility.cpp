@@ -1,3 +1,13 @@
+/* KTH ACM Contest Template Library
+ *
+ * tinystl/utility
+ *
+ * Credit:
+ *   Alexander Stepanov
+ *   Based on STL
+ *   By Mattias de Zalenski
+ */
+
 template <class T>
 inline void swap(T &a, T &b) { T t = a; a = b; b = t; }
 inline void swap(int &a, int &b) { a ^= b ^= a ^= b; }

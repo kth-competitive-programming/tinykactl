@@ -85,6 +85,7 @@ allcode: always
 	cd solved && $(MAKE) code
 	cd solved/other && $(MAKE) code
 	cd solved/valladolid && $(MAKE) code
+	cd tinystl && $(MAKE) code
 
 allcodeclean: always
 	cd . && $(MAKE) codeclean
@@ -106,6 +107,7 @@ allcodeclean: always
 	cd solved && $(MAKE) codeclean
 	cd solved/other && $(MAKE) codeclean
 	cd solved/valladolid && $(MAKE) codeclean
+	cd tinystl && $(MAKE) codeclean
 
 LGSTRIP=header
 SUMSTRIP=header
