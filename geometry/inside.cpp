@@ -9,7 +9,8 @@
 #include "point_line_relations.cc"
 
 template <class It, class P>
-bool poly_inside(It begin, It end, const P &p, bool strict = true) {
+bool poly_inside(It begin, It end, const P &p, 
+		 bool strict = true) {
   bool inside = false;
   for (It i = begin, j = end - 1; i != end; j = i++) {
     if (on_segment(*j, *i, p)) return !strict;

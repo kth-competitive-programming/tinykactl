@@ -9,7 +9,8 @@
 const double NO_ISECT = -1.0/0.0;
 
 template <class P> inline 
-double line_isect(const P& A0, const P& A1, const P& B0, const P& B1) {
+double line_isect(const P& A0, const P& A1, 
+		  const P& B0, const P& B1) {
   typedef P::value_type T;
   P dP1 = A1-A0, dP2 = B1-B0, dL = B0-A0;
   T det = dP1.cross(dP2), s = dL.cross(dP1), t = dL.cross(dP2);
@@ -33,7 +34,8 @@ double line_isect(const P& A0, const P& A1, const P& B0, const P& B1) {
 }
 
 template <class P> inline 
-bool line_isect(const P& A0, const P& A1, const P& B0, const P& B1, P &R) {
+bool line_isect(const P& A0, const P& A1, 
+		const P& B0, const P& B1, P &R) {
   double t = line_isect(A0, A1, B0, B1);
   if (t != NO_ISECT) R = (1-t)*A0 + t*A1;
   return t != NO_ISECT;

@@ -2,17 +2,7 @@
 \categorytitle{Number theory}
 \categorycontents{}
 
-
-\code{euclid}{euclid}
-
-\begin{algorithm}{Chinese remainder theorem}
-\desc
-Solves the system $x = a \pmod m$, $x = b \pmod n$.  If $\gcd(m,n) =
-1$, {\tt chinese} may be used, otherwise, {\tt chinese\_common} must be
-used, which returns $-1$ if there is no solution.  The unique solution
-with $0 \le x < \mathrm{lcm}(m, n)$ is returned.
-\end{algorithm}
-\codenc{chinese}{chinese}
+\problemtitle{Primality}
 
 \begin{algorithm}{Primes}
 \desc
@@ -26,6 +16,19 @@ The 1000th prime is 7919. The first every 10000th primes are: {\small
 \code{prime sieve}{prime_sieve}
 
 \code{miller-rabin}{miller-rabin}
+
+\problemtitle{Divisibility}
+
+\code{euclid}{euclid}
+
+\begin{algorithm}{Chinese remainder theorem}
+\desc
+Solves the system $x = a \pmod m$, $x = b \pmod n$.  If $\gcd(m,n) =
+1$, {\tt chinese} may be used, otherwise, {\tt chinese\_common} must be
+used, which returns $-1$ if there is no solution.  The unique solution
+with $0 \le x < \mathrm{lcm}(m, n)$ is returned.
+\end{algorithm}
+\codenc{chinese}{chinese}
 
 \code{pollard-rho}{pollard-rho}
 

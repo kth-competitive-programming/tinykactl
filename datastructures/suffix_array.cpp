@@ -72,7 +72,7 @@ struct suffix_array {
 	       if(suff < 0 || !(border[position[suff]] & 2)) 
 		 continue;
 	       suff = position[suff];
-	       for (++suff; suff < N && (border[suff] ^ 2) == 0; ++suff)
+	       for (++suff; suff < N && (border[suff]^2) == 0; ++suff)
 		  border[suff] &= ~2;
 	    }
 	 }

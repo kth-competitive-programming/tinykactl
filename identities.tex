@@ -1,0 +1,81 @@
+\clearpage
+\categorytitle{Useful mathematical identities}
+\categorycontents{}
+
+
+
+\problemtitle{Trigonometry}
+
+\begin{align*}
+  \sin(v+w) &= \sin v \cos w + \cos v \sin w \\
+  \cos(v+w) &= \cos v \cos w  - \sin v \sin w  \\
+  \tan(v+w) &= \frac{\tan v +\tan w }{1-\tan v \tan w }\\
+  \sin v +\sin w  &= 2\sin\frac{v+w}{2}\cos\frac{v-w}{2}\\
+  \cos v + \cos w & = 2 \cos \frac{v+w}{2} \cos \frac{v-w}{2}\\
+\end{align*}
+$$
+\left\{\begin{array}{rcl}
+a\cos x + b \sin x &=& r\cos(x - \phi)\\
+a\sin x + b \cos x &=& r\sin(x + \phi)
+\end{array}\right.
+$$
+where $r = \sqrt{a^2+b^2}$, $\phi = \arctan(b,a)$.
+
+\problemtitle{Geometry}
+\begin{algorithm}{Triangles}
+\desc
+Side lengths $a, b, c$.\\
+Semiperimeter $p =\frac{a+b+c}{2}$.\\
+Area $A = \sqrt{p(p-a)(p-b)(p-c)}$.\\
+Circumradius $R = \frac{abc}{4A}$.\\
+Inradius $r = \frac{A}{p}$.\\
+Median (divides triangle into two equal-sized triangles) $m_a =
+\frac{1}{2}\sqrt{2b^2+2c^2-a^2}$.\\
+Bisector (divides angle in two) $s_a = \sqrt{bc\left[1-\left(\frac{a}{b+c}\right)^2\right]}$.
+$$\frac{\sin \alpha}{a} = \frac{\sin \beta}{b} = \frac{\sin \gamma}{c} = \frac{1}{2R}$$
+$$a^2 = b^2 + c^2 - 2bc\cos \alpha$$
+$$\frac{a+b}{a-b}= \frac{\tan\frac{\alpha+\beta}{2}}{\tan\frac{\alpha-\beta}{2}}$$
+\end{algorithm}
+
+\begin{algorithm}{Quadrilaterals}
+\desc
+Side lengths $a, b, c, d$.\\
+Diagonals $e (ad \leftrightarrow bc), f (ab \leftrightarrow cd)$.\\
+Diagonal angle $\theta$.\\
+Magic flux $F = b^2+d^2-a^2-c^2$.\\
+Area $4A = 2ef\sin \theta = F\tan \theta = \sqrt{4e^2f^2 - F^2}$.\\
+
+\end{algorithm}
+
+\begin{algorithm}{Regular Polyhedra}
+\desc
+Vertices $v$.\\
+Edges $e$.
+Faces $f = e-v+2$.
+Volume $V = k_V a^3$.\\
+Surface area $S = k_S a^2$.\\
+Circumradius $R = k_R a$.\\
+Inradius $r = k_r a$.\\
+
+Tetrahedron ($v = 4, e = 6$)
+\begin{align*} 
+  k_V &= \frac{\sqrt{2}}{12} & k_S &= \sqrt{3}\\
+  k_R &= \frac{\sqrt{6}}{4}    & k_r &= \frac{\sqrt{6}}{12}
+\end{align*}
+Octahedron ($v = 6, e = 12$)
+\begin{align*} 
+  k_V &= \frac{\sqrt{2}}{3} & k_S &= 2\sqrt{3}\\
+  k_R &= \frac{1}{\sqrt{2}}    & k_r &= \frac{1}{\sqrt{6}}
+\end{align*}
+Dodecahedron ($v = 20, e = 30$)
+\begin{align*} 
+  k_V &= \frac{15 + 7\sqrt{5}}{4} & k_S &= 3\sqrt{5(5+2\sqrt{5})}\\
+  k_R &= \frac{(1+\sqrt{5})\sqrt{3}}{4} & k_r &= \frac{\sqrt{10 + 22/\sqrt{5}}}{4}
+\end{align*}
+Icosahedron ($v = 12, e = 30$)
+\begin{align*}
+  k_V &= \frac{5(3 + \sqrt{5})}{12} & k_S &= 5\sqrt{3}\\
+  k_R &= \frac{\sqrt{2(5+\sqrt{5})}}{4} & k_r &= \frac{1}{2}\sqrt{\frac{7+3\sqrt{5}}{6}}
+\end{align*}
+  
+\end{algorithm}

@@ -9,7 +9,8 @@
  */
 
 template <class E, class M, class P, class D>
-bool bellman_ford_2(E &edges, M &min, P &path, int start, int n, int m) {
+bool bellman_ford(E &edges, M &min, P &path, 
+		  int start, int n, int m) {
   typedef typename M::value_type T;
   T inf(1<<29);
 
