@@ -27,24 +27,22 @@
 
 #include <vector>
 
-class sets {
+struct sets {
   struct set_elem {
     int head, rank; // rank is a pseudo-height with height<=rank
     set_elem( int anElem ) : head(anElem), rank(0) {}
   };
   vector< set_elem >  elems;
 
+  sets( int nElems ) {
+    for( int i=0; i<nElems; i++ )
+      elems.push_back( set_elem(i) );
+  }
+
   int get_head( int i ) { // Find head of set with path-compression
     if( i != elems[i].head )
       elems[i].head = get_head( elems[i].head );
     return elems[i].head;
-  }
-
-public:
-  sets( int nElems ) {
-    elems.reserve(nElems);
-    for( int i=0; i<nElems; i++ )
-      elems.push_back( set_elem(i) );
   }
 
   bool equal( int a, int b ) {

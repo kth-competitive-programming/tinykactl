@@ -39,7 +39,48 @@ nor FFT. Has an iterative sqrt-function.
 \begin{algorithm}{Bigint Per}
 \reflisting{bigint per}
 \desc
-Dynamic BigInt class which handles +,-,*. Additionally
-it can do divison/modulus with \texttt{int}s, find the n:th root of a number and
+Fully dynamic BigInt class which handles +,-,*. Additionally it can do
+divison/modulus with \texttt{int}s, find the n:th root of a number and
 do exponentiation with \^~. Input and output in base 10.
 \end{algorithm}
+
+
+\begin{algorithm}{Bigint Summary}
+\desc
+This table summarise the capabilities of the different Bigint
+implementations.
+
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+                  & Bigint & BI Simple & BI Full & BI Per \\
+\hline
+Lines                        & 185 & 192 & 318 & 167 \\
+\hline
+Add, Sub, Cmp                & \multicolumn{4}{|c|}{\ordo{n} for all four} \\
+\hline
+Mul with limb                & \ordo{n} & N/A & N/A & \ordo{n} \\
+\hline
+Multiplication               & \multicolumn{4}{|c|}{\ordo{n^2} for all four} \\
+\hline
+DivMod with limb             & \ordo{n} & N/A & N/A & \ordo{n} \\
+\hline
+DivMod                       & \ordo{n^2} & N/A & yes & N/A \\
+\hline
+Exponentiation $N^e$         & N/A & N/A & N/A & \ordo{e \cdot n^2} \\
+\hline
+Square root $\sqrt{N}$       & N/A & N/A & yes & N/A \\
+\hline
+$e$th root $\sqrt[e]{N}$     & N/A & N/A & N/A & yes \\
+\hline
+I/O Base                     & Any, but fixed & 10 & 10 & 10\\
+\hline
+Bitops with limb             & \ordo{1} & N/A & N/A & N/A\\
+\hline
+gcd                          & N/A & N/A & yes & N/A \\
+\hline
+\end{tabular}
+
+
+Here, $N$ is an $n$-bit number.
+\end{algorithm}
+

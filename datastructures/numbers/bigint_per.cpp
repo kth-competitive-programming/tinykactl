@@ -27,6 +27,8 @@
  *        Per Austrin, Christer Stålstrand, 2002-09-26
  *   Bugfixes (fix in modulo and input/output)
  *        Per Austrin, 2002-10-05
+ *   Bugfixes and update (fixes in add and sub, code compression)
+ *        Per Austrin, 2003-03-14
  *
  */
 
@@ -43,15 +45,16 @@ typedef bigint::reverse_iterator brit;
 typedef bigint::const_reverse_iterator bcrit;
 typedef bigint::iterator bit;
 
-/*                123456789 */
-#define LIMBSIZE 1000000000
+/* size of limbs
+ *             123456789  */
+#define LSIZE 1000000000
 #define LIMBDIGS 9
 
 bigint BigInt(limb i) {
   bigint res;
   do {
-    res.push_back(i % LIMBSIZE);
-  } while (i /= LIMBSIZE);
+    res.push_back(i % LSIZE);
+  } while (i /= LSIZE);
   return res;
 }
 
@@ -71,8 +74,7 @@ istream& operator>>(istream& i, bigint& n) {
 }
 
 /* Warning: the ostream must be configured to print things with right
- * justification.
- */
+ * justification.    */
 ostream& operator<<(ostream& o, const bigint& n) {
   int began = 0;
   char ofill = o.fill();
@@ -87,21 +89,17 @@ ostream& operator<<(ostream& o, const bigint& n) {
   return o;
 }
 
-/* POST: sgn(cmp(n1,n2)) = sgn(n1-n2)
- *       [except when n1 == n2, in which case cmp(n1, n2) == 0]
- */
+/* The base comparison function. semantics like strcmp(...).   */
 int cmp(const bigint& n1, const bigint& n2) {
   int x = n2.size() - n1.size();
   bcit i = n1.end()-1;
   bcit j = n2.end()-1;
-  while (x) {
-    if (x > 0) {
-      if (*j) return -1;
-      --j; --x;
-    } else {
-      if (*i) return 1;
-      --i; ++x;
-    }
+  if (x > 0) {
+    while (x--)
+      if (*j--) return -1;
+  } else if (x < 0) {
+    while (x++)
+      if (*i--) return 1;
   }
   for (; i + 1 != n1.begin(); --i, --j)
     if (*i != *j)
@@ -109,128 +107,108 @@ int cmp(const bigint& n1, const bigint& n2) {
   return 0;
 }
 
-/* The other operators will be automatically define by STL */
+/* The other operators will be automatically defined by STL */
 bool operator==(const bigint& n1, const bigint& n2) { return !cmp(n1,n2); }
 bool operator<(const bigint& n1, const bigint& n2) { return cmp(n1,n2) < 0; }
 
 
-bigint& operator+=(bigint& n1, const bigint& n2) {
-  limb mem = 0;
-  if (n1.size() < n2.size())
-    n1.resize(n2.size());
-  bit i = n1.begin();
-  for (bcit j = n2.begin(); j != n2.end(); ++j, ++i) {
-    mem += *j + *i;
-    *i = mem % LIMBSIZE;
-    mem /= LIMBSIZE;
-  }
-  if (mem) {
-    if (i == n1.end())
-      n1.push_back(mem);
-    else
-      *i += mem;
-  }
-  return n1;
+bigint& operator+=(bigint& a, const bigint& b) {
+  if (a.size() < b.size()) a.resize(b.size());
+  limb cy = 0;
+  bit i = a.begin();
+  for (bcit j = b.begin(); i != a.end() && (cy || j < b.end()); ++j, ++i)
+    cy += *i + (j < b.end() ? *j : 0), *i = cy % LSIZE, cy /= LSIZE;
+  if (cy) a.push_back(cy);
+  return a;
 }
 
-bool sub(bigint& n1, const bigint& n2) {
-  limb borrow = 0;
-  if (n1.size() < n2.size())
-    n1.resize(n2.size());
-  bit i = n1.begin();
-  for (bcit j = n2.begin(); j != n2.end(); ++j, ++i) {
-    *i -= borrow + *j;
-    borrow = *i < 0;
-    if (borrow)
-      *i += LIMBSIZE;
+/* Returns true if sign changed   */
+bool sub(bigint& a, const bigint& b) {
+  if (a.size() < b.size()) a.resize(b.size());
+  limb cy = 0;
+  bit i = a.begin();
+  for (bcit j = b.begin(); i != a.end() && (cy || j < b.end()); ++j, ++i) {
+    *i -= cy + (j < b.end() ? *j : 0);
+    if ((cy = *i < 0)) *i += LSIZE;
   }
-  if (borrow && i == n1.end() - 1)
-    while (i >= n1.begin())
-      *i = LIMBSIZE - *i--;
-  return borrow;
+  /* If sign changed, flip all digits.  These three lines can be
+   * ignored if it is known that the sign will not change, e.g. when
+   * using bigint in conjunction with sign.cpp or in many
+   * combinatorial counting problems.          */
+  if (cy)
+    while (i > a.begin())
+      *i = LSIZE - *--i;
+  return cy;
 }
 
-bigint& operator-=(bigint& n1, const bigint& n2) {
-  sub(n1, n2);
-  return n1;
+bigint& operator-=(bigint& a, const bigint& b) {
+  sub(a, b);
+  return a;
 }
 
-bigint& operator*=(bigint& n1, limb n2) {
-  limb mem = 0;
-  for (bit i = n1.begin(); i != n1.end(); ++i) {
-    mem = mem / LIMBSIZE + *i * n2;
-    *i = mem % LIMBSIZE;
-  }
-  while (mem /= LIMBSIZE)
-    n1.push_back(mem % LIMBSIZE);
-  return n1;
+bigint& operator*=(bigint& a, limb b) {
+  limb cy = 0;
+  for (bit i = a.begin(); i != a.end(); ++i)
+    cy = cy / LSIZE + *i * b, *i = cy % LSIZE;
+  while (cy /= LSIZE)
+    a.push_back(cy % LSIZE);
+  return a;
 }
 
-bigint& operator*=(bigint& n1, const bigint& n2) {
-  bigint x = n1;
-  n1.clear();
-  int j = 0;
-  for (bcit i = n2.begin(); i != n2.end(); ++i, ++j) {
-    bigint y = x;
-    y *= *i;
-    for (int k = j; k; --k)
-      y.insert(y.begin(), 0);
-    n1 += y;
-  }
-  return n1;
+bigint& operator*=(bigint& a, const bigint& b) {
+  bigint x = a, y, bb = b;
+  a.clear();
+  for (bcit i = bb.begin(); i != bb.end(); ++i, ++j)
+    (y = x) *= *i, a += y, x.insert(x.begin(), 0);
+  return a;
 }
 
 
-bigint& operator^=(bigint& n1, limb n2) {
-  bigint a = n1;
-  n1.clear();
-  n1.push_back(1);
-  while (n2) {
-    if (n2 & 1)
-      n1 *= a;
-    a *= bigint(a); /* clone needed. */
-    n2 >>= 1;
+bigint& operator^=(bigint& a, limb b) {
+  bigint aa = a;
+  a.clear(); a.push_back(1);
+  while (b) {
+    if (b & 1) a *= aa;
+    aa *= aa;
+    b >>= 1;
   }
-  return n1;
+  return a;
 }
 
 
-bigint& divmod(bigint& n1, limb n2, limb* rest = NULL) {
-  limb mem = 0;
-  for (brit i = n1.rbegin(); i != n1.rend(); ++i) {
-    mem += *i;
-    *i = mem / n2;
-    mem = (mem % n2) * LIMBSIZE;
-  }
+bigint& divmod(bigint& a, limb b, limb* rest = NULL) {
+  limb cy = 0;
+  for (brit i = a.rbegin(); i != a.rend(); ++i)
+    cy += *i, *i = cy / b, cy = (cy % b) * LSIZE;
   if (rest)
-    *rest = mem / LIMBSIZE;
-  return n1;
+    *rest = cy / LSIZE;
+  return a;
 }
 
-bigint& operator/=(bigint& n1, limb n2) { return divmod(n1, n2); }
-limb operator%(const bigint& n1, limb n2) {
+bigint& operator/=(bigint& a, limb b) { return divmod(a, b); }
+limb operator%(const bigint& a, limb b) {
   limb res;
-  bigint fubar = n1;
-  divmod(fubar, n2, &res);
+  bigint fubar = a;
+  divmod(fubar, b, &res);
   return res;
 }
 
 
-/* Finds the nth root of p in far worse time than necessary.
- * Returns 0 if the root doesn't exist.
- */
-bigint nroot(const bigint& p, limb n) {
+/* Finds the e:th root of n in far worse time than necessary.
+ * Returns 0 if the root doesn't exist.    */
+bigint root(const bigint& n, limb e) {
   int f;
-  bigint lo = BigInt(0), hi, m, p2;
-  hi = BigInt(LIMBSIZE);
-  hi ^= ((p.size()+1) / n) + 1;
+  bigint lo = BigInt(0), hi, m, n2;
+  hi = BigInt(LSIZE);
+  // let hi ~ LS^(1+log_LS(n))/e) = O(n^(1 + 1/e))
+  hi ^= ((n.size()+1) / e) + 1;
   while (1) {
     (m = lo) += hi;
     divmod(m, 2);
     if (m == lo)
       break;
-    (p2 = m) ^= n;
-    f = cmp(p, p2);
+    (n2 = m) ^= e;
+    f = cmp(n, n2);
     if (f < 0)
       hi = m;
     else if (f > 0)
@@ -238,6 +216,10 @@ bigint nroot(const bigint& p, limb n) {
     else
       return m;
   }
+  /* If just an approximation of the root is wanted, change return
+   * statement to:
+   * return lo;    (for floor(root))
+   * return hi;    (for ceil(root))          */
   return BigInt(0);
 }
 
