@@ -16,6 +16,7 @@ Miscellaneous algorithms in number theory.
 \end{algorithm}
 
 \begin{algorithm}{Euclid}
+\reflisting{euclid}
 \usage{ \sourceline{d = euclid( a, b, \&x, \&y );} \quad $a>b$, %
 	$x$ and $y$ are return values that satisfy $ax+by=d$. }
 \complexity{ \log(b) }
@@ -24,6 +25,15 @@ Miscellaneous algorithms in number theory.
 	euclid( 10, 6, x, y ) == 2, x == -1, y == 2
 \end{example}
 \valladolid{202}
+\end{algorithm}
+
+\begin{algorithm}{$\phi$-function}
+\reflisting{phi}
+\complexity{ \sqrt(n) }
+\end{algorithm}
+
+\begin{algorithm}{primes}
+\reflisting{primes}
 \end{algorithm}
 
 \begin{algorithm}{pseudo}
