@@ -18,29 +18,25 @@ struct splay_node {
   P &c(bool left) { return left ? l : r; } // child pointer reference
 };
 
-template <class T, bool reverse>
+template <class T, class C, bool reverse>
 struct splay_node_iterator {
   typedef T value_type;
   typedef splay_node<T> *P;
   typedef splay_node_iterator<T, reverse> sT;
-  P p, t; splay_node_iterator(P _p, P _t=0) : p(_p), t(_t?_t:_p) { }
+  typedef const splay_tree<T, C> &TR;
+  P p; TR t; splay_node_iterator(P _p, TR &_t=0) : p(_p), t(_t) { }
 
   static P side(P i, bool left = true) {
     if (i) while (i->c(left)) i = i->c(left);
     return i;
   }
   void succ(bool succ = true) { // pred if succ is false
-    if (!p) p = side(t, reverse);
-    else if (p->c(!succ))
-      p = side(p->c(!succ), succ); // min or max of subtree
-    else {
-      P i = p;
-      p = i->p; // or first left/right ancestor (or 0)
-      while (p && p->c(!succ) == i) i = p, p = i->p;
-    }
-  }
-  static sT begin(P i) { return sT(side(i, !reverse), i); }
-  static sT end(P i) { return sT(0, i); }
+    if (!p) p = side(t.root, reverse);
+    else if (p->c(!succ)) p = side(p->c(!succ), succ); // min or max of subtree
+    else { P i; do i = p, p = i->p; while (p && p->c(!succ) == i); }
+  } // ..or first left/right ancestor (or 0)
+  static sT begin(TR &t) { return sT(side(t.root, !reverse), t); }
+  static sT end(TR &t) { return sT(0, t); }
 
   sT &operator ++() { succ(!reverse); return *this; }
   sT &operator --() { succ(reverse); return *this; }
