@@ -14,14 +14,9 @@
  *
  *****************************************************************************/
 
-#include <functional>
-
-template<class R, class I> // R is a random_access_iterator to a T-array
-                           // I is a r_a_i to a const index-array
-struct indexed {
-  typedef typename iterator_traits<R>::value_type T;
-  R array; I index;
-  indexed( R &a, I &i ) : array(a), index(i) { }
-  T &operator[]( int i ) { return array[index[i]]; }
-  const T & operator[]( int i ) const { return array[index[i]]; }
+template<class V >
+struct indexed_less {
+  const V &v; // array
+  indexed_less( const V &v_ ) : v(_v) { }
+  bool operator()( int a, int b ) const { return v[a] < v[b]; }
 };
