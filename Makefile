@@ -90,7 +90,7 @@ allcodeclean: always
 	cd util && $(MAKE) codeclean
 	cd contest && $(MAKE) codeclean
 	cd datastructures && $(MAKE) codeclean
-	cd datastructures/numbers && $(MAKE) code
+	cd datastructures/numbers && $(MAKE) codeclean
 	cd io && $(MAKE) codeclean
 	cd numerical && $(MAKE) codeclean
 	cd combinatorial && $(MAKE) codeclean
