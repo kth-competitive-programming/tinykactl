@@ -1,0 +1,87 @@
+%\usepackage{latin1}
+\usepackage[latin1]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage{makeidx}
+\usepackage{verbatim}
+
+\advance\textwidth 20 mm				%1.8 cm
+%\advance\textheight 2.2 cm
+%\advance\topmargin -1.3 cm
+\advance\oddsidemargin  -5 mm			%0.2 cm
+\advance\evensidemargin -5 mm			%0.2 cm
+%\parskip = 0.2 cm
+
+%%%%%%%%%%%%%%%%%%%%%%
+%
+% Category definitions
+%
+%%%%%%%%%%%%%%%%%%%%%%
+
+\def\category#1{\def\thecategory{#1}\input #1/#1.tex}
+\def\categorytitle#1{\def\thecategoryname{#1}\chapter{#1}\index{#1}}
+\def\categoryindex#1{\index{\thecategoryname!#1 @\MakeLowercase{#1}} \index{#1}}
+
+\def\categorycontents{\@input{\jobname.lop}}
+
+\def\categorywritecontents{%
+  \begingroup
+    \makeatletter
+    \if@filesw
+      \expandafter\newwrite\csname tf@lop\endcsname
+      \immediate\openout \csname tf@lop\endcsname \jobname.lop\relax
+    \fi
+    \@nobreakfalse
+  \endgroup
+}
+
+\def\l@problem{\@dottedtocline{1}{1.5em}{2.3em}}
+\def\l@algorithm{\@dottedtocline{2}{3.8em}{3.2em}}
+
+\def\categorycontentline#1#2#3#4{%
+	\def\style@temp{#1}%
+	\ifx \style@temp\thecategoryname
+		\contentsline{#2}{#3}{#4}
+	\fi
+}
+\def\categoryaddtocontents#1#2{\addtocontents{lop}{\protect\categorycontentline%
+	{\thecategoryname}{#1}{#2}{\thepage}}}
+
+
+%%%%%%%%%%%%%%%%%%%%%
+%
+% Problem definitions
+%
+%%%%%%%%%%%%%%%%%%%%%
+
+\def\problem#1{\input \thecategory/#1.tex}
+\def\problemtitle#1{\def\theproblemname{#1}\section{#1}\categoryindex{#1}%
+	\categoryaddtocontents{problem}{#1}}
+\def\problemindex#1{\index{\thecategoryname!\theproblemname @\MakeLowercase{\theproblemname}!#1 @\MakeLowercase{#1}}%
+	\index{\theproblemname!#1 @\MakeLowercase{#1}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Algorithm definitions
+%
+%%%%%%%%%%%%%%%%%%%%%%%
+
+\newenvironment{algorithm}[1]{\def\thealgorithm{#1}\subsection{#1}\problemindex{#1}%
+   \categoryaddtocontents{algorithm}{\MakeLowercase{#1}}\begin{description}}{\end{description}}
+
+
+\def\keyword#1{\item[#1]}
+
+\newenvironment{source}{\verbatim\small\vspace{-0mm}}{\endverbatim}
+\def\sourceline#1{{\small \tt #1}}
+\def\sourcefile#1{{\small \vspace{-0mm}\verbatiminput{#1}}}
+
+\def\desc{}
+\def\usage#1{\keyword{Usage}\par #1}
+\def\complexity#1{\keyword{Complexity} $O(#1)$}
+\def\characteristics#1{\keyword{Characteristics}\par #1}
+\def\code#1{\keyword{Code} \sourcefile{\thecategory/#1}}
+\newenvironment{example}{\keyword{Example}\source}{\endsource}
+\def\valladolid#1{\keyword{Valladolid} #1}
+\def\implementation#1{\sourcefile{\thecategory/#1}}

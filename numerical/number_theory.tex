@@ -1,0 +1,34 @@
+\problemtitle{Number Theory}
+
+\begin{desc}
+Miscellaneous algorithms in number theory.
+\end{desc}
+
+\begin{algorithm}{GCD}
+\usage{ \sourceline{d = gcd( a, b );} \quad\quad $a>b$ }
+\complexity{ \log(b) }
+\code{gcd.cc}
+\characteristics{}
+\begin{example}
+	gcd( 10, 6 ) == 2
+\end{example}
+\valladolid{202}
+\end{algorithm}
+
+
+\begin{algorithm}{Euclid}
+\usage{ \sourceline{d = euclid( a, b, x, y );} \quad $a>b$, %
+	$x$ and $y$ are return values that satisfy $ax+by=d$. }
+sadsad
+
+asdsadasasdsadas asdsadasasdsadas asdsadas asdsadas asdsadas asdsadas asdsadas
+dfdfasdsadasasdsadas asdsadasasdsadas asdsadas
+
+\complexity{ \log(b) }
+\code{euclid.cc}
+\characteristics{$x$ and $y$ have (hopefully, probably, don't know...) the smallest absolute value}
+\begin{example}
+	euclid( 10, 6, x, y ) == 2, (x,y)==(-1,2)
+\end{example}
+\valladolid{202}
+\end{algorithm}

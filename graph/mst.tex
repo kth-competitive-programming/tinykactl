@@ -1,0 +1,20 @@
+\problemtitle{Minimum Spanning Tree}
+
+\begin{desc}
+MST is a nice problem.
+\end{desc}
+
+\begin{algorithm}{Kruskal}
+\usage{ kruskal( graph, tree, n ); }
+\complexity{ E\log E }
+\characteristics{Kruskal is faster when dealing with...}
+\begin{example}
+	vector< vector<pair<int,double> > > edges;
+
+	edges.resize( 100 );
+	kruskal( edges, edges, 100 );
+\end{example}
+\valladolid{10147}
+\end{algorithm}
+
+\implementation{mst/2_kruskal.cpp}
