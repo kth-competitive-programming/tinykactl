@@ -107,24 +107,25 @@ struct bigint {
     M c = M();
     for (unsigned i = size(); i-- > 0; )
       c = c * P + v[i], v[i] = T(c / d), c %= d;
-    sub(T()); d = T(c); // sub to clear away zeros, return remainder in d
+    sub(T()); d = T(c); // sub to clear away zeros; return remainder in d
     return *this;
   }
   bT &operator /=(T d) { return divmod(d); }
   bT operator /(T d) { bT t = *this; t.divmod(d); return t; }
-  T operator %=(T d) { divmod(d); v.clear(); carry(d); return *this; }
+  bT &operator %=(T d) { divmod(d); v.clear(); carry(d); return *this; }
   T operator %(T d) { bT t = *this; t.divmod(d); return d; }
 };
 
 #include <iostream>
-#include <iomanip>
 template <class T, class M>
 ostream &operator <<(ostream &out, const bigint<T, M> &n) {
   if (n.size() > 0) {
     unsigned i = n.size() - 1;
     out << n[i];
+    char fill = out.fill(); out.fill('0');
     while (i-- > 0)
-      out << setfill('0') << setw(n.N) << n[i];
+      out.width(n.N), out << n[i]; // right-adjust is required (but default(?))
+    out.fill(fill);
   }
   else
     out << '0';
@@ -147,13 +148,14 @@ istream& operator>>(istream& in, bigint<T, M> &n) {
   return in;
 }
 
-typedef unsigned long ul;
-typedef unsigned long long ull;
+//typedef unsigned long ul;
+//typedef unsigned long long ull;
+//typedef bigint<ul, ull> big;
+//const ul big::P = ul(1e9); // or 1e18, not using multiplication
+//const unsigned big::N = 9; // or 18
 
-typedef bigint<ul, ull> big;
-const ul big::P = ul(1e9); // or 1e18, not using multiplication
-const unsigned big::N = 9;
 //typedef unsigned short us;
+//typedef unsigned long ul;
 //typedef bigint<us, ul> big;
-//const us big::P = us(1e4);
-//const unsigned big::N = 4;
+//const us big::P = us(1e4); // or 1e9, not using multiplication
+//const unsigned big::N = 4; // or 9
