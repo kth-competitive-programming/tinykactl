@@ -18,7 +18,7 @@
 
 #include <iostream>
 #include <iomanip>
-//#include <sstream>
+#include <sstream>
 
 // copy util/adler.cpp to get most of the adler function!!!
 using namespace std;
