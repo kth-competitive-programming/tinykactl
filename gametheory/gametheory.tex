@@ -1,4 +1,4 @@
-\categorytitle{Game Theory}
+\categorytitle{Games}
 \categorycontents{}
 
 \problemtitle{Repetitive Asymmetric Games}
@@ -6,7 +6,22 @@
 Repetitive asymmetric games are best solved by recursing backwards from
 known winning \& losing positions.
 
+\problemtitle{Card Games}
+
+\begin{algorithm}{Poker Hands}
+\reflisting{poker hands}
+\usage{ \sourceline{int i = hand\_value(int hand[5]); string s = hand\_names[i];} }
+\valladolid{131}
+\desc
+Cards are assumed to be integers from $0..51$ where $0$ is the ace of
+the first color, $12$ the king of the first color, $13$ the ace of the
+second color, and so on.  (Note: no distinction is made between two
+hands of equal value (t.b.a.).)
+
+\end{algorithm}
+
 
 \begin{sourceslandscape}
 \code{rep asymm}{rep_asymm}
+\code{poker hands}{poker_hands}
 \end{sourceslandscape}
