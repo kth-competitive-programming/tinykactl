@@ -1,0 +1,108 @@
+Data Structures
+	map, set, queue, deque, stack, vector, list, string (hashmap) STL
+		heap, priority queue
+
+Numerical Problems
+	Gausselimination ???
+	Matrix Multiplication ??? 
+		matris som objekt...
+	Linear Programming ??? 
+		simplex
+	Random Number Generation
+	Primtalsgenereing (faktorering) 
+		lista primtal t. 100 + algoritm 
+	BigInt
+	Knapsack Problem ???
+	Determinant and Permanent
+
+Combinatorial Problems
+	Sorting
+		sort(), (qsort())
+	Searching
+		binary_search(), find(), (one-sided binary_search() ?) ...
+	Median and Selection
+		nth_element()
+	Generating Permutations
+		next_permutation(), prev_permutation(), random_shuffle() ...
+	Generating Subsets
+	Generating Partitions
+	Calendrical Calculations ???
+	Job Scheduling ???
+
+Graph Problems
+	Connected Components
+	Topological Sorting
+		Finns kanske?
+	Minimum Spanning Tree	
+		finns kanske?
+	Shortest Path
+		finns
+	Transitive Closure and Reduction
+		closure finns, reduction ???
+	Matching ???
+		~= max-flow
+	Eulerian Cycle / Chinese Postman
+		eulerwalk finns
+	Edge and Vertex Connectivity ???
+		= max-flow
+	Network Flow
+		finns några
+	Planarity Detection (and Embedding)
+
+Computational Geometry
+	Robust Geometric Primitives
+		intersect, on, areaT, in-circle, polArea
+	Convex Hull
+		finns
+	Triangulation ???
+	Voronoi Diagrams
+	Nearest Neighbor Search
+	Range Search ???
+	Point Location ???
+	Intersection Detection ???
+	Bin Packing ???
+	Polygon Partitioning ???
+	Maintaining Line Arrangements ???
+	Minkowski Sum ???
+
+Set and String Problems
+	String Matching
+		string.find() ?
+	Longest Common Subsequence
+	Shortest Common Superstring
+
+Hard Problems
+	...
+	
+Input/Output 
+	in-out-idiom
+	template
+		simple-/for-/while-solve()
+	Time
+		hh:mm:ss
+	fixtal
+		printf("%.2f", x) med cout ?
+
+Div. idiom
+
+-----------
+Flood-fill															Graph-problem.
+uttrycksevaluering post-/pre-/in-fix						Parsing
+tidtabellsökning													Search / ad hoc.
+C(n,k)																Math
+BigMod																Math
+gcd																	Math
+lcm																	Math
+------------
+General
+Graph
+Geometry
+String
+
+Math/Numerical
+Parsing?
+Data Structures
+Combinatorical
+Hard (Graph/Set)
+Idiom
+	?Input/Output
