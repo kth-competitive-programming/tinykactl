@@ -1,0 +1,81 @@
+\clearpage
+\categorytitle{Games, Puzzles and Martinis}
+\categorycontents{}
+
+
+
+\problemtitle{Games}
+
+\begin{algorithm}{Impartial take-and-break games (NIM-like games)}
+\desc
+A game where two players take turns removing (indistinguisable) tokens
+from some heaps of tokens.  The player removing the last token (thus
+causing the next player to be unable to move) is the winner.  The
+moves available are: removing $x$ tokens from a heap (for some set of
+allowed $x$), and splitting a heap of $n$ tokens into two heaps of
+$n_1$ and $n_2$ tokens where $n_1, n_2 < n$.  Because every move
+reduces a heap size by at least 1, such games can never end in draw.
+To find optimal strategies, Grundy numbers (or nimbers) can be used.
+The Grundy value of a state $S = \{n\}$ is defined as $G(S) =
+\mathrm{mex}\;S'$ where $S'$ runs over all successor states to $S$ and
+$\mathrm{mex}$ is the minimal excluded (nonnegative) value.  The
+Grundy value of $S =
+\{n_1, n_2, \ldots n_k\}$ is defined as $\bigoplus_{i=1}^{k}
+G(\{n_i\})$.  A state $S$ is winning iff $G(S) \ne 0$.
+
+\end{algorithm}
+
+
+\problemtitle{Puzzles}
+
+\code{nqueens}{combinatorial/nqueens}
+\code{magicsquare}{combinatorial/magicsquare}
+
+\begin{algorithm}{Tournament scheduling}
+\desc
+Compute a minimal day schedule where all teams meet all other
+teams. {\tt sched[i][j]} will contain the opponent of team {\tt j} on
+day {\tt i}, or 0 if no game that day.  Returns number of days.
+\end{algorithm}
+\codenc{tournaments}{combinatorial/tournaments}
+
+\begin{algorithm}{Josephus}
+\desc
+Which person remains when repeatedly removing the $k$:th person from a
+total of $n$ persons (cyclic)?
+\complexity{\log_{\frac{k}{k-1}}(n)}
+\end{algorithm}
+
+\codenc{josephus}{numerical/josephus}
+
+
+
+\problemtitle{Martinis}
+\code{bitmanip}{numerical/bitmanip}
+
+
+
+\begin{algorithm}{Dry Martini}
+\desc
+\begin{itemize}
+\item 5 parts dry gin
+\item 1 part Noilly Prat (dry vermouth)
+\end{itemize}
+Stir with ice.\\
+Strain into a chilled martiniglas.\\
+Decorate with a green olive.
+\end{algorithm}
+
+
+
+\begin{algorithm}{Perfect Martini}
+\desc
+\begin{itemize}
+\item 4 parts gin
+\item 1 part sweet Martini (sweet vermouth)
+\item 1 part Noilly Prat (dry vermouth)
+\end{itemize}
+Stir and strain into a cocktail glass.\\
+Decorate with a red cherry and a small lemon peel\\
+(See also Perfect Numbers, page \pageref{perfnum}.)
+\end{algorithm}
