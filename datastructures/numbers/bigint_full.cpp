@@ -135,7 +135,7 @@ public:
     rem.set( *this, l+1 );
 
     // Check for dividend < divisor (length-wise)
-    if( l < d.l ) {
+    if( l < d.l || d == zero) {
       quot.set( 0, 1 );
       return;
     }
