@@ -19,13 +19,10 @@ struct vector {
   typedef const T *const_iterator;
   typedef vector S;
 
-  vector( int _n=0, const T &val=T() ) {
-    n = a = _n;
-    b = new T[a];
+  vector( int _n=0, const T &val=T() ) : n(_n), a(_n), b(new T[_n]) {
     fill( b, b+n, val );
   }
-  vector( const S &x ) {
-    n = a = x.n; b = new T[a];
+  vector( const S &x ) : n(x.n), a(x.n), b(new T[x.n]) {
     copy(x.begin(),x.end(),begin());
   }
   ~vector() { delete[] b; }
@@ -48,7 +45,7 @@ struct vector {
   T &operator[](int k) { return b[k]; }
   const T &operator[](int k) const { return b[k]; }
 
-  void push_back(const T &v) { insert( end(), v ); }
+  void push_back(const T &v) { resize(n+1); b[n-1]=v; }
   void pop_back() { n--; }
   T *insert( T *pos, const T &v ) { return insert(pos,1,v); }
   T *insert( T *pos, int num, const T &v ) {
