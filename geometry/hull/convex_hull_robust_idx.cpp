@@ -36,8 +36,8 @@
  *
  *****************************************************************************/
 
-#include "geometry.h"
-#include "../general/1_indexed.cpp"
+#include "../../datastructures/indexed.cpp"
+#include "../../combinatorial/isort.cpp"
 
 template <class T>
 int ccw_simple(point<T> p0, point<T> p1, point<T> p2) {
@@ -82,9 +82,9 @@ int convex_hull_robust(V p, R idx, int n) {
     if( p[m].x == p[i].x && p[m].y == p[i].y )
       angles.push_back( make_pair(-100,0) );
     else if( ccw_simple(p[m],center,p[i]) == 0 )
-      angles.push_back( make_pair(angle(p[m],p[i]), dist2(p[m],p[i])) );
+      angles.push_back( make_pair(angle(p[i]-p[m]), dist2(p[i]-p[m])) );
     else
-      angles.push_back( make_pair(angle(p[m],p[i]), angle(center,p[i])) );
+      angles.push_back( make_pair(angle(p[i]-p[m]), angle(p[i]-center)) );
   }
 
   isort( angles.begin(), n, idx );

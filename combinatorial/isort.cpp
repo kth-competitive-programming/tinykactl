@@ -26,5 +26,5 @@ void isort( const R &array, int n, I indexlist, C comp ) {
 
 template<class R, class S>
 void isort( const R &array, int n, S indexlist ) {
-  isort( array, n, indexlist, less<iterator_traits<R>::value_type>() );
+  isort( array, n, indexlist, less<typename iterator_traits<R>::value_type>());
 }

@@ -5,7 +5,10 @@
 
 #include <vector>
 #include <set>
-#include "../graph/3_dijkstra_1.cpp"
+
+using namespace std;
+
+#include "../graph/dijkstra_1.cpp"
 
 bool solve( int testNum );
 

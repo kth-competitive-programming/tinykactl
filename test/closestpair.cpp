@@ -1,7 +1,13 @@
 #include <iostream>
+#include <vector>
 
-#include "../geometry/5_closestpair.cpp"
-#include "../geometry/6_closestpair_simple.cpp"
+using namespace std;
+
+#include "../geometry/point.cpp"
+#include "../geometry/point_ops.cpp"
+#include "../geometry/closestpair.cpp"
+#include "../geometry/closestpair_simple.cpp"
+//#include "../general/1_indexed.cpp"
 
 const int N=500000;
 

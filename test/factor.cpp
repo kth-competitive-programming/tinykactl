@@ -1,5 +1,8 @@
-#include "../numerical/factor.cpp"
 #include <iostream>
+
+using namespace std;
+
+#include "../numerical/factor.cpp"
 
 void printFactors(int n) {
   vpii facs = Factor(n);
