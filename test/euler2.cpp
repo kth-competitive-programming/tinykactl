@@ -14,7 +14,10 @@
 #include <vector>
 #include <set>
 #include <list>
-#include "../graph/6_euler_walk.cpp"
+
+using namespace std;
+
+#include "../graph/euler_walk.cpp"
 
 
 int main( void ) {
@@ -55,7 +58,7 @@ int main( void ) {
     if( i<numNodes )
       euler_walk( edges, i, path );
 
-    if( path.size() == numWords+1 )
+    if( path.size() == (unsigned)numWords+1 )
       cout << "Ordering is possible." << endl;
     else
       cout << "The door cannot be opened." << endl;

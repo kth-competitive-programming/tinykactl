@@ -1,6 +1,10 @@
 #include <map>
 #include <vector>
-#include "../graph/4_dijkstra_heap.cpp"
+#include <iostream>
+
+using namespace std;
+
+#include "../graph/dijkstra_heap.cpp"
 
 int main( void ) {
   vector< double > min;

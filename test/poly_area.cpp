@@ -1,13 +1,18 @@
 #include <iostream>
+#include <vector>
+using namespace std;
 
 const int N = 1000;
 
-#include "../geometry/4_polyarea.cpp"
+const double pi = acos(0.0) * 2;
+
+//#include "../geometry/geometry.h.cpp"
+#include "../geometry/poly_area.cpp"
 
 int main() {
-  point<int> a[4];
-  point<float> b[5];
-  point<double> c[N];
+  vector< point<int> > a(4);
+  vector< point<float> > b(5);
+  vector< point<double> > c(N);
   a[0] = point<int>(4, 4);
   a[1] = point<int>(8, 4);
   a[2] = point<int>(8, 8);

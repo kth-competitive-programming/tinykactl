@@ -8,6 +8,7 @@
  */
 #include <vector>
 #include "../dijkstra_prim.cpp"
+#include "../distfun.cpp"
 
 template <class E, class P>
 void prim(int root, E &edges, P &path, int n) {

@@ -6,6 +6,8 @@
  *   By Mattias de Zalenski
  */
 
+#include "point.cpp"
+
 template <class V>
 double poly_area(V p, int n) {
   typename V::value_type::coord_type a = 0;

@@ -1,7 +1,9 @@
 #include <iostream>
-#include "../graph/7_topo_sort.cpp"
-
 #include <vector>
+using namespace std;
+
+#include "../graph/topo_sort.cpp"
+
 
 typedef vector<int> E;
 typedef vector<E> V;

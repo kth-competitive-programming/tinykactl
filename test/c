@@ -1,1 +1,1 @@
-g++ -Wall -pedantic-errors -o $1 $1.cpp
+g++ -Wall -pedantic-errors -o $1.exe $1.cpp
