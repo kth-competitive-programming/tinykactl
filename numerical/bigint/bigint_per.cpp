@@ -25,6 +25,8 @@
  *        Per Austrin, pego@kth.se 2002-09-15
  *   Updated by
  *        Per Austrin, Christer Stålstrand, 2002-09-26
+ *   Bugfixes (fix in modulo and input/output)
+ *        Per Austrin, 2002-10-05
  *
  */
 
@@ -35,6 +37,7 @@
 
 /*                123456789 */
 #define LIMBSIZE 1000000000
+#define LIMBDIGS 9
 typedef unsigned long long ull;
 typedef vector<ull> bigint;
 typedef bigint::const_iterator bcit;
@@ -56,27 +59,34 @@ istream& operator>>(istream& i, bigint& n) {
   n.clear();
   while (l > 0) {
     int j = 0;
-    for (int k = l > 9 ? l-9: 0; k < l; ++k)
+    for (int k = l > LIMBDIGS ? l-LIMBDIGS: 0; k < l; ++k)
       j = 10*j + s[k]-'0';
     n.push_back(j);
-    l -= 9;
+    l -= LIMBDIGS;
   }
   return i;
 }
 
+/* Warning: the ostream must be configured to print things with right
+ * justification.
+ */
 ostream& operator<<(ostream& o, bigint& n) {
   int began = 0;
+  char ofill = o.fill();
   o.fill('0');
   for (brit i = n.rbegin(); i != n.rend(); ++i) {
-    if (began) o << setw(9);
+    if (began) o << setw(LIMBDIGS);
     if (*i) began = 1;
     if (began) o << *i;
   }
   if (!began) o << "0";
+  o.fill(ofill);
   return o;
 }
 
-/* Uppfyller:  sgn(cmp(n1,n2)) = sgn(n1-n2) */
+/* POST: sgn(cmp(n1,n2)) = sgn(n1-n2)
+ *       [except when n1 == n2, in which case cmp(n1, n2) == 0]
+ */
 int cmp(const bigint& n1, const bigint& n2) {
   int x = n2.size() - n1.size();
   bcit i = n1.end()-1;
@@ -116,9 +126,9 @@ bigint& operator+=(bigint& n1, const bigint& n2) {
   }
   if (mem) {
     if (i == n1.end())
-      n1.push_back(mem % LIMBSIZE);
+      n1.push_back(mem);
     else
-      *i += mem % LIMBSIZE;
+      *i += mem;
   }
   return n1;
 }
@@ -170,7 +180,7 @@ bigint& divmod(bigint& n1, ull n2, ull* rest = NULL) {
     mem = (mem % n2) * LIMBSIZE;
   }
   if (rest)
-    *rest = mem;
+    *rest = mem / LIMBSIZE;
   return n1;
 }
 
