@@ -39,7 +39,7 @@
 
 
 template<class V>     // R is random access iterators of point<T>s
-double closestpair_simple( const V &p, int n, int &i1, int &i2 ) {
+double closestpair( const V &p, int n, int &i1, int &i2 ) {
   typedef typename iterator_traits<V>::value_type P;
   vector< int > idx;
 

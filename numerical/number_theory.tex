@@ -118,5 +118,7 @@ an overflow).}
 
 \begin{algorithm}{exptmod}
 \reflisting{exptmod}
-\complexity{\log{e}}
+\complexity{\log{b}\textrm{ ops}}
+\characteristics{{\tt exptmod} calculates $a^b\mod n$ by repeated
+squaring.}
 \end{algorithm}
