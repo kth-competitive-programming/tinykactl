@@ -55,7 +55,7 @@
 \reflisting{permute}
 \desc
 {\tt permute} recursively generates all permutations
-without comparisons. The permutations are given in lexiographically order
+without comparisons. The permutations are given in lexicographic order
 using the original order (i.e. permute on ``baa'' gives baa, aba, aab).
 It can also be useful when the processing is done for each individual
 position (unnecessary duplicate work is avoided). Repetitions of non-adjacent
@@ -63,6 +63,22 @@ elements will give strange results since there is no possible ordering
 (i.e ``aba'').
 \usage{\sourceline{char a[n] = "caab"; permute(a+0,a+0,a+n);}}
 \end{algorithm}
+\begin{algorithm}{Permutations to/from integers}
+\reflisting{intperm}
+\usage{{\tt int perm[n], x;\\perm\_to\_int(x, perm, perm + n);\\int\_to\_perm(x, perm, perm + n);}}
+\complexity{ n^2 }
+\desc
+{\tt int\_to\_perm} and {\tt perm\_to\_int} defines a bijection
+between permutations $\pi \in S_n$ and integers $x \in \{0, \ldots
+n!-1\}$, with the additional property that it is order-preserving (so
+that it could be used for generating all permutations in lexicographic
+order, though {\tt next\_permutation} is much handier for this).  In
+theory, this could be useful when doing some graph search on
+permutations (though in practice, the number of integers for which
+$n!$ but not $n^n$ memory is feasible is quite small (2-3 depending on
+what you consider feasible)).
+\end{algorithm}
+
 \xinput{counting}
 
 \begin{sourceslandscape}
@@ -75,6 +91,7 @@ elements will give strange results since there is no possible ordering
 
 \sourcesection{Permutations \& Counting}
 \code{permute}{permute}
+\code{intperm}{intperm}
 \code{choose}{counting/choose}
 \code{multinomial}{counting/multinomial}
 \code{nperms}{counting/nperms}
