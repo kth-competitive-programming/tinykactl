@@ -2,6 +2,8 @@
 
 all: lgrind stripcode adler
 
+always: .
+
 clean:
 	cd lgrind; make clean
 
@@ -10,7 +12,7 @@ spotless: clean
 	rm -f stripcode stripcode.exe
 	rm -f adler adler.exe
 
-lgrind: .
+lgrind: always
 	cd lgrind; make lgrind
 
 stripcode: stripcode.cpp

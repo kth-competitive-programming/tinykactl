@@ -1,12 +1,12 @@
 #!/bin/bash
 for i in numerical graph/mst; do
+  get "$i"
   for src in "$i"/*.cpp; do
     base=$(echo "$src" | cut -d. -f1)
     dst=$base.lg
     sum=$base.sum
     case "$1" in
       gen)
-	get "$src"
 	util/stripcode header < "$src" |
 	util/lgrind/source/lgrind -i - > "$dst"
 	util/stripcode header preproc comments < "$src" |
