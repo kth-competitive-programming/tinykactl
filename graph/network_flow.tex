@@ -21,6 +21,14 @@ for each pair, simultaneously giving both forward and back capacity.
  flow\_add\_edge( edges, source, dest, cap [, back\_cap] ); }}
 \end{algorithm}
 
+\begin{algorithm}{lift to front}
+\reflisting{lift to front}
+\characteristics{This is a much more effective algorithm than Ford Fulkerson,
+even on bi-partite graphs, and suitable for any flow graph.}
+\usage{ \sourceline{flow = lift\_to\_front(edges, source, sink);} }
+\complexity{V^3}
+\end{algorithm}
+
 \begin{algorithm}{ford fulkerson}
 \reflisting{ford fulkerson}
 \characteristics{This is a DFS or BFS Ford Fulkerson which maximize the
@@ -41,12 +49,4 @@ to {\tt flow\_increase1}: }
 
 \sourceline{ while( flow\_increase1(edges, source, sink) ) flow++; }
 \complexity{E\cdot n_{aug~paths}}
-\end{algorithm}
-
-\begin{algorithm}{lift to front}
-\reflisting{lift to front}
-\characteristics{This is a much more effective algorithm than Ford Fulkerson,
-even on bi-partite graphs, and suitable for any flow graph.}
-\usage{ \sourceline{flow = lift\_to\_front(edges, source, sink);} }
-\complexity{V^3}
 \end{algorithm}
