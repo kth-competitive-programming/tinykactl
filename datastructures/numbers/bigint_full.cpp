@@ -73,25 +73,29 @@ public:
     return *this;
   }
 
-  BigInt & operator+=( const BigInt &x ) {
+  void add( const BigInt &x, int shift ) {
     // Alloc larger array if there could be an overflow
-    if( x.l > res || (l==res && x.l==res) )
-      set( *this, x.l*2 );
+    if( x.l+shift > res || (l==res && x.l+shift==res) )
+      set( *this, (x.l+shift)*2 );
 
     for( int i=0; i<x.l; i++ )
-      a[i] += x.a[i];
+      a[i+shift] += x.a[i];
     fix();
-
-    return *this;
   }
-
-  BigInt & operator-=( const BigInt &x ) {
+  void sub( const BigInt &x, int shift ) {
     for( int i=0; i<x.l; i++ )
-      a[i] -= x.a[i];
+      a[i+shift] -= x.a[i];
     fix();
-
-    return *this;
   }
+
+  BigInt & operator+=( const BigInt &x ) { add(x,0); return *this; }
+  BigInt & operator-=( const BigInt &x ) { sub(x,0); return *this; }
+  BigInt operator+( const BigInt &x ) const { BigInt y(*this); return y+=x; }
+  BigInt operator-( const BigInt &x ) const { BigInt y(*this); return y-=x; }
+  BigInt operator*( const BigInt &x ) const { BigInt y(*this); return y*=x; }
+  BigInt operator/( const BigInt &x ) const { BigInt y(*this); return y/=x; }
+  BigInt operator%( const BigInt &x ) const { BigInt y(*this); return y%=x; }
+
 
   BigInt & operator*=( const BigInt &x ) {
     BigInt prod;
@@ -107,9 +111,7 @@ public:
       }
     }
     prod.fix();
-    *this = prod;
-
-    return *this;
+    return *this=prod;
   }
 
 
@@ -135,7 +137,7 @@ public:
     rem.set( *this, l+1 );
 
     // Check for dividend < divisor (length-wise)
-    if( l < d.l || d == zero) {
+    if( l < d.l || d == zero ) {
       quot.set( 0, 1 );
       return;
     }
@@ -159,36 +161,24 @@ public:
       // underestimate the quotient so we won't get any underflow.
       int dh = divisor.a[ divisor.l-1 ]+1;
       BigInt qadd;
+      int qshift;
 
-      if( rem.l > 1 ) {
-	int guess = (rem.a[ rem.l-1 ]*MAX + rem.a[ rem.l-2 ])/dh;
-
-	// Scale guess to right position
-	qadd.set( 0, rem.l-divisor.l+1 );
-	qadd.a[ rem.l-divisor.l ] = guess/MAX;
-	if( rem.l > divisor.l )
-	  qadd.a[ rem.l-divisor.l-1 ] = guess%MAX;
-	qadd.l = rem.l-divisor.l+1;
-	if( guess < MAX ) {
-	  if( qadd.l > 1 )
-	    qadd.l--;
-	  else           // (This implies that guess == 0)
-	    qadd.a[0]++; // Fix case where x/x = 0 due to round-down.
-	}
+      if( rem.l > divisor.l ) {
+	qadd = (rem.a[ rem.l-1 ]*MAX + rem.a[ rem.l-2 ])/dh;
+	qshift = rem.l-divisor.l-1;
       } else {
-	int guess = rem.a[0]/dh;
-	if( guess == 0 ) guess++;
-
+	int guess = rem.a[ rem.l-1 ]/dh;
+	if( guess == 0 ) guess++; // Fix case where x/x = 0 due to round-down.
 	qadd.set( guess, 1 );
+	qshift = 0;
       }
 
       // Add guess to quotient
-      quot += qadd;
+      quot.add( qadd, qshift );
 
       // Subtract div*guess from remainder
-      BigInt remsub( qadd );
-      remsub *= divisor;
-      rem -= remsub;
+      qadd *= divisor;
+      rem.sub( qadd, qshift );
     }
 
     while( scaling > 0 ) {
@@ -196,7 +186,7 @@ public:
       scaling--;
     }
   }
-
+  /*
   void sqrt( BigInt &res ) const {
     // Newton-Raphson's method. Recursion: y' = y-(y^2-x)/(2y) = (y+x/y)/2
     if( *this == zero || *this == one ) {
@@ -217,7 +207,7 @@ public:
       }
     }
   }
-
+  */
 
   int comp( const BigInt &x ) const {
     int d = l-x.l;
