@@ -17,67 +17,43 @@ template <class K, class V, class C, bool multi >
 struct associative {
   typedef K key_type;
   typedef V value_type;
-  typedef const value_type &vR;
+  typedef const value_type &VR;
 
-  typedef splay_tree<value_type, C> Tree;
-  C comp; Tree t;
+  typedef splay_tree<V, C> Tree;
+  Tree t;
   typedef Tree::iterator iterator;
   typedef Tree::reverse_iterator reverse_iterator;
 
-  associative(C _comp = C()) : comp(_comp), t(_comp) { }
+  associative(C comp = C()) : t(comp) { }
   virtual ~associative() {}
   virtual V k2v(const K &k) = 0;
 
   // accessors
-  iterator begin() { return iterator::begin(t); }
-  iterator end() { return iterator::end(t); }
-  reverse_iterator rbegin() { return reverse_iterator::begin(t); }
-  reverse_iterator rend() { return reverse_iterator::end(t); }
+  iterator begin() { return t.begin(); }
+  iterator end() { return t.end(); }
+  reverse_iterator rbegin() { return t.rbegin(); }
+  reverse_iterator rend() { return t.rend(); }
   bool empty() const { return t.empty(); }
   unsigned size() const { return t.n; }
 
   // insert/erase
-  pair<iterator, bool> insert(vR x) {
-    bool f = !t.find(x);
+  pair<iterator, bool> insert(VR x) {
+    bool f = t.find(x, false) == t.end();
     if (f || multi) t.insert(x);
     return make_pair(iterator(t.root, t), f);
   }
-  //iterator insert(iterator pos, vR x) { return insert(x).first; }
+  //iterator insert(iterator pos, VR x) { return insert(x).first; }
   void clear() { t.clear(); }
   void erase(iterator pos) { t.erase(pos.p); }
-  unsigned erase(const K &k) { // return number of erased elements?? (/stl)
-    V v = k2v(k);
-    unsigned count = 0;
-    while (t.find(v)) t.erase(t.root), ++count;
-    return count;
-  }
+  unsigned erase(const K &k) { return t.erase(k2v(k)); }
 
-  // map operations
+  // associative operations
   iterator find(const K &k, bool left = true) { // return first match?? (/stl)
-    return iterator(t.find(k2v(k), left), t);
+    return t.find(k2v(k), left);
   }
-  unsigned count(const K &k) {
-    if (multi) {
-      unsigned count = 0;
-      iterator i = find(k);
-      V v = k2v(k);
-      while (i != end() && *i == v)
-	++count, ++i;
-      return count;
-    }
-    else
-      return find(k) == end() ? 0 : 1;
-  }
-  iterator lower_bound(const K &k) {
-    find(k, true); iterator i(t.root, t);
-    if (comp(i, k2v(k))) ++i;
-    return i;
-  }
-  iterator upper_bound(const K &k) {
-    find(k, false); iterator i(t.root, t);
-    if (!comp(k2v(k), i)) ++i;
-    return i;
-  }
+  unsigned count(const K &k) { return t.count(k2v(k)); }
+  iterator lower_bound(const K &k) { return t.lower_bound(k2v(k)); }
+  iterator upper_bound(const K &k) { return t.upper_bound(k2v(k)); }
   pair<iterator, iterator> equal_range(const K &k) {
     return make_pair(lower_bound(k), upper_bound(k));
   }
