@@ -1,3 +1,12 @@
+/* KTH ACM Contest Template Library
+ *
+ * Graph/Shortest Path/Dijkstra
+ *
+ * Credit:
+ *   Dijkstra
+ *   By David Rydh
+ */
+
 /*****************************************************************************
  * 
  * Graph2: dijkstra (without heap, no maps)
@@ -9,12 +18,12 @@
  * INPUT
  * -----
  * edges:  A vector with V edge-containers. The edge-containers should
- *         contain pairs (vertix, distance) and edges[vertix] should be the
- *         edge-list for the vertix "vertix". All distances must be positive.
+ *         contain pairs (vertex, distance) and edges[vertex] should be the
+ *         edge-list for the vertex "vertex". All distances must be positive.
  *
  *         (this allows edges to be a vector of (multi)maps or vectors etc)
  *
- * start:  The vertix from which the shortest path should be calculated.
+ * start:  The vertex from which the shortest path should be calculated.
  *
  * V:      The number of vertices.
  *
@@ -22,10 +31,10 @@
  * ------
  * min:    (A vector of the same size as edges.)
  *         At the end of the function, min[vertix] will contain the shortest
- *         path between "start" and "vertix" or -1 if no path was found.
+ *         path between "start" and "vertex" or -1 if no path was found.
  *
  * from_path: (A vector of the same size as edges.)
- *         from_path[x] contains the vertix, y, from which the vertix
+ *         from_path[x] contains the vertex, y, from which the vertex
  *         x was entered.
  *
  * COMPLEXITY  O(V^2+E)
@@ -41,58 +50,45 @@
  *
  *****************************************************************************/
 
-template<class V, class M, class T>
-void dijkstra( const V &edges, M &min, T &from, int start, int n )
-{
-  typedef typename V::value_type::const_iterator E_iter;
-  typedef typename M::value_type DIST;
-  const DIST inf = (DIST)0x20000000;
+template<class E, class M, class P>
+void dijkstra( const E &edges, M &min, P &path, int start, int n ) {
+  typedef typename E::value_type L;
+  typedef typename L::const_iterator L_iter;
+  typedef typename M::value_type T;
+  T inf(1<<29);
 
-  // Initialize min & from
+  // Initialize min & path
   for( int i=0; i<n; i++ ) {
     min[i] = inf;
-    from[i] = -1; // ***
+    path[i] = -1;
   }
-  min[start] = 0;
+  min[start] = T();
 
-
-  // Initalize processed
-  vector<bool>   processed;
-  processed.resize( n, false );
-
+  // Initalize proc
+  vector<bool> proc( n, false );
 
   // Find shortest path
   while( true ) {
-    int  node;
-    DIST least = inf;
+    int node;
+    T   least = inf;
 
-    for( int i=0; i<n; i++ ) {
-      if( !processed[i] && min[i] < least ) {
-        node = i;
-        least = min[i];
-      }
-    }
-
+    for( int i=0; i<n; i++ )
+      if( !proc[i] && min[i] < least )
+        node = i, least = min[i];
     if( least == inf )    // the rest of the nodes are unreachable
       break;
 
-
     // Process node
-    for( E_iter e=edges[node].begin(); e!=edges[node].end(); e++ ) {
+    const L &l = edges[node];
+    for( L_iter e=l.begin(); e!=l.end(); ++e ) {
       int destNode = (*e).first;
 
-      if( !processed[destNode] && min[node]+(*e).second < min[destNode]) {
+      if( !proc[destNode] && min[node]+(*e).second < min[destNode]) {
         min[destNode] = min[node] + (*e).second;
-	from[destNode] = node; // ***
+	path[destNode] = node;
       }
     }
 
-    processed[node] = true;
-  }
-
-  // Update min to -1 if inf
-  for( int i=0; i<n; i++ ) {
-    if( min[i] == inf )
-      min[i] = -1;
+    proc[node] = true;
   }
 }
