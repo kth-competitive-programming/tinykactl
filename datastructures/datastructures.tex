@@ -2,20 +2,76 @@
 \categorycontents{}
 \newpage
 
-\problemtitle{pair}
+\problemtitle{STL containers}
+\begin{algorithm}{pair}
+\usage{}
 {\tt \#include <utility>} or\\
 {\tt \#include <algorithm>}\\
 {\tt make\_pair}, {\tt p.first}, {\tt p.second}, {\tt <}, {\tt ==}.
+\end{algorithm}
 
-
-\problemtitle{string}
+\begin{algorithm}{string}
+\usage{}
 {\tt \#include <string>}\\
 {\tt substr}, {\tt <}, {\tt ==}.
+\end{algorithm}
 
-
-\problemtitle{vector}
+\begin{algorithm}{vector}
+\usage{}
 {\tt \#include <vector>}\\
 {\tt resize}, {\tt push\_back}, {\tt []}.
+\end{algorithm}
+
+\begin{algorithm}{deque}
+\usage{}
+{\tt \#include <deque>}\\
+{\tt push\_front}, {\tt push\_back}, {\tt []}.
+\end{algorithm}
+
+\begin{algorithm}{set}
+\usage{}
+{\tt \#include <set>}\\
+{\tt insert}, {\tt erase}, {\tt count}
+\end{algorithm}
+
+\begin{algorithm}{map}
+\usage{}
+{\tt \#include <map>}\\
+{\tt []}, {\tt count}
+\end{algorithm}
+
+\begin{algorithm}{list}
+\usage{}
+{\tt \#include <list>}\\
+{\tt push\_front}, {\tt push\_back}, {\tt []}.
+\end{algorithm}
+
+\begin{algorithm}{queue}
+\usage{}
+{\tt \#include <queue>}\\
+{\tt push}, {\tt empty}, {\tt front}, {\tt pop}.
+\end{algorithm}
+
+\begin{algorithm}{stack}
+\usage{}
+{\tt \#include <stack>}\\
+{\tt push}, {\tt empty}, {\tt top}, {\tt pop}.
+\end{algorithm}
+
+\begin{algorithm}{heap}
+\usage{}
+{\tt \#include <algorithm>}\\
+{\tt make\_heap}, {\tt push\_heap}, {\tt pop\_heap}, {\tt sort\_heap}.
+\end{algorithm}
+
+\begin{algorithm}{priority queue}
+\usage{}
+NB! the {\tt front()} is the element with the {\em highest} key.\\
+{\tt \#include <queue>}\\
+{\tt push}, {\tt empty}, {\tt front}, {\tt pop}.
+\end{algorithm}
+
+\problemtitle{Null vector}
 \begin{algorithm}{null vector}
 \reflisting{null vector}
 
@@ -24,15 +80,7 @@ The value is reset and its reference returned for any index referenced.
 \usage{\sourceline{ v[3612378] = 5; v[3612378] == 0; }}
 \end{algorithm}
 
-
-\problemtitle{deque}
-{\tt \#include <deque>}\\
-{\tt push\_front}, {\tt push\_back}, {\tt []}.
-
-
-\problemtitle{set}
-{\tt \#include <set>}\\
-{\tt insert}, {\tt erase}, {\tt count}
+\problemtitle{Disjoint sets}
 \begin{algorithm}{sets}
 \reflisting{sets}
 
@@ -41,25 +89,7 @@ called {\tt sets} to efficiently determine whether two vertices belong to
 the same tree.
 \end{algorithm}
 
-
-\problemtitle{map}
-{\tt \#include <map>}\\
-{\tt []}, {\tt count}
-
-
-\problemtitle{list}
-{\tt \#include <list>}\\
-{\tt push\_front}, {\tt push\_back}, {\tt []}.
-
-
-\problemtitle{queue}
-{\tt \#include <queue>}\\
-{\tt push}, {\tt empty}, {\tt front}, {\tt pop}.
-
-\problemtitle{priority queue}
-NB! the {\tt front()} is the element with the {\em highest} key.\\
-{\tt \#include <queue>}\\
-{\tt push}, {\tt empty}, {\tt front}, {\tt pop}.
+\problemtitle{Modifiable priority queue}
 \begin{algorithm}{mpq}
 \reflisting{mpq}
 
@@ -74,13 +104,7 @@ A common use is to use indices as elements which is compared using external
 containers.
 \end{algorithm}
 
-\problemtitle{stack}
-{\tt \#include <stack>}\\
-{\tt push}, {\tt empty}, {\tt top}, {\tt pop}.
-
-\problemtitle{heap}
-{\tt \#include <algorithm>}\\
-{\tt make\_heap}, {\tt push\_heap}, {\tt pop\_heap}, {\tt sort\_heap}.
+\problemtitle{Updatable heap}
 \begin{algorithm}{update heap}
 \reflisting{update heap}
 
@@ -93,6 +117,7 @@ be called with its position as argument.
 
 \begin{sourceslandscape}
 \code{null vector}{null_vector}
+\code{sets}{sets}
 \code{mpq}{mpq}
 \code{update heap}{update_heap}
 \end{sourceslandscape}
