@@ -12,6 +12,9 @@ template <class T>
 inline void swap(T &a, T &b) { T t = a; a = b; b = t; }
 //inline void swap(int &a, int &b) { a ^= b ^= a ^= b; }
 
+template <class T> inline T min(const T &a, const T &y) { return b<a?b:a; }
+template <class T> inline T max(const T &a, const T &y) { return a<b?b:a; }
+
 template <class S, class T>
 struct pair {
   typedef S first_type;
@@ -24,6 +27,5 @@ struct pair {
   bool operator<(R p) { return first<p.first ||
 			  first<=p.first && second<p.second; }
 };
-
 template <class S, class T>
 pair<S, T> make_pair(const S& s, const T &t) { return pair<S, T>(s, t); }
