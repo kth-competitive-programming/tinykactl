@@ -21,8 +21,8 @@ struct associative {
 
   typedef splay_tree<value_type, C> Tree;
   C comp; Tree t;
-  typedef splay_node_iterator<value_type, C, false> iterator;
-  typedef splay_node_iterator<value_type, C, true> reverse_iterator;
+  typedef Tree::iterator iterator;
+  typedef Tree::reverse_iterator reverse_iterator;
 
   associative(C _comp = C()) : comp(_comp), t(_comp) { }
   virtual ~associative() {}
@@ -60,7 +60,8 @@ struct associative {
     if (multi) {
       unsigned count = 0;
       iterator i = find(k);
-      while (i != end() && *i == k)
+      V v = k2v(k);
+      while (i != end() && *i == v)
 	++count, ++i;
       return count;
     }
