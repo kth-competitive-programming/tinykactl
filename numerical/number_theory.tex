@@ -1,10 +1,7 @@
 %%%
 %%% Number theory
 %%%
-\problemtitle{Number Theory}
-
-Miscellaneous algorithms in number theory.
-
+\problemtitle{Divisibility}
 \begin{algorithm}{GCD}
 \reflisting{gcd}
 \usage{ \sourceline{d = gcd( a, b );} }
@@ -37,6 +34,7 @@ $\phi(n)=n\prod\left(1-\frac{1}{p_i}\right)=\prod p_i^{k_i-1}(p_i-1)$
 \complexity{ \sqrt{n} }
 \end{algorithm}
 
+\problemtitle{Primes}
 \begin{algorithm}{Primes}
 \reflisting{primes}
 \characteristics{{\tt primes} calculates a vector of primes and has a
@@ -63,8 +61,8 @@ putting them into an array.}
 \usage{ \sourceline{primes\_many p(100000); p.primes[2] == 5;} }
 \end{algorithm}
 
-\begin{algorithm}{Rabin-Miller}
-\reflisting{rabin-miller}
+\begin{algorithm}{Miller-Rabin}
+\reflisting{miller-rabin}
 \complexity{ s \log(n) }
 \characteristics{{\tt isprime\_rabin\_miller} is a probabilistic primality
 test. It will never say that a prime is composite but may erroneous claim
@@ -86,6 +84,7 @@ probabilistic primality test (Rabin-Miller).}
 	ndivisors\_prob(23424234234243, p.primes) == 8;} }
 \end{algorithm}
 
+\problemtitle{Josephus}
 \begin{algorithm}{Josephus}
 \reflisting{josephus}
 \complexity{log_{\frac{k}{k-1}}(n)}
@@ -95,6 +94,7 @@ removing the $k$:th person from a total of $n$ persons (cyclic).
 \end{algorithm}
 
 
+\problemtitle{Random}
 \begin{algorithm}{Pseudo random numbers}
 \reflisting{pseudo}
 \characteristics{{\tt pseudo} gives a pseudo-random integer in
@@ -106,6 +106,7 @@ $[0,1)$.}
 \complexity{1}
 \end{algorithm}
 
+\problemtitle{Bigmod}
 \begin{algorithm}{mulmod}
 \reflisting{mulmod}
 \characteristics{{\tt mulmod} calculates $ab\mbox{ mod } n$ in a way that
@@ -115,6 +116,6 @@ an overflow).}
 	31231231231231231ULL) == 14355903581119892; } }
 \end{algorithm}
 
-\begin{algorithm}{$b^e \textrm{ mod } n$}
+\begin{algorithm}{expmod}
 \complexity{\log{e}}
 \end{algorithm}
