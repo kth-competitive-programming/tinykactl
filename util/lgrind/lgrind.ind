@@ -1,0 +1,156 @@
+
+ \begin{theindex} 
+ \makeatletter\scan@allowedfalse
+{\bfseries\hfil Symbols\hfil}\nopagebreak
+
+  \item \verb*+\,+\pfill \main{116}
+  \item =\verb*+\!+\pfill \main{116}
+  \item {\ttfamily @ @} (environment)\pfill \usage{4}, \usage{6}
+  \item \verb*+\@@lagrind+\pfill \main{143}
+  \item \verb*+\@@slagrind+\pfill \main{166}
+  \item {\ttfamily \%!} (environment)\pfill \usage{5}
+  \item {\ttfamily \%( \%)} (environment)\pfill \usage{4}
+  \item {\ttfamily \%*} (environment)\pfill \usage{5}
+  \item {\ttfamily \%<} (environment)\pfill \usage{5}
+  \item {\ttfamily \%=} (environment)\pfill \usage{5}
+  \item {\ttfamily \%@} (environment)\pfill \usage{5}
+  \item {\ttfamily \%[ \%]} (environment)\pfill \usage{5}
+  \item {\ttfamily \%\#} (environment)\pfill \usage{5}
+  \item {\ttfamily \%\$ \$\%} (environment)\pfill \usage{6}
+  \item {\ttfamily \%\% \%\%} (environment)\pfill \usage{6}
+  \item {\ttfamily \%| |\%} (environment)\pfill \usage{6}
+
+  \indexspace
+{\bfseries\hfil B\hfil}\nopagebreak
+
+  \item \verb*+\BGfont+\pfill \main{30}
+
+  \indexspace
+{\bfseries\hfil C\hfil}\nopagebreak
+
+  \item \verb*+\C+\pfill \main{106}
+  \item \verb*+\CE+\pfill \main{106}
+  \item \verb*+\CF+\pfill \main{106}
+  \item \verb*+\CMfont+\pfill \main{30}
+
+  \indexspace
+{\bfseries\hfil D\hfil}\nopagebreak
+
+  \item \verb*+\DefaultProc+\pfill \main{18}
+  \item \verb*+\DefaultProcCont+\pfill \main{18}
+
+  \indexspace
+{\bfseries\hfil E\hfil}\nopagebreak
+
+  \item environments:\efill 
+    \subitem {\ttfamily @ @}\pfill \usage{4}, \usage{6}
+    \subitem {\ttfamily \%!}\pfill \usage{5}
+    \subitem {\ttfamily \%( \%)}\pfill \usage{4}
+    \subitem {\ttfamily \%*}\pfill \usage{5}
+    \subitem {\ttfamily \%<}\pfill \usage{5}
+    \subitem {\ttfamily \%=}\pfill \usage{5}
+    \subitem {\ttfamily \%@}\pfill \usage{5}
+    \subitem {\ttfamily \%[ \%]}\pfill \usage{5}
+    \subitem {\ttfamily \%\#}\pfill \usage{5}
+    \subitem {\ttfamily \%\$ \$\%}\pfill \usage{6}
+    \subitem {\ttfamily \%\% \%\%}\pfill \usage{6}
+    \subitem {\ttfamily lgrind}\pfill \main{13}
+
+  \indexspace
+{\bfseries\hfil F\hfil}\nopagebreak
+
+  \item \verb*+\File+\pfill \main{58}
+
+  \indexspace
+{\bfseries\hfil H\hfil}\nopagebreak
+
+  \item \verb*+\Head+\pfill \main{58}
+
+  \indexspace
+{\bfseries\hfil I\hfil}\nopagebreak
+
+  \item \verb*+\ic@r+\pfill \main{106}
+  \item \verb*+\ifc@omment+\pfill \main{44}
+  \item \verb*+\ifLGd@fault+\pfill \main{40}
+  \item \verb*+\ifLGinline+\pfill \main{40}
+  \item \verb*+\ifLGnoprocindex+\pfill \main{27}
+  \item \verb*+\ifright@+\pfill \main{46}
+  \item \verb*+\ifstr@ng+\pfill \main{44}
+
+  \indexspace
+{\bfseries\hfil K\hfil}\nopagebreak
+
+  \item \verb*+\K+\pfill \main{106}
+  \item \verb*+\KWfont+\pfill \main{30}
+
+  \indexspace
+{\bfseries\hfil L\hfil}\nopagebreak
+
+  \item \verb*+\L+\pfill \main{70}
+  \item \verb*+\l@ftlno+\pfill \main{72}
+  \item \verb*+\lagrind+\pfill \usage{4}, \main{139}
+  \item \verb*+\LB+\pfill \main{97}
+  \item \verb*+\lc@unt+\pfill \main{2}
+  \item \verb*+\LGbegin+\pfill \main{40}
+  \item \verb*+\LGend+\pfill \main{40}
+  \item \verb*+\LGfsize+\pfill \main{30}
+  \item \verb*+\LGindent+\pfill \main{10}
+  \item \verb*+\LGleftnum+\pfill \main{8}
+  \item \verb*+\LGnorules+\pfill \main{13}
+  \item \verb*+\LGnuminterval+\pfill \main{2}
+  \item {\ttfamily lgrind} (environment)\pfill \main{56}
+  \item \verb*+\lgrindfile+\pfill \usage{4}, \main{189}
+  \item \verb*+\lgrindfilename+\pfill \main{52}
+  \item \verb*+\lgrindfilesize+\pfill \main{52}
+  \item \verb*+\lgrindhead+\pfill \main{52}
+  \item \verb*+\lgrindmodday+\pfill \main{52}
+  \item \verb*+\lgrindmodmonth+\pfill \main{52}
+  \item \verb*+\lgrindmodtime+\pfill \main{52}
+  \item \verb*+\lgrindmodyear+\pfill \main{52}
+  \item \verb*+\LGsize+\pfill \main{30}
+  \item \verb*+\LGsloppy+\pfill \main{15}
+  \item \verb*+\Line+\pfill \usage{5}, \main{57}
+  \item \verb*+\ln@xt+\pfill \main{2}
+  \item \verb*+\ls@far+\pfill \main{47}
+
+  \indexspace
+{\bfseries\hfil N\hfil}\nopagebreak
+
+  \item \verb*+\N+\pfill \main{106}
+  \item \verb*+\NewPage+\pfill \main{69}
+  \item \verb*+\NOfont+\pfill \main{30}
+
+  \indexspace
+{\bfseries\hfil P\hfil}\nopagebreak
+
+  \item \verb*+\PNsize+\pfill \main{30}
+  \item \verb*+\Proc+\pfill \main{18}
+  \item \verb*+\ProcCont+\pfill \main{18}
+
+  \indexspace
+{\bfseries\hfil R\hfil}\nopagebreak
+
+  \item \verb*+\r@ghtlno+\pfill \main{72}
+
+  \indexspace
+{\bfseries\hfil S\hfil}\nopagebreak
+
+  \item \verb*+\S+\pfill \main{106}
+  \item \verb*+\SE+\pfill \main{106}
+  \item \verb*+\STfont+\pfill \main{30}
+
+  \indexspace
+{\bfseries\hfil T\hfil}\nopagebreak
+
+  \item \verb*+\Tab+\pfill \main{97}
+  \item \verb*+\tb@x+\pfill \main{47}
+  \item \verb*+\TBw@d+\pfill \main{47}
+  \item \verb*+\TTfont+\pfill \main{30}
+
+  \indexspace
+{\bfseries\hfil V\hfil}\nopagebreak
+
+  \item \verb*+\V+\pfill \main{106}
+  \item \verb*+\VRfont+\pfill \main{30}
+
+ \end{theindex}

@@ -1,0 +1,10 @@
+These sources should compile without any problems.
+
+The "access" function is declared in "io.h" or "unistd.h", depending on your
+system. Replace "unistd" in "lgrind.c" with "io" if necessary. If your
+compiler issues only a warning for missing prototypes you can delete the
+#include completely. 
+
+
+The -d! option is tested and works well. It writes a patched version of the
+executable, run it at your own risk.

@@ -1,0 +1,55 @@
+# Makefile for lgrind, a LaTeX prettyprinter
+# for EMX+GCC with DMAKE, bound DOS-extender
+
+# $Id: makefile.emx,v 1.1.1.1 1999/05/13 13:02:55 mike Exp $
+
+# You will almost certainly want to change these
+DESTDIR=c:\\emtex\\bin
+DEFSFILE=c:\\emtex\\texinput\\lgrind\\lgrindef
+TEXINPUTS=c:\\emtex\\texinput\\lgrind
+
+SOURCES=lgrind.c regexp.c regexp.h lgrindef.c lgrindef.h retest.c v2lg.c
+TEXFILES=lgrind.doc lgrind.sty lgrind.ins
+MANPAGES=lgrind.1 lgrindef.5
+EXAMPLES=doc-lgrind.lg
+CMDS=lgrind.exe
+OBJS=lgrind.o regexp.o retest.o lgrindef.o v2lg.o
+
+CC=gcc
+HELPOPTION=-?
+CFLAGS=-O2 -DOS2
+# CFLAGS=-g
+# CFLAGS=-O2 -Dpopen=fopen -Dpclose=fclose
+# There are operating systems and compilers without these...
+
+.SUFFIXES: .o .c
+
+.c.o:
+	$(CC) -c $(CFLAGS) $<
+
+all:	$(CMDS)
+
+lgrind.exe: lgrind.o lgrindef.o regexp.o
+	$(CC) $(CFLAGS) -o lgrind.exe lgrind.o lgrindef.o regexp.o -s
+# alternatively you can bind the DOS-extender permanently:
+#	$(CC) $(CFLAGS) -o lgrind lgrind.o lgrindef.o regexp.o -s
+#	emxbind c:\emx\bin\emx.exe lgrind lgrind.exe -p
+
+lgrind.o: lgrind.c
+	$(CC) $(CFLAGS) -DDEFSFILE=\"${DEFSFILE}\" -DHELPOPTION=\"${HELPOPTION}\"\
+	                    -c lgrind.c
+
+v2lg.exe: v2lg.o
+	$(CC) $(CFLAGS) -o v2lg.exe v2lg.o
+
+retest.exe: retest.o regexp.o
+	$(CC) $(CFLAGS) -o retest.exe retest.o regexp.o
+
+install: all
+	-copy lgrind.exe $(DESTDIR)\\lgrind.exe
+	-copy lgrindef $(DEFSFILE)
+	-copy lgrind.dtx $(TEXINPUTS)\\lgrind.dtx
+	-copy lgrind.sty $(TEXINPUTS)\\lgrind.sty
+
+clean:
+	-del $(CMDS) $(OBJS) retest.exe v2lg.exe

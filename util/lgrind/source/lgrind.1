@@ -1,0 +1,228 @@
+'\" t
+.\" @(#)lgrind.1 3.62 25/05/99 MPi; from UCB 4.3
+.\" $Id: lgrind.1,v 1.5 2000/12/27 21:42:42 mike Exp $
+.\" This man page was reverse engineered by George V. Reilly from the
+.\" preformatted man page written by Tuna Ertemalp for Jerry Leichter's
+.\" version of tgrind.  gvr remains wilfully ignorant of troff.
+.dS C C\"       \" Fixed-width font
+.TH lgrind 1 "25 May 1999" "TeX/LaTeX"
+.SH NAME
+lgrind \- grind nice program listings using LaTeX
+.SH NOTE
+This man page is not yet much outdated, but might be soon except somebody
+asks me to work on it. Consider the LaTeX docs the real docs.
+.SH SYNOPSIS
+\fBlgrind\fR [ \fB-e\fP ] [ \fB-i\fP ] [ \fB-\fP ] [ \fB-n\fP ] [ \fB-c\fP ]
+[ \fB-t\fP \fI<width>\fP ]
+[ \fB-h\fP \fI<header>\fP ] [ \fB-d\fP \fI<description file>\fP ]
+[ \fB-l\fP\fI<language>\fP ] [ \fB-s\fP ] \fI<name>\fP ...
+.PP
+.SH DESCRIPTION
+LGrind formats program sources in a nice style using LaTeX(1).
+Comments are placed in roman, keywords in bold face, variables in
+italics, and strings in typewriter font. Source file line numbers
+appear in the right margin (every 10 lines).
+.PP
+LGrind processes its input file(s) and writes the result to standard
+output.  This output can be saved for later editting, inclusion in a
+larger document, etc.
+.PP
+The options are:
+.IP "\fB\-e\fP"
+process a LaTeX file for embedded code.
+.IP "\fB\-i\fP"
+process source code file for inclusion in a LaTeX document.
+.IP "\fB\-\fP"
+take input from standard input.
+.IP "\fB\-n\fP"
+don't boldface keywords.
+.IP "\fB\-c\fP"
+don't treat @, etc. specially in comments.
+.IP "\fB\-t\fP"
+change tab width (default 8).
+.IP "\fB\-h\fP"
+specifies text to go into the header.
+.IP "\fB\-d\fP"
+specifies the language definitions file (default is
+\fB/usr/lib/texmf/tex/latex/lgrind/lgrindef\fP).
+.IP "\fB\-d!\fP"
+same as above, but write patched executable.
+.IP "\fB\-l\fP"
+specifies the language to use.
+.IP "\fB\-s\fP"
+shows a list of currently known languages.
+.PP
+If LGrind is called without parameters, a help screen will be shown.
+If neither \fB\-e\fP nor \fB\-i\fP are specified, a complete LaTeX
+file is produced. When no language is specified, LGrind tries to find
+out the language used itself; C is used when this fails.
+.SH USAGE
+For example, to include a C file named \fBfoo.c\fP
+into your LaTeX document, first give the command:
+.IP "\fC    lgrind -i -lc foo.c > foo.tex\fP"
+.PP
+This will generate \fCfoo.tex\fP, which will have the
+pretty-printed version of \fCfoo.c\fP with a lot of LaTeX commands.
+.PP
+Then include \fClgrind.sty\fP as you include any other style,
+namely with the \fC\eusepackage{lgrind}\fP line at
+the beginning of your LaTeX document. Having done this,
+within the document you can include \fCfoo.tex\fP using one of the
+following commands:
+.PP
+.IP "\fC\elgrindfile{foo.tex}\fP"
+which will simply include the file at that point
+of text, and will draw horizontal lines before and
+after the listing.
+.PP
+.IP "\fC\elagrind[htbp]{foo.tex}{caption}{label}\fP"
+which will put the listing also within a figure
+environment, using the float options, caption and
+label you gave.
+.PP
+To produce a standalone LaTeX file from, say, a Yacc file:
+.IP "\fC    lgrind -ly bary.y > bary.tex\fP"
+This uses Piet van Oostrum's \fCfancyhdr.sty\fP to make the
+headers and footers.
+.PP
+For a more detailed explanation of these commands, refer to
+\fC/usr/TeX/texmf/doc/latex/lgrind.dvi\fP.
+.PP
+.SH "EMBEDDED PROGRAMS WITHIN A LaTeX FILE"
+(From Jerry Leichter's notes.)
+.PP
+Within the text of your LaTeX file, you mark groups of lines as
+either text- or display-style program code:
+.PP
+Text style:
+.TS
+l l.
+.fT \*C
+	The expression
+	%(
+	a + 3
+	%)
+	produces 10.
+.fT
+.TE
+prints something like:  "The expression \fIa\fP + 3 produces 10."
+(with "a + 3" set as a program.)
+.PP
+The same effect can be achieved with inline @'s.
+.TS
+l l.
+.fT \*C
+	The expression @a + 3@ produces 10.
+.TE
+.PP
+Display style:
+.TS
+l l.
+.fT \*C
+	The statement
+	%[
+	a += 3;
+	%]
+	is an example of an incrementing operator.
+.fT
+.TE
+prints something like:
+.TS
+l l.
+	The statement
+	      a += 3;
+	is an example of an incrementing operator.
+.TE
+.PP
+Important rules:
+.IP
+\fC%\fP and the following character must be the first two characters on
+the line to be recognized.
+.IP
+Put \fInothing\fR on the line after the \fC%\fR and the key character.
+If you do that, LGrind will provide a default environment that will
+produce an \fC\ehbox\fP for \fC%(\fP \fC)%\fP, and a \fC\evbox\fP for
+\fC%[\fP \fC-\fP \fC%]\fP.  If you put stuff on the line, LGrind
+assumes you want to control the format completely.  Doing this
+requires understanding \fIexactly\fP what the code LGrind produces is
+doing. (Sometimes I'm not sure I do!)
+.IP
+\fC%)\fP and \fC%]\fP are, if I remember right, simply ignored outside
+of a code group, but any extra \fC%(\fP or \fC%[\fP produces a
+warning, so a missing \fC%)\fP or \fC%]\fP is usually caught.
+.PP
+You can insert your own code by using a line starting with \fC%=\fP in
+the program text.  Whatever you enter after that is left in the
+output, exactly as you typed it.  It will be executed in a strange
+environment, so doing anything fancy is very tricky.  A macro, \fC\eLine\fP,
+is provided to help you do simple things.  For example,
+.TS
+tab (/);
+l.
+.fT \*C
+%[
+%=\eLine{________\evdots}
+        a = 1;
+%]
+.fT
+.TE
+produces:
+.TS
+tab (/);
+l.
+.fT \*C
+        \.
+        \.
+        \.
+        a = 1;
+.fT
+.TE
+.PP
+(Within the program text, \fC_\fP is active and expands to a
+fixed-width space.  A whole bunch of macros are also defined.  If you
+understand how LGrind sets lines up, you can replace the 8 \fC_\fP's
+with a call to \fC\eTab\fP \(em but I'll let you hang yourself on that one.)
+.PP
+The output of LGrind always contains exactly one output line for each input
+line.  Hence, you can look up line numbers in TeX error messages in your
+original file, rather than in the lgrind'ed (lground?) file.  (Of course, if
+the problem is in the LGrind output....)
+.PP
+Many things are controllable by re-defining various macros.  You can
+change what fonts LGrind will use for various kinds of things, how
+much it indents the output, whether it adds line numbers, and if so at
+what interval it prints them and whether it sticks them on the left or
+right, and so on.  This stuff is all described in \fClgrind.dvi\fP,
+though probably not very well. The default settings produce output
+that looks reasonable to me, though I can't say I'm ecstatic about it.
+Doing a \fIreally\fP good job would require defining some special fonts.
+.PP
+.SH FILES
+.IP "\fC/usr/bin/lgrind\fP"
+Executable
+.PP
+.IP "\fC/usr/doc/lgrind/lgrind.dvi\fP"
+Documentation
+.PP
+.IP "\fC/usr/lib/texmf/tex/latex/lgrind/lgrind.sty\fP"
+LaTeX style file
+.PP
+.IP "\fC/usr/lib/texmf/tex/latex/lgrind/lgrindef\fP"
+Language descriptions
+.PP
+.SH AUTHORS
+Van Jacobson, Lawrence Berkeley Laboratory (based on
+"vgrind" by Dave Presotto & William Joy of UC Berkeley),
+wrote it for TeX.
+.PP
+Jerry Leichter of Yale University modified it for LaTeX.
+.PP
+George V. Reilly of Brown University changed the name to lgrind,
+fixed up the man page, and added the program-text-within-comments
+and @-within-LaTeX features.
+.PP
+Michael Piefel of Humboldt-University Berlin adapted it to
+LaTeX2e and wrote decent documentation.
+.PP
+.SH "SEE ALSO"
+\fBlatex\fR(1), \fBtex\fR(1), \fBvgrind\fR(1), \fBlgrindef\fR(5)

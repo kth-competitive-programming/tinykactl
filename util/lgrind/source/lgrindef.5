@@ -1,0 +1,248 @@
+.\" @(#)lgrindef.5 3.62 11/2/97 MPi; from UCB 4.3
+.\" Copyright (c) 1983 Regents of the University of California.
+.\" All rights reserved.  The Berkeley software License Agreement
+.\" specifies the terms and conditions for redistribution.
+.\"
+.\" $Id: lgrindef.5,v 1.4 1999/10/05 17:41:35 mike Exp $
+.\"
+.\" This is the standard SunOS vgrindefs(5) manpage, with a few
+.\" additions to describe the extra capabilities needed by lgrind,
+.\" viz.: zb, ze, tb, te, mb, me, vb, ve, cf, rb.
+.\"
+.tr ||
+.TH LGRINDEF 5 "11 February 1997" "TeX/LaTeX"
+.SH NAME
+lgrindef \- LGrind's language definition data base
+.SH NOTE
+This man page is not yet much outdated, but might be soon except somebody
+asks me to work on it. Consider the LaTeX docs the real docs.
+.SH SYNOPSIS
+.B /usr/TeX/texmf/tex/latex/lgrind/lgrindef
+.SH DESCRIPTION
+.IX  "lgrindef file"  ""  "\fLlgrindef\fP \(em LGrind language definitions"
+.B lgrindef
+contains all language definitions for
+.BR lgrind (1).
+The data base is very similar to
+.BR vgrind (5)
+and
+.BR termcap (5),
+and it is upward-compatible with that of
+.BR vgrind (5).
+Capabilities in
+.B lgrindef
+are of two types:
+Boolean capabilities which indicate that the language has
+some particular feature
+and string
+capabilities which give a regular expression or
+keyword list.
+Entries may continue onto multiple lines by giving a \e as the last
+character of a line.
+Lines starting with # are comments.
+.SS Capabilities
+The following table names and describes each capability.
+.PP
+.PD 0
+.ta \w'\fBName\fP  'u
+.nr Xx \w'\fBName\fP  \fBType\fP  'u
+.TP \n(Xxu
+.B
+Name	Type
+.B Description
+.TP
+.B ab	\fRstr
+Regular expression for the start of an alternate form comment
+.TP
+.B ae	\fRstr
+Regular expression for the end of an alternate form comment
+.TP
+.B bb	\fRstr
+Regular expression for the start of a block
+.TP
+.B be	\fRstr
+Regular expression for the end of a lexical block
+.TP
+.B cb	\fRstr
+Regular expression for the start of a comment
+.TP
+.B ce	\fRstr
+Regular expression for the end of a comment
+.TP
+.B cf	\fRbool
+(Boolean) Use specialized C function detection
+.TP 
+.B id	\fRstr
+String giving characters other than letters and digits
+that may legally occur in identifiers (default `_')
+.TP
+.B kw	\fRstr
+A list of keywords separated by spaces
+.TP
+.B lb	\fRstr
+Regular expression for the start of a character constant
+.TP
+.B le	\fRstr
+Regular expression for the end of a character constant
+.TP
+.B mb	\fRstr
+Regular expression for the start of TeX math within a comment
+.TP
+.B me	\fRstr
+Regular expression for the end of TeX math within a comment
+.TP
+.B np	\fRstr
+Regular expression for a line
+.B not
+containing the start of a procedure
+.TP
+.B oc	\fRbool
+Present means upper and lower case are equivalent
+.TP
+.B pb	\fRstr
+Regular expression for start of a procedure
+.TP
+.B pl	\fRbool
+Procedure definitions are constrained to the lexical level
+matched by the `px' capability
+.TP
+.B px	\fRstr
+A match for this regular expression indicates
+that procedure definitions may occur at the next lexical level.
+Useful for lisp-like languages in which procedure definitions
+occur as subexpressions of defuns.
+.TP
+.B rb	\fRstr
+Regular expression for the start of a block outside the actual code
+.TP
+.B sb	\fRstr
+Regular expression for the start of a string
+.TP
+.B se	\fRstr
+Regular expression for the end of a string
+.TP
+.B rb	\fRstr
+Regular expression for the end of a block outside a funtion
+(e. g. records in Pascal and Modula-2)
+.TP
+.B tb	\fRstr
+Regular expression for the start of TeX text within a comment
+.TP
+.B tc	\fRstr
+Use the named entry as a continuation of this one
+.TP
+.B te	\fRstr
+Regular expression for the end of TeX text within a comment
+.TP
+.B tl	\fRbool
+Present means procedures are only defined at the top lexical level
+.TP
+.B vb	\fRstr
+Regular expression for the start of typewriter text within a comment
+.TP
+.B ve	\fRstr
+Regular expression for the end of typewriter text within a comment
+.TP
+.B zb	\fRstr
+Regular expression for the start of program text within a comment
+.TP
+.B ze	\fRstr
+Regular expression for the end of program text within a comment
+.PD
+.DT
+.SS "Regular Expressions"
+.B lgrindef
+uses regular expressions similar to those of
+.BR ex (1)
+and
+.BR lex (1).
+The characters `^',
+`$',
+`\^|',
+`:',
+and `\e'
+are reserved characters and must be
+`quoted' with a preceding \e if they
+are to be included as normal characters.
+The metasymbols and their meanings are:
+.IP $
+The end of a line
+.PD 0.2v
+.IP ^
+The beginning of a line
+.IP \ed
+A delimiter (space, tab, newline, start of line)
+.IP \ea
+Matches any string of symbols
+(like `.*' in lex)
+.IP \ep
+Matches any identifier.
+In a procedure definition
+(the `pb' capability)
+the string that matches this symbol is used as the procedure name.
+.IP (\^)
+Grouping
+.IP |
+Alternation
+.IP ?
+Last item is optional
+.IP \ee
+Preceding any string means that the string will not match an
+input string if the input string is preceded by an escape character (\e).
+This is typically used for languages (like C) that can include the
+string delimiter in a string by escaping it.
+.PD
+.PP
+Unlike other regular expressions in the system,
+these match words and not characters.
+Hence something like `(tramp\^|\^steamer)flies?'
+would match `tramp',
+`steamer',
+`trampflies',
+or `steamerflies'.
+Contrary to some forms of regular expressions,
+.B lgrindef
+alternation binds very tightly.
+Grouping parentheses are likely to be necessary in expressions
+involving alternation.
+.SS "Keyword List"
+The keyword list is just a list of keywords in the language separated
+by spaces.
+If the `oc' boolean is specified,
+indicating that upper and lower case are equivalent,
+then all the keywords should be specified in lower case.
+.SH EXAMPLE
+The following entry,
+which describes the C language,
+is typical of a language entry.
+.IP
+.ft B
+.nf
+C\^|\^the C programming language:\e
+	:pb=^\ed?*?\ed?\ep\ed?\(\ea?\):bb={:be=}:cb=/*:ce=*/:\e
+	:sb=":se=\ee":lb=':le=\ee':tl:\e
+	:zb=@:ze=@:tb=%%:te=%%:mb=%\e$:me=\e$%:vb=%\e\^|:ve=\e\^|%:\e
+	:kw=asm auto break case char continue default do double\e
+	else enum extern float for fortran goto if int long\e
+	register return short sizeof static struct switch typedef\e
+	union unsigned while #define #else #endif #if #ifdef\e
+	#ifndef #include #undef # define else endif if ifdef\e
+	ifndef include undef:
+.fi
+.ft
+.PP
+Note that the first field is just the language name
+(and any variants of it).
+Thus the C language could be specified to
+.BR lgrind (1)
+as `c' or `C', since case is not significant here.
+.SH FILES
+.ta \w'/usr/TeX/texmf/tex/latex/lgrind/lgrindef   'u
+\fB/usr/TeX/texmf/tex/latex/lgrind/lgrindef\fR	file containing terminal descriptions
+.SH "SEE ALSO"
+.BR latex (1),
+.BR lgrind (1),
+.BR vgrindefs (5),
+For full documentation, refer to the package itself; it comes as a .dtx
+containing both the documentation and the LaTeX-files.
+

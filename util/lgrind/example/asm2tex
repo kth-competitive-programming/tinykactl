@@ -1,0 +1,17 @@
+#!/bin/sh
+# convert .asm (Microsoft [or whatever] assembler) to .lg 
+
+if [ -n "$1" ] && [ -f $1 -o -f $1.asm ]
+then
+    if [ `basename $1` = `basename $1 .asm` ]
+    then
+	lgrind -i -lmasm $1.asm > $1.lg
+	echo Created $1.lg
+    else
+	lgrind -i -lmasm $1 > `basename $1 .asm`.lg
+	echo Created `basename $1 .asm`.lg
+    fi
+else
+    echo Usage: $0 "<file>[.asm]"
+    echo $1.asm does not exist.
+fi

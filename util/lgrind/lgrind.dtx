@@ -1,0 +1,1174 @@
+% \iffalse
+%
+% This is LGrind.DTX. This was written by:
+%
+% -  Van Jacobson, Lawrence Berkeley Laboratory (based on
+%    vgrind by Dave Presotto & William Joy of UC Berkeley),
+%    the original written for \TeX.
+% -  Jerry Leichter of Yale University, modifications for \LaTeX.
+% -  George V. Reilly of Brown University, renamed to lgrind
+% -  Michael Piefel, Humboldt-University Berlin, for \LaTeXe
+%    and a thousand little changes
+%
+% \fi
+% \iffalse
+%% Based on Van Jacobson's ``tgrindmac'', a macro package for TeX.
+%% Modified, 1987 by Jerry Leichter. Put '@' in all internal names.
+%% Modified, 1991 by George Reilly. Changed name from tgrind to lgrind.
+%% Modified, 1995 by Michael Piefel. Made it work with \LaTeXe.
+%%          -1999    Hundreds of bells and whistles. No changelog here.
+%
+%<*dtx>
+\ProvidesFile{lgrind.dtx}
+          [2002/01/28 v3.67 LGrind environment and supporting stuff]
+%</dtx>
+%<package>\NeedsTeXFormat{LaTeX2e}[1996/06/01]
+%<package>\ProvidesPackage{lgrind}
+%<package>          [2002/01/28 v3.67 LGrind environment and supporting stuff]
+%<*driver>
+\NeedsTeXFormat{LaTeX2e}[1996/06/01]
+\documentclass{ltxdoc}
+\CodelineIndex
+\RecordChanges
+\DocInput{lgrind.dtx}
+\end{document}
+%</driver>
+% \fi
+%
+% \newcommand{\LG}{\textsf{LGrind}}
+% \newcommand{\NFSS}{\textsf{NFSS}}
+% \frenchspacing
+% 
+% \GetFileInfo{lgrind.dtx}
+% \begin{document}
+% \title{The \LG{} package\thanks{This file
+%         has version number \fileversion, last
+%         revised \filedate.}}
+% \author{Various Artists}
+% \date{\filedate}
+% \maketitle
+% 
+% \CheckSum{679}
+% 
+% \begin{abstract}
+% The \LG{} package is a pretty printer for source
+% code. It evolved from vgrind, supported \TeX{} (tgrind) and
+% \LaTeX{} and now finally \LaTeXe, in particular \NFSS.
+% \end{abstract}
+% 
+% \changes{v1.0}{1985/02/10}{Written}
+% \changes{v2.0}{1991/09/06}{Upgrade to \LaTeX2.09}
+% \changes{v3.0}{1995/09/24}{Upgrade to \LaTeXe}
+% 
+% \section{Introduction}
+% \subsection{What is it?}
+% The \LG{} package consists of three files:
+% \begin{itemize}
+% \item \texttt{lgrind} or \texttt{lgrind.exe} is the executable. It will
+% convert an \LaTeX-File with embedded listings or a source code file
+% into a lot of macro-calls.
+% \item \texttt{lgrind.sty} provides the environments and macros to make
+% the produced mess readable.
+% \item \texttt{lgrindef} contains the information
+% needed to tell keywords from comments, comments from strings \dots
+% \end{itemize}
+% 
+% \subsection{Who is to blame?}
+% \LG{} is not the work of a single one. The program is based on
+% \textsf{vgrind} by Dave Presotto \& William Joy of UC Berkeley.
+% 
+% Van Jacobson wrote \textsf{tgrind} for \TeX. Jerry Leichter
+% of Yale University modified it for \LaTeX. George V. Reilly of 
+% Brown University changed the name to lgrind and added the
+% program-text-within-comments and @-within-\LaTeX{} features,
+% and finally
+% Michael Piefel of the Humboldt-University Berlin converted it to
+% work under \LaTeXe, i.\,e. with \NFSS, and improved the documentation.
+%
+% However, there have been many contributors who supported the development; in
+% particular the range of supported languages is mainly due to them.
+% Unfortunately I do not know all of them, but my thanks go to everybody.
+% A special Thank You to
+% Torsten Sch\"utze for his OS/2 support and many and various hints.
+% 
+% \section{\LG{} -- grind nice program listings}
+% 
+% \begin{tabbing}
+% \texttt{lgrind} \= \texttt{[-s] [-e] [-i] [-o \meta{file}] [-n] [-c] [-t }\meta{width}
+% \texttt{] [-h }\meta{header}\texttt{]} \\
+% \>\texttt{[-v }\meta{varfile}\texttt{] [-d[!] }\meta{description file}\texttt{]}
+% \texttt{[-l}\meta{language}\texttt{] [}\meta{name}\texttt{\textbar-]}
+% \end{tabbing}
+%
+% \LG{} processes its input file(s) and writes the result to standard
+% output. This output can be saved for later editing, inclusion in a
+% larger document, etc.
+% 
+% The options are:
+%
+% \makebox[2em][l]{-e} process a \LaTeX-file for embedded text.
+% 
+% \makebox[2em][l]{-i} process for inclusion in a \LaTeX-document.
+% 
+% \makebox[2em][l]{-}  take input from standard input.
+% 
+% \changes{v3.5}{1998/05/23}{Output redirection (-o) implemented.}
+% \makebox[2em][l]{-o} redirect output.
+%
+% \makebox[2em][l]{-n} don't boldface keywords.
+%
+% \makebox[2em][l]{-a} don't treat @, etc. specially in \LaTeX.
+%
+% \makebox[2em][l]{-c} don't treat @, etc. specially in comments.
+%
+% \makebox[2em][l]{-t} change tab width (default 8).
+% 
+% \makebox[2em][l]{-h} specifies text to go on the left side of every output 
+% page (default is none).
+% 
+% \makebox[2em][l]{-v} take variable substitution strings from file.
+%
+% \makebox[2em][l]{-d} specifies the language definitions file.
+% 
+% \changes{v3.3}{1996/08/23}{"lgrindef" position can be changed permanently}
+% \makebox[2em][l]{-d!} same as -d, except the change is permanent (modifies
+% executable)
+%
+% \makebox[2em][l]{-l} specifies the language to use.
+% 
+% \makebox[2em][l]{-s} shows a list of currently known languages.
+%
+% The standard for \LG{} is to take its input from the file given on the
+% command line and write on standard output. You can change this behaviour with
+% the options - and -o, respectively. Please note that as soon as a file is
+% detected on the command line (either its name or a -) it is processed with the
+% options then in effect, thus
+% allowing to give multiple files on one line with possibly multiple targets.
+%
+% If neither -e nor -i are specified, a complete \LaTeX-file is produced.  When
+% no language is given on the command line, \LG{} tries to figure out the
+% language via the extension of the file. A table of extensions and their
+% languages is in the definition file. If the extension is unknown, C is chosen
+% as a default.
+%
+% When \LG{} is started without any parameters, it will show a short help screen.
+% The same happens when the appropriate option is given, but this is
+% implementation dependent (usually what is common for the operation system, the
+% default for DOS is |-?| and for Unix |--help|).
+% 
+% The position of the \texttt{lgrindef}-file is determined by giving it on the
+% command line (highest priority), by defining an environment variable
+% \texttt{LGRINDEF}, and by the position fixed in \LG{}s executable. The latter
+% can be changed by using -d! and then using the newly created file as the new
+% \LG{}.
+% \changes{v3.5}{1998/05/30}{Now testing for \texttt{LGRINDEF} environment variable.}
+%
+% The languages which are currently known are stored in the language definition
+% file; their number increases more or less rapidly. At the time of writing the
+% languages in the table below are part of the distribution.
+%
+% \begin{table}\begin{minipage}{0.8\linewidth}
+% \let\thefootnote\thempfootnote
+% \newcommand{\fnm}[1]{\textsuperscript{\itshape#1}}
+% \begin{tabbing}
+% \hspace*{2em} \= \hspace{9em} \= \hspace{9em} \= \\
+% \> Ada             \> \LaTeX\footnote{John Leis, University of Southern Queensland, leis@usq.edu.au.}
+%                                       \> RATFOR          \\
+% \> Asm             \> LDL             \> RLaB\footnote{Jim Green, National Physical Laboratory, jjg1@cise.npl.co.uk} \\
+% \> Asm68           \> Lex             \> Russell         \\
+% \> BASIC\fnm{a}    \> Linda           \> SAS\footnote{Michael Friendly, friendly@hotspur.psych.yorku.ca} \\
+% \> Batch\fnm{b}    \> Lisp (Emacs)    \> Scheme\footnote{Neale Pickett, npickett@watchguard.com} \\
+% \> C               \> MASM\fnm{a}     \> sh              \\
+% \> C++             \> MATLAB\fnm{a}   \> SICStus\fnm{b}  \\
+% \> csh             \> ML\fnm{d}       \> src             \\
+% \> FORTRAN         \> Mercury         \> SQL             \\
+% \> Gnuplot\footnote{Denis Petrovic, Denis.Petrovic@public.srce.hr} 
+%                    \> model           \> Tcl/Tk\footnote{Alexander Bednarz, Forsch.-zentrum J\"ulich, A.Bednarz@kfa-juelich.de} \\
+% \> Icon            \> Modula2         \> VisualBasic\fnm{a} \\
+% \> IDL\footnote{Diego Berrueta, diego@berrueta.net} 
+%                    \> Pascal          \> VMSasm          \\
+% \> ISP             \> PERL            \> yacc            \\
+% \> Java            \> PostScript      \>                 \\
+% \> Kimwitu++       \> PROLOG          \>
+% \end{tabbing}\par
+% \let\footnoterule\relax
+% \end{minipage}\end{table}
+% \changes{v3.67}{2002/01/28}{Added Scheme and ML language definitions}
+% \subsection{Operation modes}
+% There are three modes of operation: stand-alone, include and embedded.
+%
+% Use |lgrind -ly bary.y > bary.tex| (or |lgrind -o bary.tex bary.y|) to
+% produce a stand-alone \LaTeX-file from, say, a Yacc file. This results in a
+% document which is formatted using Piet van Oostrum's \textsf{fancyhdr.sty} to
+% make the headers and footers. BTW: You really should have this package. It's
+% marvellous. But of course you can change the layout to your likings by
+% editing the \texttt{lgrindef}-file.
+% 
+% To include a C-file named \texttt{foo.c} into your \LaTeX-document, first
+% give the command: |lgrind -i -lc foo.c > foo.tex| This will generate
+% \texttt{foo.tex}, which will have the pretty-printed version of
+% \texttt{foo.c}.  Then include \texttt{lgrind.sty} as you include any other
+% package, namely with |\usepackage{lgrind}| at the beginning of your
+% \LaTeX-document. Having done this, within the document you can include
+% \texttt{foo.tex} using |\lagrind| and |\lgrindfile| described in the next section.
+% 
+% Finally, for the embedded (and probably most powerful) mode, when you have a
+% \LaTeX-file with embedded program listings, you can preprocess it with a command like:
+% |lgrind -e pretty-sources.lg > even-prettier-sources.tex|
+% and get a new \LaTeX-file which you then feed into \LaTeX. Commands you can
+% use within embedded texts are described below.
+% 
+% \section{Preparing documents}
+%
+% \subsection{Using the \LG.sty-file}
+% The \LG{} package is included via the |\usepackage| command. You have to include it
+% in your document preamble when you want to include listings and when using embedded
+% mode. It is done automatically for stand-alone listings.
+% Currently the following options are supported:
+% \begin{description}
+% \changes{v3.5}{1998/05/23}{Procedure names added to index in addition to
+% printing them in the margin.}
+% \item[procnames] prints the names of starting and, if nested
+% procedures are allowed, continued procedures in the margin. Don't make the
+% margin too small, or don't make the names too long \dots
+% \item[noprocindex] do not put found procedure beginnings in the index
+% \item[noindent] cancels the indentation. Useful for long listings or listings
+% within their own sections.
+% \item[fussy] lets \LaTeX\ print all overfull hboxes. The default is to suppress
+% this for about a tenth of an inch.
+% \item[norules] lets \LG{} suppress the surrounding rules for included material
+% (using |\lagrind| and |\lgrindfile|).
+% \item[nolineno] doesn't print line numbers.\footnote{To be exact, prints line
+% numbers every 50,000 lines. But source code should never get so long in a
+% single file~-- that's over 3 MByte! If you really want no numbers,
+% set $\backslash$\texttt{LGnuminterval} to zero; then you won't get procedure
+% names, either.}
+% \item[lineno5] prints line numbers every 5 lines. The default is 10.
+% \item[leftno] print line numbers in the left margin. Default is the right.
+% \end{description}
+% 
+% \subsection{Stand-alone and included listings}
+% After processing a source code file with \LG{} without the -e or -i
+% options you get a \LaTeX-file which can be directly compiled.
+% 
+% When using -i \LG{} will produce a file which can be included with the
+% following macros:
+% 
+% \DescribeMacro{\lgrindfile}
+% The first is |\lgrindfile{|\meta{file}|}|, which will simply include 
+% the file \meta{file} at that point of text, and will draw horizontal
+% lines before and after the listing.
+% 
+% \DescribeMacro{\lagrind}
+% The macro
+% |\lagrind[|\meta{float}|]{|\meta{file}|}{|\meta{caption}|}{|\meta{label}|}|
+% will put the listing also within a figure environment, using the \meta{float}
+% options (h, t, b or p), \meta{caption} and \meta{label} you gave. The starred
+% form of |\lagrind| will also use the starred |figure*|.
+% 
+% Note that floats cannot be longer than one page, so you should only use
+% |\lagrind| for short fragments, longer pieces should use |\lgrindfile| (which
+% is non-floating).
+%
+% \DeleteShortVerb{\|}\MakeShortVerb{\"}\MakePercentIgnore
+% \subsection{Embedded programs within a \LaTeX-file}
+% You don't have to process every single source file with \LG{}, only to
+% include it in your document. Within the text of your \LaTeX-file, you can
+% mark groups of lines as program code, either text- or display-style to
+% be specific. You can use several commands for controlling the inclusion
+% of source code into your \LaTeX-file.
+% 
+% Write your text, don't forget to include \LG.sty. Use the following
+% commands. You can `debug' your text without including the lengthy
+% listings. As a last step (but one), you process your file with \LG{}
+% and its option -e, which will provide you with your final \LaTeX{}
+% source file.
+% 
+% The commands are similar to the math environments. \DescribeEnv{\%( \%)}
+% With "%(" and "%)" you obtain code in text style, i.\,e. in the same line.
+% \DescribeEnv{@ @}Surrounding the text with "@" is a shorthand.
+% \begin{verbatim}
+% The expression
+% %(
+% a + 3
+% %)
+% produces 10.\end{verbatim}
+% produces the same as "The expression @a + 3@ produces 10." The output
+% will have `a + 3' set as a program.
+% 
+% \DescribeEnv{\%[ \%]}As with math, the square bracket equivalent produces
+% display style listings, i.\,e. indented text on an own line.
+% 
+% \DescribeEnv{\%*} As long listings tend not to fit on one page, there will
+% be page breaks inserted. Since page breaks can considerably affect readability
+% there will be none at all unless you insert lines consisting of just "%*".
+% Pages will end here and only here, but not necessarily here. (That is, you
+% allow (or recommend) a page break. It will be taken if needed.)
+% \changes{v3.3}{1996/09/02}{Allow page breaks in embedded listings}
+% 
+% \DescribeEnv{\%=} You can insert your own code by using a line starting with
+% "%=" in the program text. Whatever you enter after that is left in the output,
+% exactly as you typed it. It will be executed in a strange environment, so
+% doing anything fancy is very tricky. \DescribeMacro{\Line} A macro, "\Line",
+% is provided to help you do simple things. For example,
+% \begin{verbatim}
+% %[
+% %=\Line{________\vdots}
+%         a = 1;
+% %]\end{verbatim}
+% produces:
+% 
+% \hspace*{4em}\vdots
+% 
+% \hspace*{4em}\textit{a}\textsf{ = 1;}
+% 
+% (Within the program text, \_ is active and expands to a
+% fixed-width space.  A whole bunch of macros are also defined. If you
+% understand how \LG{} sets lines up, you can replace the 8 \_'s
+% with a call to "\Tab"---but I'll let you hang yourself on that one.)
+% 
+% \DescribeEnv{\%<}The "%<"\meta{file} command includes \meta{file} as a
+% program listing in your document. Before inclusion it will be pretty
+% printed. This is the almost the same as \LG ing the \meta{file}
+% separately and with -i and including it via "\lgrindfile", only that
+% it's simpler for you. \DescribeEnv{\%!} With "%!"\meta{command} the
+% input is taken from a shell command.
+% 
+% While you can specify the language used on the command line, this does
+% not suffice for mixed-language programs (or projects). The command
+% \DescribeEnv{\%\#}"%#"\meta{language} provides you a means to change
+% the language on the fly wherever you want.
+% 
+% \DescribeEnv{\%@}The shorthand "@" is very useful, and since "@" is not usable
+% in normal \LaTeX{} text there is no conflict. If, however, you use "@" in your
+% text (after "\makeatletter") the result produced by \LG{} is not satisfactory.
+% To disable the shorthand you can use a command line option, or locally "%@-".
+% Using "%@+" will switch it on again.
+%
+% Important rules:
+% \begin{itemize}
+% \item "%" and the following character must be the first two characters on
+% the line to be recognized.
+% \item
+% Put \emph{nothing} on the line after the "%" and the key character.
+% If you do that, \LG{} will provide a default environment that will
+% produce an "\hbox" for "%( )%", and a "\vbox" for "%[ %]".
+% If you put stuff on the line, \LG{} assumes you want to control
+% the format completely. Doing this requires understanding \emph{exactly}
+% what the code \LG{} produces is doing. (Sometimes I'm not sure I do!)
+% \item
+% "%)" and "%]" are simply ignored outside
+% of a code group, but any extra "%(" or "%[" produces a
+% warning, so a missing "%)" or "%]" is usually caught.
+% \item
+% Remember that the code between "%("/"%[" and "%)"/"%]" is put into a
+% single box. Expect the usual problems with long boxes! Use "%*" if needed.
+% \end{itemize}
+% 
+% \subsection{Formatting your source code}
+% Well, \LG{} uses a different font for comments. This has as a consequence
+% that functions you refer to are typeset differently in the program and
+% in the comments, which is unsatisfactory. And, wouldn't it be great to
+% use \LaTeX{} commands to produce e.\,g. `\copyright'?
+% 
+% The \texttt{lgrindef}-file defines environments for exactly these
+% purposes. They are usually defined as follows, but of course it is possible
+% to use other strings if the standard collides with the syntax of the
+% language in question.
+% 
+% \DescribeEnv{\%\% \%\%}Text which is surrounded by "%%" is directly
+% passed to \LaTeX, a pair of curled braces around it. So the copyright
+% symbol would be produced with "%%\copyright%%".
+% \DescribeEnv{\%\$ \$\%}The "%$"\meta{text}"$%" works much the same,
+% except that \meta{text} is set in math mode.
+%
+% When \LG{} discovers a line that contains \emph{only} a comment beginning
+% right at the start of the line and ending at the very end (no spaces), containing 
+% \emph{only} \LaTeX{} text as in the environment described above, the line
+% will be copied verbatim into the resulting \LaTeX{} document, with a newline
+% appended. This allows (e.\,g., in C):
+% \begin{verbatim}
+% /*%%\section{Main program}%%*/
+% int main()
+% {
+%     //%%\subsection{Variables}%%
+%     int a;\end{verbatim}
+% \changes{v3.6}{1999/05/28}{Complete \LaTeX{} lines allowed}
+%
+% The underscore which is normally the subscripting operator in math mode is
+% used internally in \LG{}. You can still use the command "\sb" instead (and
+% "\sp" for superscripts).\label{underscore}
+%
+% \DescribeEnv{\%| |\%}In "%|"\meta{text}"|%" a kind of verbatim
+% environment is provided. \meta{Text} is typeset in typewriter.
+% 
+% \DescribeEnv{@ @}Program text within a comment is surrounded by "@". The text
+% is processed exactly as if it wasn't a comment. To produce an at-sign
+% you have to use "@@".
+% 
+% \subsection{Greater control\dots}
+% Many things are controllable by re-defining various macros.  You can
+% change what fonts \LG{} will use for various kinds of things, how
+% much it indents the output, whether it adds line numbers, and if so at
+% what interval it prints them and whether it sticks them on the left or
+% right, and so on. This stuff is all described below in the code section,
+% though probably not very well. The default settings produce output
+% that looks reasonable to me, though I can't say I'm ecstatic about it.
+% Doing a \emph{really} good job would require defining some special fonts.
+%
+% Nonetheless as an example my own private font setup. After having defined a
+% font family called ttp (for typewriter proportional), using Boton (a
+% commercial font which has a nice `code look' to it), I define:
+% 
+% \begin{verbatim}
+% \def\CMfont{\ttpfamily\itshape}
+% \def\KWfont{\ttpfamily\bfseries}
+% \def\VRfont{\ttpfamily}
+% \def\BGfont{\ttpfamily}
+% \end{verbatim}
+%
+% You can put these redefinitions in the preamble of your \LaTeX-file when
+% using embedded and included mode; for stand-alone listings you have to put
+% them into the \texttt{lgrindef}-file. This will change fonts for all modes.
+% 
+% \subsection{Error messages}
+% The output of \LG{} always contains exactly one output line for each input
+% line.  Hence, you can look up line numbers in \TeX{} error messages in your
+% original file, rather than in the \LG ed (LGround?) file.  (Of course, if
+% the problem is in the \LG{} output\dots)
+% 
+% \subsection{Variable substitution}
+% \LG{} usually prints variables exactly the way they appear in the source
+% code. However, very often one uses names for variables which really denote
+% symbols and have special formatting, only that the input alphabet of the
+% target language does of course not allow anything fancier than plain ASCII.
+%
+% I find myself using greek variables very often, because they are used in the
+% problem domain. So there is a `delta' which really should be `$\delta$',
+% there is a `gamma\_1' for `$\gamma\sb1$' and so forth. LG{} allows you to
+% change those names back to what you desire by use of a variable substution
+% file (using option -v).
+%
+% This file is very simple, and so is its parser. There is one substitution per
+% line, giving the original name, an equality sign, and the text replacing the
+% original:
+% \begin{verbatim}
+% delta=$\delta$
+% gamma_1=$\gamma\sb1$
+% \end{verbatim}
+% You can do everything you want to here. Remember that \emph{usually} variable
+% names are set upright and not in math mode. Therefore don't forget the
+% dollar-sign, and use "\sb" instead of "_" (see section \ref{underscore}).
+%
+% \section{The \texttt{lgrindef}-file}
+% The \texttt{lgrindef}-file is \LG's language definition data base.
+% It is here where \LG{} learns what are keywords, what comments, where
+% are functions, how to distinguish plain comments from \LaTeX-commands etc.
+% 
+% The first field is just the language name (and any variants
+% of it). Thus the C language could be specified to \LG{} as `c' or `C'.
+% 
+% \subsection{Capabilities}
+% Capabilities are of two types: Boolean capabilities which indicate that
+% the language has some particular feature and string capabilities which
+% give a regular expression or keyword list.
+% 
+% Entries may continue onto multiple lines by giving a "\" as the last
+% character of a line. Lines starting with "#" are comments.
+% 
+% The following table names and describes each capability.
+% \bgroup\renewcommand{\descriptionlabel}[1]{\hspace{\labelsep}\makebox[1.5em][l]{\textsf{#1}}}
+% \begin{description}
+% \item[ab] Regular expression for the start of an alternate form comment
+% \item[ae] Regular expression for the end of an alternate form comment
+% \item[bb] Regular expression for the start of a block
+% \item[be] Regular expression for the end of a lexical block
+% \item[cb] Regular expression for the start of a comment
+% \item[ce] Regular expression for the end of a comment
+% \item[cf] (Boolean) Use specialized routine for detecting C functions
+% \changes{v3.1}{1995/11/12}{C functions are now detected much more reliably}
+% \item[id] String giving characters other than letters and digits
+% that may legally occur in identifiers (default `\_')
+% \item[kw] A list of keywords separated by spaces
+% \item[lb] Regular expression for the start of a character constant
+% \item[le] Regular expression for the end of a character constant
+% \item[mb] Regular expression for the start of \TeX{} math within a comment
+% \item[me] Regular expression for the end of \TeX{} math within a comment
+% \item[np] Regular expression for a line that does \emph{not} contain
+% the start of a procedure (e.\,g. prototypes)
+% \item[oc] (Boolean) Present means upper and lower case are equivalent
+% \item[pb] Regular expression for start of a procedure
+% \item[pl] (Boolean) Procedure definitions are constrained to the lexical
+% level matched by the `px' capability
+% \item[px] A match for this regular expression indicates that procedure
+% definitions may occur at the next lexical level. Useful for lisp-like
+% languages in which procedure definitions occur as subexpressions of defuns.
+% \item[rb] Regular expression for the start of block outside the actual
+% code.\footnote{I included this especially for the \texttt{objects} and
+% \texttt{records} in Pascal and Modula-2. They \emph{end} (with the "<"be">"
+% expression), but shouldn't have any influence on the surrounding procedure.
+% When defining \texttt{record} as normal block start, its \texttt{end} ends
+% the procedure. Workaround: Make \texttt{record} itself a procedure start.
+% But that prints a continuation mark when \textsf{procnames} is on.}
+% \changes{v3.1}{1995/11/12}{Pascal objects now treated properly}
+% \item[sb] Regular expression for the start of a string
+% \item[se] Regular expression for the end of a string
+% \item[tb] Regular expression for the start of \TeX{} text within a comment
+% \item[tc] (String) Use the named language entry as a continuation of the
+% current one
+% \item[te] Regular expression for the end of \TeX{} text within a comment
+% \item[tl] (Boolean) Present means procedures are only defined at the top
+% lexical level
+% \item[vb] Regular expression for the start of typewriter text within a
+% comment
+% \item[ve] Regular expression for the end of typewriter text within a comment
+% \item[zb] Regular expression for the start of program text within a comment
+% \item[ze] Regular expression for the end of program text within a comment
+% \end{description}
+% \egroup
+% 
+% \subsection{Regular Expressions}
+% \texttt{lgrindef} uses regular expressions similar to those of
+% \textsf{ex} and \textsf{lex}. The characters `"^"', `"$"', `"|"', `:',
+%%stopzone   % VIM syncing
+% and `"\"' are reserved characters and must be `quoted' with a preceding
+% "\" if they are to be included as normal characters.
+% 
+% The meta-symbols and their meanings are:
+% \begin{description}
+% \item[\$] The end of a line
+% \item[\^] The beginning of a line
+% \item[$\backslash$d] A delimiter (space, tab, newline, start of line)
+% \item[$\backslash$a] Matches any string of symbols (like `.*' in lex)
+% \item[$\backslash$p] Matches any identifier. In a procedure definition
+% (the `pb' capability) the string that matches this symbol is used
+% as the procedure name.
+% \item[( )] Grouping
+% \item[$|$] Alternation
+% \item[?] Last item is optional
+% \item[$\backslash$e] Preceding any string means that the string will not
+% match an input string if the input string is preceded by an escape character
+% ("\"). This is typically used for languages (like C) that can include the
+% string delimiter in a string by escaping it.
+% \end{description}
+% 
+% Unlike other regular expressions in the system, these match words and
+% not characters. Hence something like `(tramp"|"steamer)flies?'
+% would match `tramp', `steamer', `trampflies', or `steamerflies'.
+% Contrary to some forms of regular expressions, \texttt{lgrindef}
+% alternation binds very tightly. Grouping parentheses are likely to
+% be necessary in expressions involving alternation.
+% 
+% \subsection{Keyword List}
+% The keyword list is just a list of keywords in the language separated
+% by spaces. If the `oc' boolean is specified, indicating that upper
+% and lower case are equivalent, then all the keywords should be specified
+% in lower case.
+% 
+% \subsection{Configuration options}
+% \changes{v3.1}{1995/11/07}{The \LaTeX-text put into the files
+% can be configured}
+% In addition to the language definitions the \texttt{lgrindef}-file
+% contains various configuration data. When the entries do not exist,
+% default values are used:
+% \begin{description}
+% \item[firstpreamble] is the (\LaTeX-)text that comes at the beginning of
+% an stand-alone file created by \LG{} from source code (it must contain
+% "\begin{document}" somewhere).
+% \item[postamble] is the (\LaTeX-)text that comes at the end of
+% an stand-alone file (and must contain "\end{document}"). This is the place to
+% put a "\printindex" if you wish so (don't forget "\usepackage{makeidx}" and
+% "\makeindex" in the preamble).
+% \item[filepreamble] is inserted before every processed source file in a
+% stand-alone \LaTeX-file. In these two preambles you can use "\f", which
+% will be substituted by the current input file (e.\,g. to put it into the
+% header).
+% \item[configuration] follows the opening of the \texttt{lgrind}-environment.
+% This is used for redefining the macros used within it, e.\,g. the fonts
+% or the width of a space (the "\@ts" unit).
+% \item[chartab] is a list of characters that will be substituted by a
+% \LaTeX-string. This is useful when you do (or can) not use any of the fancy
+% methods to persuade \LaTeX{} into using your extended ASCII-characters.
+% The format is a two digit hex number (the ASCII- (or whatever) value of the
+% character), an equal sign, and the according \LaTeX{}-string, ended with a
+% colon. You have to escape certain characters (like the backslash). So if
+% you, e.\,g., have IBM ASCII code page 437 input and use the
+% \textsf{german}-package, you can have your \"a using \verb+84="a+. Note
+% that the substituting string must contain more than one character;
+% otherwise it will be ignored. To print a `b' instead of an `a' you can
+% use \verb+61={b}+.
+% \end{description}
+%
+% \StopEventually{\PrintChanges\PrintIndex}
+%
+% \section{The Implementation of \LG.sty}
+%    \begin{macrocode}
+%<*package>
+%    \end{macrocode}
+% \setlength{\parindent}{0pt}
+%
+% \begin{macro}{\LGnuminterval}\begin{macro}{\lc@unt}\begin{macro}{\ln@xt}
+% The counter "\LGnuminterval" represents the line numbering interval.
+% Its default is 10, it is set by two options and can be changed everywhere
+% you want to. "\lc@unt" counts the current line, "\ln@xt" contains the next
+% line to get numbered.
+%    \begin{macrocode}
+\newcount\lc@unt
+\newcount\ln@xt
+\newcount\LGnuminterval
+\LGnuminterval=10
+\DeclareOption{nolineno}{\LGnuminterval=50000}
+\DeclareOption{lineno5}{\LGnuminterval=5}
+%    \end{macrocode}
+% \end{macro}\end{macro}\end{macro}
+%
+% \begin{macro}{\LGleftnum}
+% Line numbers are usually on the right. By setting "LGleftnum" to true
+% or false this behaviour can be altered.
+%    \begin{macrocode}
+\newif\ifLGleftnum
+\DeclareOption{leftno}{\LGleftnumtrue}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\LGindent}
+% "\LGindent" is the indentation for all display style listing lines.
+%    \begin{macrocode}
+\newskip\LGindent
+\LGindent=1.6667\parindent
+\DeclareOption{noindent}{\LGindent=0pt}
+%    \end{macrocode}
+% \end{macro}
+%
+% \changes{v3.4}{1997/02/05}{Rules around included material can be suppressed.
+%                            New option norules.}
+% \begin{macro}{\LGnorules}
+% Normally \LG{} puts rules around everything that is included (via "\lagrind"
+% and "\lgrindfile"), this can be changed with an option.
+%    \begin{macrocode}
+\newif\ifLGnorules
+\DeclareOption{norules}{\LGnorulestrue}
+%    \end{macrocode}
+% \end{macro}
+% 
+% \changes{v3.4}{1997/01/30}{Prevent slightly overfull hboxes. New option fussy.}
+% \begin{macro}{\LGsloppy}
+% "\LGsloppy" is the amount that a horizontal box may be overfull without getting
+% a warning from \LaTeX. This is useful since there are often many boxes which are
+% overfull by only a few points, and this does not really show since listings are
+% very ragged.
+%    \begin{macrocode}
+\newlength{\LGsloppy}
+\setlength{\LGsloppy}{7.2pt}
+\DeclareOption{fussy}{\LGsloppy=0pt}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\Proc}\begin{macro}{\ProcCont}
+% There's a "\Proc{"\meta{ProcName}"}" at the start of each procedure.  If
+% the language allows nested procedures (e.\,g. Pascal), there
+% will be a "\ProcCont{"\meta{ProcName}"}" at the end of each inner procedure.
+% (In this case, \meta{ProcName} is the name of the outer procedure. I.\,e.,
+% "\ProcCont" marks the continuation of \meta{ProcName}).
+%
+% \begin{macro}{\DefaultProc}
+% \changes{v3.0}{1995/09/24}{Reintroduced procedure names in the margins}
+% \begin{macro}{\DefaultProcCont}
+% Default is not to do anything with the name. Optionally the names are
+% printed in the same margin as the line numbers. The name is put into a
+% box which will be output whenever it is not empty.
+%
+%    \begin{macrocode}
+\newcommand{\DefaultProc}{\@gobble}
+\newcommand{\DefaultProcCont}{\@gobble}
+\DeclareOption{procnames}{
+\renewcommand{\DefaultProc}[1]{\renewcommand{\Procname}{#1}%
+\global\setbox\procbox=\hbox{\PNsize #1}}
+\renewcommand{\DefaultProcCont}[1]{\renewcommand\Procname{#1}
+\global\setbox\procbox=\hbox{\PNsize\dots #1}}}
+\newbox\procbox
+\newcommand{\Procname}{}
+%    \end{macrocode}
+% \end{macro}\end{macro}\end{macro}\end{macro}
+%
+% \begin{macro}{\ifLGnoprocindex}
+% \changes{v3.6}{1999/05/27}{Added option to suppress indexing of functions}
+%    \begin{macrocode}
+\newif\ifLGnoprocindex
+\DeclareOption{noprocindex}{\LGnoprocindextrue}
+%    \end{macrocode}
+% \end{macro}
+%
+% End of initialization, execute any options.
+%    \begin{macrocode}
+\ProcessOptions
+%    \end{macrocode}
+% \changes{v3.0}{1995/09/28}{Added package options}
+%
+% \begin{macro}{\BGfont}\begin{macro}{\CMfont}\begin{macro}{\NOfont}
+% \changes{v3.1}{1995/11/12}{Numbers can now have an own style (i.\,e. font)}
+% \begin{macro}{\KWfont}\begin{macro}{\STfont}\begin{macro}{\TTfont}
+% \begin{macro}{\VRfont}\begin{macro}{\PNsize}\begin{macro}{\LGsize}
+% \begin{macro}{\LGfsize}
+% These are the fonts and sizes for background (everything that doesn't fit
+% elsewhere), comments, numbers, keywords, strings, verbatim text, variables,
+% the procedure names
+% in the margins, displayed code ("%[ ]%"), and included code ("\lgrindfile"
+% and "\lagrind"), respectively. Note that the suffixes `font' and `size'
+% have been chosen solely for the author's intention; you can do anything
+% you want, e.\,g. "\tiny" comments. You have to use, however, font changes
+% which don't require an argument.
+%    \begin{macrocode}
+\def\BGfont{\sffamily}
+\def\CMfont{\rmfamily\itshape}
+\def\NOfont{\sffamily}
+\def\KWfont{\rmfamily\bfseries}
+\def\STfont{\ttfamily}
+\def\TTfont{\ttfamily\upshape}
+\def\VRfont{\rmfamily}
+\def\PNsize{\BGfont\small}
+\def\LGsize{\small}
+\def\LGfsize{\footnotesize}
+%    \end{macrocode}
+% \end{macro}\end{macro}\end{macro}
+% \end{macro}\end{macro}\end{macro}
+% \end{macro}\end{macro}\end{macro}
+% \end{macro}
+%
+% \begin{macro}{\ifLGinline}\begin{macro}{\ifLGd@fault}
+% \begin{macro}{\LGbegin}\begin{macro}{\LGend}
+% The flag "LGinline" is true for in-line code. "\LGbegin" and "\LGend" are
+% default commands to open and close a code example and use it to perform
+% certain ops depending whether we're in-line or display style."\LGend" is
+% a no-op unless "\LGbegin" (where "LGd@fault" is set true) was executed,
+% so you can provide explicit open
+% code on the "%[" or "%(" line without providing any special code on the
+% matching "%]" or "%)" line.
+%    \begin{macrocode}
+\newif\ifLGinline
+\newif\ifLGd@fault
+\def\LGbegin{\ifLGinline$\hbox\else$$\vbox\fi\bgroup\LGd@faulttrue}
+\def\LGend{\ifLGd@fault\egroup\ifLGinline$\else$$\fi\LGd@faultfalse\fi}
+%    \end{macrocode}
+% \end{macro}\end{macro}\end{macro}\end{macro}
+%%stopzone   % VIM syncing
+%
+% \begin{macro}{\ifc@omment}\begin{macro}{\ifstr@ng}
+% These two conditions indicate if we are setting a comment or maybe
+% a string constant, respectively.
+%    \begin{macrocode}
+\newif\ifc@mment
+\newif\ifstr@ng
+%    \end{macrocode}
+% \end{macro}\end{macro}
+%
+% \begin{macro}{\ifright@}
+% To get decent quotes (opening and closing) within comments, we remember
+% whether the next one is going to be `{}``'{} or, if true, `{}'''{}.
+%    \begin{macrocode}
+\newif\ifright@
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\ls@far}\begin{macro}{\tb@x}\begin{macro}{\TBw@d}
+% These three are all for the sake of tabbing. "\ls@far" stores the
+% ``line so far''. The tabwidth goes in "\TBw@d", whilst "\tb@x" is 
+% merely a temporary variable for "\Tab" and setting "\@ts".
+%    \begin{macrocode}
+\newbox\ls@far
+\newbox\tb@x
+\newdimen\TBw@d
+%    \end{macrocode}
+% \end{macro}\end{macro}\end{macro}
+%
+% The underscore marks a point where the pre-processor wants a fixed-width
+% space (of width "\@ts").
+%    \begin{macrocode}
+\newdimen\@ts
+{\catcode`\_=\active \gdef\@setunder{\let_=\sp@ce}}
+%    \end{macrocode}
+%
+% \begin{macro}{\lgrindhead}
+% \begin{macro}{\lgrindfilename}\begin{macro}{\lgrindfilesize}
+% \begin{macro}{\lgrindmodyear}\begin{macro}{\lgrindmodmonth}
+% \begin{macro}{\lgrindmodday}\begin{macro}{\lgrindmodtime}
+% We pollute the global namspace once more with these macros, for when they
+% are used in the headers or footers, their values must still be known.
+% Therefore they cannot be local to the "lgrind" environment.
+%    \begin{macrocode}
+\newcommand{\lgrindhead}{}
+\newcommand{\lgrindfilename}{}\newcommand{\lgrindfilesize}{}
+\newcommand{\lgrindmodyear}{}\newcommand{\lgrindmodmonth}{}
+\newcommand{\lgrindmodday}{}\newcommand{\lgrindmodtime}{}
+%    \end{macrocode}
+% \end{macro}\end{macro}\end{macro}\end{macro}
+% \end{macro}\end{macro}\end{macro}
+%
+% \begin{environment}{lgrind}
+% This is the environment that eventually defines all necessary macros for
+% formatting. All \LG ed text goes into such an environment, no matter if
+% directly so or from within another one. It takes one optional argument,
+% the line number.
+%    \begin{macrocode}
+\newenvironment{lgrind}[1][1]{%
+%    \end{macrocode}
+%
+% \begin{macro}{\Line}
+% The "\Line" macro is provided for use with "%=" in embedded listings.
+% It's just there to hide the actual structure of this, for nobody 
+% \emph{really} wants to know anyway.
+%    \begin{macrocode}
+\def\Line##1{\L{\LB{##1}}}%
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\Head}\begin{macro}{\File}
+% \changes{v3.3}{1996/09/11}{given a meaningful definition}
+% The next are primarily meant for stand-alone listings. "\Head" and
+% "\File" are inserted by \LG, they define macros that contain
+% a user-specified string (the header option -h), the name, size
+% and modification time of the processed file. These can then be
+% used e.\,g. in the headers and footers.
+%    \begin{macrocode}
+\newcommand{\Head}[1]{\gdef\lgrindhead{##1}}%
+\newcommand{\File}[6]{\gdef\lgrindfilename{##1}\message{(LGround: ##1)}%
+    \gdef\lgrindmodyear{##2}\gdef\lgrindmodmonth{##3}%
+    \gdef\lgrindmodday{##4}\gdef\lgrindmodtime{##5}%
+    \gdef\lgrindfilesize{##6}}%
+%    \end{macrocode}
+% \end{macro}\end{macro}
+% The "\Proc"s now get what
+% was specified for them in the options section.
+%    \begin{macrocode}
+\let\Proc=\DefaultProc%
+\let\ProcCont=\DefaultProcCont%
+\ifLGnoprocindex%
+  \let\index\@gobble%
+\fi%
+%    \end{macrocode}
+%
+% We set a "\hfuzz" to prevent some of the lesser overfull hbox warnings.
+%    \begin{macrocode}
+\hfuzz=\LGsloppy%
+%    \end{macrocode}
+%
+% \begin{macro}{\NewPage}
+% Each formfeed in the input is replaced by a "\NewPage" macro.  If
+% you really want a page break here, define this as "\vfill\eject".
+%    \begin{macrocode}
+\def\NewPage{\filbreak\bigskip}%
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\L}
+% Each line of displayed program text is enclosed by a "\L{"\dots"}". We 
+% turn each line into an hbox. Firstly we look whether we are in-line.
+% Every "\LGnuminterval" lines we output a 
+% small line number in past the margin.
+%    \begin{macrocode}
+\ifLGinline%
+ \def\L##1{\setbox\ls@far\null{\CF\strut##1}\ignorespaces}%
+%    \end{macrocode}
+% \begin{macro}{\r@ghtlno}\begin{macro}{\l@ftlno}
+% Things get more difficult for display style listings. Here we set
+% "\r@ghtlno" and "\l@ftlno" to no-ops, only to redefine them shortly
+% after.
+%    \begin{macrocode}
+\else%
+ \let\r@ghtlno\relax\let\l@ftlno\relax%
+ \ifnum\LGnuminterval>\z@%
+  \ifLGleftnum%
+%    \end{macrocode}
+% If there was a procedure name somewhere, "\procbox" is not empty and
+% thus ready to be printed. Otherwise we test "\lc@unt" against "\ln@ext"
+% to determine whether or not to print a line number.
+%    \begin{macrocode}
+   \def\l@ftlno{\ifnum\lc@unt>\ln@xt%
+     \global\advance\ln@xt by\LGnuminterval%
+     \llap{{\normalfont\scriptsize\the\lc@unt\quad}}\fi}%
+   \def\r@ghtlno{\rlap{\enspace\box\procbox}}%
+%    \end{macrocode}
+% And once again when the line number is meant to be on the right.
+%    \begin{macrocode}
+  \else%
+   \def\r@ghtlno{\ifnum\lc@unt>\ln@xt%
+     \global\advance\ln@xt by\LGnuminterval%
+     \rlap{{\normalfont\scriptsize\enspace\the\lc@unt%
+                \enspace\box\procbox}}%
+     \else\rlap{\enspace\box\procbox}\fi}%
+  \fi%
+ \fi%
+%    \end{macrocode}
+% \end{macro}\end{macro}
+% "\lc@unt" is incremented and everything is squeezed into a "\hbox".
+%    \begin{macrocode}
+ \def\L##1{\@@par\setbox\ls@far=\null\strut%
+  \global\advance\lc@unt by1%
+  \hbox to \linewidth{\hskip\LGindent\l@ftlno ##1\egroup%
+  \hfil\r@ghtlno}%
+  \ignorespaces}%
+\fi%
+%    \end{macrocode}
+% \end{macro}
+%
+% The initialization of "\lc@unt" and "\ln@xt". Every "lgrind"-environment
+% starts over unless given a line number as argument.
+%    \begin{macrocode}
+\lc@unt=#1\advance\lc@unt by-1%
+\ln@xt=\LGnuminterval\advance\ln@xt by-1%
+\loop\ifnum\lc@unt>\ln@xt\advance\ln@xt by\LGnuminterval\repeat%
+%    \end{macrocode}
+%
+% \begin{macro}{\LB}\begin{macro}{\Tab}
+% The following weirdness is to deal with tabs. ``Pieces'' of a line
+% between tabs are output as "\LB{"\dots"}". E.\,g., a line with a tab at
+% column 16 would be output as "\LB{xxx}\Tab{16}\LB{yyy}". (Actually, to
+% reduce the number of characters in the ".tex" file the "\Tab" macro
+% supplies the 2nd \& subsequent "\LB"s.) We accumulate the "\LB" stuff in 
+% an "\hbox". When we see a "\Tab", we grab this hbox (using "\lastbox") 
+% and turn it into a box that extends to the tab position.  We stash this 
+% box in "\ls@far" \& stick it on in front of the next piece of the line.  
+% (There must be a better way of doing tabs but I'm not enough of a \TeX 
+% wizard to come up with it. Suggestions would be appreciated. Oh, well,
+% this comment's been in here for a decade. I don't believe in Santa Claus.)
+%    \begin{macrocode}
+\def\LB{\hbox\bgroup\bgroup\box\ls@far\CF\let\next=}%
+\def\Tab##1{\egroup\setbox\tb@x=\lastbox\TBw@d=\wd\tb@x%
+ \advance\TBw@d by 1\@ts\ifdim\TBw@d>##1\@ts%
+  \setbox\ls@far=\hbox{\box\ls@far \box\tb@x \sp@ce}\else%
+  \setbox\ls@far=\hbox to ##1\@ts{\box\ls@far \box\tb@x \hfil}\fi\LB}%
+%    \end{macrocode}
+% \end{macro}\end{macro}
+%
+% A normal space is too thin for code listings.  We make spaces \& tabs
+% be in "\@ts" units, which for displays are 80 \% the width of a ``0'' in the
+% typewriter font. For inline stuff, on the other hand, we prefer a 
+% somewhat smaller space -- actually, the same size as normal inter-word 
+% spaces -- to help make the included stuff look like a unit.
+%    \begin{macrocode}
+\ifLGinline\def\sp@ce{{\hskip .3333em}}%
+\else \setbox\tb@x=\hbox{\texttt{0}}%
+      \@ts=0.8\wd\tb@x \def\sp@ce{{\hskip 1\@ts}}\fi%
+\catcode`\_=\active \@setunder%
+%    \end{macrocode}
+%
+% \begin{macro}{\CF}\begin{macro}{\N}\begin{macro}{\K}\begin{macro}{\V}
+% \begin{macro}{\ic@r}
+% \begin{macro}{\C}\begin{macro}{\CE}\begin{macro}{\S}\begin{macro}{\SE}
+% Font changing. Since we are usually changing the font inside of a "\LB"
+% macro, we remember the current font in "\CF" \& stick a "\CF" at the 
+% start of each new box. Also, the characters ``\texttt{\char'042}'' and 
+% ``"'"'' behave differently in comments than in code, and others behave 
+% differently in strings than in code.
+%
+% "\N" is for numbers, "\K" marks keywords, "\V" variables, "\C" and "\CE"
+% surround comments, "\S" and "\SE" strings.
+% "\ic@r" inserts an optional "\/".
+%    \begin{macrocode}
+\def\CF{\ifc@mment\CMfont\else\ifstr@ng\STfont\fi\fi}%
+\def\N##1{{\NOfont ##1}\global\futurelet\next\ic@r}%
+\def\K##1{{\KWfont ##1}\global\futurelet\next\ic@r}%
+\def\V##1{{\VRfont ##1}\global\futurelet\next\ic@r}%
+\def\ic@r{\let\@tempa\/\ifx.\next\let\@tempa\relax%
+ \else\ifx,\next\let\@tempa\relax\fi\fi\@tempa}%
+\def\C{\egroup\bgroup\CMfont \global\c@mmenttrue \global\right@false}%
+\def\CE{\egroup\bgroup \global\c@mmentfalse}%
+\def\S{\egroup\bgroup\STfont \global\str@ngtrue}%
+\def\SE{\egroup\bgroup \global\str@ngfalse}%
+%    \end{macrocode}
+% \end{macro}\end{macro}\end{macro}\end{macro}\end{macro}
+% \end{macro}\end{macro}\end{macro}\end{macro}
+%
+% \begin{macro}{\,}\begin{macro}{\!}
+% We need positive and negative thinspaces in both text and math modes, so
+% we re-define "\," and "\!" here.  The definition for "\," isn't really 
+% needed for \LaTeX, but we try to be more complete.  Note that in \LaTeX{}
+% terms, the new definition isn't robust, like the old~-- but nothing we 
+% produce here is likely to be robust --~or \emph{needs} to be!~-- anyway!
+%    \begin{macrocode}
+\def\,{\relax \ifmmode\mskip\thinmuskip \else\thinspace \fi}%
+\def\!{\relax \ifmmode\mskip-\thinmuskip \else\negthinspace \fi}%
+%    \end{macrocode}
+% \end{macro}\end{macro}
+%
+% Special characters. "\CH" chooses its first option alone in math mode;
+% its second option in a string; and its third option, enclosed in "$"s,
+%%stopzone   % VIM syncing
+% otherwise. (At the moment, nothing is ever set in math mode, but you
+% never know \dots)
+%    \begin{macrocode}
+\def\CH##1##2##3{\relax\ifmmode ##1\relax%
+\else\ifstr@ng ##2\relax\else$##3$\fi\fi }%
+\def\|{\CH|||}%  not necessary for T1
+\def\<{\CH<<<}%  dto.
+\def\>{\CH>>>}%  dto.
+\def\-{\CH---}%  minus sign nicer than hyphen
+\def\_{\ifstr@ng {\char'137}\else%
+  \leavevmode \kern.06em \vbox{\hrule width.35em}%
+  \ifdim\fontdimen\@ne\font=\z@ \kern.06em \fi\fi }%
+\def\#{{\STfont\char'043}}%
+\def\2{\CH\backslash {\char'134}\backslash }%          % \
+\def\3{\ifc@mment\ifright@ ''\global\right@false%
+                      \else``\global\right@true \fi%
+   \else{\texttt{\char'042}}\fi}%                      % "
+\def\5{{\texttt{\char'136}}}%                          % ^ 
+%    \end{macrocode}
+%
+% Finally we don't want any indentation other than our own. We allow \LaTeX{}
+% to stretch our listings a bit. Then we open a group, select the background
+% font and (fanfare!) are ready to begin.
+%    \begin{macrocode}
+\parindent\z@\parskip\z@ plus 1pt%
+\bgroup\BGfont%
+}
+%    \end{macrocode}
+%
+% This is the end of the "lgrind" environment. Rather short (in comparison!)
+%    \begin{macrocode}
+{\egroup\@@par}           % end of environment lgrind
+%    \end{macrocode}
+% \end{environment}
+%
+% The following are generated as part of opening and closing included
+% code sequences. 
+%    \begin{macrocode}
+\def\lgrinde{\ifLGinline\else\LGsize\fi\begin{lgrind}}
+\def\endlgrinde{\end{lgrind}}
+%    \end{macrocode}
+%
+% \begin{macro}{\lagrind}
+% The "lagrind" environment is one of two for including files. It puts
+% its argument inside a "figure" environment. It can be used without or
+% with a star (first line), and with or without the usual floating
+% arguments (second and third).
+%    \begin{macrocode}
+\def\lagrind{\@ifstar{\@slagrind}{\@lagrind}}
+
+\def\@lagrind{\@ifnextchar[{\@@lagrind}{\@@lagrind[t]}}
+\def\@slagrind{\@ifnextchar[{\@@slagrind}{\@@slagrind[t]}}
+%    \end{macrocode}
+%
+% \begin{macro}{\@@lagrind}
+% The unstarred version. Everything is pretty obvious, we open a "figure",
+% put in a "minipage", input the file in question, make caption and label
+% and that's it.
+%    \begin{macrocode}
+\def\@@lagrind[#1]#2#3#4{%
+    \begin{figure}[#1]
+\ifLGnorules\else\hrule\fi
+\vskip .5\baselineskip
+\begin{minipage}\columnwidth\LGsize\LGindent\z@
+    \begin{lgrind}
+\input #2\relax
+    \end{lgrind}
+\end{minipage}
+\vskip .5\baselineskip plus .5\baselineskip
+\ifLGnorules\else\hrule\fi\vskip .5\baselineskip
+\begingroup
+    \setbox\z@=\hbox{#4}%
+    \ifdim\wd\z@>\z@
+\caption{#3}%
+\label{#4}%
+    \else
+\captcont{#3}%
+    \fi
+\endgroup
+\vskip 2pt
+    \end{figure}
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@slagrind}
+% D\'ej\`a vu? The starred version got an asterisk attached to "figure".
+%    \begin{macrocode}
+\def\@@slagrind[#1]#2#3#4{%
+    \begin{figure*}[#1]
+\ifLGnorules\else\hrule\fi
+\vskip .5\baselineskip
+\begin{minipage}\linewidth\LGsize\LGindent\z@
+    \begin{lgrind}
+\input #2\relax
+    \end{lgrind}
+\end{minipage}
+\vskip .5\baselineskip plus .5\baselineskip
+\ifLGnorules\else\hrule\fi\vskip .5\baselineskip
+\begingroup
+    \setbox\z@=\hbox{#4}%
+    \ifdim\wd\z@>\z@
+\caption{#3}%
+\label{#4}%
+    \else
+\captcont{#3}%
+    \fi
+\endgroup
+\vskip 2pt
+    \end{figure*}
+}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\lgrindfile}
+% This is similar. We draw lines above and below, no "figure". But it can
+% get longer than one page.
+%    \begin{macrocode}
+\def\lgrindfile#1{%
+    \par\addvspace{0.1in}
+    \ifLGnorules\else\hrule\fi
+    \vskip .5\baselineskip
+    \begingroup\LGfsize\LGindent\z@
+\begin{lgrind}
+    \input #1\relax
+\end{lgrind}
+    \endgroup
+    \vskip .5\baselineskip
+    \ifLGnorules\else\hrule\vspace{0.1in}\fi
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% And now \dots
+%    \begin{macrocode}
+%</package>
+%    \end{macrocode}
+% That's it. Thank you for reading up to here.
+%
+% Michael Piefel
+%
+% \vspace{2ex}
+% \hrule
+%
+% \Finale
+%
+% \iffalse
+%<*example>
+\documentclass{report}
+\usepackage{lgrind}
+
+\begin{document}
+
+\chapter{Introduction}
+This is a \LaTeX file with embedded code. Process it with \textsf{LGrind}
+and its option -e.
+
+\appendix
+\chapter{lgrind.c}
+%<example>%< lgrind.c
+
+\chapter{regexp.c}
+\section{Header}
+%<example>%< regexp.h
+\section{Code}
+%<example>%< regexp.c
+
+\chapter{lgrindef.c}
+\section{Header}
+%<example>%< lgrindef.h
+\section{Code}
+%<example>%< lgrindef.c
+
+\end{document}
+%</example>
+% \fi
+\endinput

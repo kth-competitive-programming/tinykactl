@@ -1,0 +1,17 @@
+#!/bin/sh
+# convert .c to .lg 
+
+if [ -n "$1" ] && [ -f $1 -o -f $1.c ]
+then
+    if [ `basename $1` = `basename $1 .c` ]
+    then
+	lgrind -i -v subst $1.c > $1.lg
+	echo Created $1.lg
+    else
+	lgrind -i -v subst $1 > `basename $1 .c`.lg
+	echo Created `basename $1 .c`.lg
+    fi
+else
+    echo Usage: $0 "<file>[.c]"
+    echo $1.c does not exist.
+fi

@@ -1,0 +1,51 @@
+% lgrindeg.tex
+% Simple example program for testing `lgrind' additions
+% MATLAB/QBASIC/C/MASM/LaTeX
+% Note: Matlab,qbasic, masm are registered trademarks.
+%
+% John Leis, 18 June 1996
+% University of Southern Queensland
+% leis@usq.edu.au
+
+\documentclass[a4paper]{article}
+
+\usepackage{lgrind}
+
+\begin{document}
+
+\title{ Example of the `LGrind' Package }
+\author{ John Leis }
+\date{ 15 June 1996 }
+\maketitle
+
+\clearpage
+
+\begin{figure}
+	\begin{center}
+		\begin{tabular}{ll}
+			\hline\hline 
+			Language & Command in DOS batch file \\
+			\hline 
+			C       & \verb+ lgrind -i -v subst %1.c > %1.lg  + \\
+			MASM    & \verb+ lgrind -i -lmasm %1.asm > %1.lg  + \\
+			\hline \\
+		\end{tabular}
+	\end{center}
+	\caption{Commands for lgrind'ing source file into \LaTeXe\ format}
+	\label{fig:commands}
+\end{figure}
+
+
+\lagrind{egcprog.lg}{Example `C' language program.}{fig:egcprog}
+
+\clearpage
+\begin{center}
+	\textbf{\large This is a multi-page listing} \\
+	It has no caption. \\
+	Used for Appendices etc. \\
+\end{center}
+
+\lgrindfile{egmasm.lg}
+
+\end{document}
+

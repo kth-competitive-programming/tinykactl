@@ -1,0 +1,37 @@
+How do I produce `@' in LGrinded texts?
+
+    Please RTFM. But since it comes up so often: use @@ in program text. To
+    produce @ in LaTeX text in embedded listings mode you have to turn usage
+    of @ off using a '%@-' comment. You can turn it on again using '%@+'.
+
+
+
+How can I use filenames containing a `$'? This is rather important since
+the `$' denotes the root directory under RISC OS.
+
+    I really cannot figure out what exactly goes wrong. But at least I can
+    offer a workaround. When using T1 or LY1 encoding there are no problems.
+    Put \usepackage[x]{fontenc} (with x=T1 or x=LY1 and possibly others, but
+    not OT1) in the preamble. (For standalone listings use firstpreamble in
+    the lgrindef file.)
+
+
+
+My source code doesn't seem to align properly. What am I doing wrong?
+
+    LGrind uses by default a proportional font for its output. That's part
+    of the beauty. However, aligning with spaces doesn't work, since they
+    are relative horizontal motions. When using tabs, everything is fine. If
+    the standard tab width of 8 is too big for you, fiddle around with your
+    editor to save the file with tabwidth 4, say, and then use '-t 4' as an
+    option to LGrind.
+
+
+
+How do I activate line wrap?
+
+    There is no line-wrap. LGrind has no way of knowing where a line break
+    should be. It depends on the surrounding LaTeX, after all. Make your lines
+    short enough to be pretty; or make your margins and font small.
+
+
