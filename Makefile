@@ -35,6 +35,10 @@ pdf: getversion lib.pdf index always
 
 pdfx3: getversion lib.pdfx3 index always
 
+solved: getversion solved.pdf always
+
+solvedx3: getversion solved.pdfx3 always
+
 lib.ps: libtex always
 	latex lib.tex
 	dvips -o lib.ps lib.dvi
@@ -46,7 +50,16 @@ lib.pdfx3: lib.pdf
 	pdflatex lib.tex
 	pdflatex lib.tex
 
+solved.pdf: solvedtex always
+	pdflatex solved.tex
+
+solved.pdfx3: solved.pdf
+	pdflatex solved.tex
+	pdflatex solved.tex
+
 libtex: acmlib.sty lgrind.sty pdflscape.sty util allcode
+
+solvedtex: acmlib.sty lgrind.sty pdflscape.sty util allcode
 
 util: always
 	cd util && $(MAKE) util
