@@ -2,23 +2,23 @@
 
 Flow graphs are directed graphs with flow capacities on their edges.
 
-Many problems can be solved by finding the maximum flow (or, equivalently,
-the minimal cut) of a flow graph.
-
-The flow algorithms need quick access to the ``back edge'' of all egdes.
-To accomodate for this, a special flow edge struct is used.
-Flow graphs are constructed and updated by a couple of utility functions.
-
-A flow graph is given as a STL-container of {\tt vector}s ({\tt map}s are
-not allowed) with edges. The edges are {\tt flow\_edge}'s and must be added
-using {\tt flow\_add\_edge}. Note that a edge {\emph must be} added only once
-for each pair, simultaneously giving both forward and back capacity.
-
+To get quick access to the ``back edge'' of all egdes, a special flow edge
+struct is used in the network flow algorithms.
 
 \begin{algorithm}{flow graph}
 \reflisting{flow graph}
 \usage{ \sourceline{%
  flow\_add\_edge( edges, source, dest, cap [, back\_cap] ); }}
+
+Flow graphs are constructed and updated by a couple of utility functions.
+
+A flow graph should be an STL-container of {\tt vector}s with
+{\tt flow\_edge}s ({\tt map}s are not allowed).
+
+Edges should be added using {\tt flow\_add\_edge}.
+
+Note that an edge {\emph must be} added only once for each pair,
+simultaneously giving both forward and back capacity.
 \end{algorithm}
 
 \begin{algorithm}{lift to front}
@@ -49,4 +49,20 @@ to {\tt flow\_increase1}: }
 
 \sourceline{ while( flow\_increase1(edges, source, sink) ) flow++; }
 \complexity{E\cdot n_{aug~paths}}
+\end{algorithm}
+
+\begin{algorithm}{Min cut}
+\keyword{} The minimum cut has the same capacity as the maximum flow,
+but perhaps we want an algorithm for finding it?
+\end{algorithm}
+
+\begin{algorithm}{Flow constructions}
+\keyword{Matching} in a bipartite graph. A multisource, multisink flow
+with only one-capacities determines an optimal matching.
+\keyword{Edge and Vertex Connectivity} of a graph, determines how connected
+it is. For vertex connectivity, each node is split in two.
+\keyword{Escaping problem} on a grid, determines whether and how a set of
+points may be connected by grid-lines to the edge.
+\keyword{Minimal path cover} of a graph, determines a minimum set of paths to
+cover it.
 \end{algorithm}
