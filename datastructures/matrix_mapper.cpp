@@ -14,6 +14,13 @@ struct matrix_mapper {
   int operator ()(int row, int col) { return row * c + col; }
 };
 
+template <class R, typename M = matrix_mapper<R> >
+struct matrix_mapper3 : matrix_mapper<M> {
+  matrix_mapper3(R array, int r, int c) : matrix_mapper<M>(M(array, c), r) { }
+  int operator ()(int lev, int row, int col ) {
+    return array(operator()(lev,row), col );
+  }
+};
 
 // Normally, the matrix_mapper will be used with a vector.
 // It is then convenient to just specify the stored type,
