@@ -1,11 +1,11 @@
 /* KTH ACM Contest Template Library
  *
- * Graph/Network Flow/Hopcraft Karp
+ * Graph/Network Flow/Hopcroft Karp
  *
- * Complexity: O( V*sqrt(E) )
+ * Complexity: O( sqrt(V)*E )
  *
  * Credit:
- *   Hopcraft-Karp
+ *   Hopcroft-Karp
  *   After Python-code by David Eppstein
  *   By David Rydh
  */
@@ -37,7 +37,7 @@ bool hk_recurse( int b, int *lPred, vector<int> *rPreds, M match_b ) {
 
 
 template< class G, class M, class T >
-int hopcraft_karp( G g, int n, int m, M match_b, T mis_a, T mis_b ) {
+int hopcroft_karp( G g, int n, int m, M match_b, T mis_a, T mis_b ) {
   typedef typename G::value_type::const_iterator E_iter;
 
   int lPred[n];
