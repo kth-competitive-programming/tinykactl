@@ -9,6 +9,9 @@ clean:
 spotless: clean
 	rm -f lib.pdf lib.ps
 
+index:
+	makeindex lib.idx
+
 ps: lib.ps
 
 pdf: lib.pdf
