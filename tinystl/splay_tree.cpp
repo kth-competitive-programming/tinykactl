@@ -46,7 +46,7 @@ struct splay_node_iterator {
   bool operator!=(const sT &s) const { return p!=s.p; }
   T &operator *() { return p->x; }
   const T &operator *() const { return p->x; }
-  const T *operator ->() const { return &(operator *()); }
+  const T *operator ->() const { return &(p->x); }
 };
 
 template <class T, class C=less<T> >
@@ -56,7 +56,8 @@ struct splay_tree {
   typedef T value_type;
   typedef P iterator;
 
-  P root; C comp; splay_tree(C _comp = C()) : root(0), comp(_comp) { }
+  P root; C comp; unsigned n;
+  splay_tree(C _comp = C()) : root(0), comp(_comp), n(0) { }
   ~splay_tree() { while (root) erase(root); }
 
   static void rot(P i, bool left) {
@@ -96,13 +97,13 @@ struct splay_tree {
       find(x);
       P l, r; // split:
       if (comp(x, root->x)) r = root, l = r->l, r->l = 0;
-      else /**//**/ l = root, r = l->r, l->r = 0;
-      root = new splay_node<T>(x, l, r);
+      else /* */ /**/ /* */ l = root, r = l->r, l->r = 0;
+      root = new splay_node<T>(x, l, r), ++n;
       if (l) l->p = root;
       if (r) r->p = root;
     }
     else
-      root = new splay_node<T>(x);
+      root = new splay_node<T>(x), ++n;
   }
   void erase(iterator i) {
     splay(i);
@@ -110,6 +111,6 @@ struct splay_tree {
     if (l) while (l->r) rot(l, true), l = l->p;
     if (l) l->r = r, l->p = 0; if (r) r->p = l;
     root = l ? l : r;
-    delete i;
+    delete i, --n;
   }
 };
