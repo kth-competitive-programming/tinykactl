@@ -53,6 +53,38 @@ time.}
 \usage{ \sourceline{prime\_sieve p(1000); p.isprime(10)==false;} }
 \end{algorithm}\
 
+\begin{algorithm}{Primes Many}
+\reflisting{primes many simple}
+\reflisting{primes many fast}
+\characteristics{{\tt primes\_many\_simple} and {\tt primes\_many\_fast}
+calculates a vector of primes and is suitable when dealing with lots of
+primes (10000 or more). It calculates them by first sieving and then
+putting them into an array.}
+\usage{ \sourceline{primes\_many p(100000); p.primes[2] == 5;} }
+\end{algorithm}
+
+\begin{algorithm}{Rabin-Miller}
+\reflisting{rabin-miller}
+\complexity{ s \log(n) }
+\characteristics{{\tt isprime\_rabin\_miller} is a probabilistic primality
+test. It will never say that a prime is composite but may erroneous claim
+that a composite number is prime. The argument {\tt s} is the number of
+iterations to be used. The probability of a false answer is not more than
+$2^{-s}$ so $s=50$ is more than enough for most applications. The integer
+to be tested {\tt n} may be as large as $2^{63}-1$. }
+\usage{ \sourceline{ isprime\_rabin\_miller( n, s ); } }
+\end{algorithm}
+
+\begin{algorithm}{NDivisors}
+\reflisting{ndivisors}
+\characteristics{{\tt ndivisors} and {\tt ndivisors\_prob} calculates
+the number of divisors. {\tt ndivisors} needs a prime-table with all primes
+upto the square root of the number and {\tt ndivisors\_prob} only primes as
+large as the third root of the number. The second algorithm uses a
+probabilistic primality test (Rabin-Miller).}
+\usage{ \sourceline{primes\_many\_fast p(100000);
+	ndivisors\_prob(23424234234243, p.primes) == 8;} }
+\end{algorithm}
 
 \begin{algorithm}{Josephus}
 \reflisting{josephus}
@@ -67,6 +99,8 @@ removing the $k$:th person from a total of $n$ persons (cyclic).
 \reflisting{pseudo}
 \characteristics{{\tt pseudo} gives a pseudo-random integer in
 $[0,2^{31}-1]$.}
+\characteristics{{\tt ullpseudo} gives a pseudo-random integer in
+$[0,2^{62}-1]$.}
 \characteristics{{\tt fpseudo} gives a pseudo-random number in
 $[0,1)$.}
 \complexity{1}
