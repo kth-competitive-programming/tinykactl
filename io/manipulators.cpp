@@ -15,8 +15,8 @@ istream &eatline(istream &in) {
 }
 
 istream &blankline(istream &in) {
-  char c;
-  while (in && (c != '\n' || (c = in.get()) != '\n')); 
+  char c, lastc=0;
+  while (in && ((c = in.get()) != '\n' || lastc != '\n')) lastc = c;
   return in;
 }
 
