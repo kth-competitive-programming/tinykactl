@@ -16,12 +16,12 @@ all:
 always: .
 
 clean: allcodeclean
-	rm -f $(INTERMED)
 	cd util && $(MAKE) clean
+	rm -f $(INTERMED)
 
 spotless: clean
-	rm -f lib.pdf lib.ps
 	cd util && $(MAKE) spotless
+	rm -f lib.pdf lib.ps version
 
 index:
 	makeindex lib.idx
@@ -48,6 +48,7 @@ lib.pdf: libtex always
 
 lib.pdfx3: lib.pdf
 	pdflatex lib.tex
+	makeindex lib.idx
 	pdflatex lib.tex
 
 solved.pdf: solvedtex always
