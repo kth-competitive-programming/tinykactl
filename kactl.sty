@@ -208,6 +208,8 @@
 \def\checksum#1#2#3#4{---~{\small\tt #1}~~
   {\tiny\tt\begin{tabular}{l}\\*[-7 mm] \\#2\\#3\\#4\end{tabular}}}
 
+\def\includelist#1#2{---~{\small\tt #1}~~{\tiny\tt #2}}
+
 % \code{displayname}{filename}[label] (filenames without cpp)
 \def\code#1#2{
   \refstepcounter{lstlisting}
@@ -217,7 +219,7 @@
   \index{#1_X @{\tt #1}}
   \vspace{1 cm}
 	 {\normalsize\bf Listing \thelstlisting : #1.cc}
-	 \xinput{#2.sum}
+	 \xinput{#2.incl}
 	 \hrule
 	 \lgrindfile{\thepath #2.lg}
 }
