@@ -7,8 +7,5 @@ echo 'diff $1.out $1.ans' > d
 echo 'a2ps --line-numbers=1 $1' > p
 echo 'cp Template.cc $1.cc' > n
 
-chmod +x c i o t td d p n  # f submit
-
-#echo 'submit $1.cc' > submit
-#echo 'mv $1* done; mv data/$1* done/data' > f
+chmod +x c i o t td d p n
 
