@@ -3,23 +3,6 @@
 
 \problemtitle{Divisibility}
 
-\begin{algorithm}{Euclid}
-
-\reflisting{euclid}
-\usage{ \sourceline{d = euclid( a, b, \&x, \&y );} }
-\desc
-$x, y$ will satisfy $ax+by=d$ after the call.
-\complexity{ \log(b) }
-\note{$x$ and $y$ have the smallest absolute value}
-\end{algorithm}
-
-\begin{algorithm}{Chinese remainder theorem}
-\reflisting{chinese}
-\desc
-Given $x=a\mod m$, $x=b\mod n$, calculates $x\mod mn$.
-\note{When poseuclid is used, $mn$ may be returned.}
-\end{algorithm}
-
 \begin{algorithm}{Perfect numbers}
 \desc
 When $n$ is even, it is a perfect number iff it is of the form
@@ -34,60 +17,12 @@ It is conjectured that there are no odd perfect numbers.
 
 \problemtitle{Primes}
 
-The first 100 primes are:
-{\small
-\begin{verbatim}
-       2       3       5       7      11      13      17      19      23 
-      29      31      37      41      43      47      53      59      61 
-      67      71      73      79      83      89      97     101     103 
-     107     109     113     127     131     137     139     149     151 
-     157     163     167     173     179     181     191     193     197 
-     199     211     223     227     229     233     239     241     251 
-     257     263     269     271     277     281     283     293     307 
-     311     313     317     331     337     347     349     353     359 
-     367     373     379     383     389     397     401     409     419 
-     421     431     433     439     443     449     457     461     463 
-     467     479     487     491     499     503     509     521     523 
-     541
-\end{verbatim}
-}
-
 The 1000th prime is 7919. The first every 10000th primes are:
 {\small
 \begin{verbatim}
   104729  224737  350377  479909  611953  746773  882377 1020379 1159523
- 1299709
 \end{verbatim}
 }
-
-Some primes closest below powers of two are (Mersenne primes are starred):
-{\small
-\begin{verbatim}
-       3*      7*     13      31*     61     127*    251     509    1021
-    2039    4093    8191*  16381   32749   65521  131071* 262139  524287*(19)
- 1048573              2147483647*(31)                2305843009213693951*(61)
-     618970019642690137449562111*(89)  162259276829213363391578010288127*(107)
-                                 170141183460469231731687303715884105727*(127)
-\end{verbatim}
-}
-
-
-\begin{algorithm}{Primes}
-\reflisting{primes}
-\usage{ \sourceline{primes<int> p; p.generate(1000); n = factor(10); n==2;} }
-\desc
-{\tt primes} calculates a vector of primes and has a factor method which
-returns the smallest factor in the given integer.
-\end{algorithm}
-
-\begin{algorithm}{Prime Sieve}
-\reflisting{prime sieve}
-\usage{ \sourceline{prime\_sieve p(1000); p.isprime(10)==false;} }
-\desc
-{\tt prime\_sieve} calculates a bool-vector containing whether an integer
-is prime. It is faster than {\tt primes} when dealing with large numbers.
-Returns whether an integer is prime in constant time.
-\end{algorithm}
 
 \begin{algorithm}{Primes Many}
 \reflisting{primes many simple}
@@ -100,45 +35,6 @@ primes (10000 or more). It calculates them by first sieving and then
 putting them into an array.
 \end{algorithm}
 
-\begin{algorithm}{Miller-Rabin}
-\reflisting{miller-rabin}
-\usage{ \sourceline{ miller\_rabin( n, s ); } }
-\complexity{ s \log(n) }
-\desc
-{\tt miller\_rabin} is a probabilistic primality
-test. It will never say that a prime is composite but may erroneous claim
-that a composite number is prime. The argument {\tt s} is the number of
-iterations to be used. The probability of a false answer is not more than
-$2^{-s}$ so $s=50$ is more than enough for most applications. The integer
-to be tested {\tt n} may be as large as $2^{63}-1$.
-\end{algorithm}
-
-\begin{algorithm}{Pollard-$\rho$}
-\reflisting{pollard-rho}
-\complexity{ \sqrt[4]{N} }
-\desc
-Finds a non-trivial factor of $N$, provided that there is any.
-\end{algorithm}
-
-\begin{algorithm}{Number of divisors}
-\reflisting{ndivisors}
-\usage{ \sourceline{primes\_many\_fast p(100000);
-	ndivisors\_prob(23424234234243,p.primes)==8;} }
-\desc
-{\tt ndivisors} and {\tt ndivisors\_prob} calculates
-the number of divisors. {\tt ndivisors} needs a prime-table with all primes
-upto the square root of the number and {\tt ndivisors\_prob} only primes as
-large as the third root of the number. The second algorithm uses a
-probabilistic primality test (Miller-Rabin).
-\end{algorithm}
-
-\begin{algorithm}{Prime factorization}
-\reflisting{factor}
-\usage{vector<long long> factors; factor(N, factors); }
-\desc
-{\tt factor} calculates the prime factorization of an integer.
-\end{algorithm}
-
 \problemtitle{Josephus}
 \begin{algorithm}{Josephus}
 \reflisting{josephus}
@@ -146,19 +42,6 @@ probabilistic primality test (Miller-Rabin).
 \desc
 Josephus is the problem to determine which person remains when repeatedly
 removing the $k$:th person from a total of $n$ persons (cyclic).
-\end{algorithm}
-
-
-\problemtitle{Random}
-\begin{algorithm}{Pseudo random numbers}
-\reflisting{pseudo}
-\desc {\tt pseudo} gives a pseudo-random integer in
-$[0,2^{31}-1]$.
-\desc {\tt ullpseudo} gives a pseudo-random integer in
-$[0,2^{62}-1]$.
-\desc {\tt fpseudo} gives a pseudo-random number in
-$[0,1)$.
-\complexity{1}
 \end{algorithm}
 
 \problemtitle{Linear Equations}
@@ -178,32 +61,6 @@ can be used instead, rounding the answer at the end. The strength of
 {\tt BigInt}. Note that it uses {\tt euclid} which could be rather
 slow in the {\tt BigInt} case.
 \end{algorithm}
-
-\begin{algorithm}{mulmod}
-\reflisting{mulmod}
-\usage{ \sourceline{ mulmod(5678945893454353ULL, 2423948234343ULL,
-	31231231231231231ULL)}\\
-\sourceline{ == 14355903581119892; } }
-\desc
-{\tt mulmod} calculates $ab\mbox{ mod } n$ in a way that
-allows numbers as large as MAXINT/2 to be used (which would otherwise give
-an overflow).
-\end{algorithm}
-
-\begin{algorithm}{expmod}
-\reflisting{expmod}
-\complexity{\log{e}\textrm{ ops}}
-\desc {\tt expmod} calculates $b^e\mod n$ by repeated squaring.
-\end{algorithm}
-
-\begin{algorithm}{Bit manipulations}
-\reflisting{bitmanip}
-\desc
-Lowest bit, sign, power-of-two check, power-of-two round-up,
-next number with same number of bits, bit count, bit reversal,
-binary length.
-\end{algorithm}
-
 
 \problemtitle{Optimization}
 \begin{algorithm}{Simplex method}
@@ -242,15 +99,10 @@ fall-back) or the bisective method.
 \code{chinese}{chinese}
 
 \sourcesection{Primes}
-\code{primes}{primes}
 \code{primes many simple}{primes_many_simple}
 \code{primes many fast}{primes_many_fast}
-\code{prime sieve}{prime_sieve}
 \code{miller-rabin}{miller-rabin}
 \code{pollard-rho}{pollard-rho}
-\code{ndivisors}{ndivisors}
-\code{ndivisors prob}{ndivisors_prob}
-\code{factor}{factor}
 
 \sourcesection{Linear Algebra}
 \code{solve linear}{solve_linear}
@@ -260,9 +112,6 @@ fall-back) or the bisective method.
 
 \sourcesection{Numerical Misc}
 \code{josephus}{josephus}
-\code{pseudo}{pseudo}
-\code{mulmod}{mulmod}
-\code{expmod}{expmod}
 
 \code{bitmanip}{bitmanip}
 
