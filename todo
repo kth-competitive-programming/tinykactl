@@ -4,37 +4,42 @@ Document improvements:
   fill in descriptions everywhere
   number of lines in listings!!
   a somewhat more appealing layout?
+  separate section and listings chapter contents
+  codelisting headers
+  oversea TeX markup. especially, add \note!
 
 
 Content improvements: (by chapter)
 
+
+Test programs in document!
+
 Contest
   Problem assessment sheet
-  (as in algomanual "How to design algorithms")
-  kylix specific?
-  c-lite/script
+  Checklist (as in algomanual "How to design algorithms")
+  check kylix specific!
+  c-lite?/script!
 
 Datastructures
-  STL and complex descriptions
+  STL and complex descriptions?
   Sign, rational, bigint descriptions
   BigInt!!
-  codelisting headers
-  suffix tree, kd tree, tries?
+    unify bigint, more functionality in separate files,
+    binops, move extra implementations to obsolete
+  suffix tree
+  kd tree, tries?
 
 Number Theory
-  Shorten prime number section?
   Dynamic josephus
   More linalg.? matrix factorisation?
   Linear programming!!
-  knight's jump to coords!
   DFT?
 
 Combinatorial
   generating: subsets, partitions, graphs ; calendrical ; job sched.
   numerical golden search
   root finding? (as in last contest)
-  knapsack is here
-  satisfiability..?
+  knapsack is here, to hard
 
 Graph
   (algo manual har mst före s-p!)
@@ -62,6 +67,10 @@ Pattern
   Pattern discovery .. ?
 
 Game Theory!!!
+
+Hard Problems
+  Knapsack should be here
+  satisfiability..?
 
 In/out
   graph input away
