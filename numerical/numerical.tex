@@ -178,7 +178,12 @@ $[0,1)$.}
 \reflisting{linear solve}
 \end{algorithm}
 
-\problemtitle{Bigmod}
+\problemtitle{Big numerical operations}
+\begin{algorithm}{exp}
+\reflisting{exp}
+\complexity{\log{e}\textrm{ ops}}
+\characteristics{{\tt exp} calculates $b^e$ by repeated squaring.}
+\end{algorithm}
 
 \begin{algorithm}{mulmod}
 \reflisting{mulmod}
@@ -194,14 +199,6 @@ an overflow).}
 \complexity{\log{e}\textrm{ ops}}
 \characteristics{{\tt expmod} calculates $b^e\mod n$ by repeated squaring.}
 \end{algorithm}
-
-\problemtitle{Big numerical operations}
-\begin{algorithm}{exp}
-\reflisting{exp}
-\complexity{\log{e}\textrm{ ops}}
-\characteristics{{\tt exp} calculates $b^e$ by repeated squaring.}
-\end{algorithm}
-
 
 \problemtitle{Coordinates and directions stored as indices}
 \begin{algorithm}{coords}
@@ -219,11 +216,12 @@ Coordinate to index and index to coordinate calculations for
 plane, space and hyperspace grid and plane triangle layouts.
 
 \usage{\sourceline{dxy(dir, \&dx, \&dy);}}
-\usage{\sourceline{drc(dir, \&dx, \&dy);}}
+\usage{\sourceline{drc(dir, \&dr, \&dc);}}
+\usage{\sourceline{dknight(dir, \&dr, \&dc);}}
 
 Direction to x and y or row and column displacement. {\tt dir} values
 0, 1, 2, 3 mod 4 correspond to right, up, left, right or north, east, south,
-west, respectively.
+west, respectively. Or chess knight jump directions.
 \end{algorithm}
 
 \begin{sourceslandscape}
@@ -249,9 +247,9 @@ west, respectively.
 \code{josephus}{josephus}
 \code{pseudo}{pseudo}
 \code{linear solve}{linear_solve}
+\code{exp}{exp}
 \code{mulmod}{mulmod}
 \code{expmod}{expmod}
-\code{exp}{exp}
 
 \code{coords}{coords}
 

@@ -46,3 +46,9 @@ void drc(int dir, int &dr, int &dc) { // direction is NESW for row, column
   dr = dir & 1 ? 0 : (dir & 2) - 1;
   dc = dir & 1 ? 1 - (dir & 2) : 0;
 }
+
+void dknight(int dir, int &dr, int &dc) { // chess knight jump
+  int DR[] = { -2, -2, -1, 1, 2, 2, 1, -1 };
+  int DC[] = { -1, 1, 2, 2, 1, -1, -2, -2 };
+  dr = DR[dir], dc = DC[dir];
+}
