@@ -98,6 +98,9 @@ int hopcraft_karp( G g, int n, int m, M match_b, T mis_a, T mis_b ) {
       }
     }
 
+    while( !leftQ.empty() )
+      leftQ.pop();
+
     if( unmatchedQ.empty() ) { // No more alternating paths
       int nMatch = 0;
       for( int i=0; i<n; i++ )
