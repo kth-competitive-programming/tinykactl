@@ -1,44 +1,38 @@
 /* KTH ACM Contest Template Library
  *
- * Numerical/Optimization/Roots of Polynomials
+ * Numerical/Data Structures/Polynomial Roots
  *
  * Credit:
- *   Isaac Newton
- *   By David Rydh
+ *   By Per Austrin
  */
 
-#include <cmath>
+#include "polynomial.cpp"
 
-#include "polynom.cpp"
+const double eps = 1e-8;
 
-template< class T >
-double find_root_newton( double xmin, const T &calc, double eps=1e-5 )
-{
-  double x, newx;
-
-  newx = xmin;
-  do {
-    x = newx;
-
-    double xval = calc(x);
-    newx = x - xval/calc.deriv(x);
-  } while( fabs(x-newx) > eps );
-
-  return newx;
-}
-
-
-void find_roots( const polynom &p, double xmin, vector<double> &roots )
-{
-  polynom p2 = p;
-  double root;
-
-  // Find roots repeatedly from the left.
-  // No double-roots are allowed.
-  while( p2.n > 0 ) {
-    root = find_root_newton( xmin, p2 );
-    roots.push_back( root );
-    p2.divroot( root );
-    xmin = root;
+void poly_roots(const polynomial& p, double xmin, double xmax,
+		vector<double>& roots) {
+  if (p.n == 1) { roots.push_back(-p.a.front()/p.a.back()); }
+  else {
+    polynomial d = p;
+    vector<double> droots;
+    d.diff();
+    poly_roots(d, xmin, xmax, droots);
+    droots.push_back(xmin-1);
+    droots.push_back(xmax+1);
+    sort(droots.begin(), droots.end());
+    for (vector<double>::iterator i = droots.begin(), j = i++; 
+	 i != droots.end(); j = i++) {
+      double l = *j, h = *i, m, f;
+      bool sign = p(l) > 0;
+      if (sign ^ p(h) > 0) {
+	while (h - l > eps) {
+	  m = (l + h) / 2, f = p(m);
+	  if (f <= 0 ^ sign) l = m;
+	  else h = m;
+	}
+	roots.push_back((l + h) / 2);
+      }
+    }
   }
 }
