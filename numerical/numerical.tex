@@ -28,14 +28,25 @@ instead of the evil modulo.}
 \begin{algorithm}{Euclid}
 
 \reflisting{euclid}
-\usage{ \sourceline{d = euclid( a, b, \&x, \&y );} \quad %
-	$x$, $y$ will satisfy $ax+by=d$ after the call. }
+\usage{ \sourceline{d = euclid( a, b, \&x, \&y );} }
+\desc
+$x, y$ will satisfy $ax+by=d$ after the call.
+\reflisting{poseuclid}
+\desc
+$x, y\ge 0$ will satisfy $ax-by=\pm d$ after the call.
 \complexity{ \log(b) }
 \note{$x$ and $y$ have the smallest absolute value}
 \begin{example}
 	euclid( 10, 6, x, y ) == 2, x == -1, y == 2
 \end{example}
 \valladolid{202}
+\end{algorithm}
+
+\begin{algorithm}{Chinese remainder theorem}
+\reflisting{chinese}
+\desc
+Given $x=a\mod m$, $x=b\mod n$, calculates $x\mod mn$.
+\note{When poseuclid is used, $mn$ may be returned.}
 \end{algorithm}
 
 \begin{algorithm}{$\phi$-function}
@@ -197,6 +208,15 @@ $[0,1)$.
 \reflisting{linear solve}
 \end{algorithm}
 
+\problemtitle{Optimization}
+\begin{algorithm}{Simplex method}
+\reflisting{simplex}
+\desc
+Solves a linear minimization problem. The first row of the
+input matrix is the objective function to be minimized. The
+first column is the maximum allowed value for each linear row.
+\end{algorithm}
+
 \problemtitle{Big numerical operations}
 \begin{algorithm}{exp}
 \reflisting{exp}
@@ -222,7 +242,15 @@ an overflow).
 \desc {\tt expmod} calculates $b^e\mod n$ by repeated squaring.
 \end{algorithm}
 
-\problemtitle{Coordinates and directions stored as indices}
+\begin{algorithm}{Bit manipulations}
+\reflisting{binmanip}
+\desc
+Lowest bit, sign, power-of-two check, power-of-two round-up,
+next number with same number of bits, bit count, bit reversal,
+binary length.
+\end{algorithm}
+
+\problemtitle{Coordinates and directions}
 \begin{algorithm}{coords}
 \reflisting{coords}
 \usage{\sourceline{%
@@ -246,6 +274,7 @@ Direction to x and y or row and column displacement. {\tt dir} values
 west, respectively. Or chess knight jump directions.
 \end{algorithm}
 
+
 \begin{sourceslandscape}
 
 \sourcesection{Divisibility}
@@ -253,6 +282,8 @@ west, respectively. Or chess knight jump directions.
 \code{gcd}{gcd}
 \code{gcd fast}{gcd_fast}
 \code{euclid}{euclid}
+\code{poseuclid}{poseuclid}
+\code{chinese}{chinese}
 \code{phi}{phi}
 
 \sourcesection{Primes}
@@ -269,10 +300,12 @@ west, respectively. Or chess knight jump directions.
 \code{josephus}{josephus}
 \code{pseudo}{pseudo}
 \code{linear solve}{linear_solve}
+\code{simplex}{simplex}
 \code{exp}{exp}
 \code{mulmod}{mulmod}
 \code{expmod}{expmod}
 
+\code{bitmanip}{bitmanip}
 \code{coords}{coords}
 
 \end{sourceslandscape}
