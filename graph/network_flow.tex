@@ -6,6 +6,7 @@
 \begin{algorithm}{Lift to Front}
 \complexity{V^3}
 \end{algorithm}
+\label{liftofront}
 \codenc{lift to front}{maxflow/lift_to_front}
 
 \begin{algorithm}{Ford Fulkerson}
@@ -16,11 +17,18 @@ DFS and BFS Ford Fulkerson implementations.
 \codenc{ford fulkerson}{maxflow/ford_fulkerson}
 
 \begin{algorithm}{Flow constructions}
-\keyword{Minimal cut} of a graph, generalization of edge connectivity. A
-minimal cut is found by first finding a maximal flow. Then we consider the
-set $A$ of all nodes that can be reached from the source using edges which
-has capacity left (i.e. edges in the residue network). The edges between
+\keyword{Minimal cut} 
+of a graph, generalization of edge connectivity. A minimal cut is
+found by first finding a maximal flow. Then we consider the set $A$ of
+all nodes that can be reached from the source using edges which has
+capacity left (i.e. edges in the residue network). The edges between
 $A$ and the complement of $A$ is a minimal cut.
-\keyword{Minimal path cover} of a graph, determines a minimum set of paths to
-cover it.
+
+\keyword{Minimal path cover} 
+of a DAG, determines a minimum set of disjoint paths to cover all
+vertices.  For each $i \in V$, create two new vertices $x_i$ and $y_i$
+and draw an edge between $x_i$ and $y_j$ if $(i,j) \in E$.  Find a
+maximal bipartite matching, and if $(x_i, y_j)$ is in the matching,
+let the edge $(i,j)$ be part of a path.
+
 \end{algorithm}

@@ -17,7 +17,7 @@ void add_flow(adj_list *g, flow_edge &e, Flow f, Flow *exc) {
   back.f -= f; back.c += f; exc[back.dest] -= f;
 }
 
-Flow lift_to_front(adj_list *g, int n, int s, int t) {
+Flow lift_to_front(adj_list *g, int v, int s, int t) {
   int l[MAXNODES], hgt[MAXNODES]; // l == list, hgt == height
   Flow exc[MAXNODES]; // exc == excess
   adj_iter cur[MAXNODES];

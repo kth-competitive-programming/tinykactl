@@ -1,0 +1,40 @@
+\clearpage
+\categorytitle{Number theory}
+\categorycontents{}
+
+
+\code{euclid}{euclid}
+
+\begin{algorithm}{Chinese remainder theorem}
+\desc
+Solves the system $x = a \pmod m$, $x = b \pmod n$.  If $\gcd(m,n) =
+1$, {\tt chinese} may be used, otherwise, {\tt chinese\_common} must be
+used, which returns $-1$ if there is no solution.  The unique solution
+with $0 \le x < \mathrm{lcm}(m, n)$ is returned.
+\end{algorithm}
+\codenc{chinese}{chinese}
+
+\begin{algorithm}{Primes}
+\desc
+The 1000th prime is 7919. The first every 10000th primes are: {\small
+\begin{verbatim}
+  104729  224737  350377  479909  611953
+  746773  882377 1020379 1159523
+\end{verbatim}
+}\end{algorithm}
+
+\code{prime sieve}{prime_sieve}
+
+\code{miller-rabin}{miller-rabin}
+
+\code{pollard-rho}{pollard-rho}
+
+\begin{algorithm}{Perfect numbers}
+\label{perfnum}
+\desc
+$n$ is perfect iff $n = \frac{p(p+1)}{2}$, where $p = 2^k-1$ is prime.
+First Mersenne primes are obtained for $k =$ 2, 3, 5, 7, 13, 17, 19,
+31, 61, 89, 107, 127, 521, 607, 1279, 2203, 2281, 3217, 4253, 4423,
+9689, 9941, 11213, 19937, 21701.\\
+\end{algorithm}
+

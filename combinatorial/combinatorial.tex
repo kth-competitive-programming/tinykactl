@@ -3,47 +3,6 @@
 \categorycontents{}
 
 
-\problemtitle{Misc}
-
-\begin{algorithm}{Impartial take-and-break games (NIM-like games)}
-\desc
-A game where two players take turns removing (indistinguisable) tokens
-from some heaps of tokens.  The player removing the last token (thus
-causing the next player to be unable to move) is the winner.  The
-moves available are: removing $x$ tokens from a heap (for some set of
-allowed $x$), and splitting a heap of $n$ tokens into two heaps of
-$n_1$ and $n_2$ tokens where $n_1, n_2 < n$.  Because every move
-reduces a heap size by at least 1, such games can never end in draw.
-To find optimal strategies, Grundy numbers (or nimbers) can be used.
-The Grundy value of a state $S = \{n\}$ is defined as $G(S) =
-\mathrm{mex}\;S'$ where $S'$ runs over all successor states to $S$ and
-$\mathrm{mex}$ is the minimal excluded (nonnegative) value.  The
-Grundy value of $S =
-\{n_1, n_2, \ldots n_k\}$ is defined as $\bigoplus_{i=1}^{k}
-G(\{n_i\})$.  A state $S$ is winning iff $G(S) \ne 0$.
-
-\end{algorithm}
-
-
-\begin{algorithm}{Knapsack}
-\complexity{\min(bound, nC)}
-\end{algorithm}
-\codenc{knapsack}{knapsack}
-
-\problemtitle{Puzzles}
-
-\code{nqueens}{nqueens}
-\code{magicsquare}{magicsquare}
-
-\begin{algorithm}{Tournament scheduling}
-\desc
-Compute a minimal day schedule where all teams meet all other
-teams. {\tt sched[i][j]} will contain the opponent of team {\tt j} on
-day {\tt i}, or 0 if no game that day.  Returns number of days.
-\end{algorithm}
-\codenc{tournaments}{tournaments}
-
-
 \problemtitle{Permutations}
 \begin{algorithm}{Permutations to/from integers}
 \complexity{ n^2 }
