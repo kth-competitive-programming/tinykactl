@@ -177,7 +177,7 @@
 \newcommand{\complexity}[1]{\keyword{Complexity} \ordo{#1}}
 \newenvironment{example}{\keyword{Example}\source}{\endsource}
 \newcommand{\valladolid}[1]{\keyword{Valladolid} #1}
-\newcommand{\reflisting}[1]{\keyword{Listing} -- #1.cpp, p. \pageref{code_#1}}
+\newcommand{\reflisting}[1]{\keyword{Listing} -- #1.cc, p. \pageref{code_#1}}
 \newcommand{\note}[1]{\keyword{Note!} #1}
 \newcommand{\deps}[1]{\keyword{Include} #1}
 \newcommand{\desc}{\keyword{}\hspace{7mm}}
@@ -216,7 +216,7 @@
   \categoryaddtocontents{code}{\tt\MakeLowercase{#1}}
   \index{#1_X @{\tt #1}}
   \vspace{1 cm}
-	 {\normalsize\bf Listing \thelstlisting : #1.cpp}
+	 {\normalsize\bf Listing \thelstlisting : #1.cc}
 	 \xinput{#2.sum}
 	 \hrule
 	 \lgrindfile{\thepath #2.lg}
