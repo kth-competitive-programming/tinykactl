@@ -19,7 +19,7 @@ clean: codeclean
 	$(RECURSE)
 
 
-code: koder summor texer includes
+code: koder texer includes
 	$(RECURSE)
 
 allcodeclean: codeclean
