@@ -12,9 +12,10 @@
  *   Update by David Rydh
  */
 
-int stirling( int n, int k ) {
-  if( n <= 1 )
-    return k==n ? 1:0;
+template <class T>
+T stirling( T n, T k ) {
+  if( n <= T(1) )
+    return T(k==n ? 1:0);
   else
     return stirling( n-1, k-1 ) + k*stirling( n-1, k );
 }
