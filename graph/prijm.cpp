@@ -9,22 +9,26 @@
 #include <set>
 
 // min should be initialised before-hand to inf values [path to -1 values]
-template <class F, class M, class P, class X, bool MST>
+template <class M, class P, bool MST>
 struct prijm {
   typedef typename M::value_type T;
-  M &min; P &path; X node;
-  set< pair<T, X> > q; // use a set as a modifiable priority queue
-  prijm(F f, M &m, P &p, X start) : min(m), path(p) {
+
+  M &min; P &path; int node;
+
+  set< pair<T, X> > q; // use as an mpq
+
+  prijm(M &m, P &p, int start) : min(m), path(p) {
     min[start] = T();
     q.insert(make_pair(min[start], start));
     while (!q.empty()) {
       node = q.begin()->second;
       q.erase(q.begin());
       if (MST) min[node] = T(); // only difference between dijkstra and prim
-      f(node, *this); // for_edge
+      f(node);
     }
   }
-  void operator ()(X dest, T dist) {
+
+  void relax(int dest, T dist) {
     if (min[node] + dist < min[dest]) {
       q.erase(make_pair(min[dest], dest)); //
       min[dest] = min[node] + dist; // update dest in the queue
@@ -32,8 +36,13 @@ struct prijm {
       path[dest] = node;
     }
   }
+
+  void f(int node) { // call relax on every edge that leaves node
+  }
 };
-template <class F, class M, class P, class X>
-void dijkstra(F f, M &m, P &p, X x) { prijm<F, M, P, X, false>(f, m, p, x); }
-template <class F, class M, class P, class X>
-void prim(F f, M &m, P &p, X x) { prijm<F, M, P, X, true>(f, m, p, x); }
+
+template <class M, class P>
+void dijkstra(M &m, P &p, int start) { prijm<M, P, false>(m, p, start); }
+
+template <class M, class P>
+void prim(M &m, P &p, int start) { prijm<M, P, true>(m, p, start); }
