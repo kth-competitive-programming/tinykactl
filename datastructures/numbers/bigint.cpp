@@ -10,81 +10,85 @@
 
 template <class T, class M=T> // limb type, multiplication intermediate type
 struct bigint {
-  typedef bigint<T, M> S;
+  typedef bigint S;
   typedef const S & R;
 
   static const T P; // maximum limb value
   static const unsigned N; // number of digits per limb
+
   vector<T> v; // limb vector
 
-  bigint(T c = T()) { carry(c); }
-  S &carry(T c) { while (c != T()) v.push_back(c % P), c /= P; return *this; }
+  bigint(T c = 0) { carry(c); }
+
+  S &carry(T c) { while (c != 0) v.push_back(c % P), c /= P; return *this; }
 
   // limb access
   unsigned size() const { return v.size(); }
   T operator[](unsigned i) const { return v[i]; }
+  T &operator[](unsigned i) { return v[i]; }
 
   // comparison
-  bool operator <(R n) const {
-    if (v.size() != n.size()) return v.size() < n.size();
-    for (unsigned i = v.size(); i-- > 0; )
-      if (v[i] != n[i]) return v[i] < n[i];
-    return false;
+  int comp(R n, unsigned j = 0) const {
+    if (v.size() != n.size() + j) return v.size() < n.size() + j ? -1 : 1;
+    for (unsigned i = v.size(); i-- > j; )
+      if (v[i] != n[i - j]) return v[i] < n[i - j] ? -1 : 1;
+    return 0;
   }
-  bool operator ==(R n) const {
-    if (v.size() != n.size()) return false;
-    for (unsigned i = 0; i < v.size(); ++i)
-      if (v[i] != n[i]) return false;
-    return true;
-  }
+  bool operator <(R n) const { return comp(n) < 0; }
+  bool operator ==(R n) const { return comp(n) == 0; }
 
   // addition
   S &add(T c, unsigned i = 0) {
-    while (c != T() && i < v.size())
+    while (c != 0 && i < v.size())
       c += v[i], v[i] = c % P, c /= P, ++i;
     return carry(c);
   }
-  S &operator ++() { return add(T(1)); }
-  S operator ++(int) { S t = *this; add(T(1)); return t; }
   S &operator +=(T c) { return add(c); }
-  S &operator +=(R n) {
-    if (v.size() < n.size()) v.resize(n.size());
-    T c = T();
+  S operator +(T c) const { S t = *this; return t += c; }
+
+  S &add(R n, unsigned j = 0) {
+    if (v.size() < n.size() + j) v.resize(n.size() + j);
+    T c = 0;
     for (unsigned i = 0; i < n.size(); ++i)
-      c += v[i] + n[i], v[i] = c % P, c /= P;
-    add(c, n.size());
+      c += v[i + j] + n[i], v[i + j] = c % P, c /= P;
+    add(c, n.size() + j);
     return *this;
   }
-  S operator +(T c) const { S t = *this; return t += c; }
+  S &operator +=(R n) { return add(n); }
   S operator +(R n) const { S t = *this; return t += n; }
 
   // subtraction
   S &sub(T c, unsigned i = 0) {
-    for (; c != T() && i < v.size(); ++i)
+    for (; c != 0 && i < v.size(); ++i)
       c += P-1 - v[i], v[i] = P-1 - c % P, c /= P;
-    while (size() > 0 && v[size() - 1] == T()) v.pop_back();
+    while (size() > 0 && v[size() - 1] == 0) v.pop_back();
     return *this;
   }
-  S &operator --() { return sub(T(1)); }
-  S operator --(int) { S t = *this; sub(T(1)); return t; }
   S &operator -=(T c) { return sub(c); }
-  S &operator -=(R n) {
-    if (v.size() < n.size()) v.resize(n.size()); // could be skipped
-    T c = T();
+  S operator -(T c) const { S t = *this; return t -= c; }
+
+  S &sub(R n, unsigned j = 0) {
+    T c = 0; //assert(v.size() < n.size());
     for (unsigned i = 0; i < n.size(); ++i)
-      c += P-1 + n[i] - v[i], v[i] = P-1 - c % P, c /= P;
-    sub(c, n.size());
+      c += P-1 + n[i] - v[i + j], v[i + j] = P-1 - c % P, c /= P;
+    sub(c, n.size() + j);
     return *this;
   }
-  S operator -(T c) const { S t = *this; return t -= c; }
+  S &operator -=(R n) { return sub(n); }
   S operator -(R n) const { S t = *this; return t -= n; }
+
+  // increment/decrement
+  S &operator ++() { return add(1); }
+  S &operator --() { return sub(1); }
+  S operator ++(int) { S t = *this; add(1); return t; }
+  S operator --(int) { S t = *this; sub(1); return t; }
 
   // multiplication
   S &operator *=(T n) {
     M c = M();
-    if (n == T())
+    if (n == 0)
       v.clear();
-    else if (n != T(1))
+    else if (n != 1)
       for (unsigned i = 0; i < v.size(); ++i)
 	c += M(v[i]) * n, v[i] = T(c % P), c /= P;
     return carry(T(c));
@@ -108,20 +112,45 @@ struct bigint {
   S &operator *=(R n) { return *this = *this * n; }
 
   // division and modulo T
-  S &divmod(T &d) {
+  S &divmod(T &d) { // d is divisor in, remainder out
     M c = M();
     for (unsigned i = size(); i-- > 0; )
       c = c * P + v[i], v[i] = T(c / d), c %= d;
-    sub(T()); d = T(c); // sub to clear away zeros; return remainder in d
+    sub(0); d = T(c); // sub to clear away zeros; return remainder in d
     return *this;
   }
   S &operator /=(T d) { return divmod(d); }
   S operator /(T d) const { S t = *this; t.divmod(d); return t; }
-  S &operator %=(T d) { divmod(d); v.clear(); carry(d); return *this; }
+  S &operator %=(T d) { divmod(d); *this = d; return *this; }
   T operator %(T d) const { S t = *this; t.divmod(d); return d; }
 
 
   // long division
+  void divmod(S &d) {
+    S n = *this, q;
+    if (!(n < d) && d.size() > 0) {
+      M e = M(d[d.size() - 1]) * P + (d.size() >= 2 ? d[d.size() - 2] + 1 : 0);
+      unsigned i = n.size() - d.size(), j = n.size();
+      q.v.resize(i + 1);
+      while (!(n < d)) {
+	if (n.comp(d, i) >= 0) {
+	  M m =
+	    (M(j < n.size() ? n[j] : 0) * P +
+	     (j >= 1 ? n[j - 1] : 0)) * P +
+	    (j >= 2 ? n[j - 2] : 0);
+	  T g = T(m / e);
+	  n.sub(d * g, i);
+	  while (n.comp(d, i) >= 0)
+	    ++g, n.sub(d, i);
+	  q[i] = g;
+	}
+	--i, --j;
+      }
+    }
+    *this = q; // store quotient in this
+    sub(0); d = n; // sub to clear away zeros; return remainder in d
+  }
+  /*
   S &divmod(R d, S &q) {
     S &r = *this; q = 0;
     S t = d, m = 1;
@@ -132,14 +161,15 @@ struct bigint {
     }
     return *this;
   }
-  S &operator /=(R d) { S t = *this; t.divmod(d, *this); return *this; }
-  S operator /(R d) const { S t = *this, q; t.divmod(d, q); return q; }
-  S &operator %=(R d) { S q; return divmod(d, q); }
-  S operator %(R d) const { S t = *this, q; t.divmod(d, q); return t; }
+  */
+  S &operator /=(R d) { S r = d; return divmod(r); }
+  S operator /(R d) const { S t = *this, r = d; return t.divmod(r); }
+  S &operator %=(R d) { S r = d; divmod(r); return *this = r; }
+  S operator %(R d) const { S t = *this, r = d; t.divmod(r); return r; }
 
 
   // binary operations with T
-  T operator &(T x) const { return v.empty() ? T(0) : v[0] & x; }
+  T operator &(T x) const { return v.empty() ? 0 : v[0] & x; }
   S &operator <<=(int x) {
     while (x < 0) *this /= 2, ++x;
     while (x > 0) *this *= 2, --x;
@@ -152,12 +182,12 @@ struct bigint {
     return *this;
   }
   S &operator |=(T x) {
-    x &= T((1 << N) - 1);
+    x &= (1 << N) - 1;
     if (v.empty()) v.push_back(x); else v[0] |= x;
     return *this;
   }
   S &operator ^=(T x) {
-    x &= T((1 << N) - 1);
+    x &= (1 << N) - 1;
     if (v.empty()) v.push_back(x); else v[0] ^= x;
     return *this;
   }
@@ -186,12 +216,13 @@ istream& operator>>(istream& in, bigint<T, M> &n) {
   unsigned l = s.length();
   n.v.clear();
   while (l > 0) {
-    T limb = T();
+    T limb = 0;
     for (unsigned k = l>n.N ? l-n.N : 0; k < l; ++k)
       limb = 10*limb + s[k]-'0';
     n.v.push_back(limb);
     l = l>n.N ? l-n.N : 0;
   }
+  n.sub(0);
   return in;
 }
 
