@@ -24,5 +24,6 @@ texer: \
 
 %.sum: %.cpp
 	$(UTIL)/stripcode $(SUMSTRIP) < $< | $(UTIL)/adler > $@
+	echo "\\\\" >> $@
 	$(UTIL)/stripcode $(SUMSTRIP) < $< | $(UTIL)/linecode >> $@
 

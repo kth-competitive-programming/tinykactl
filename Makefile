@@ -1,8 +1,8 @@
 # Makefile for lib.tex, the KTH ACM Contest Template Library document
 
-INTERMED=lib.aux lib.dvi lib.idx lib.log lib.lol lib.lop lib.toc
+INTERMED=lib.aux lib.dvi lib.idx lib.ilg lib.ind lib.log lib.lol lib.lop lib.toc
 
-.PHONY: all always clean spotless index lib.ps lib.pdf util code codeclean
+.PHONY: all always clean spotless index lib.ps lib.pdf util allcode allcodeclean
 
 all:
 	# Try 'make ps' or 'make pdf'!
@@ -11,7 +11,7 @@ all:
 
 always: .
 
-clean: codeclean
+clean: allcodeclean
 	rm -f $(INTERMED)
 	cd util && $(MAKE) clean
 
@@ -26,19 +26,20 @@ ps: lib.ps index always
 
 pdf: lib.pdf index always
 
-lib.ps: lib.tex always
+lib.ps: libtex always
 	latex lib.tex
 	dvips -o lib.ps lib.dvi
 
-lib.pdf: lib.tex always
+lib.pdf: libtex always
 	pdflatex lib.tex
 
-lib.tex: style.sty lgrind.sty util code
+libtex: style.sty lgrind.sty util allcode
 
 util: always
 	cd util && $(MAKE) util
 
-code: always
+allcode: always
+	cd . && $(MAKE) code
 	cd util && $(MAKE) code
 	cd general && $(MAKE) code
 	cd numerical && $(MAKE) code
@@ -48,7 +49,8 @@ code: always
 	cd geometry/hull && $(MAKE) code
 	cd pattern && $(MAKE) code
 
-codeclean: always
+allcodeclean: always
+	cd . && $(MAKE) codeclean
 	cd util && $(MAKE) codeclean
 	cd general && $(MAKE) codeclean
 	cd numerical && $(MAKE) codeclean
@@ -58,3 +60,7 @@ codeclean: always
 	cd geometry/hull && $(MAKE) codeclean
 	cd pattern && $(MAKE) codeclean
 
+LGSTRIP=header
+SUMSTRIP=header
+UTIL=util
+include $(UTIL)/makecode

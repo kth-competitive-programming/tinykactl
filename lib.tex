@@ -3,10 +3,26 @@
 
 \makeindex
 
-
+\title{KTH ACM Contest Template Library}
+\author{Popup 02}
 \begin{document}
+  \maketitle
 
 \tableofcontents
+
+\categorytitle{Contest}
+\problemtitle{Template}
+\problemtitle{env.sh}
+\categorycontents{}
+\begin{sources}
+  \code{Template}{Template}
+  \code{env.sh}{env.sh}
+\end{sources}
+\begin{sourceslandscape}
+  \code{adler}{util/adler}
+  \code{linecode}{util/linecode}
+  \code{xor}{util/xor}
+\end{sourceslandscape}
 
 \categorytitle{Data Structures}
 \categorycontents{}
@@ -23,35 +39,19 @@
 \problemtitle{heap}
 \problemtitle{valarray}
 
+\xinput{general/general}
 \xinput{numerical/numerical}
 \xinput{graph/graph}
+\xinput{geometry/geometry}
+\xinput{pattern/pattern}
 
-\categorytitle{Geometry}
+\categorytitle{Parsing}
 \categorycontents{}
-\problemtitle{Geometric primitives}
-\problemtitle{Intersection detection}
-\problemtitle{Convex Hull}
-\problemtitle{Nearest Neighbour}
-\problemtitle{Triangulation}
-\problemtitle{Range search}
-\problemtitle{Voronoi diagram}
-\problemtitle{Point location}
-\problemtitle{Polygon partitioning}
-\problemtitle{Maintaining line arrangements}
-\problemtitle{Minkowski sum}
-
-\categorytitle{Pattern}
-\categorycontents{}
-\problemtitle{String Matching}
-\problemtitle{Longest common subsequence}
-\problemtitle{Shortest common superstring}
 
 \categorytitle{Hard problems}
 \categorycontents{}
 
-\categorytitle{Input/Output}
-\categorycontents{}
-\problemtitle{simple/for/while solve}
+\xinput{io/io}
 
 \categorytitle{Idioms}
 \categorycontents{}
@@ -64,6 +64,9 @@
 \problemtitle{Bin packing}
 \problemtitle{}
 
+\appendix
+\categorytitle{Valladolid}
+\categorycontents{}
 
 \categorywritecontents{}
 
