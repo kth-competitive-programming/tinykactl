@@ -1,8 +1,7 @@
-#include "testplate.cpp"
+#include "Testplate.cpp"
 #include "../geometry/point.cpp"
 #include "../geometry/point_ops.cpp"
 #include "../geometry/poly_cut.cpp"
-
 
 typedef point<double> Pt;
 typedef vector<Pt> V;

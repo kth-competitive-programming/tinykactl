@@ -8,10 +8,10 @@
  * ACM Warmup competition 2, 11 March 2002
  *****************************************/
 
-using namespace std;
-
 #include <cstdlib>
 #include <iostream>
+
+using namespace std;
 
 //#include "../graph/maxflow/ford_fulkerson_1.cpp"
 #include "../graph/maxflow/lift_to_front.cpp"

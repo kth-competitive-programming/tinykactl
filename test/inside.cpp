@@ -1,7 +1,9 @@
 #include "Testplate.cpp"
 
+using namespace std;
+
 #include "../geometry/point.cpp"
-#include "../geometry/point_ops.cpp"
+//#include "../geometry/point_ops.cpp"
 #include "../geometry/inside.cpp"
 #include "../geometry/winding_number.cpp"
 
@@ -31,12 +33,12 @@ bool solve(int P) {
     Pt p; cin >> p.x >> p.y;
     v.push_back(p);
   }
-  if (inside(q, v, n))
+  if (inside(v, n, q))
     cout << "inside" << endl;
   else
     cout << "outside" << endl;
 
-  int wind = inside_poly(q, v, n);
+  int wind = inside_wn(v, n, q);
   switch (wind) {
   case 1: cout << "inside" << endl; break;
   case 0: cout << "on" << endl; break;
