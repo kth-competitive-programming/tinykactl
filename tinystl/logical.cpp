@@ -9,10 +9,10 @@
  */
 
 template <class T> struct logical_and //: public binpred<T>
-{ bool operator()(const T &x, const T &y) { return x && y; } };
+{ bool operator()(const T &x, const T &y) const { return x && y; } };
 
 template <class T> struct logical_or //: public binpred<T>
-{ bool operator()(const T &x, const T &y) { return x || y; } };
+{ bool operator()(const T &x, const T &y) const { return x || y; } };
 
 template <class T> struct logical_not //: public unpred<T>
-{ bool operator()(const T &x) { return !x; } };
+{ bool operator()(const T &x) const { return !x; } };

@@ -15,8 +15,7 @@
 //#include <string>
 //#include <map>
 
-#include "../../tinystl/skip_list_associative.cpp"
-//#include "../../tinystl/associative.cpp"
+#include "../../tinystl/associative.cpp"
 
 #include "../../tinystl/vector.cpp"
 #include "../../tinystl/string.cpp"

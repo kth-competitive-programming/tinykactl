@@ -5,7 +5,7 @@ all: \
  $(patsubst SCCS/s.%.cpp,%.exe,$(wildcard SCCS/s.*.cpp))
 
 %.exe: %.cpp
-	g++2 -Wall -o $@ $<
+	g++2 -ansi -pedantic -lm -Wall -o $@ $<
 
 clean: ;
 	rm -f *.exe
