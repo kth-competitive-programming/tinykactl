@@ -10,7 +10,7 @@
 
 template <class vR, class C>
 struct map_compare {
-  C comp; map_compare(C _comp) : comp(_comp) { }
+  C comp; map_compare(C _comp=C()) : comp(_comp) { }
   bool operator()(vR x, vR y) { return comp(x.first, y.first); }
 };
 

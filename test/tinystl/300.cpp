@@ -14,6 +14,10 @@
 //#include <string>
 //#include <algorithm>
 //#include <map>
+
+#include "../../tinystl/skip_list_associative.cpp"
+//#include "../../tinystl/associative.cpp"
+
 #include "../../tinystl/string.cpp"
 //#include "../../tinystl/simplemap.cpp"
 #include "../../tinystl/map.cpp"

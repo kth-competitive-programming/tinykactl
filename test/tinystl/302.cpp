@@ -14,6 +14,10 @@
 //#include <map>
 //#include <vector>
 //#include <list>
+
+#include "../../tinystl/skip_list_associative.cpp"
+//#include "../../tinystl/associative.cpp"
+
 #include "../../tinystl/vector.cpp"
 #include "../../tinystl/list.cpp"
 #include "../../tinystl/map.cpp"
