@@ -19,7 +19,11 @@ struct vector {
   typedef const T *const_iterator;
   typedef vector S;
 
-  vector( int _n=0, const T &val=T() ) {
+  vector( int _n=0 ) {
+    n = a = _n;
+    b = new T[a];
+  }
+  vector( int _n, const T &val=T() ) {
     n = a = _n;
     b = new T[a];
     fill( b, b+n, val );
@@ -58,18 +62,26 @@ struct vector {
   T *erase( T *f, T *l ) { copy(l,end(),f); n-=(l-f); return f; }
 
   void clear() { resize(0); }
-  void resize( int ns, const T &v=T() ) {
-    if( ns<=n ) n=ns;
-    else {
-      if( ns>a ) {
-	T *bn = new T[a=2*ns];
-	copy( b, b+n, bn );
-	delete[] b;
-	b = bn;
-      }
-      while( n<ns ) b[n++] = v;
+  void reserve( int na ) {
+    if( na>a ) {
+      T *bn = new T[a=na];
+      copy( b, b+n, bn );
+      delete[] b;
+      b = bn;
     }
   }
+
+  void resize( int ns ) {
+    if( ns>a ) reserve( 2*ns );
+    while( n<ns ) b[n++] = T();
+    n = ns;
+  }
+  void resize( int ns, const T &v ) {
+    if( ns>a ) reserve( 2*ns );
+    while( n<ns ) b[n++] = v;
+    n = ns;
+  }
+
   void swap( S &x ) { swap(b,x.b); swap(n,x.n); swap(a,x.a); }
 };
 
