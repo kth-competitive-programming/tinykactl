@@ -45,9 +45,11 @@ util: always
 allcode: always
 	cd . && $(MAKE) code
 	cd util && $(MAKE) code
+	cd datastructures && $(MAKE) code
 	cd general && $(MAKE) code
 	cd io && $(MAKE) code
 	cd numerical && $(MAKE) code
+	cd combinatorial && $(MAKE) code
 	cd graph && $(MAKE) code
 	cd graph/mst && $(MAKE) code
 	cd geometry && $(MAKE) code
@@ -57,9 +59,11 @@ allcode: always
 allcodeclean: always
 	cd . && $(MAKE) codeclean
 	cd util && $(MAKE) codeclean
+	cd datastructures && $(MAKE) codeclean
 	cd general && $(MAKE) codeclean
 	cd io && $(MAKE) codeclean
 	cd numerical && $(MAKE) codeclean
+	cd combinatorial && $(MAKE) codeclean
 	cd graph && $(MAKE) codeclean
 	cd graph/mst && $(MAKE) codeclean
 	cd geometry && $(MAKE) codeclean
