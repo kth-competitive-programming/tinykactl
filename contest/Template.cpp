@@ -3,53 +3,38 @@
 // Template for KTH-NADA, Team Name
 //   Team Captain, Team Member, Team Member
 //
-// Problem: _
+// Problem: %P
 
 #include <iostream>
-#include <iomanip>
-#include <cstdio>
 #include <algorithm>
 //#include <string>
-//#include <vector>
-//#include <set>
 //#include <map>
+//#include <vector>
 //#include <cmath>
 
-using namespace std;
 
-const int N = 0;
+typedef enum {SIMPLE, FOR, WHILE} solve_mode;
+#define doubt if (debug) cerr
 
-const bool debug = true;
-#define DB if (debug)
-#define DBO if (debug) cerr <<
+void init() {  }
 
-void init();
-bool solve(int P);
-
-int main() {
-  init();
-
-  // simple-solve
-  solve(0);
-
-  // for-solve
-  int n; cin >> n;
-  for (int i = 0; i < n; i++)
-    solve(i);
-
-  // while-solve
-  int n = 0;
-  while (solve(n))
-    n++;
-
-  return 0;
-}
-
-void init() {
-}
+const solve_mode mode = SIMPLE;
+const bool debug = false;
 
 bool solve(int P) {
-  int n; cin >> n;
-  if (!cin || n == 0) return false;
+  int n;
+  if (!(cin >> n)  || n == 0) return false;
   return true;
+}
+
+int main() {
+  int n = 1<<30;
+  init();
+  if (mode == FOR)
+    cin >> n;
+  if (mode == SIMPLE)
+    solve(0);
+  else
+    for (int i = 0; i < n && solve(i); ++i);
+  return 0;
 }
