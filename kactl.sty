@@ -120,7 +120,7 @@
 
 \def\l@problem{\@dottedtocline{1}{1.5em}{2.3em}}
 \def\l@algorithm{\@dottedtocline{2}{3.8em}{3.2em}}
-\def\l@code{\@dottedtocline{1}{1.5em}{2.3em}}
+\def\l@code{\@dottedtocline{2}{3.8em}{3.2em}}
 
 \def\categorycontentline#1#2#3#4{%
 	\def\style@temp{#1}%
@@ -216,15 +216,14 @@
 % \code{displayname}{filename}[label] (filenames without cpp)
 \def\code#1#2{
   \refstepcounter{lstlisting}
-  \pagebreak[3]
+%  \pagebreak[3]
   \label{code_#1}
   \categoryaddtocontents{code}{\tt\MakeLowercase{#1}}
   \index{#1_X @{\tt #1}}
-  \vspace{0 cm}
-	 {\normalsize\bf Listing \thelstlisting : #1.cc}
-	 \xinput{#2.incl}
-	 \hrule
-	 \lgrindfile{\thepath #2.lg}
+	{\normalsize\bf Listing \thelstlisting : #1.cc}
+	\xinput{#2.incl}
+	\hrule
+	\lgrindfile{\thepath #2.lg}
 }
 
 \newcommand{\sourcesection}[1]{\section*{#1}}

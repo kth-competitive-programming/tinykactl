@@ -1,48 +1,50 @@
-\categorytitle{Number Theory}
+\categorytitle{Numerical}
 \categorycontents{}
 
-\problemtitle{Divisibility}
+\problemtitle{Number theory}
 
-\begin{algorithm}{Perfect numbers}
+\code{euclid}{euclid}
+
+\code{chinese}{chinese}
+
+\begin{algorithm}{Primes}
 \desc
-When $n$ is even, it is a perfect number iff it is of the form
-$\frac{p (p+1)}{2}$, where $p$ is a Mersenne prime. Mersenne primes are primes
-of the form $p = 2^k - 1$. The first 27 Mersenne primes (and thus the first 27
-even perfect numbers) are obtained for $k =$ 2, 3, 5, 7, 13, 17, 19, 31, 61,
-89, 107, 127, 521, 607, 1279, 2203, 2281, 3217, 4253, 4423, 9689, 9941, 11213,
-19937, 21701, 23209, 44497.
-
-It is conjectured that there are no odd perfect numbers.
-\end{algorithm}
-
-\problemtitle{Primes}
-
 The 1000th prime is 7919. The first every 10000th primes are:
 {\small
 \begin{verbatim}
   104729  224737  350377  479909  611953
   746773  882377 1020379 1159523
 \end{verbatim}
-}
+}\end{algorithm}
 
-\problemtitle{Josephus}
-\begin{algorithm}{Josephus}
-\reflisting{josephus}
-\complexity{log_{\frac{k}{k-1}}(n)}
+\code{prime sieve}{prime_sieve}
+
+\code{miller-rabin}{miller-rabin}
+
+\code{pollard-rho}{pollard-rho}
+
+\begin{algorithm}{Perfect numbers}
 \desc
-Josephus is the problem to determine which person remains when repeatedly
-removing the $k$:th person from a total of $n$ persons (cyclic).
+$n$ is perfect iff $n = \frac{p(p+1)}{2}$, where $p = 2^k-1$ is prime.
+First Mersenne primes are obtained for $k =$ 2, 3, 5, 7, 13, 17, 19,
+31, 61, 89, 107, 127, 521, 607, 1279, 2203, 2281, 3217, 4253, 4423,
+9689, 9941, 11213, 19937, 21701, 23209, 44497.
 \end{algorithm}
+
+\begin{algorithm}{Josephus}
+\desc
+Which person remains when repeatedly removing the $k$:th person from a
+total of $n$ persons (cyclic)?
+\complexity{\log_{\frac{k}{k-1}}(n)}
+\end{algorithm}
+
+\code{josephus}{josephus}
 
 \problemtitle{Linear Equations}
-\begin{algorithm}{Solving linear equations}
-\reflisting{solve linear per}
-\reflisting{matrix inverse}
-\end{algorithm}
+\code{solve linear per}{solve_linear_per}
+\code{matrix inverse}{matrix_inverse}
 
 \begin{algorithm}{Calculating determinant}
-\reflisting{determinant}
-\reflisting{int determinant}
 \desc {\tt determinant} and {\tt int\_determinant} both reduces the matrix
 to an upper diagonal form using elementary row operations. There could be an
 overflow in the integral variant and in that case the double variant
@@ -51,41 +53,23 @@ can be used instead, rounding the answer at the end. The strength of
 {\tt BigInt}. Note that it uses {\tt euclid} which could be rather
 slow in the {\tt BigInt} case.
 \end{algorithm}
+\code{determinant}{determinant}
+\code{int determinant}{int_determinant}
 
 \problemtitle{Optimization}
 \begin{algorithm}{Simplex method}
-\reflisting{simplex}
 \desc
 Solves a linear minimization problem. The first row of the
 input matrix is the objective function to be minimized. The
 first column is the maximum allowed value for each linear row.
 \end{algorithm}
-
-\sourcesection{Divisibility}
-
-\code{euclid}{euclid}
-\code{chinese}{chinese}
-
-\sourcesection{Primes}
-\code{prime sieve}{prime_sieve}
-\code{miller-rabin}{miller-rabin}
-\code{pollard-rho}{pollard-rho}
-
-\sourcesection{Linear Algebra}
-\code{solve linear per}{solve_linear_per}
-\code{matrix inverse}{matrix_inverse}
-\code{determinant}{determinant}
-\code{int determinant}{int_determinant}
-
-\sourcesection{Numerical Misc}
-\code{josephus}{josephus}
-
-\code{bitmanip}{bitmanip}
-
-\sourcesection{Optimization}
 \code{simplex}{simplex}
 
-\sourcesection{Polynomials}
+\problemtitle{Polynomials}
 \code{polynomial}{polynomial}
 \code{poly roots}{poly_roots}
+
+\problemtitle{Bit manipulation hacks}
+\code{bitmanip}{bitmanip}
+
 
