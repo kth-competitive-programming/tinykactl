@@ -1,8 +1,12 @@
 # Makefile for lib.tex, the KTH ACM Contest Template Library document
 
-INTERMED=lib.aux lib.dvi lib.idx lib.ilg lib.ind lib.log lib.lol lib.lop lib.toc
+INTERMED= \
+lib.aux lib.dvi lib.idx lib.ilg lib.ind \
+lib.log lib.lol lib.lop lib.toc
 
-.PHONY: all always clean spotless index lib.ps lib.pdf util allcode allcodeclean
+.PHONY: \
+all always clean spotless index ps pdf \
+lib.ps lib.pdf libtex util allcode allcodeclean
 
 all:
 	# Try 'make ps' or 'make pdf'!
