@@ -4,8 +4,13 @@
 \problemtitle{Divisibility}
 \begin{algorithm}{GCD}
 \reflisting{gcd}
+\reflisting{gcd fast}
 \usage{ \sourceline{d = gcd( a, b );} }
 \complexity{ \log(b) }
+\usage{ \sourceline{d = gcd\_fast(a, b);} }
+\complexity{ \log(a) + \log(b) }
+\characteristics{The \sourceline{gcd\_fast} routine is slightly more writing than the usual gcd routine, but can be useful where speed is {\em really essential}, as it only uses subtraction and shift operations instead of the evil modulo.}
+
 \valladolid{202}
 \end{algorithm}
 
@@ -125,6 +130,7 @@ squaring.}
 
 \begin{sourceslandscape}
 \code{gcd}{gcd}
+\code{gcd fast}{gcd_fast}
 \code{euclid}{euclid}
 \code{phi}{phi}
 \code{josephus}{josephus}
