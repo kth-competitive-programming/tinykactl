@@ -5,7 +5,7 @@
  * Credit:
  *   By Mattias de Zalenski
  */
-#include <vector>
+
 #include "flood_fill.cpp"
 
 template <class E, class M>
