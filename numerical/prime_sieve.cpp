@@ -13,7 +13,7 @@ struct prime_sieve {
   char *v;
 
   prime_sieve( int n ) {
-    int sn = (int)sqrt(n);
+    int sn = (int)sqrt((double)n);
     n /= 2;
     v = (char*)malloc(n);
     memset( v, 1, n );

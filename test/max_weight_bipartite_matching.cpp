@@ -8,7 +8,7 @@
 using namespace std;
 
 //#include "../graph/maxflow/max_weight_bipartite_matching.cpp"
-#include "../graph/maxflow/max_weight_b_m_of_max_card.cpp"
+#include "../graph/matching/max_weight_b_m_of_max_card.cpp"
 
 
 const enum {SIMPLE, FOR, WHILE} mode = FOR;
