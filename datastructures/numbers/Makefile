@@ -1,4 +1,4 @@
 LGSTRIP=header
-SUMSTRIP=header preproc comments
+SUMSTRIP=header preproc include comments
 UTIL=../../util
 include $(UTIL)/makecode

@@ -14,9 +14,10 @@ using namespace std;
 struct strip_parser {
   istream &in;
   ostream &out;
-  bool strip_header, strip_comments, strip_preproc, strip_code;
+  bool strip_header, strip_comments, strip_preproc, strip_include, strip_code;
   strip_parser(istream &_in, ostream &_out) : in(_in), out(_out) {
-    strip_header = strip_comments = strip_preproc = strip_code = false;
+    strip_header = strip_comments = strip_preproc =
+      strip_include = strip_code = false;
   }
   // the strip function
   bool strip() {
@@ -44,7 +45,15 @@ struct strip_parser {
     lex();
   }
   void rdX() { if (c == '#') rdP(); else rdC(); } // a c++ "line"
-  void rdP() { p = !strip_preproc; rdEsc('\n'); } // a preproc "line"
+  void rdP() { // a preproc "line"
+    p = !strip_preproc && !strip_include; lex();
+    if( !strip_include && c=='i' ) {
+      lex(); if(c=='n' ) {
+	p = true; put('i'); put('n');
+      }
+    }
+    rdEsc('\n');
+  }
   void rdC() { // a code "line"
     bool e = true; // empty code line flag, see //line comment
     bool s = true; // space flag, see /*range*/ comment
@@ -118,6 +127,7 @@ int main(int argc, char *argv[]) {
     else if (s == "header") stripper.strip_header = true;
     else if (s == "comments") stripper.strip_comments = true;
     else if (s == "preproc") stripper.strip_preproc = true;
+    else if (s == "include") stripper.strip_include = true;
     else if (s == "code") stripper.strip_code = true;
     else {
       cerr << "stripcode: unrecognized option '" << s << "'" << endl;
@@ -125,7 +135,7 @@ int main(int argc, char *argv[]) {
     }
   }
   if (argc <= 1 || !f) {
-    cerr << "usage: stripcode {-|header|comments|preproc|code}+" << endl;
+    cerr << "usage: stripcode {-|header|comments|preproc|include|code}+"<<endl;
     cerr << "  header is the first /*comment*/ not preceded by code" << endl;
     return 1;
   }

@@ -8,9 +8,9 @@
  *   By David Rydh
  */
 
-#include "utility.cpp"
+#include "base.cpp"
+#include "comparisons.cpp"
 #include "vector.cpp"
-#include "function.cpp"
 
 template<class T, class C=less<T> >
 struct priority_queue : vector<T> {
