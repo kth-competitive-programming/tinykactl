@@ -17,7 +17,7 @@ template<class R, class T>
 T _pivot(R first, R last, const T &dummy ) {
   // Middle pivot
   return first[(last-first)/2];
-
+  /*
   // Average pivot
   return (*first+*(last-1))/2;
 
@@ -27,6 +27,7 @@ T _pivot(R first, R last, const T &dummy ) {
   if( pivots[2] < pivots[0] ) swap( &pivots[0], &pivots[2] );
   if( pivots[2] < pivots[1] ) swap( &pivots[1], &pivots[2] );
   return pivots[1];
+  */
 }
 
 template<class R, class T>
@@ -39,7 +40,7 @@ void sort(R first, R last, const T &dummy ) {
   R a = first, b = last-1;
   while( a<=b ) {
     while( *a < pivot ) a++;
-    while( *b > pivot ) b--;
+    while( pivot < *b ) b--;
     if( a>=b ) break;
     swap( *a, *b );
     a++; b--;

@@ -24,8 +24,8 @@ struct pair {
   S first; T second; pair() : first(S()), second(T()) { }
   pair(const S &s, const T &t) : first(s), second(t) { }
   //template <class P> pair(const P &p) : first(p.first), second(p.second) { }
-  bool operator==(R p) { return first==p.first && second==p.second; }
-  bool operator<(R p) { return first<p.first ||
+  bool operator==(R p) const { return first==p.first && second==p.second; }
+  bool operator<(R p) const { return first<p.first ||
 			  first<=p.first && second<p.second; }
 };
 
