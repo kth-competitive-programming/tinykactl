@@ -25,6 +25,6 @@ struct point3 {
 				x*p.y - y*p.x); }
 };
 
-template <class T> T dot(point3<T> p, point3<T> q) { return p.dot(q); }
+// unit normal to a plane from two vectors
+template <class P> P normal(P p, P q) { return unit(p.cross(q)); }
 
-template <class P> P cross(P p, P q) { return p.cross(q); }

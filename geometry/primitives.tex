@@ -1,98 +1,44 @@
 \problemtitle{Geometric primitives}
-\begin{algorithm}{$\pi$, sqr, point and line}
-\reflisting{geometry}
 
-\desc
-The recomended way of defining pi in contests. \\
-The useful {\tt sqr} function. \\
-A very simple point struct.
-Normally one should use the one in {\tt point.cpp}. \\
-A line struct.
-\end{algorithm}
 
-\begin{algorithm}{Point}
-\reflisting{point}
+\code{point}{point}
+\code{point3}{point3}
+\code{point line relations}{point_line_relations}
 
-\desc
-A point struct with comparison, difference, inverse scaling, dot and
-scalar cross product.
-\end{algorithm}
-
-\begin{algorithm}{Point operations}
-\reflisting{point ops}
-
-\desc
-The operations {\tt dist2, dx, dy, dz, dist, angle, theta, unit, perm, normal}
-on points. Theta is a rational meta-angle function in the rangle $(-2,2]$.
-\end{algorithm}
-
-\begin{algorithm}{Point 3D}
-\reflisting{point3}
-
-\desc
-A 3D point struct with comparison, difference, inverse scaling, dot and
-vector cross product.
-\end{algorithm}
-
-\begin{algorithm}{Point-line relations}
-\reflisting{point line}
-%\desc
-\item[{\tt sideof}] Determine on which side of a line a point is.
-+1/-1 is left/right of vector $p_1-p_0$ and 0 is on the line.
-\item[{\tt onsegment}] Determine if a point is on a line segment (incl the end
-points).
-\item[{\tt linedist}] Get a measure of the distance of a point from a line
-(0 on the line and positive/negative on the different sides).
-\end{algorithm}
 
 \begin{algorithm}{Line intersection}
-\reflisting{line isect}
-
 \desc
-Intersection point between two lines.
+Intersection point between two lines.  Different cases depending on
+whether the lines are infinite or segments.
 \end{algorithm}
-
-\begin{algorithm}{Interval intersection}
-\reflisting{interval}
-
-\desc
-Intersection between two intervals or rectangles.
-\end{algorithm}
-
-\begin{algorithm}{Interval intersection}
-\reflisting{interval}
-
-\desc
-Intersection between two intervals or rectangles.
-\end{algorithm}
+\code{line isect}{line_isect}
 
 \begin{algorithm}{Interval union}
-\reflisting{ival union}
-
 \desc
 The union of several intervals given as pair<first,last> in a container. The
 result is a disjoint list of intervals in ascending order.
 \end{algorithm}
+\code{ival union}{ival_union}
+
 
 \begin{algorithm}{Circle tangents}
-\reflisting{circle tangents}
-
 \desc
 The tangent points from a point to a circle. The algorithm returns if
 the point lies on the circles perimeter (in which case the two tangent
 points are equal).
 \end{algorithm}
+\code{circle tangents}{circle_tangents}
 
-\begin{algorithm}{Counter-Clock-Wise}
-\reflisting{ccw}
 
-\desc
-Sedgewick ccw function.
-\end{algorithm}
+%\begin{algorithm}{Counter-Clock-Wise}
+%\desc
+%Sedgewick ccw function.
+%\end{algorithm}
+%\code{ccw}{ccw}
 
-\begin{algorithm}{CCW Line segment intersection test}
-\reflisting{isect test}
+%\begin{algorithm}{CCW Line segment intersection test}
+%\desc
+%Based on Sedgewick's ccw function.
+%\end{algorithm}
+%\code{isect test}{isect_test}
 
-\desc
-Based on Sedgewick's ccw function.
-\end{algorithm}

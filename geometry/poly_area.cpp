@@ -6,12 +6,12 @@
  *   By Mattias de Zalenski
  */
 
-#include "point.cpp"
+#include "point.cc"
 
-template <class V>
-double poly_area(V p, int n) {
-  typename V::value_type::coord_type a = 0;
-  for (int i = 0, j = n - 1; i < n; j = i++)
-    a += cross(p[j], p[i]);
-  return (double) a / 2;
+template <class T, class It>
+double poly_area2(It begin, It end) {
+  T a = T();
+  for (It i = begin, j = end - 1; i < end; j = i++)
+    a += j->cross(*i);
+  return a;
 }
