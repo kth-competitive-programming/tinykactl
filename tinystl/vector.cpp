@@ -14,6 +14,10 @@ template< class T >
 struct vector {
   T *b; int n, a;
 
+  typedef T value_type;
+  typedef T *iterator;
+  typedef const T *const_iterator;
+
   vector( int _n=0, const T &val=T() ) {
     n = a = _n;
     b = new T[a];
