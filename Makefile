@@ -25,7 +25,7 @@ index:
 
 getversion:
 	bk changes | head -1 | cut -d @ -f2 | cut -d ' ' -f1,2 > version
-	bk changes | grep TAG | head -1 | cut -f 4- -d ' ' > tag
+	bk changes | head -5 | grep TAG | head -1 | cut -f 4- -d ' ' > tag
 
 ps: tinykactl.ps index always
 
