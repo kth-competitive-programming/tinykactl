@@ -4,72 +4,82 @@
 
 \problemtitle{STL containers}
 \begin{algorithm}{pair}
+\keyword{Include}
+{\tt utility} or {\tt algorithm}
 \usage{}
-{\tt \#include <utility>} or\\
-{\tt \#include <algorithm>}\\
 {\tt make\_pair}, {\tt p.first}, {\tt p.second}, {\tt <}, {\tt ==}.
 \end{algorithm}
 
 \begin{algorithm}{string}
+\keyword{Include}
+{\tt string}
 \usage{}
-{\tt \#include <string>}\\
 {\tt substr}, {\tt <}, {\tt ==}.
 \end{algorithm}
 
 \begin{algorithm}{vector}
+\keyword{Include}
+{\tt vector}
 \usage{}
-{\tt \#include <vector>}\\
 {\tt resize}, {\tt push\_back}, {\tt []}.
 \end{algorithm}
 
 \begin{algorithm}{deque}
+\keyword{Include}
+{\tt deque}
 \usage{}
-{\tt \#include <deque>}\\
 {\tt push\_front}, {\tt push\_back}, {\tt []}.
 \end{algorithm}
 
 \begin{algorithm}{set}
+\keyword{Include}
+{\tt set}
 \usage{}
-{\tt \#include <set>}\\
 {\tt insert}, {\tt erase}, {\tt count}
 \end{algorithm}
 
 \begin{algorithm}{map}
+\keyword{Include}
+{\tt map}
 \usage{}
-{\tt \#include <map>}\\
 {\tt []}, {\tt count}
 \end{algorithm}
 
 \begin{algorithm}{list}
+\keyword{Include}
+{\tt list}
 \usage{}
-{\tt \#include <list>}\\
-{\tt push\_front}, {\tt push\_back}, {\tt []}.
+{\tt push\_front}, {\tt push\_back}, {\tt splice}, {\tt merge}, {\tt sort}.
 \end{algorithm}
 
 \begin{algorithm}{queue}
+\keyword{Include}
+{\tt queue}
 \usage{}
-{\tt \#include <queue>}\\
+{\tt push}, {\tt empty}, {\tt front}, {\tt pop}.
+\end{algorithm}
+
+\begin{algorithm}{priority queue}
+\keyword{Note!}
+The {\tt front()} is the element with the {\em highest} key.
+\keyword{Include}
+{\tt queue}
+\usage{}
 {\tt push}, {\tt empty}, {\tt front}, {\tt pop}.
 \end{algorithm}
 
 \begin{algorithm}{stack}
+\keyword{Include}
+{\tt stack}
 \usage{}
-{\tt \#include <stack>}\\
 {\tt push}, {\tt empty}, {\tt top}, {\tt pop}.
 \end{algorithm}
 
 \begin{algorithm}{heap}
+\keyword{Include}
+{\tt algorithm}
 \usage{}
-{\tt \#include <algorithm>}\\
 {\tt make\_heap}, {\tt push\_heap}, {\tt pop\_heap}, {\tt sort\_heap}.
-\end{algorithm}
-
-\begin{algorithm}{priority queue}
-\keyword{note}
-The {\tt front()} is the element with the {\em highest} key.\\
-\usage{}
-{\tt \#include <queue>}\\
-{\tt push}, {\tt empty}, {\tt front}, {\tt pop}.
 \end{algorithm}
 
 \problemtitle{Null vector}
@@ -116,9 +126,32 @@ is changed, the {\tt key\_increased} or {\tt key\_decreased} method should
 be called with its position as argument.
 \end{algorithm}
 
+\problemtitle{Named items}
+When items are named, for example graph nodes identified by strings or big
+non-contiguous integers, it is often practical to keep a map from the
+names to an index numbering starting from 0, and a vector to retrieve a name
+back from an index.
+
+The {\tt index mapper} does this.
+It has function semantics to retrieve an index for a name,
+and vector semantics to retrieve a name from an index:
+\begin{algorithm}{Index mapper}
+  \usage{\sourceline{%
+int idx = mapper("x")  =>  mapper("x") == idx, mapper[idx] == "x"%
+}}
+  \reflisting{index mapper}
+\end{algorithm}
+
+\problemtitle{Indexed arrays}
+\begin{algorithm}{indexed}
+  \reflisting{indexed}
+\end{algorithm}
+
 \begin{sourceslandscape}
 \code{null vector}{null_vector}
 \code{sets}{sets}
 \code{mpq}{mpq}
 \code{update heap}{update_heap}
+\code{index mapper}{index_mapper}
+\code{indexed}{indexed}
 \end{sourceslandscape}
