@@ -1,7 +1,13 @@
 all: always
 	# Try 'make ps' or 'make pdf'!
 	# These will always run latex or pdflatex, so that the index and ToC
-	# may be fully generated
+	# may be fully generated. 'make clean' or 'make spotless' tidies up.
+
+clean:
+	rm -f lib.aux lib.dvi lib.idx lib.log lib.lop lib.toc
+
+spotless: clean
+	rm -f lib.pdf lib.ps
 
 ps: lib.ps
 
