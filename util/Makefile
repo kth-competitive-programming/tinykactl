@@ -22,8 +22,8 @@ stripcode: stripcode.cpp
 adler: adler.cpp
 	g++ -o adler adler.cpp
 
-linecode: linecode.cpp
-	g++ -o linecode linecode.cpp
+linecode: linecode.cpp linecodesafe.cpp
+	g++ -o linecode linecodesafe.cpp
 
 LGSTRIP=header
 SUMSTRIP=header

@@ -12,7 +12,8 @@
 
 template <class T>
 struct flow_edge {
-  int dest, back; T c, f;
+  int dest, back;
+  T c, f; // capacity and flow
   flow_edge(int _dest, int _back, T _c, T _f = T())
     : dest(_dest), back(_back), c(_c), f(_f) { }
 };
@@ -46,7 +47,7 @@ T lift_to_front(E &flow, int source, int sink) {
 
   // init lift-to-front
   vector<int> l(v, sink); // lift-to-front list
-  vector<L::iterator> cur; // current edge per node
+  vector<L::iterator> cur; // current edge, per node
   int p = sink; 
   for (int i = 0; i < v; i++)
     if (i != source && i != sink)
@@ -62,15 +63,16 @@ T lift_to_front(E &flow, int source, int sink) {
     // discharge u
     while (excess[u] > 0)
       if (cur[u] == flow[u].end()) {
-	int minh = v - 2; // lift u
+	// lift u
+	int minh = v - 2;
 	for (L::iterator it = flow[u].begin(); it != flow[u].end(); it++)
 	  if ((*it).c > 0) minh = min(minh, height[(*it).dest]);
 	height[u] = 1 + minh;
-	// last four lines may maybe be replaced by height[u]++;
+	// last four lines may maybe be replaced by height[u]++; ..
 	cur[u] = flow[u].begin();
       }
       else if ((*cur[u]).c > 0 && height[u] == height[(*cur[u]).dest] + 1)
-	// push cur[u]
+	// push on edge cur[u]
 	add_flow(flow, cur[u], min(excess[u], (*cur[u]).c), excess);
       else
 	++cur[u];

@@ -37,7 +37,7 @@ int golden_ratio(int r, int l) {
 }
 
 template <class F, class T>
-int golden_search(int l, int r, const F &f, T &v) {
+int golden_bound(int l, int r, const F &f, T &v) {
   int d = golden_ratio(r, l);
   int m1 = l + d, m2 = r - d;
   T f1 = f(m1), f2 = f(m2);
