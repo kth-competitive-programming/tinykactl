@@ -17,13 +17,6 @@ longest.
 If the graph is not cyclic, the start node must be a node with
 $\mathrm{deg}_{out}-\mathrm{deg}_{in} = 1$.
 
-{\tt euler\_walk} can be used to test if a graph has an eulerian walk
-by first finding a start-node (or any node if it is cyclic) and then
-checking if {\tt path.size() == nrOfEdges+1}. But obviously this is
-slower than checking that all out degrees are equal to the in degrees
-(or exactly one vertex has an extraneous entering edge and another
-vertex an extraneous leaving edge) and that the graph is connected.
-
 Set {\tt cyclic=true} if the path found must be cyclic, this is mostly
 of internal use.
 
@@ -38,8 +31,7 @@ start} which also is the last vertex if the path is cyclic.
 
 \item[Lexicographic Path] If the edges are sorted in lexicographic order for
 each vertex, the resulting path will be lexicographically
-ordered. This is accomplished by the algorithm, adding extra loops
-from the end first.
+ordered. 
 \end{algorithm}
 
 \begin{algorithm}{Chinese postman}

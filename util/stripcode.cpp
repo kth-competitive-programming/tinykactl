@@ -52,6 +52,9 @@ struct strip_parser {
 	if (!p) put('#'), put('i');
 	p = true;
       }
+    } else if (!strip_preproc && c != 'i') {
+      if (!p) put('#');
+      p = true;
     }
     rdEsc('\n');
   }

@@ -28,25 +28,57 @@
 \newcommand{\subtitle}[1]{\def\@subtitle{#1}}
 
 \renewcommand{\maketitle}{
-  \vglue 8 cm
+  %\vglue 8 cm
   \begin{center}
-    {\LARGE \@title}\\[0.6cm]
-    {\Large \@subtitle{} version \input{version}}\\[0.6cm]
+    {\LARGE \@title}\\%[0.6cm]
+    {\Large \@subtitle{} version \input{version}}\\%[0.6cm]
     {\LARGE \textsc{\input{tag}}}
   \end{center}
 }
 
+% Redefinitions of some report commands.
+
+\renewcommand\chapter{
+  %\thispagestyle{plain}%
+  \global\@topnum\z@
+  \@afterindentfalse
+  \secdef\@chapter\@schapter}
+
+\def\@makechapterhead#1{%
+%  \vspace*{20\p@}%
+  {\parindent \z@ \raggedright \normalfont
+    \ifnum \c@secnumdepth >\m@ne
+        \huge\bfseries \@chapapp\space \thechapter:\space
+%        \par\nobreak
+%        \vskip 20\p@
+    \fi
+    \interlinepenalty\@M
+    \huge \bfseries #1\par\nobreak
+    \vskip 20\p@
+  }}
+
+\def\@makeschapterhead#1{%
+%  \vspace*{50\p@}%
+  {\parindent \z@ \raggedright
+    \normalfont
+    \interlinepenalty\@M
+    \huge \bfseries  #1\par\nobreak
+    \vskip 20\p@
+  }}
+
 
 \renewcommand\tableofcontents{%
-    \@makeschapterhead{\contentsname
+%  \vglue -3 cm
+    \chapter*{\contentsname
       \@mkboth{\MakeUppercase\contentsname}
 	      {\MakeUppercase\contentsname}}%
+%  \vglue -1 cm
     \@starttoc{toc}%
 }
 
 
 \renewenvironment{theindex}
-		 {\clearpage\@makeschapterhead{\indexname}
+		 {\clearpage\chapter*{\indexname}
 		   \@mkboth{\MakeUppercase\indexname}%
                            {\MakeUppercase\indexname}%
 			   \parindent\z@
@@ -57,11 +89,12 @@
 
 
 
-\advance\textwidth 20 mm			%1.8 cm
+% Old, from non-permanent-lscape times:
+%\advance\textwidth 20 mm			%1.8 cm
 %\advance\textheight 2.2 cm
 %\advance\topmargin -1.3 cm
-\advance\oddsidemargin  -5 mm			%0.2 cm
-\advance\evensidemargin -5 mm			%0.2 cm
+%\advance\oddsidemargin  -5 mm			%0.2 cm
+%\advance\evensidemargin -5 mm			%0.2 cm
 %\parskip = 0.2 cm
 
 %%%%%%%%%%%%%%%%%%%%
@@ -206,29 +239,16 @@
 \newcommand{\bookSkiena}[1]{SKI s#1}
 
 % Set fontsize in lgrind to tinier in landscape-source-mode
-\newenvironment{sourceslandscape}{
-  \clearpage
-  \advance\textwidth 4 cm%
-  \advance\textheight 8 cm%
-  \advance\topmargin -4 cm%
-  \advance\oddsidemargin  -3 cm%
-  \advance\evensidemargin -3 cm%
-  \begin{landscape}
-    \begin{multicols*}{3}\raggedcolumns
-      \setlength\columnseprule{.2pt}
-      \def\LGfsize{\scriptsize}}{\end{multicols*}\end{landscape}}
+
+\newenvironment{kactlcols}{
+  \begin{multicols*}{3}\raggedcolumns
+    \setlength\columnseprule{.2pt}
+    \def\LGfsize{\scriptsize}}{\end{multicols*}}
 
 
-\newenvironment{indexlandscape}{
-  \clearpage
-  \advance\textwidth 4 cm%
-  \advance\textheight 8 cm%
-  \advance\topmargin -4 cm%
-  \advance\oddsidemargin  -3 cm%
-  \advance\evensidemargin -3 cm%
-  \begin{landscape}
-    \begin{multicols*}{4}\raggedcolumns
-      \setlength\columnseprule{.2pt}}{\end{multicols*}\end{landscape}}
+\newenvironment{indexcols}{
+  \begin{multicols*}{4}\raggedcolumns
+    \setlength\columnseprule{.2pt}}{\end{multicols*}}
 
 
 
@@ -251,7 +271,7 @@
   \label{code_#1}
   \categoryaddtocontents{code}{\tt\MakeLowercase{#1}}
   \index{#1_X @{\tt #1}}
-	{\normalsize\bf Listing \thelstlisting : #1.cc}
+	{\noindent\normalsize\bf Listing \thelstlisting : #1.cc}
 	\xinput{#2.incl}
 	\hrule
 	\lgrindfile{\thepath #2.lg}

@@ -8,29 +8,35 @@
 
 \begin{document}
 
-\begin{sourceslandscape}
+  \advance\textwidth 6 cm%
+  \advance\textheight 8 cm%
+  \advance\topmargin -4 cm%
+  \advance\oddsidemargin  -3.5 cm%
+  \advance\evensidemargin -3.5 cm%
+  \begin{landscape}
 
-\maketitle
+    \maketitle
 
-\tableofcontents
+    \begin{kactlcols}
+      \tableofcontents
+      
+      %\xinput{contest/precedence}
+      
+      \xinput{contest/contest}
+      \xinput{datastructures/datastructures}
+      \xinput{numerical/numerical}
+      \xinput{combinatorial/combinatorial}
+      \xinput{graph/graph}
+      \xinput{geometry/geometry}
+      \categorywritecontents{}
+    \end{kactlcols}
+    
+    \begin{indexcols}
+      \appendix
+      \printindex
+      
+    \end{indexcols}
 
-\xinput{contest/precedence}
-
-\xinput{contest/contest}
-\xinput{datastructures/datastructures}
-\xinput{numerical/numerical}
-\xinput{combinatorial/combinatorial}
-\xinput{graph/graph}
-\xinput{geometry/geometry}
-\categorywritecontents{}
-\end{sourceslandscape}
-
-\begin{indexlandscape}
-\appendix
-\printindex
-
-\end{indexlandscape}
-
-
+  \end{landscape}
 
 \end{document}
