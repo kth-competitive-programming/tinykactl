@@ -59,9 +59,9 @@ solved.pdfx3: solved.pdf
 	pdflatex solved.tex
 	pdflatex solved.tex
 
-libtex: acmlib.sty lgrind.sty pdflscape.sty util allcode
+libtex: lib.tex acmlib.sty lgrind.sty pdflscape.sty util allcode
 
-solvedtex: acmlib.sty lgrind.sty pdflscape.sty util allcode
+solvedtex: solved.tex acmlib.sty lgrind.sty pdflscape.sty util allcode
 
 util: always
 	cd util && $(MAKE) util
