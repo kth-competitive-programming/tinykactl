@@ -16,7 +16,8 @@
 //         5 lines: (27/32)^16 < 6.6%
 //         6 lines: (58/64)^16 < 21%
 
-/* xor table:  0 1 2 3 4 5 6 7 8 9 a b c d e f
+/* xor table:
+ *             0 1 2 3 4 5 6 7 8 9 a b c d e f
  *             1 0 3 2 5 4 7 6 9 8 b a d c f e
  *             2 3 0 1 6 7 4 5 a b 8 9 e f c d
  *             3 2 1 0 7 6 5 4 b a 9 8 f e d c
@@ -60,9 +61,8 @@ int main() {
     istringstream in(s); int sum = adler(in); // construct a parity
     for (int i = 0; i < 32; i++) if (sum & 1 << i) par[i] ^= lines;
   }
-  cout << lines << " lines";
-  for (int i = 0; i < 32; i++)
-    if (i % 16 < 8) cout << ',' << setw(2) << hex << par[i];
+  cout << lines << " lines" << hex;
+  for (int i = 0; i < 32; i++) if (!(i & 8)) cout << ',' << setw(2) << par[i];
   cout << endl;
   return 0; // when two numers differ, xor them to get a line number
 }
