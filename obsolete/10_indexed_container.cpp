@@ -5,7 +5,7 @@
  *
  * Get the index/value of an iterator (in a map or a vector)
  *
- /****************************************************************************/
+ ****************************************************************************/
 
 template<class T>
 struct indexed_container {
