@@ -1,7 +1,10 @@
+#include <iostream>
 #include <map>
 #include <vector>
-#include "../graph/10_dijkstra_general.cpp"
 
+using namespace std;
+
+#include "../obsolete/10_dijkstra_general.cpp"
 
 int main( void ) {
   int n;

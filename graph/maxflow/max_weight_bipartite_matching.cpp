@@ -5,6 +5,7 @@
  * Complexity: O( V(E+V^2) )
  *
  * Credit:
+ *   Kuhn, Markus Paul, Uli Finkler
  *   After Kurt Mehlhorn (LEDA)
  *   By David Rydh
  */
@@ -34,6 +35,7 @@ inline bool augment( E &edges, int a, int n, int m,
 	continue;
 
       W db = dist[a1] + (pot[a1]+pot[b]-e->second);
+
       if( pred[b] < 0 || db < dist[b] ) {
 	dist[b] = db; pred[b] = a1;
       }
@@ -51,6 +53,7 @@ inline bool augment( E &edges, int a, int n, int m,
 
     if( b1>=0 )
       proc[b1-n] = true;
+
 
     // End conditions
     if( !perfect && (b1<0 || db >= minA) ) {
@@ -128,7 +131,7 @@ bool max_weight_bipartite_matching( E &edges, int n, int m, M &match_b,
     W Cmax = 0;
 
     for( L_iter e = edges[a].begin(); e != edges[a].end(); ++e ) {
-      if( e->second > Cmax || e->second==Cmax && free[n+e->first] ) {
+      if( b<0 || e->second > Cmax || e->second==Cmax && free[n+e->first] ) {
 	b = n+e->first;
 	Cmax = e->second;
       }

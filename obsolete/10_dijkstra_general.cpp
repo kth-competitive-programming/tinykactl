@@ -45,7 +45,7 @@
  *****************************************************************************/
 
 #include <map>
-#include "../general/10_indexed_container.cpp"
+#include "../obsolete/10_indexed_container.cpp"
 
 template<class V, class M, class T>
 void dijkstra_general( V &edges, M &min, T *from,
