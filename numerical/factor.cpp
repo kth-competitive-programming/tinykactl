@@ -1,38 +1,37 @@
 /* KTH ACM Contest Template Library
  *
- * Numerical/Number Theory/Repeated Prime Factorization
+ * Numerical/Number Theory/Prime Factorization
  *
  * Credit:
  *   By Per Austrin
  */
 
 
-#include <vector>
+#include "miller-rabin.h"
+#include "pollard-rho.h"
 
-typedef pair<int, int> pii;
-typedef vector<pii> vpii;
 
-const vpii& Factor(int n) {
-  static vector<vpii> factors;
-
-  if (factors.size() <= (size_t)n)
-    factors.resize(n+1);
-  vpii& res = factors[n];
-  if (res.empty() && n >= 2) {
-    int fac = 2, count = 1;
-    if (~n & 1) {
-      while (~(n >>= 1) & 1) ++count;
-    } else {
-      fac = 3;
-      while (n % fac) {
-	fac += 2;
-	if (fac*fac > n)
-	  fac = n;
+/* Factors N into prime factors.  The factors are returned in the
+ * "factors" vector.
+ */
+template <class T>
+void factor(T N, vector<T>& factors) {
+  vector<T> pending; // the pending vector is used as a stack
+  if (N >= 2) {
+    pending.push_back(N);
+    while (!pending.empty()) {
+      T x = pending.back();
+      pending.pop_back();
+      if (miller_rabin(x)) {
+	factors.push_back(x);
+      } else {
+	T fac = pollard_rho(x);
+	pending.push_back(fac);
+	pending.push_back(x / fac);
       }
-      while (!((n /= fac) % fac)) ++count;
     }
-    res.push_back(pii(fac, count));
-    res.insert(res.end(), Factor(n).begin(), Factor(n).end());
-  }
-  return res;
+  } else
+    factors.push_back(N); // note that this adds 0 or 1 as single factor
+  // if factors are wanted in order
+  sort(factors.begin(), factors.end());
 }

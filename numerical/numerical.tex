@@ -102,11 +102,10 @@ putting them into an array.
 
 \begin{algorithm}{Miller-Rabin}
 \reflisting{miller-rabin}
-\reflisting{miller-rabin-2}
-\usage{ \sourceline{ isprime\_rabin\_miller( n, s ); } }
+\usage{ \sourceline{ miller\_rabin( n, s ); } }
 \complexity{ s \log(n) }
 \desc
-{\tt isprime\_rabin\_miller} is a probabilistic primality
+{\tt miller\_rabin} is a probabilistic primality
 test. It will never say that a prime is composite but may erroneous claim
 that a composite number is prime. The argument {\tt s} is the number of
 iterations to be used. The probability of a false answer is not more than
@@ -134,11 +133,10 @@ probabilistic primality test (Miller-Rabin).
 \end{algorithm}
 
 \begin{algorithm}{Prime factorization}
-\reflisting{factor2}
+\reflisting{factor}
 \usage{vector<long long> factors; factor(N, factors); }
 \desc
-{\tt factor} calculates the prime factorization of an integer, but a
-lost faster than {\tt Factor} above, since it uses Pollard-$\rho$.
+{\tt factor} calculates the prime factorization of an integer.
 \end{algorithm}
 
 \problemtitle{Josephus}
@@ -249,11 +247,10 @@ fall-back) or the bisective method.
 \code{primes many fast}{primes_many_fast}
 \code{prime sieve}{prime_sieve}
 \code{miller-rabin}{miller-rabin}
-\code{miller-rabin-2}{miller-rabin-2}
 \code{pollard-rho}{pollard-rho}
 \code{ndivisors}{ndivisors}
 \code{ndivisors prob}{ndivisors_prob}
-\code{factor2}{factor2}
+\code{factor}{factor}
 
 \sourcesection{Linear Algebra}
 \code{solve linear}{solve_linear}
