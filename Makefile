@@ -58,6 +58,7 @@ allcode: always
 	cd geometry/hull && $(MAKE) code
 	cd pattern && $(MAKE) code
 	cd gametheory && $(MAKE) code
+	cd solved && $(MAKE) code
 	cd solved/other && $(MAKE) code
 	cd solved/valladolid && $(MAKE) code
 
@@ -77,6 +78,7 @@ allcodeclean: always
 	cd geometry/hull && $(MAKE) codeclean
 	cd pattern && $(MAKE) codeclean
 	cd gametheory && $(MAKE) codeclean
+	cd solved && $(MAKE) codeclean
 	cd solved/other && $(MAKE) codeclean
 	cd solved/valladolid && $(MAKE) codeclean
 
