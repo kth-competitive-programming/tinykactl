@@ -14,13 +14,13 @@
 //#include <vector>
 
 using namespace std;
-#define doubt if (debug) cerr
+#define doubt debug && cout
 
 void init() {
 }
 
 const enum {SIMPLE, FOR, WHILE} mode = NO;
-bool debug = false;
+bool debug = true;
 
 bool solve(int P) {
   int n;
