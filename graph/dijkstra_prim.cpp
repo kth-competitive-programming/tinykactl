@@ -27,9 +27,11 @@ void dijkstra_prim(int start, E &edges, M &min, P &path, D distfun,
 		   T inf = T(1 << 29), bool mst = false) {
   typedef idxless< M > C;
   set< int, C > q(C(min)); // use a set as a modifiable priority queue
+
   for (int i = 0; i < edges.size(); i++)
     min[i] = inf;
   min[start] = T();
+
   q.insert(start);
   while (!q.empty()) {
     int node = *q.begin();
@@ -41,9 +43,9 @@ void dijkstra_prim(int start, E &edges, M &min, P &path, D distfun,
       pair<int, T> p = distfun(*it, min[node]);
       int dest = p.first; T dist = min[node] + p.second;
       if (dist < min[dest]) {
-	q.erase(dest); // \
+	q.erase(dest);    //
 	min[dest] = dist; // update dest in the queue
-	q.insert(dest); //
+	q.insert(dest);   //
 	path[dest] = node;
       }
     }
