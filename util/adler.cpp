@@ -1,3 +1,12 @@
+/* KTH ACM Contest Template Library
+ *
+ * Utility/Code Library Document/Checksum
+ *
+ * Credit:
+ *   Mark Adler
+ *   Requested by Fredrik Niemelä
+ *   By Mattias de Zalenski
+ */
 #include <iostream>
 #include <iomanip>
 using namespace std;
