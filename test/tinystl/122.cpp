@@ -15,8 +15,6 @@
 //#include <string>
 //#include <map>
 
-#include "../../tinystl/associative.cpp"
-
 #include "../../tinystl/vector.cpp"
 #include "../../tinystl/string.cpp"
 #include "../../tinystl/map.cpp"
