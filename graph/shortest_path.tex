@@ -1,5 +1,29 @@
 \problemtitle{Shortest Path}
 
+All algorithms work with a (directed) graph with non-negative distances.
+Self and multiple edges are allowed. The dijkstra variants calc the
+distance from a source to all other nodes.
+
+The graph is given as a STL-container of vectors/maps with edges. The edges
+are simple indices for {\tt dijkstra\_1} and {\tt pair<int, T>} for
+{\tt dijkstra} and {\tt dijkstra\_prim}.
+
+\begin{algorithm}{Floyd Warshall}
+\reflisting{floyd_warshall}
+\end{algorithm}
+
+\begin{algorithm}{Dijkstra}
+\reflisting{dijkstra}
+\end{algorithm}
+
+\begin{algorithm}{Dijkstra 1}
+\reflisting{dijkstra}
+\end{algorithm}
+
+\begin{algorithm}{dijkstra prim}
+\code{dijkstra 1}{3_dijkstra_1}
+\end{algorithm}
+
 \begin{algorithm}{dijkstra prim}
 \reflisting{dijkstra prim}
 \end{algorithm}
