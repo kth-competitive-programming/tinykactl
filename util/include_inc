@@ -9,6 +9,7 @@ quote </dev/null &>/dev/null || {
     echo "\
 %option noyywrap
 %%
+\\/\\*    printf( \"/* \" );
 \\\\    printf( \"\\\\\\\\\" );
 \\\"    printf( \"\\\\\\\"\" );
 \\\$    printf( \"\\\\\$\" );
@@ -24,10 +25,17 @@ function include() {
     else
 	echo "$1"
     fi
+#    if echo "$1" | grep "#include *\".*\"" > /dev/null; then
+#	FILE=`echo "$1" | cut -f 2 -d\"`
+#	cat $FILE | { cd `eval "dirname $FILE"`; proc; }
+#    else
+#	echo "$1"
+#    fi
 }
 
 function proc() {
     quote | { while read x; do include "$x" $x; done }
+#    quote | { while read x; do include "$x"; done }
 }
 
 proc
