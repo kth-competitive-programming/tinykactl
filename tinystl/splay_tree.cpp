@@ -6,6 +6,7 @@
  *   Based on paper by Tarjan
  *   By Mattias de Zalenski
  */
+#include "pair.cpp"
 #include "comparisons.cpp"
 
 template <class T, class C=less<T> >
@@ -87,9 +88,10 @@ struct splay_tree {
   bool empty() const { return root == 0; }
   unsigned size() { return n; }
   // insert/erase
-  iterator insert(const T &x, bool multi) {
+  pair<iterator, bool> insert(const T &x, bool multi) {
     if (root) {
-      if (find(x, false) != end() && !multi) return end();
+      if (find(x, false) != end() && !multi)
+	return make_pair(iterator(root, *this), false);
       P l, r; // split:
       if (c(x, root->x)) r = root, l = r->l, r->l = 0;
       else /**//**//**//**/ l = root, r = l->r, l->r = 0;
@@ -99,7 +101,7 @@ struct splay_tree {
     }
     else
       root = new node(x), ++n;
-    return iterator(root, *this);
+    return make_pair(iterator(root, *this), true);
   }
   void erase(iterator it) {
     P i = it.p; splay(i);
