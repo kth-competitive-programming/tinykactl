@@ -48,7 +48,7 @@ typename E::value_type::value_type::flow_type lift_to_front(E &flow,
     cur.push_back(flow[i].begin());
 
   // lift-to-front loop
-  int r = source, u = p;
+  int r = p, u = p;
   while (u != sink) {
     int oldheight = height[u];
 
@@ -70,7 +70,7 @@ typename E::value_type::value_type::flow_type lift_to_front(E &flow,
 	++cur[u];
 
     // the lift-to-front bit:
-    if (height[u] > oldheight)
+    if (height[u] > oldheight && u != p)
       l[r] = l[u], l[u] = p, p = u; // move u to front of list
     r = u, u = l[r]; // move to next in list
   }
