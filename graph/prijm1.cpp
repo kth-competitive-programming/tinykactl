@@ -9,29 +9,38 @@
 #include <queue>
 
 // min should be initialised before-hand to inf values [path to -1 values]
-template <class F, class M, class P, class X, bool MST>
+template <class M, class P, bool MST>
 struct prijm1 {
   typedef typename M::value_type T;
-  M &min; P &path; X node;
-  queue< X > q;
-  prijm1(F f, M &m, P &p, X start) : min(m), path(p) {
+
+  M &min; P &path; int node;
+
+  queue< int > q;
+
+  prijm1(M &m, P &p, int start) : min(m), path(p) {
     min[start] = T();
-    q.insert(start);
+    q.push(start);
     while (!q.empty()) {
       node = q.front(); q.pop();
       if (MST) min[node] = T(); // only difference between dijkstra and prim
-      f(node, *this); // for_edge
+      f(node);
     }
   }
-  void operator ()(X dest) {
+
+  void relax(int dest) {
     if (min[node] + 1 < min[dest]) {
       min[dest] = min[node] + dist;
       q.push(dest);
       path[dest] = node;
     }
   }
+
+  void f(int node) { // call relax on every edge that leaves node
+  }
 };
-template <class F, class M, class P, class X>
-void dijkstra1(F f, M &m, P &p, X x) { prijm1<F, M, P, X, false>(f, m, p, x); }
-template <class F, class M, class P, class X>
-void prim1(F f, M &m, P &p, X x) { prijm1<F, M, P, X, true>(f, m, p, x); }
+
+template <class M, class P>
+void dijkstra1(M &m, P &p, int start) { prijm1<M, P, false>(m, p, start); }
+
+template <class M, class P>
+void prim1(M &m, P &p, int start) { prijm1<M, P, true>(m, p, start); }
