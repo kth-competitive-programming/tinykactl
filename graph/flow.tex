@@ -9,19 +9,43 @@ The flow algorithms need quick access to the ``back edge'' of all egdes.
 To accomodate for this, a special flow edge struct is used.
 Flow graphs are constructed and updated by a couple of utility functions.
 
+A flow graph is given as a STL-container of {\tt vector}s ({\tt map}s are
+not allowed) with edges. The edges are {\tt flow\_edge}'s and must be added
+using {\tt flow\_add\_edge}. Note that a edge {\emph must be} added only once
+for each pair, simultaneously giving both forward and back capacity.
+
+
 \begin{algorithm}{flow graph}
 \reflisting{flow graph}
+\usage{ \sourceline{flow\_add\_edge( edges, source, dest, cap [, back\_cap] );}
+}
 \end{algorithm}
 
 \begin{algorithm}{ford fulkerson}
 \reflisting{ford fulkerson}
+\characteristics{This is a DFS or BFS Ford Fulkerson which maximize the
+flow in the augmenting paths. The BFS is more robust but may be slower.}
+\usage{ The maximum flow is calculated by repetitive calls
+to {\tt flow\_increase1}:}
+
+\sourceline{ while( ap = flow\_increase1(edges, source, sink) ) flow+=ap; }
+\complexity{E\cdot n_{aug~paths}}
 \end{algorithm}
 
 \begin{algorithm}{ford fulkerson 1}
 \reflisting{ford fulkerson 1}
+\characteristics{This is a DFS Ford Fulkerson where all augmenting paths
+are 1 and thus specially suited for bipartite graphs.}
+\usage{ The maximum flow is calculated by repetitive calls
+to {\tt flow\_increase1}: }
+
+\sourceline{ while( flow\_increase1(edges, source, sink) ) flow++; }
+\complexity{E\cdot n_{aug~paths}}
 \end{algorithm}
 
 \begin{algorithm}{lift to front}
 \reflisting{lift to front}
+\characteristics{This is a much more effective algorithm than Ford Fulkerson
+suitable for any flow graph.}
+\usage{ \sourceline{flow = lift\_to\_front(edges, source, sink);} }
 \end{algorithm}
-
