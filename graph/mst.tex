@@ -2,6 +2,13 @@
 
 MST is a nice problem.
 
+\begin{algorithm}{Prim}
+\reflisting{dijkstra prim}
+\complexity{ E\log V }
+\usage{\sourceline{%
+dijkstra\_prim( 0, graph, minarray, path, distfun, inf, true ) }}
+\end{algorithm}
+
 \begin{algorithm}{Kruskal}
 \usage{ \sourceline{kruskal( graph, tree, n );} }
 \complexity{ E\log E }
@@ -17,6 +24,6 @@ MST is a nice problem.
 \end{algorithm}
 
 \begin{sourceslandscape}
-\code{sets}{mst/1_sets}
-\code{kruskal}{mst/2_kruskal}
+\code{sets}{mst/sets}
+\code{kruskal}{mst/kruskal}
 \end{sourceslandscape}

@@ -3,16 +3,27 @@
 
 \problemtitle{Indexed}
 \begin{algorithm}{Indexed}
-  \usage{\sourceline{ isort( array, n, indices, comp); }}
+  \usage{\sourceline{ isort( array, n, idxarray, comp) }}
   \reflisting{indexed}
 \end{algorithm}
 
-\problemtitle{Null vector}
-\begin{algorithm}{Null vector}
-  \reflisting{null vector}
+\problemtitle{Named items}
+When items are named, for example graph nodes identified by strings or big
+non-contiguous integers, it is often practical to keep a map from the
+names to an index numbering starting from 0, and a vector to retrieve a name
+back from an index.
+
+The {\tt index mapper} does this.
+It has function semantics to retrieve an index for a name,
+and vector semantics to retrieve a name from an index:
+\begin{algorithm}{Index mapper}
+  \usage{\sourceline{%
+int idx = mapper("x")  =>  mapper("x") == idx, mapper[idx] == "x"%
+}}
+  \reflisting{index mapper}
 \end{algorithm}
 
 \begin{sourceslandscape}
 \code{indexed}{indexed}
-\code{null vector}{null_vector}
+\code{index mapper}{index_mapper}
 \end{sourceslandscape}
