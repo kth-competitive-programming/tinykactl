@@ -8,13 +8,13 @@
 
 #include "line_isect.cpp"
 
-template <class It, class P>
-It poly_cut(It first, It last, P p0, P p1, It result) {
+template <class CI, class OI, class P>
+OI poly_cut(CI first, CI last, P p0, P p1, OI result) {
   if (first == last) return result;
   P p = p1-p0;
-  It j = last; --j;
+  CI j = last; --j;
   bool pside = cross(p, *j-p0) > 0;
-  for (It i = first; i != last; ++i) {
+  for (CI i = first; i != last; ++i) {
     bool side = cross(p, *i-p0) > 0;
     if (pside ^ side)
       line_isect(p0, p1, *i, *j, *result++);
@@ -24,3 +24,4 @@ It poly_cut(It first, It last, P p0, P p1, It result) {
   }
   return result;
 }
+
