@@ -11,7 +11,7 @@
 
 (defun c-lite-test () (interactive) 
   (let ((N (file-name-sans-extension buffer-file-name)))
-    (shell-command (concat N " < " N ".in"))))
+    (shell-command (concat N " < " N ".in &"))))
 ;;(shell-command (file-name-sans-extension buffer-file-name)))
 
 (defun c-lite-send () (interactive)

@@ -12,7 +12,7 @@
 
 template <class K, class V, class C, bool multi,
 	  class P = skip_list<V, C> >
-//        class P = splay_tree<V, C> >
+//class P = splay_tree<V, C> >
 struct associative: P {
   typedef typename P::iterator iterator; // only necessary when using -pedantic
   typedef K key_type;
@@ -35,16 +35,16 @@ struct associative: P {
     return r;
   }
   
-  iterator find(KR k, bool left=true) { return P::find(k2v(k), left); }
+  iterator find(KR k, bool left = true) { return P::find(k2v(k), left); }
 
   int count(KR k) {
     int r = 0;
     V v = k2v(k);
-    iterator i = find(k);
+    iterator i = find(k, true);
     while (i != end() && !c(v, *i)) ++r, ++i;
     return r;
   }
-  
+
   iterator lower_bound(KR k) { return P::lower_bound(k2v(k)); }
   iterator upper_bound(KR k) { return P::upper_bound(k2v(k)); }
 
