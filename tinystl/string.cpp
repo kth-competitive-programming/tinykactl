@@ -20,7 +20,7 @@ struct _string: public vector<T> {
   _string(const char* s): vector<T>(strlen(s)) { copy(s, s+n, b); }
   // Substring: create a copy of the range (f,l]
   _string(const_iterator f, const_iterator l): vector<T>(l-f) { copy(f, l, b); }
-  
+
   int length() { return n; }
 
   char* c_str() {
@@ -52,6 +52,8 @@ struct _string: public vector<T> {
     copy(s.b, s.b+s.n, r.b+n);
     return r;
   }
+
+  _string substr(int s, int l=-1) { return _string(b+s, (l==-1 ? b+n : b+s+l)); }
 };
 
 typedef _string<char> string;
