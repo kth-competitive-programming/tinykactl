@@ -4,6 +4,10 @@
 \usepackage{graphicx}
 \usepackage{makeidx}
 \usepackage{verbatim}
+\usepackage[norules, nolineno]{lgrind}
+\usepackage{lscape}
+\usepackage{multicol}
+\usepackage{listings}
 
 \advance\textwidth 20 mm			%1.8 cm
 %\advance\textheight 2.2 cm
@@ -107,13 +111,31 @@
 
 \newenvironment{source}{\verbatim\small\vspace{-0mm}}{\endverbatim}
 \def\sourceline#1{{\small \tt #1}}
-\def\sourcefile#1{{\small \vspace{-0mm}\verbatiminput{#1}}}
+%\def\sourcefile#1{{\small \vspace{-0mm}\verbatiminput{#1}}}
 
 \def\desc{}
 \def\usage#1{\keyword{Usage}\par #1}
 \def\complexity#1{\keyword{Complexity} $O(#1)$}
 \def\characteristics#1{\keyword{Characteristics}\par #1}
-\def\code#1{\keyword{Code} \sourcefile{\thepath #1}}
+%\def\code#1{\keyword{Code} \sourcefile{\thepath #1}}
 \newenvironment{example}{\keyword{Example}\source}{\endsource}
 \def\valladolid#1{\keyword{Valladolid} #1}
-\def\implementation#1{\sourcefile{\thepath #1}}
+%\def\implementation#1{\sourcefile{\thepath #1}}
+%\def\implementation#1{\lagrind{\thepath #1.lg}{Testing}{fig:blaha}}
+%\def\implementation#1{\begin{sidewaysfigure}\lgrindfile{\thepath #1.lg}\end{sidewaysfigure}}
+
+% Set fontsize in lgrind to tinier in landscape-source-mode
+\newenvironment{sourceslandscape}{\begin{landscape}\begin{multicols*}{2}%
+\def\LGfsize{\@setfontsize\tinier\@vpt{4}}}{\end{multicols*}\end{landscape}}
+
+\newenvironment{sources}{\def\LGfsize{\small}}{}
+
+\def\code#1#2{
+\refstepcounter{lstlisting}
+\vspace{1 cm}
+{\normalsize\bf Listing \thelstlisting : #1.cpp}
+\hrule
+\lgrindfile{\thepath #2.lg}
+\addcontentsline{lol}{lstlisting}
+	{\protect\numberline{\thelstlisting}#1}%
+}
