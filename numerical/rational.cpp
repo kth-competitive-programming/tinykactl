@@ -99,13 +99,32 @@ ostream &operator <<(ostream &out, const rational<T> &r) {
   return print_dec(out, r);
 }
 
-typedef rational<long long> Q;
+template <class T>
+istream &read_frac(istream &in, rational<T> &r) {
+  in >> r.n;
+  if (in.peek() == '/') {
+    char c; in >> c >> r.d;
+  } else
+    r.d = T(1);
+  r.normalize();
+  return in;
+}
 
-int main() {
-  Q a(2, 3), b(1, 12);
-  for (int i = 0; i < 10; ++i) {
-    cout << a << endl;
-    a = a * b % a >> 3;
+template <class T>
+istream &read_dec(istream &in, rational<T> &r) {
+  T i, f(0); 
+  in >> i;
+  if (in.peek() == '.') {
+    char c; in >> c >> f;
   }
-  return 0;
+  r.d = T(1);
+  while (r.d <= f) r.d *= 10;
+  r.n = i*r.d + f;
+  r.normalize();
+  return in;
+}
+
+template <class T>
+istream &operator >>(istream &in, rational<T> &r) {
+  return read_dec(in, r);
 }
