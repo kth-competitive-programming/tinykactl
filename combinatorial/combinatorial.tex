@@ -51,7 +51,16 @@
 \begin{algorithm}{random}
 \usage{{\tt random\_shuffle(begin, end [, random\_number\_generator])}}
 \end{algorithm}
-
+\begin{algorithm}{permute}
+\characteristics{{\tt permute} recursively generates all permutations
+without comparisons. The permutations are given in lexiographically order
+using the original order (i.e. permute on ``baa'' gives baa, aba, aab).
+It can also be useful when the processing is done for each individual
+position (unnecessary duplicate work is avoided). Repetitions of non-adjacent
+elements will give strange results since there is no possible ordering
+(i.e ``aba'').}
+\usage{\sourceline{char a[n] = "caab"; permute(a+0,a+0,a+n);}}
+\end{algorithm}
 \xinput{counting}
 
 \begin{sourceslandscape}
@@ -60,10 +69,10 @@
 \code{indexed less}{indexed_less}
 \code{binary search num}{binary_search_num}
 \code{golden search}{golden_search}
+\code{permute}{permute}
 \code{choose}{../numerical/choose}
 \code{multinomial}{../numerical/multinomial}
 \code{nperms}{../numerical/nperms}
 \code{stirling1}{../numerical/stirling1}
 \code{stirling}{../numerical/stirling}
 \end{sourceslandscape}
-
