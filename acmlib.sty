@@ -25,7 +25,7 @@
 \newcommand{\subtitle}[1]{\def\@subtitle{#1}}
 
 \renewcommand{\maketitle}{
-  $\;$\\[8cm] % This is really ugly...
+  \vglue 8 cm
   \begin{center}
     {\LARGE \@title}\\[0.6cm]
     {\Large \@subtitle{} version \input{version}}
@@ -42,7 +42,6 @@
 \advance\oddsidemargin  -5 mm			%0.2 cm
 \advance\evensidemargin -5 mm			%0.2 cm
 %\parskip = 0.2 cm
-
 
 %%%%%%%%%%%%%%%%%%%%
 %
@@ -187,7 +186,7 @@
   \advance\oddsidemargin  -2 cm%
   \advance\evensidemargin -2 cm%
   \begin{landscape}
-    \begin{multicols*}{2}
+    \begin{multicols*}{2}\raggedcolumns
       \def\LGfsize{\scriptsize}}{\end{multicols*}\end{landscape}}
 
 
