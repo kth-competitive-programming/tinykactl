@@ -5,10 +5,41 @@
 \problemtitle{set}
 \problemtitle{queue}
 \problemtitle{deque}
+
 \problemtitle{priority queue}
+\begin{algorithm}{mpq}
+\reflisting{mpq}
+
+{\tt mpq} is a modifiable priority queue (implemented as a set). Its interface
+is identical to that of a {\tt priority\_queue}. When an element should be
+modified the {\tt update} method should be called as:
+\sourceline{update(elem, oldvalue, newvalue)}
+Where {\tt oldvalue} should be a \emph{reference} to the value of the
+{\tt elem}.
+
+A common use is to use indices as elements which is compared using external
+containers.
+\end{algorithm}
+
 \problemtitle{stack}
 \problemtitle{vector}
 \problemtitle{list}
 \problemtitle{string}
+
 \problemtitle{heap}
+\begin{algorithm}{update heap}
+\reflisting{update heap}
+
+An updatable heap has an interface identical to that of a
+{\tt priority\_queue}.
+The elements need to have a method {\tt set\_position} though. When an element
+is changed, the {\tt key\_increased} or {\tt key\_decreased} method should
+be called with its position as argument.
+\end{algorithm}
+
 \problemtitle{valarray}
+
+\begin{sourceslandscape}
+\code{update heap}{update_heap}
+\code{mpq}{mpq}
+\end{sourceslandscape}

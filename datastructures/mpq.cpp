@@ -1,7 +1,15 @@
+/* KTH ACM Contest Template Library
+ *
+ * datastructures/priority queue/mpq
+ *
+ * Credit:
+ *   By Mattias de Zalenski
+ */
+
 #include <set>
 
 template <class T, class C>
-struct upq {
+struct mpq {
   set<T, C> s;
   upq(const C &c = C()) : s(c) { }
   void empty() { return s.empty(); }
