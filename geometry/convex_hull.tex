@@ -1,14 +1,10 @@
 \problemtitle{Convex Hull}
 
-\paragraph{NOTE} None of the Graham scans handle multiple coinciding points,
-so make sure the points are unique before calling!
-
 \begin{algorithm}{Graham scan}
 \complexity{n\log(n)}
 \usage{\sourceline{iterator hull\_end = convex\_hull(p.begin(), p.end())}}
 \desc
-Swaps the points in {\tt p} so the hull points are in order at the beginning.
-\note{Handles colinear points on the hull}
+Swaps the points in {\tt p} so the hull points are in order at the beginning.  NB! Does not handle coinciding points.
 \end{algorithm}
 
 \code{convex hull}{hull/convex_hull}
