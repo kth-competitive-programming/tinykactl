@@ -10,12 +10,13 @@
  *   Stirling
  *   By Max Bennedich
  *   Update by David Rydh
+ *   Update by Fredrik Niemelä
  */
 
 template <class T>
-T stirling( T n, T k ) {
-  if( n <= T(1) )
-    return T(k==n ? 1:0);
+T stirling(T n, T k) {
+  if(n < T(1) || n == k)
+    return T(n==k ? 1:0);
   else
-    return stirling( n-1, k-1 ) + k*stirling( n-1, k );
+    return stirling(n-1, k-1) + k*stirling(n-1, k);
 }
