@@ -28,3 +28,10 @@ template <class P> P perp(P p) { return P(-p.y, p.x); }
 template <class P> P normal(P p) { return unit(perp(p)); }
 // for point3: (unit normal to a plane from two vectors)
 template <class P> P normal(P p, P q) { return unit(cross(p, q)); }
+
+
+template <class P>
+P turn(P p, double a) {
+  return P(p.x * cos(a) - p.y * sin(a),
+	   p.x * sin(a) + p.y * cos(a));
+}
