@@ -48,12 +48,16 @@ struct splay_tree {
   typedef iter<false> iterator;
   typedef iter<true> reverse_iterator;
 
-  P root; C comp; unsigned n;
-  splay_tree(C _comp = C()) : root(0), comp(_comp), n(0) { }
-  splay_tree(const splay_tree &s) : root(0), comp(s.comp), n(0) { copy(s); }
+  P root; C c; unsigned n;
+  splay_tree(C _c = C()) : root(0), c(_c), n(0) { }
+  splay_tree(const splay_tree &s) : root(0), c(s.c), n(0) { copy(s); }
   splay_tree &operator =(const splay_tree &s) { copy(s); return *this; }
-  void copy() { clear(); for(iterator i=s.begin();i!=s.end();++i) insert(*i); }
-  ~splay_tree() { clear(); }
+  void copy(const splay_tree &_s) {
+    clear(); splay_tree &s = (splay_tree &) _s;
+    c = s.c;
+    for(iterator i = s.begin(); i != s.end(); ++i) insert(*i, true);
+  }
+  virtual ~splay_tree() { clear(); }
 
   static void rot(P i, bool left) {
     P j = i->c(!left), p = i->p;
@@ -79,14 +83,15 @@ struct splay_tree {
   iterator end() { return iterator::end(*this); }
   reverse_iterator rbegin() { return reverse_iterator::begin(*this); }
   reverse_iterator rend() { return reverse_iterator::end(*this); }
-  void clear() { while(root) erase(root); }
+  void clear() { while (root) erase(iterator(root, *this)); }
   bool empty() const { return root == 0; }
+  unsigned size() { return n; }
   // insert/erase
-  void insert(const T &x) {
+  iterator insert(const T &x, bool multi) {
     if (root) {
-      find(x, false);
+      if (find(x, false) != end() && !multi) return end();
       P l, r; // split:
-      if (comp(x, root->x)) r = root, l = r->l, r->l = 0;
+      if (c(x, root->x)) r = root, l = r->l, r->l = 0;
       else /**//**//**//**/ l = root, r = l->r, l->r = 0;
       root = new node(x, l, r), ++n;
       if (l) l->p = root;
@@ -94,47 +99,37 @@ struct splay_tree {
     }
     else
       root = new node(x), ++n;
+    return iterator(root, *this);
   }
-  void erase(P i) {
-    splay(i);
+  void erase(iterator it) {
+    P i = it.p; splay(i);
     P l = i->l, r = i->r; // join:
     if (l) while (l->r) rot(l, true), l = l->p;
     if (l) l->r = r, l->p = 0; if (r) r->p = l;
     root = l ? l : r;
     delete i, --n;
   }
-  unsigned erase(const T &x) { // return number of erased elements?? (/stl)
-    unsigned count = 0;
-    while (find(x, false) != end()) erase(root), ++count;
-    return count;
-  }
   // associative operations
   iterator find(const T &x, bool left = true) {
     P p = root, i = root;
     while (i) {
       p = i;
-      if (comp(x, i->x)) i = i->l;
-      else if (comp(i->x, x)) i = i->r;
-      else if (i->c(left) && !comp(x, i->c(left)->x)) i = i->c(left); //sic
+      if (c(x, i->x)) i = i->l;
+      else if (c(i->x, x)) i = i->r;
+      else if (i->c(left) &&
+	       (left?!c(i->c(left)->x, x):!c(x, i->c(left)->x))) // sic
+	i = i->c(left);
       else break;
     }
     root = splay(p);
     return iterator(i, *this);
   }
-  unsigned count(const T &x) {
-    unsigned count = 0;
-    iterator i = find(x, true);
-    while (i != end() && !comp(x, *i)) ++count, ++i;
-    return count;
-  }
   iterator lower_bound(const T &x) {
     find(x, true); iterator i(root, *this);
-    if (comp(i, x)) ++i;
-    return i;
+    return c(*i, x) ? ++i : i;
   }
   iterator upper_bound(const T &x) {
     find(x, false); iterator i(root, *this);
-    if (!comp(x, i)) ++i;
-    return i;
+    return c(x, *i) ? i : ++i;
   }
 };
