@@ -13,7 +13,11 @@
 #include <stdio.h>
 #include <vector>
 
-#include "../geometry/3_convex_hull.cpp"
+using namespace std;
+
+#include "../geometry/point.cpp"
+#include "../geometry/point_ops.cpp"
+#include "../geometry/hull/convex_hull_idx.cpp"
 
 
 int main( void ) {
