@@ -7,6 +7,7 @@
  *   Based on [Intro to algorithms] and previous KACTL implementation.
  *   By Mattias de Zalenski
  *   Bugfixed for World Finals 2004 by Per
+ *   Bugfixed for World Finals 2006 by Joel
  */
 
 template <class P>
@@ -42,7 +43,7 @@ It convex_hull(It begin, It end) {
     swap(*++r, *i);
   }
   // removing colinear points at the end of the hull
-  while (r-1 > begin && cross(*begin - *(r-1), *r - *(r-1)) == 0)
+  while (r-1 > begin && (*begin - *(r-1)).cross(*r - *(r-1))==0)
     --r;
   // return the iterator past the last hull point
   return ++r;
