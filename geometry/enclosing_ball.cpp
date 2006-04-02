@@ -10,6 +10,7 @@
  *            "Smallest Enclosing Balls - A Fast and Robust C++ Implementation"
  *            (www.inf.ethz.ch/personal/gaertner/miniball.html)
  *   By Per Austrin
+ *   Bugfixed for World Finals 2006 by Joel
  */
 
 #include <algorithm>
@@ -40,7 +41,7 @@ struct enclosing_ball {
       return false; // p already inside sphere
     if (!b) center[0] = p;
     else {
-      P q = p - q0, proj = P();
+      P q = p - center[0], proj = P();
       for (int i = 1; i < b; ++i)
 	proj = proj + ortho[i] * (ortho[i].dot(q) / z[i]);
       ortho[b] = q - proj;
