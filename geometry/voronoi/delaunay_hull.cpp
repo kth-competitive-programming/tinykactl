@@ -19,7 +19,7 @@ void delaunay(V &p, int n, F trifun) {
   typedef list<ABC> L;
   V3 p3(n);
   for (int i = 0; i < n; ++i)
-    p3[i] = P3(p[i].x, p[i].y, dist2(p[i]));
+    p3[i] = P3(p[i].x, p[i].y, p[i].dist2());
   L l;
   convex_hull_space(p3, n, l);
   for (L::iterator it = l.begin(); it != l.end(); ++it)
