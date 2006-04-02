@@ -22,6 +22,7 @@
  *   Revised for SWERC, Portu, Portugal 17 Nov 2001
  *   Revised for World Finals, Honolulu, 23 Mar 2002
  *   David Rydh, Mattias de Zalenski, Fredrik Niemel?
+ *   Bugfixed for World Final 2006 by Joel
  *
  *****************************************************************************/
 
@@ -47,9 +48,9 @@ struct sets {
 
   void link(int a, int b) { // union sets
     a = get_head(a); b = get_head(b);
-    if(elems[a].rank > elems[b].rank) elems[b].head = a;
+    if(elems[a].rank > elems[b].rank) elems[b].h = a;
     else {
-      elems[a].head = b;
+      elems[a].h = b;
       if(elems[a].rank == elems[b].rank) elems[b].rank++;
     }
   }
