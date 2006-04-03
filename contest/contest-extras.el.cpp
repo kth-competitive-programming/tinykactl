@@ -11,3 +11,10 @@
 (global-set-key "\C-cp" 'kactl-print)
 (global-set-key "\C-cd" 'kactl-diff)
 (global-set-key "\C-cg" 'goto-line)
+
+remove Lock = Caps_Lock
+keycode 0x40 = less greater bar
+
+remove Mod4 = Meta_R
+keycode 0xEE = Mode_switch
+add Mod2 = Mode_switch
