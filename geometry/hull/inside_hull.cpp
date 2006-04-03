@@ -40,8 +40,8 @@ int inside_hull_sub(It begin, It end, It i1, It i2, const P&t) {
       return 0;
     return 1;
   }
-  It i = (i1 + i2) / 2; //??
-  int side = sideof(p[0], p[i], t);
+  It i = (i1 + i2) / 2;
+  int side = sideof(*begin, *i, t);
   if (side > 0) return inside_hull_sub(begin, end, i, i2, t);
   else return inside_hull_sub(begin, end, i1, i, t);
 }
