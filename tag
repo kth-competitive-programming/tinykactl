@@ -1,1 +1,1 @@
-Redundant Flight to Texas Edition
+Ticket to Tokyo Edition
