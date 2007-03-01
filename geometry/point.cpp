@@ -18,6 +18,7 @@ struct point {
   }
   S operator-(R p) const { return S(x - p.x, y - p.y); }
   S operator+(R p) const { return S(x + p.x, y + p.y); }
+  S operator*(T d) const { return S(x * d, y * d); }
   S operator/(T d) const { return S(x / d, y / d); }
   T dot(R p)  const  { return x*p.x + y*p.y; }
   T cross(R p) const { return x*p.y - y*p.x; }

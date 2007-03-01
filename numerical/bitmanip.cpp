@@ -29,6 +29,7 @@ uint log2(uint v) {
 
 template <class T> // bit count, use with bitop
 void bitcount(T &x, int s, T m) { x = (x >> s & m) + (x & m); }
+// Use __builtin_popcount or __builtin_popcountll if available.
 
 template <class T> // bit reversal, use with bitop
 void revbits(int &x, int s, int m) { x = x >> s & m | (x & m) << s; }

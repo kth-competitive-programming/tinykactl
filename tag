@@ -1,1 +1,1 @@
-Ticket to Tokyo Edition
+Tokyo Edition

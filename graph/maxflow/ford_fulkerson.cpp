@@ -69,7 +69,7 @@ Flow inc_flow_bellman_ford(adj_list *g, int n, int s, int t) {
         }
       }
   if (mark[t] < 0) return 0;
-  Flow inc = 1<<28;
+  Flow inc = inf;
   flow_edge* e;  int v = t;
   while (v != s)
     e = &g[v][mark[v]], v = e->dest, inc<?=g[v][e->back].r();
@@ -84,5 +84,6 @@ Flow max_flow(adj_list *graph, int n, int s, int t) {
   Flow flow = 0, inc = 0;
   do flow += inc, memset(mark, 255, sizeof(int)*n);
   while ((inc = inc_flow_dfs(graph, s, t, 1<<28)));
-  return flow;//inc_flow_bfs(...             ...)
+  return flow;//inc_flow_bfs(graph, s, t, 1<<28)
+  //inc_flow_bellman_ford(graph, n, s, t)
 }

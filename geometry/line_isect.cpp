@@ -25,11 +25,11 @@ double line_isect(const P& A0, const P& A1,
       return NO_ISECT;
     return sqrt((double) max(0, min(s1, s2)));
   } 
-
-  /* both: */
   if (det < 0) det = -det, t = -t, s = -s;
   if (!(t >= 0 && t <= det && s >= 0 && s <= det))
     return NO_ISECT;
+
+  /* both: */
   return (double)t / det;
 }
 
@@ -37,6 +37,6 @@ template <class P> inline
 bool line_isect(const P& A0, const P& A1, 
 		const P& B0, const P& B1, P &R) {
   double t = line_isect(A0, A1, B0, B1);
-  if (t != NO_ISECT) R = (1-t)*A0 + t*A1;
+  if (t != NO_ISECT) R = A0*(1-t) + A1*t;
   return t != NO_ISECT;
 }
