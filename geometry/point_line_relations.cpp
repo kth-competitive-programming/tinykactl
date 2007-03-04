@@ -18,10 +18,10 @@ double linedist(const P& p0, const P& p1, const P& q) {
 // Get a measure of the distance of a point from a line segment.
 template <class P> inline
 double segdist(const P& p0, const P& p1, const P& q) {
-  typename P::coord_type t=(p3-p1).dot(p2-p1), d=(p2-p1).dist2();
+  typename P::coord_type t=(q-p0).dot(p1-p0), d=(p1-p0).dist2();
   if (t < 0) t = 0;
   if (t > d) t = d;
-  return ((p1-p3)*d + (p2-p1)*t).dist() / d;// NB!! Overflow!!
+  return ((p0-q)*d + (p1-p0)*t).dist() / d;// NB!! Overflow!!
 }
 
 // Determine if a point is on a line segment (incl end points).
