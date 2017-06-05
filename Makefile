@@ -21,6 +21,7 @@ spotless: clean
 	rm -f tinykactl.pdf tinykactl.ps version tag
 
 index:
+	touch tinykactl.idx
 	makeindex tinykactl.idx
 
 getversion:
